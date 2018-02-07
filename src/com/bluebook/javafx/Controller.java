@@ -15,16 +15,10 @@ public class Controller implements Initializable{
     @FXML
     Canvas canvas;
 
-    private GameEngine engine;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        engine = new GameEngine(canvas);
-
-    }
-
-    public GameEngine getEngine() {
-        return engine;
+        new GameEngine(canvas);
     }
 
     /**
@@ -37,7 +31,7 @@ public class Controller implements Initializable{
 
     @FXML
     public void mouseHandler(MouseEvent event){
-        engine.getPlayer().lookAt(new Vector2(event.getX(), event.getY()));
+
     }
 
     public void setCanvasWidth(double width){

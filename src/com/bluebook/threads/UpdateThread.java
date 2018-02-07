@@ -1,4 +1,4 @@
-package com.bluebook.util;
+package com.bluebook.threads;
 
 import com.bluebook.engine.GameEngine;
 

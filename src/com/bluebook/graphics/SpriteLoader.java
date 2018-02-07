@@ -1,4 +1,4 @@
-package com.bluebook.util;
+package com.bluebook.graphics;
 
 import javafx.scene.image.Image;
 

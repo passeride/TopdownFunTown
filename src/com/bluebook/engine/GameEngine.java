@@ -1,13 +1,12 @@
 package com.bluebook.engine;
 
+import com.bluebook.util.GameObject;
 import javafx.scene.canvas.Canvas;
-import com.bluebook.objects.Player;
+import com.topdownfuntown.objects.Player;
 import com.bluebook.renderer.CanvasRenderer;
-import com.bluebook.util.Sprite;
-import com.bluebook.util.SpriteLoader;
-import com.bluebook.util.UpdateThread;
-import com.bluebook.util.Vector2;
+import com.bluebook.threads.UpdateThread;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -19,7 +18,11 @@ public class GameEngine {
     private UpdateThread updateThread;
     private final BlockingQueue<String> messageQueue = new ArrayBlockingQueue<>(1);
 
-    public static final boolean DEBUG = true;
+    public ArrayList<GameObject> updateObjects = new ArrayList<>();
+
+    public static boolean DEBUG = false;
+
+    public static GameEngine singelton;
 
     Canvas canvas;
     Player p;
@@ -29,30 +32,34 @@ public class GameEngine {
      * @param canvas Canvas for game to be drawn to
      */
     public GameEngine(Canvas canvas){
+        singelton = this;
         CanvasRenderer.getInstance().setCanvas(canvas);
 
         this.canvas = canvas;
 
 
         updateThread = new UpdateThread(this, messageQueue);
-        startUpdateThread();
-
-        if(DEBUG){
-            debugSetup();
-        }
     }
 
-    public void debugSetup(){
-        p = new Player(new Vector2(0, 0), new Vector2(0, 0), new Sprite(SpriteLoader.loadImage("senik")));
-
+    public static GameEngine getInstance(){
+        return singelton;
     }
 
-    public Player getPlayer(){
-        return p;
+    /**
+     * This is used by the constructor of gameobject so it's update function is called
+     * @param go
+     */
+    public void addGameObject(GameObject go){
+        updateObjects.add(go);
     }
 
-    public void debugSetPlayerPosition(Vector2 pos){
-        p.setPosition(pos);
+    /**
+     * Removes the object from updateobjects, this is called during an gameobjects destruction
+     * @param go
+     */
+    public void removeGameObject(GameObject go){
+        if(updateObjects.contains(go))
+            updateObjects.remove(go);
     }
 
     /**
@@ -60,16 +67,19 @@ public class GameEngine {
      * @param delta
      */
     public void update(double delta){
+        for(GameObject go : updateObjects)
+            go.update(delta);
+        GameApplication.getInstance().update(delta);
         CanvasRenderer.getInstance().DrawAll();
     }
 
-    private void startUpdateThread(){
+    public void startUpdateThread(){
         Thread t = new Thread(updateThread);
         t.setDaemon(true);
         t.start();
     }
 
-    private void stopUpdateThread(){
+    public void stopUpdateThread(){
         if(updateThread.isRunning())
             updateThread.terminate();
     }

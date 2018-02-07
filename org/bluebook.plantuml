@@ -1,0 +1,148 @@
+@startuml
+
+skinparam monochrome false
+skinparam handwritten false
+
+'skinparam backgroundColor #EEEBDC
+skinparam classFontColor Black
+skinparam classFontSize 18
+
+skinparam abstract {
+	BackgroundColor blue
+	ArrowColor SeaGreen
+	BorderColor pink
+}
+
+skinparam class {
+	'BackgroundColor white
+	'ArrowColor SeaGreen
+	'BorderColor blue
+}
+
+
+
+
+title Bluebook game engine
+
+package com.bluebook {
+package javafx{
+    class FXMLController <<Controller>>{
+        +initializable():void
+        -GameEngine: engine
+    }
+}
+
+package engine {
+    class GameEngine{
+        -Renderer: render
+        -Thread: updateThread
+        +update():void
+    }
+
+    abstract class GameApplication <<Application>>{
+        ~onLoad():void
+    }
+}
+
+package audio {
+
+    class AudioPlayer{
+        +PlayOnce(Media audio):void
+        +PlayLoop(Media adio):void
+    }
+    class AudioLoader{
+        +LoadAudio(String path):Media
+    }
+}
+
+package threads{
+    class UpdateThread <<Runnable>>{
+        +Start():void
+    }
+}
+
+package  graphics{
+    class SpriteLoader{
+        +LoadSprite(String path):Sprite
+        +LoadDir(String pathToDIr):HashMap<String, Sprite>()
+    }
+
+    class Sprite{
+        -Image: img
+        +draw(GraphicsContext gc, Vector2 position, Vector2 direction):void
+        +draw(GraphicsContext gc, Vector2 position):void
+    }
+
+}
+
+package renderer {
+
+    class CanvasRenderer{
+        -ArrayList<RenderLayer>: drawables
+        +AddGameObject(GameObject in, RenderLayer rl):void
+        +DrawAll():void
+    }
+
+    class RenderLayer{
+        -ArrayList<GameObjects>: drawables
+        -String: name
+        +drawAll():void
+        +addGameObject(GameObject in):void
+        +removeGameObject(GameObject in):void
+    }
+
+}
+
+package util{
+    abstract GameObject{
+        Objects to be drawn on screen
+        ..
+        ~Sprite: sprite
+        ~Vector2: position
+        ~Vector2: direction
+        +draw(GraphicsContext gc):void
+    }
+
+    class Vector2{
+        -X : double
+        -Y : double
+        +getLength():double
+        +getAngleInDegrees():double
+        +getAngleInRadians():double
+    }
+}
+
+package input{
+    class Input{
+        +isPressed(KeyCode key):boolean
+        +isMouseButton0Pressed():boolean
+        +isMouseButton1Pressed():boolean
+        +getMousePosition():Vector2
+    }
+}
+
+package physics{
+    class Collider{
+        +hitbox : CollisionShape
+        +setOnCollideListener(OnCollideListener listener):void
+    }
+   /' package listener{
+        interface OnCollideListener{
+            {abstract}+Collide(Collider other):void
+        }
+    }'/
+}
+
+
+
+FXMLController -[hidden]DOWN-> UpdateThread
+RenderLayer -[hidden]DOWN-> input
+GameEngine -[hidden]DOWN-> RenderLayer
+Input -[hidden]LEFT-> FXMLController
+GameObject -[hidden]LEFT-> FXMLController
+UpdateThread -[hidden]RIGHT-> Sprite
+Collider -[hidden]RIGHT-> RenderLayer
+
+
+
+@enduml

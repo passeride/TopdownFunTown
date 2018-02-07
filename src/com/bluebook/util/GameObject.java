@@ -1,5 +1,7 @@
 package com.bluebook.util;
 
+import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import com.bluebook.renderer.CanvasRenderer;
 
@@ -22,6 +24,7 @@ public abstract class GameObject {
         this.sprite = sprite;
 
         CanvasRenderer.getInstance().AddGameObject(this);
+        GameEngine.getInstance().addGameObject(this);
     }
 
     /**
@@ -31,6 +34,23 @@ public abstract class GameObject {
     public void draw(GraphicsContext gc){
         sprite.draw(gc, position, direction);
     }
+
+    /**
+     * Used for objects that need to get the update tick, they can override this function
+     * @param detla
+     */
+    public void update(double detla){
+
+    }
+
+    public void translate(Vector2 moveVector){
+        position = Vector2.add(position, moveVector);
+    }
+
+    public void lookAt(Vector2 lookPosition){
+        direction =  Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, lookPosition));
+    }
+
     public Vector2 getPosition() {
         return position;
     }

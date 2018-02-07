@@ -1,15 +1,13 @@
 package com.bluebook.javafx;
 
+import com.bluebook.input.Input;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import com.bluebook.javafx.Controller;
-import com.bluebook.input.InputHandler;
 
 public class Main extends Application {
 
@@ -27,12 +25,12 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
-        setStageKeyListener(primaryStage,  controller);
+        setStageKeyListener(primaryStage);
 
     }
 
-    private void setStageKeyListener(Stage primaryStage, Controller controller){
-        primaryStage.addEventHandler(KeyEvent.ANY, new InputHandler(controller.getEngine()));
+    private void setStageKeyListener(Stage primaryStage){
+        new Input(primaryStage);
     }
 
     private void setHeightListener(Stage primaryStage, Controller controller){
