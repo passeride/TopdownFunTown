@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * Singelton class to be used  for handeling input on the logic thread
+ */
 public class Input {
 
     private static Input singelton;
@@ -25,6 +28,10 @@ public class Input {
         setEventHandlers(stage);
     }
 
+    /**
+     * Singelton Getter
+     * @return
+     */
     public static Input getInstance(){
         return singelton;
     }

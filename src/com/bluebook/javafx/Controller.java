@@ -34,14 +34,20 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Is called when stage is resized
+     * @param width
+     */
     public void setCanvasWidth(double width){
         canvas.setWidth(width);
-        //drawBackground();
     }
 
+    /**
+     * Is called when stage is resized
+     * @param height
+     */
     public void setCanvasHeight(double height){
         canvas.setHeight(height);
-        //drawBackground();
     }
 
 

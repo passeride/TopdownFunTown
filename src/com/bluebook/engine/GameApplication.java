@@ -21,6 +21,10 @@ public abstract class GameApplication extends Application {
         singelton = this;
     }
 
+    /**
+     * Singelton getter
+     * @return
+     */
     public static GameApplication getInstance() {
         return singelton;
     }
@@ -50,6 +54,9 @@ public abstract class GameApplication extends Application {
         engine.startUpdateThread();
     }
 
+    /**
+     * This will be called after FXML is set up, should be a good starting point for loading resources
+     */
     protected void onLoad(){
 
     }
@@ -80,7 +87,10 @@ public abstract class GameApplication extends Application {
         });
     }
 
-
+    /**
+     * This function will be called every tick, should be used for logic
+     * @param delta seconds since last frame update
+     */
     public abstract void update(double delta);
 
 

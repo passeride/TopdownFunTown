@@ -2,46 +2,80 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/org/bluebook.plantuml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/sprite/bullet.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/graphics/Sprite.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/uml/bluebook.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/InputHandler.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/InputHandler.html" />
-      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/MouseHandler.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/MouseHandler.html" />
-      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/objects/Player.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/objects/Player.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/allclasses-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/allclasses-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/allclasses-noframe.html" afterPath="$PROJECT_DIR$/JavaDoc/allclasses-noframe.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/GameApplication.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/GameApplication.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/GameEngine.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/GameEngine.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/engine/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/input/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/Controller.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/Controller.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/Main.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/Main.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/javafx/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/CanvasRenderer.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/CanvasRenderer.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/renderer/package-tree.html" />
       <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/GameObject.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/GameObject.html" />
-      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/Sprite.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/Sprite.html" />
-      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/SpriteLoader.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/SpriteLoader.html" />
-      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/UpdateThread.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/UpdateThread.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/Vector2.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/Vector2.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/com/bluebook/util/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/Topdownfuntown.html" afterPath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/Topdownfuntown.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/com/topdownfuntown/main/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/constant-values.html" afterPath="$PROJECT_DIR$/JavaDoc/constant-values.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/deprecated-list.html" afterPath="$PROJECT_DIR$/JavaDoc/deprecated-list.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/help-doc.html" afterPath="$PROJECT_DIR$/JavaDoc/help-doc.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-1.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-1.html" />
       <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-10.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-10.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-11.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-11.html" />
       <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-12.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-12.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-13.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-13.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-14.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-14.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-15.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-15.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-16.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-16.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-2.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-2.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-3.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-3.html" />
       <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-4.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-4.html" />
-      <change beforePath="$PROJECT_DIR$/SemesterOppgave.iml" afterPath="$PROJECT_DIR$/SemesterOppgave.iml" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-5.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-5.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-6.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-6.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-7.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-7.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-8.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-8.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index-files/index-9.html" afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-9.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/index.html" afterPath="$PROJECT_DIR$/JavaDoc/index.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/overview-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/overview-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/overview-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/overview-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/overview-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/overview-tree.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/package-list" afterPath="$PROJECT_DIR$/JavaDoc/package-list" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/Vector2Test.html" afterPath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/Vector2Test.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/package-frame.html" afterPath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/package-summary.html" afterPath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/package-tree.html" afterPath="$PROJECT_DIR$/JavaDoc/test/com/bluebook/util/package-tree.html" />
       <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameApplication.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameApplication.class" />
       <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameEngine.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameEngine.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/input/InputHandler$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/input/InputHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/input/MouseHandler.class" afterPath="" />
       <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Controller.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Controller.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Main$1.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Main$1.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Main$2.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Main$2.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Main.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/javafx/Main.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/objects/Player.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/renderer/CanvasRenderer.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/renderer/CanvasRenderer.class" />
       <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/GameObject.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/GameObject.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/Sprite.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/SpriteLoader.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/UpdateThread.class" afterPath="" />
       <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/topdownfuntown/main/Topdownfuntown.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/topdownfuntown/main/Topdownfuntown.class" />
       <change beforePath="$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java" afterPath="$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java" />
       <change beforePath="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" afterPath="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/input/InputHandler.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/input/MouseHandler.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java" afterPath="$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/bluebook/input/Input.java" afterPath="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
       <change beforePath="$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java" afterPath="$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/javafx/Main.java" afterPath="$PROJECT_DIR$/src/com/bluebook/javafx/Main.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/objects/Player.java" afterPath="$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java" />
       <change beforePath="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" afterPath="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/util/Sprite.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/util/SpriteLoader.java" afterPath="$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/util/UpdateThread.java" afterPath="$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" afterPath="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -114,10 +148,64 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Input.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/input/Input.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-224">
+              <caret line="13" column="70" lean-forward="false" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
+              <folding>
+                <element signature="method#Input#0;class#Input#0" expanded="false" />
+                <element signature="e#838#839#0" expanded="true" />
+                <element signature="e#870#871#0" expanded="true" />
+                <element signature="method#setEventHandlers#0;class#Input#0" expanded="false" />
+                <element signature="class#977:1264" expanded="false" />
+                <element signature="method#handle#0;class#977:1264" expanded="false" />
+                <element signature="class#1325:1613" expanded="false" />
+                <element signature="method#handle#0;class#1325:1613" expanded="false" />
+                <element signature="class#1675:1862" expanded="false" />
+                <element signature="e#1775#1776#0" expanded="true" />
+                <element signature="e#1851#1852#0" expanded="true" />
+                <element signature="class#1926:2405" expanded="false" />
+                <element signature="method#handle#0;class#1926:2405" expanded="false" />
+                <element signature="class#2470:2952" expanded="false" />
+                <element signature="method#handle#0;class#2470:2952" expanded="false" />
+                <element signature="class#3016:3224" expanded="false" />
+                <element signature="method#handle#0;class#3016:3224" expanded="false" />
+                <element signature="class#3287:3493" expanded="false" />
+                <element signature="method#handle#0;class#3287:3493" expanded="false" />
+                <element signature="e#3533#3534#0" expanded="true" />
+                <element signature="e#3569#3570#0" expanded="true" />
+                <element signature="e#3600#3601#0" expanded="true" />
+                <element signature="e#3637#3638#0" expanded="true" />
+                <element signature="e#3692#3693#0" expanded="true" />
+                <element signature="e#3728#3729#0" expanded="true" />
+                <element signature="e#3783#3784#0" expanded="true" />
+                <element signature="e#3819#3820#0" expanded="true" />
+                <element signature="method#setMousePosition#0;class#Input#0" expanded="false" />
+                <element signature="e#3973#3974#0" expanded="true" />
+                <element signature="e#4009#4010#0" expanded="true" />
+                <element signature="docComment;method#getMousePosition#0;class#Input#0" expanded="false" />
+                <element signature="e#4140#4141#0" expanded="true" />
+                <element signature="e#4192#4193#0" expanded="true" />
+                <element signature="method#keyPressed#0;class#Input#0" expanded="false" />
+                <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
+                <element signature="docComment;method#isPressed#0;class#Input#0" expanded="false" />
+                <element signature="method#isPressed#0;class#Input#0" expanded="false" />
+                <element signature="docComment;method#isMouseButton0Pressed#0;class#Input#0" expanded="false" />
+                <element signature="e#4977#4978#0" expanded="true" />
+                <element signature="e#5012#5013#0" expanded="true" />
+                <element signature="docComment;method#isMouseButton1Pressed#0;class#Input#0" expanded="false" />
+                <element signature="e#5160#5161#0" expanded="true" />
+                <element signature="e#5195#5196#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Topdownfuntown.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="205">
               <caret line="25" column="106" lean-forward="false" selection-start-line="25" selection-start-column="106" selection-end-line="25" selection-end-column="106" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -128,27 +216,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="28" column="58" lean-forward="false" selection-start-line="28" selection-start-column="58" selection-end-line="28" selection-end-column="58" />
+            <state relative-caret-position="570">
+              <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
               <folding>
-                <element signature="method#start#0;class#GameApplication#0" expanded="false" />
-                <element signature="method#onLoad#0;class#GameApplication#0" expanded="false" />
-                <element signature="method#setHeightListener#0;class#GameApplication#0" expanded="false" />
-                <element signature="class#1683:1933" expanded="false" />
-                <element signature="method#changed#0;class#1683:1933" expanded="false" />
-                <element signature="method#setWidthListener#0;class#GameApplication#0" expanded="false" />
-                <element signature="class#2074:2324" expanded="false" />
-                <element signature="method#changed#0;class#2074:2324" expanded="false" />
-                <element signature="method#setWindowTitle#0;class#GameApplication#0" expanded="false" />
+                <element signature="e#454#455#0" expanded="true" />
+                <element signature="e#492#493#0" expanded="true" />
+                <element signature="e#824#825#0" expanded="true" />
+                <element signature="e#862#863#0" expanded="true" />
+                <element signature="e#987#988#0" expanded="true" />
+                <element signature="e#1027#1028#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
@@ -165,57 +250,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-              <folding>
-                <element signature="e#454#455#0" expanded="true" />
-                <element signature="e#492#493#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bluebook.plantuml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/org/bluebook.plantuml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="143" column="37" lean-forward="false" selection-start-line="143" selection-start-column="37" selection-end-line="143" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bluebook/graphics/Sprite.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-              <folding>
-                <element signature="docComment;class#Sprite#0" expanded="false" />
-                <element signature="docComment;method#Sprite#0;class#Sprite#0" expanded="false" />
-                <element signature="docComment;method#draw#0;class#Sprite#0" expanded="false" />
-                <element signature="method#draw#0;class#Sprite#0" expanded="false" />
-                <element signature="docComment;method#draw#1;class#Sprite#0" expanded="false" />
-                <element signature="method#draw#1;class#Sprite#0" expanded="false" />
-                <element signature="method#rotateGraphicsContext#0;class#Sprite#0" expanded="false" />
-                <element signature="docComment;method#rotate#0;class#Sprite#0" expanded="false" />
-                <element signature="method#rotate#0;class#Sprite#0" expanded="false" />
-                <element signature="docComment;method#rotate#1;class#Sprite#0" expanded="false" />
-                <element signature="method#rotate#1;class#Sprite#0" expanded="false" />
-                <element signature="docComment;method#clearRotation#0;class#Sprite#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpriteLoader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="450">
+              <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -224,7 +263,7 @@
       <file leaf-file-name="Projectile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="330">
               <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -232,6 +271,83 @@
                 <element signature="e#511#512#0" expanded="true" />
                 <element signature="e#565#566#0" expanded="true" />
                 <element signature="e#634#635#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CanvasRenderer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding>
+                <element signature="docComment;class#CanvasRenderer#0" expanded="false" />
+                <element signature="docComment;method#AddGameObject#0;class#CanvasRenderer#0" expanded="false" />
+                <element signature="docComment;method#getInstance#0;class#CanvasRenderer#0" expanded="false" />
+                <element signature="method#getInstance#0;class#CanvasRenderer#0" expanded="false" />
+                <element signature="docComment;method#DrawAll#0;class#CanvasRenderer#0" expanded="false" />
+                <element signature="method#DrawAll#0;class#CanvasRenderer#0" expanded="false" />
+                <element signature="docComment;method#DrawAll#1;class#CanvasRenderer#0" expanded="false" />
+                <element signature="method#DrawAll#1;class#CanvasRenderer#0" expanded="false" />
+                <element signature="method#clearCanvas#0;class#CanvasRenderer#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/util/GameObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="47" column="39" lean-forward="false" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+              <folding>
+                <element signature="docComment;method#GameObject#0;class#GameObject#0" expanded="false" />
+                <element signature="method#GameObject#0;class#GameObject#0" expanded="false" />
+                <element signature="docComment;method#draw#0;class#GameObject#0" expanded="false" />
+                <element signature="docComment;method#update#0;class#GameObject#0" expanded="false" />
+                <element signature="method#update#0;class#GameObject#0" expanded="false" />
+                <element signature="e#1291#1292#0" expanded="true" />
+                <element signature="e#1351#1352#0" expanded="true" />
+                <element signature="method#lookAt#0;class#GameObject#0" expanded="false" />
+                <element signature="e#1654#1655#0" expanded="true" />
+                <element signature="e#1685#1686#0" expanded="true" />
+                <element signature="e#1734#1735#0" expanded="true" />
+                <element signature="e#1774#1775#0" expanded="true" />
+                <element signature="e#1811#1812#0" expanded="true" />
+                <element signature="e#1843#1844#0" expanded="true" />
+                <element signature="e#1894#1895#0" expanded="true" />
+                <element signature="e#1936#1937#0" expanded="true" />
+                <element signature="e#1969#1970#0" expanded="true" />
+                <element signature="e#1998#1999#0" expanded="true" />
+                <element signature="e#2042#2043#0" expanded="true" />
+                <element signature="e#2078#2079#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Vector2.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/util/Vector2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+              <folding>
+                <element signature="docComment;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#Vector2#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#Vector2FromAgnleInRadians#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#Vector2FromAngleInDegrees#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#add#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#subtract#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#dotProduct#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#getAngleBetweenInDegrees#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#multiply#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#getLength#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#distance#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#getAngleInDegrees#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#getAngleInRadians#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#getNormalizedVector#0;class#Vector2#0" expanded="false" />
+                <element signature="docComment;method#normalize#0;class#Vector2#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -290,19 +406,19 @@
         <option value="$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/input/KeyInputHandler.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/javafx/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/util/UpdateThread.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" />
         <option value="$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" />
         <option value="$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java" />
         <option value="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/graphics/Sprite.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java" />
         <option value="$PROJECT_DIR$/org/bluebook.plantuml" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" />
       </list>
     </option>
   </component>
@@ -366,6 +482,103 @@
             <path>
               <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
               <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="graphics" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="input" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="renderer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="threads" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="topdownfuntown" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="topdownfuntown" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="topdownfuntown" type="462c0819:PsiDirectoryNode" />
+              <item name="objects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
               <item name="uml" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -391,7 +604,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="SearchEverywhereHistoryKey" value="collapse&#9;ACTION&#9;CollapseAllRegions&#10;replace&#9;ACTION&#9;Replace&#10;fold&#9;ACTION&#9;FoldingGroup&#10;format&#9;ACTION&#9;ReformatCode&#10;comment&#9;ACTION&#9;CollapseDocComments&#10;javadoc&#9;ACTION&#9;GenerateJavadoc&#10;getter&#9;ACTION&#9;GenerateGetterAndSetter&#10;test&#9;ACTION&#9;GotoTest&#10;getters&#9;ACTION&#9;GenerateGetterAndSetter" />
+    <property name="SearchEverywhereHistoryKey" value="collapse&#9;ACTION&#9;CollapseAllRegions&#10;fold&#9;ACTION&#9;FoldingGroup&#10;replace&#9;ACTION&#9;Replace&#10;format&#9;ACTION&#9;ReformatCode&#10;comment&#9;ACTION&#9;CollapseDocComments&#10;javadoc&#9;ACTION&#9;GenerateJavadoc&#10;getter&#9;ACTION&#9;GenerateGetterAndSetter&#10;test&#9;ACTION&#9;GotoTest&#10;getters&#9;ACTION&#9;GenerateGetterAndSetter" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -639,7 +852,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518001840364</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed Inputhandler&#10;Seperated gamefiles from engine files (diff packages)&#10;Started Working on the projectile class&#10;Added UML">
+      <created>1518028032504</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1518028032504</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -680,9 +900,10 @@
   <component name="ToolWindowManager">
     <frame x="0" y="26" width="1920" height="1053" extended-state="6" />
     <layout>
-      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46666667" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46666667" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -709,7 +930,6 @@
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -723,7 +943,8 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="FIRST" />
-    <option name="LAST_COMMIT_MESSAGE" value="FIRST" />
+    <MESSAGE value="Fixed Inputhandler&#10;Seperated gamefiles from engine files (diff packages)&#10;Started Working on the projectile class&#10;Added UML" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Inputhandler&#10;Seperated gamefiles from engine files (diff packages)&#10;Started Working on the projectile class&#10;Added UML" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -749,27 +970,27 @@
         <state relative-caret-position="1905">
           <caret line="127" column="11" lean-forward="false" selection-start-line="127" selection-start-column="11" selection-end-line="127" selection-end-column="11" />
           <folding>
-            <element signature="e#704#705#0" expanded="false" />
-            <element signature="e#736#737#0" expanded="false" />
-            <element signature="e#1641#1642#0" expanded="false" />
-            <element signature="e#1717#1718#0" expanded="false" />
-            <element signature="e#3399#3400#0" expanded="false" />
-            <element signature="e#3435#3436#0" expanded="false" />
-            <element signature="e#3466#3467#0" expanded="false" />
-            <element signature="e#3503#3504#0" expanded="false" />
-            <element signature="e#3558#3559#0" expanded="false" />
-            <element signature="e#3594#3595#0" expanded="false" />
-            <element signature="e#3649#3650#0" expanded="false" />
-            <element signature="e#3685#3686#0" expanded="false" />
-            <element signature="e#3839#3840#0" expanded="false" />
-            <element signature="e#3875#3876#0" expanded="false" />
-            <element signature="e#4006#4007#0" expanded="false" />
-            <element signature="e#4058#4059#0" expanded="false" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+            <element signature="e#1775#1776#0" expanded="true" />
+            <element signature="e#1851#1852#0" expanded="true" />
+            <element signature="e#3533#3534#0" expanded="true" />
+            <element signature="e#3569#3570#0" expanded="true" />
+            <element signature="e#3600#3601#0" expanded="true" />
+            <element signature="e#3637#3638#0" expanded="true" />
+            <element signature="e#3692#3693#0" expanded="true" />
+            <element signature="e#3728#3729#0" expanded="true" />
+            <element signature="e#3783#3784#0" expanded="true" />
+            <element signature="e#3819#3820#0" expanded="true" />
+            <element signature="e#3973#3974#0" expanded="true" />
+            <element signature="e#4009#4010#0" expanded="true" />
+            <element signature="e#4140#4141#0" expanded="true" />
+            <element signature="e#4192#4193#0" expanded="true" />
             <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
-            <element signature="e#4843#4844#0" expanded="false" />
-            <element signature="e#4878#4879#0" expanded="false" />
-            <element signature="e#5026#5027#0" expanded="false" />
-            <element signature="e#5061#5062#0" expanded="false" />
+            <element signature="e#4977#4978#0" expanded="true" />
+            <element signature="e#5012#5013#0" expanded="true" />
+            <element signature="e#5160#5161#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -779,14 +1000,18 @@
         <state relative-caret-position="540">
           <caret line="49" column="35" lean-forward="false" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
           <folding>
+            <element signature="e#707#708#0" expanded="false" />
+            <element signature="e#739#740#0" expanded="false" />
             <element signature="method#start#0;class#GameApplication#0" expanded="false" />
             <element signature="method#onLoad#0;class#GameApplication#0" expanded="false" />
+            <element signature="e#1682#1683#0" expanded="false" />
+            <element signature="e#1721#1722#0" expanded="false" />
             <element signature="method#setHeightListener#0;class#GameApplication#0" expanded="false" />
-            <element signature="class#1683:1933" expanded="false" />
-            <element signature="method#changed#0;class#1683:1933" expanded="false" />
+            <element signature="class#1857:2107" expanded="false" />
+            <element signature="method#changed#0;class#1857:2107" expanded="false" />
             <element signature="method#setWidthListener#0;class#GameApplication#0" expanded="false" />
-            <element signature="class#2074:2324" expanded="false" />
-            <element signature="method#changed#0;class#2074:2324" expanded="false" />
+            <element signature="class#2248:2498" expanded="false" />
+            <element signature="method#changed#0;class#2248:2498" expanded="false" />
             <element signature="method#setWindowTitle#0;class#GameApplication#0" expanded="false" />
           </folding>
         </state>
@@ -838,20 +1063,20 @@
         <state relative-caret-position="345">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#1160#1161#0" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1423#1424#0" expanded="false" />
-            <element signature="e#1454#1455#0" expanded="false" />
-            <element signature="e#1503#1504#0" expanded="false" />
-            <element signature="e#1543#1544#0" expanded="false" />
-            <element signature="e#1580#1581#0" expanded="false" />
-            <element signature="e#1612#1613#0" expanded="false" />
-            <element signature="e#1663#1664#0" expanded="false" />
-            <element signature="e#1705#1706#0" expanded="false" />
-            <element signature="e#1738#1739#0" expanded="false" />
-            <element signature="e#1767#1768#0" expanded="false" />
-            <element signature="e#1811#1812#0" expanded="false" />
-            <element signature="e#1847#1848#0" expanded="false" />
+            <element signature="e#1291#1292#0" expanded="true" />
+            <element signature="e#1351#1352#0" expanded="true" />
+            <element signature="e#1654#1655#0" expanded="true" />
+            <element signature="e#1685#1686#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+            <element signature="e#1811#1812#0" expanded="true" />
+            <element signature="e#1843#1844#0" expanded="true" />
+            <element signature="e#1894#1895#0" expanded="true" />
+            <element signature="e#1936#1937#0" expanded="true" />
+            <element signature="e#1969#1970#0" expanded="true" />
+            <element signature="e#1998#1999#0" expanded="true" />
+            <element signature="e#2042#2043#0" expanded="true" />
+            <element signature="e#2078#2079#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -861,10 +1086,10 @@
         <state relative-caret-position="660">
           <caret line="56" column="94" lean-forward="false" selection-start-line="56" selection-start-column="94" selection-end-line="56" selection-end-column="94" />
           <folding>
-            <element signature="e#1107#1108#0" expanded="false" />
-            <element signature="e#1139#1140#0" expanded="false" />
-            <element signature="e#1306#1307#0" expanded="false" />
-            <element signature="e#1343#1344#0" expanded="false" />
+            <element signature="e#1162#1163#0" expanded="false" />
+            <element signature="e#1194#1195#0" expanded="false" />
+            <element signature="e#1361#1362#0" expanded="false" />
+            <element signature="e#1398#1399#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -876,6 +1101,10 @@
           <folding>
             <element signature="e#454#455#0" expanded="true" />
             <element signature="e#492#493#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1027#1028#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -895,6 +1124,10 @@
           <folding>
             <element signature="e#454#455#0" expanded="true" />
             <element signature="e#492#493#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1027#1028#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -903,6 +1136,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="25" column="54" lean-forward="false" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+          <folding>
+            <element signature="docComment;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#AddGameObject#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#getInstance#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#getInstance#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#DrawAll#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#DrawAll#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#DrawAll#1;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#DrawAll#1;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#clearCanvas#0;class#CanvasRenderer#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -911,10 +1155,10 @@
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
-            <element signature="e#1107#1108#0" expanded="false" />
-            <element signature="e#1139#1140#0" expanded="false" />
-            <element signature="e#1306#1307#0" expanded="false" />
-            <element signature="e#1343#1344#0" expanded="false" />
+            <element signature="e#1162#1163#0" expanded="false" />
+            <element signature="e#1194#1195#0" expanded="false" />
+            <element signature="e#1361#1362#0" expanded="false" />
+            <element signature="e#1398#1399#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -931,6 +1175,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="7" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <folding>
+            <element signature="docComment;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#Vector2#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#Vector2FromAgnleInRadians#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#Vector2FromAngleInDegrees#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#add#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#subtract#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#dotProduct#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getAngleBetweenInDegrees#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#multiply#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getLength#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#distance#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getAngleInDegrees#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getAngleInRadians#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getNormalizedVector#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#normalize#0;class#Vector2#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -960,20 +1221,20 @@
         <state relative-caret-position="285">
           <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
           <folding>
-            <element signature="e#1160#1161#0" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1423#1424#0" expanded="false" />
-            <element signature="e#1454#1455#0" expanded="false" />
-            <element signature="e#1503#1504#0" expanded="false" />
-            <element signature="e#1543#1544#0" expanded="false" />
-            <element signature="e#1580#1581#0" expanded="false" />
-            <element signature="e#1612#1613#0" expanded="false" />
-            <element signature="e#1663#1664#0" expanded="false" />
-            <element signature="e#1705#1706#0" expanded="false" />
-            <element signature="e#1738#1739#0" expanded="false" />
-            <element signature="e#1767#1768#0" expanded="false" />
-            <element signature="e#1811#1812#0" expanded="false" />
-            <element signature="e#1847#1848#0" expanded="false" />
+            <element signature="e#1291#1292#0" expanded="true" />
+            <element signature="e#1351#1352#0" expanded="true" />
+            <element signature="e#1654#1655#0" expanded="true" />
+            <element signature="e#1685#1686#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+            <element signature="e#1811#1812#0" expanded="true" />
+            <element signature="e#1843#1844#0" expanded="true" />
+            <element signature="e#1894#1895#0" expanded="true" />
+            <element signature="e#1936#1937#0" expanded="true" />
+            <element signature="e#1969#1970#0" expanded="true" />
+            <element signature="e#1998#1999#0" expanded="true" />
+            <element signature="e#2042#2043#0" expanded="true" />
+            <element signature="e#2078#2079#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1004,6 +1265,10 @@
           <folding>
             <element signature="e#454#455#0" expanded="true" />
             <element signature="e#492#493#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1027#1028#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1029,146 +1294,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-327">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/util/Vector2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/input/Input.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1605">
-          <caret line="127" column="11" lean-forward="false" selection-start-line="127" selection-start-column="11" selection-end-line="127" selection-end-column="11" />
-          <folding>
-            <element signature="e#704#705#0" expanded="false" />
-            <element signature="e#736#737#0" expanded="false" />
-            <element signature="e#1641#1642#0" expanded="false" />
-            <element signature="e#1717#1718#0" expanded="false" />
-            <element signature="e#3399#3400#0" expanded="false" />
-            <element signature="e#3435#3436#0" expanded="false" />
-            <element signature="e#3466#3467#0" expanded="false" />
-            <element signature="e#3503#3504#0" expanded="false" />
-            <element signature="e#3558#3559#0" expanded="false" />
-            <element signature="e#3594#3595#0" expanded="false" />
-            <element signature="e#3649#3650#0" expanded="false" />
-            <element signature="e#3685#3686#0" expanded="false" />
-            <element signature="e#3839#3840#0" expanded="false" />
-            <element signature="e#3875#3876#0" expanded="false" />
-            <element signature="e#4006#4007#0" expanded="false" />
-            <element signature="e#4058#4059#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
-            <element signature="e#4843#4844#0" expanded="false" />
-            <element signature="e#4878#4879#0" expanded="false" />
-            <element signature="e#5026#5027#0" expanded="false" />
-            <element signature="e#5061#5062#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="56" column="94" lean-forward="false" selection-start-line="56" selection-start-column="94" selection-end-line="56" selection-end-column="94" />
-          <folding>
-            <element signature="e#1107#1108#0" expanded="false" />
-            <element signature="e#1139#1140#0" expanded="false" />
-            <element signature="e#1306#1307#0" expanded="false" />
-            <element signature="e#1343#1344#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/util/GameObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="e#1160#1161#0" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1423#1424#0" expanded="false" />
-            <element signature="e#1454#1455#0" expanded="false" />
-            <element signature="e#1503#1504#0" expanded="false" />
-            <element signature="e#1543#1544#0" expanded="false" />
-            <element signature="e#1580#1581#0" expanded="false" />
-            <element signature="e#1612#1613#0" expanded="false" />
-            <element signature="e#1663#1664#0" expanded="false" />
-            <element signature="e#1705#1706#0" expanded="false" />
-            <element signature="e#1738#1739#0" expanded="false" />
-            <element signature="e#1767#1768#0" expanded="false" />
-            <element signature="e#1811#1812#0" expanded="false" />
-            <element signature="e#1847#1848#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#461#462#0" expanded="true" />
-            <element signature="e#511#512#0" expanded="true" />
-            <element signature="e#565#566#0" expanded="true" />
-            <element signature="e#634#635#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="25" column="106" lean-forward="false" selection-start-line="25" selection-start-column="106" selection-end-line="25" selection-end-column="106" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#1606#1607#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="7" lean-forward="false" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
-          <folding>
-            <element signature="e#593#594#0" expanded="true" />
-            <element signature="e#643#644#0" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
-            <element signature="e#1161#1162#0" expanded="true" />
-            <element signature="e#1233#1234#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bluebook/input/MouseInputHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1185,11 +1310,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java">
+    <entry file="file://$PROJECT_DIR$/uml/bluebook.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/org/bluebook.plantuml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="492">
+          <caret line="127" column="5" lean-forward="true" selection-start-line="127" selection-start-column="5" selection-end-line="127" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="91" column="51" lean-forward="false" selection-start-line="91" selection-start-column="51" selection-end-line="91" selection-end-column="51" />
+          <folding>
+            <element signature="e#707#708#0" expanded="false" />
+            <element signature="e#739#740#0" expanded="false" />
+            <element signature="method#start#0;class#GameApplication#0" expanded="false" />
+            <element signature="method#onLoad#0;class#GameApplication#0" expanded="false" />
+            <element signature="e#1682#1683#0" expanded="false" />
+            <element signature="e#1721#1722#0" expanded="false" />
+            <element signature="method#setHeightListener#0;class#GameApplication#0" expanded="false" />
+            <element signature="class#1857:2107" expanded="false" />
+            <element signature="method#changed#0;class#1857:2107" expanded="false" />
+            <element signature="method#setWidthListener#0;class#GameApplication#0" expanded="false" />
+            <element signature="class#2248:2498" expanded="false" />
+            <element signature="method#changed#0;class#2248:2498" expanded="false" />
+            <element signature="method#setWindowTitle#0;class#GameApplication#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="89" column="34" lean-forward="false" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="34" />
+          <folding>
+            <element signature="docComment;class#GameEngine#0" expanded="false" />
+            <element signature="docComment;method#GameEngine#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#GameEngine#0;class#GameEngine#0" expanded="false" />
+            <element signature="e#1162#1163#0" expanded="false" />
+            <element signature="e#1194#1195#0" expanded="false" />
+            <element signature="docComment;method#addGameObject#0;class#GameEngine#0" expanded="false" />
+            <element signature="docComment;method#removeGameObject#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#removeGameObject#0;class#GameEngine#0" expanded="false" />
+            <element signature="docComment;method#update#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#update#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#startUpdateThread#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#stopUpdateThread#0;class#GameEngine#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1214,6 +1387,110 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="92" lean-forward="false" selection-start-line="7" selection-start-column="92" selection-end-line="7" selection-end-column="92" />
+          <folding>
+            <element signature="e#284#285#0" expanded="false" />
+            <element signature="e#357#358#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/input/Input.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-224">
+          <caret line="13" column="70" lean-forward="false" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
+          <folding>
+            <element signature="method#Input#0;class#Input#0" expanded="false" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+            <element signature="method#setEventHandlers#0;class#Input#0" expanded="false" />
+            <element signature="class#977:1264" expanded="false" />
+            <element signature="method#handle#0;class#977:1264" expanded="false" />
+            <element signature="class#1325:1613" expanded="false" />
+            <element signature="method#handle#0;class#1325:1613" expanded="false" />
+            <element signature="class#1675:1862" expanded="false" />
+            <element signature="e#1775#1776#0" expanded="true" />
+            <element signature="e#1851#1852#0" expanded="true" />
+            <element signature="class#1926:2405" expanded="false" />
+            <element signature="method#handle#0;class#1926:2405" expanded="false" />
+            <element signature="class#2470:2952" expanded="false" />
+            <element signature="method#handle#0;class#2470:2952" expanded="false" />
+            <element signature="class#3016:3224" expanded="false" />
+            <element signature="method#handle#0;class#3016:3224" expanded="false" />
+            <element signature="class#3287:3493" expanded="false" />
+            <element signature="method#handle#0;class#3287:3493" expanded="false" />
+            <element signature="e#3533#3534#0" expanded="true" />
+            <element signature="e#3569#3570#0" expanded="true" />
+            <element signature="e#3600#3601#0" expanded="true" />
+            <element signature="e#3637#3638#0" expanded="true" />
+            <element signature="e#3692#3693#0" expanded="true" />
+            <element signature="e#3728#3729#0" expanded="true" />
+            <element signature="e#3783#3784#0" expanded="true" />
+            <element signature="e#3819#3820#0" expanded="true" />
+            <element signature="method#setMousePosition#0;class#Input#0" expanded="false" />
+            <element signature="e#3973#3974#0" expanded="true" />
+            <element signature="e#4009#4010#0" expanded="true" />
+            <element signature="docComment;method#getMousePosition#0;class#Input#0" expanded="false" />
+            <element signature="e#4140#4141#0" expanded="true" />
+            <element signature="e#4192#4193#0" expanded="true" />
+            <element signature="method#keyPressed#0;class#Input#0" expanded="false" />
+            <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
+            <element signature="docComment;method#isPressed#0;class#Input#0" expanded="false" />
+            <element signature="method#isPressed#0;class#Input#0" expanded="false" />
+            <element signature="docComment;method#isMouseButton0Pressed#0;class#Input#0" expanded="false" />
+            <element signature="e#4977#4978#0" expanded="true" />
+            <element signature="e#5012#5013#0" expanded="true" />
+            <element signature="docComment;method#isMouseButton1Pressed#0;class#Input#0" expanded="false" />
+            <element signature="e#5160#5161#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
+          <folding>
+            <element signature="e#454#455#0" expanded="true" />
+            <element signature="e#492#493#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1027#1028#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/javafx/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="docComment;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#AddGameObject#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#getInstance#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#getInstance#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#DrawAll#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#DrawAll#0;class#CanvasRenderer#0" expanded="false" />
+            <element signature="docComment;method#DrawAll#1;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#DrawAll#1;class#CanvasRenderer#0" expanded="false" />
+            <element signature="method#clearCanvas#0;class#CanvasRenderer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1222,34 +1499,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/util/GameObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="28" column="58" lean-forward="false" selection-start-line="28" selection-start-column="58" selection-end-line="28" selection-end-column="58" />
+        <state relative-caret-position="330">
+          <caret line="47" column="39" lean-forward="false" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
           <folding>
-            <element signature="method#start#0;class#GameApplication#0" expanded="false" />
-            <element signature="method#onLoad#0;class#GameApplication#0" expanded="false" />
-            <element signature="method#setHeightListener#0;class#GameApplication#0" expanded="false" />
-            <element signature="class#1683:1933" expanded="false" />
-            <element signature="method#changed#0;class#1683:1933" expanded="false" />
-            <element signature="method#setWidthListener#0;class#GameApplication#0" expanded="false" />
-            <element signature="class#2074:2324" expanded="false" />
-            <element signature="method#changed#0;class#2074:2324" expanded="false" />
-            <element signature="method#setWindowTitle#0;class#GameApplication#0" expanded="false" />
+            <element signature="docComment;method#GameObject#0;class#GameObject#0" expanded="false" />
+            <element signature="method#GameObject#0;class#GameObject#0" expanded="false" />
+            <element signature="docComment;method#draw#0;class#GameObject#0" expanded="false" />
+            <element signature="docComment;method#update#0;class#GameObject#0" expanded="false" />
+            <element signature="method#update#0;class#GameObject#0" expanded="false" />
+            <element signature="e#1291#1292#0" expanded="true" />
+            <element signature="e#1351#1352#0" expanded="true" />
+            <element signature="method#lookAt#0;class#GameObject#0" expanded="false" />
+            <element signature="e#1654#1655#0" expanded="true" />
+            <element signature="e#1685#1686#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+            <element signature="e#1811#1812#0" expanded="true" />
+            <element signature="e#1843#1844#0" expanded="true" />
+            <element signature="e#1894#1895#0" expanded="true" />
+            <element signature="e#1936#1937#0" expanded="true" />
+            <element signature="e#1969#1970#0" expanded="true" />
+            <element signature="e#1998#1999#0" expanded="true" />
+            <element signature="e#2042#2043#0" expanded="true" />
+            <element signature="e#2078#2079#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uml/bluebook.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/util/Vector2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#Vector2#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#Vector2FromAgnleInRadians#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#Vector2FromAngleInDegrees#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#add#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#subtract#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#dotProduct#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getAngleBetweenInDegrees#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#multiply#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getLength#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#distance#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getAngleInDegrees#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getAngleInRadians#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#getNormalizedVector#0;class#Vector2#0" expanded="false" />
+            <element signature="docComment;method#normalize#0;class#Vector2#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/org/bluebook.plantuml">
+    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="732">
-          <caret line="143" column="37" lean-forward="false" selection-start-line="143" selection-start-column="37" selection-end-line="143" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="205">
+          <caret line="25" column="106" lean-forward="false" selection-start-line="25" selection-start-column="106" selection-end-line="25" selection-end-column="106" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1578#1579#0" expanded="true" />
+            <element signature="e#1606#1607#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#461#462#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+            <element signature="e#634#635#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="20" column="7" lean-forward="false" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+          <folding>
+            <element signature="e#593#594#0" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#766#767#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#1161#1162#0" expanded="true" />
+            <element signature="e#1233#1234#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

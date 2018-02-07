@@ -43,10 +43,19 @@ public abstract class GameObject {
 
     }
 
+    /**
+     * Will move this vector relative to it's own
+     * (1,0) will move it one in x axis
+     * @param moveVector
+     */
     public void translate(Vector2 moveVector){
         position = Vector2.add(position, moveVector);
     }
 
+    /**
+     * Will change direction to point at given  position
+     * @param lookPosition
+     */
     public void lookAt(Vector2 lookPosition){
         direction =  Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, lookPosition));
     }

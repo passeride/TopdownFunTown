@@ -41,6 +41,10 @@ public class GameEngine {
         updateThread = new UpdateThread(this, messageQueue);
     }
 
+    /**
+     * Singelton getter
+     * @return
+     */
     public static GameEngine getInstance(){
         return singelton;
     }
@@ -73,12 +77,18 @@ public class GameEngine {
         CanvasRenderer.getInstance().DrawAll();
     }
 
+    /**
+     * Will start the update thread that runs concurrently to process logic
+     */
     public void startUpdateThread(){
         Thread t = new Thread(updateThread);
         t.setDaemon(true);
         t.start();
     }
 
+    /**
+     * Will terminate logic thread
+     */
     public void stopUpdateThread(){
         if(updateThread.isRunning())
             updateThread.terminate();
