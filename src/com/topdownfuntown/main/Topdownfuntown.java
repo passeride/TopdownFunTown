@@ -1,8 +1,11 @@
 package com.topdownfuntown.main;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
+import com.bluebook.physics.Collider;
+import com.bluebook.physics.CollisionBox;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.objects.Player;
 import com.topdownfuntown.objects.Projectile;
@@ -18,37 +21,42 @@ public class Topdownfuntown extends GameApplication {
 
     public Topdownfuntown() {
         super();
-
     }
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("senik")));
+        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("senik")));;
+        player.setSize(new Vector2(128, 128));
+        Collider c = new Collider(player);
+        c.setName("Player");
+        c.setTag("Hittable");
+        c.attachToGameObject(player);
+        GameEngine.DEBUG = true;
     }
 
     @Override
     public void update(double delta) {
-        if(input.isPressed(KeyCode.S)){
+        if(input.isKeyDown(KeyCode.S)){
             player.moveDown(delta);
         }
-        if(input.isPressed(KeyCode.W)){
+        if(input.isKeyDown(KeyCode.W)){
             player.moveUp(delta);
         }
 
-        if(input.isPressed(KeyCode.D)){
+        if(input.isKeyDown(KeyCode.D)){
             player.moveRight(delta);
         }
-        if(input.isPressed(KeyCode.A)){
+        if(input.isKeyDown(KeyCode.A)){
             player.moveLeft(delta);
         }
 
-        if(input.isPressed(KeyCode.SPACE)){
+        if(input.isKeyDown(KeyCode.SPACE)){
             player.activateGottaGoFast();
         }else{
             player.deactivateGottaGoFast();
         }
 
-        if(input.isPressed(KeyCode.E)){
+        if(input.isKeyPressed(KeyCode.E)){
             shoot();
         }
 
@@ -56,7 +64,7 @@ public class Topdownfuntown extends GameApplication {
     }
 
     public void shoot(){
-        projectiles.add(new Projectile(player.getPosition(), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
+        projectiles.add(new Projectile(Vector2.add(player.getPosition(), Vector2.multiply(player.getDirection(), player.getSize().getX() * 2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
 
     }
 

@@ -2,6 +2,7 @@ package com.bluebook.util;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.physics.Collider;
 import javafx.scene.canvas.GraphicsContext;
 import com.bluebook.renderer.CanvasRenderer;
 
@@ -9,8 +10,11 @@ public abstract class GameObject {
 
     protected Vector2 position;
     protected Vector2 direction;
+    protected Vector2 size;
 
     protected Sprite sprite;
+
+    protected Collider collider;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -23,9 +27,10 @@ public abstract class GameObject {
         this.direction = direction;
         this.sprite = sprite;
 
-        CanvasRenderer.getInstance().AddGameObject(this);
+        CanvasRenderer.getInstance().addGameObject(this);
         GameEngine.getInstance().addGameObject(this);
     }
+
 
     /**
      * Used to draw GameObject on canvas
@@ -60,6 +65,15 @@ public abstract class GameObject {
         direction =  Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, lookPosition));
     }
 
+    /**
+     * Used to destroy gameobject, important to call this
+     */
+    public void destroy(){
+        if(collider != null)
+            collider.destroy();
+        CanvasRenderer.getInstance().removeGameObject(this);
+    }
+
     public Vector2 getPosition() {
         return position;
     }
@@ -83,4 +97,23 @@ public abstract class GameObject {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+
+
+    public Vector2 getSize() {
+        return size;
+    }
+
+    public void setSize(Vector2 size) {
+        this.size = size;
+    }
+
+    public Collider getCollider() {
+        return collider;
+    }
+
+    public void setCollider(Collider collider) {
+        this.collider = collider;
+        collider.attachToGameObject(this);
+    }
+
 }

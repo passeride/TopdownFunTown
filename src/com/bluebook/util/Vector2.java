@@ -1,9 +1,11 @@
 package com.bluebook.util;
 
+import java.awt.geom.Point2D;
+
 /**
  * This class is used for positions and angles
  */
-public class Vector2 {
+public class Vector2 extends Point2D{
 
     private double X;
     private double Y;
@@ -163,6 +165,12 @@ public class Vector2 {
 
     public double getY() {
         return Y;
+    }
+
+    @Override
+    public void setLocation(double x, double y) {
+        this.X = x;
+        this.Y = y;
     }
 
     public void setY(double y) {

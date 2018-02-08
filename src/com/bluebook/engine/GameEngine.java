@@ -1,5 +1,6 @@
 package com.bluebook.engine;
 
+import com.bluebook.physics.CollisionThread;
 import com.bluebook.util.GameObject;
 import javafx.scene.canvas.Canvas;
 import com.topdownfuntown.objects.Player;
@@ -16,11 +17,14 @@ import java.util.concurrent.BlockingQueue;
 public class GameEngine {
 
     private UpdateThread updateThread;
+    private CollisionThread collisionThread;
     private final BlockingQueue<String> messageQueue = new ArrayBlockingQueue<>(1);
 
     public ArrayList<GameObject> updateObjects = new ArrayList<>();
 
     public static boolean DEBUG = false;
+
+    private boolean isPaused = false;
 
     public static GameEngine singelton;
 
@@ -39,6 +43,23 @@ public class GameEngine {
 
 
         updateThread = new UpdateThread(this, messageQueue);
+        collisionThread = new CollisionThread();
+    }
+
+    public void Pause(){
+        isPaused = true;
+        stopCollisionThread();
+        stopUpdateThread();
+    }
+
+    public void unPause(){
+        isPaused = false;
+        startUpdateThread();
+        startCollisionThread();
+    }
+
+    public boolean isPaused(){
+        return isPaused;
     }
 
     /**
@@ -74,7 +95,7 @@ public class GameEngine {
         for(GameObject go : updateObjects)
             go.update(delta);
         GameApplication.getInstance().update(delta);
-        CanvasRenderer.getInstance().DrawAll();
+        CanvasRenderer.getInstance().drawAll();
     }
 
     /**
@@ -92,5 +113,17 @@ public class GameEngine {
     public void stopUpdateThread(){
         if(updateThread.isRunning())
             updateThread.terminate();
+    }
+
+    public void startCollisionThread(){
+        Thread t = new Thread(collisionThread);
+        t.setDaemon(true);
+        t.start();
+    }
+
+    public void stopCollisionThread(){
+        if (collisionThread.isRunning()) {
+            collisionThread.terminate();
+        }
     }
 }

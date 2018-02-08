@@ -12,6 +12,8 @@ public class Player extends GameObject {
     private double speedBoostSpeed = 3000.0;
     private boolean speedBost = false;
 
+    private int health = 100;
+
     /**
      * Constructor for GameObject given position rotation and sprite
      *
@@ -49,6 +51,14 @@ public class Player extends GameObject {
      */
     public void moveRight(double delta){
         translate(Vector2.multiply(Vector2.RIGHT, speed * delta));
+    }
+
+    public void hit(){
+        health --;
+    }
+
+    public int getHealth(){
+        return health;
     }
 
     public void activateGottaGoFast(){

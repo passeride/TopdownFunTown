@@ -52,6 +52,7 @@ public abstract class GameApplication extends Application {
         onLoad();
 
         engine.startUpdateThread();
+        engine.startCollisionThread();
     }
 
     /**

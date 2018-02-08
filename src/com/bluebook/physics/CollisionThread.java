@@ -1,41 +1,34 @@
-package com.bluebook.threads;
+package com.bluebook.physics;
 
 import com.bluebook.engine.GameEngine;
+import com.bluebook.physics.Collider;
+import com.bluebook.physics.HitDetectionHandler;
 
-import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * A thread to handle logic for each tick
+ * This will check for collisions and notify
  */
-public class UpdateThread implements Runnable {
+public class CollisionThread implements Runnable{
 
-    private BlockingQueue<String> messageQueue;
-    private GameEngine engine;
+    private HitDetectionHandler hitDet;
     private float frameRate = 60f;
     private long sleepTime =  (long)((1f / frameRate) * 1000f) ;
     private volatile boolean running = true;
     private long prevTick = 0;
 
-    /**
-     * Used to create the UpdateThread
-     * Will each tick call {@link GameEngine#update(double delta)}
-     * @param engine
-     * @param messageQueue
-     */
-    public UpdateThread(GameEngine engine, BlockingQueue<String> messageQueue){
-        this.engine = engine;
-        this.messageQueue = messageQueue;
+    public CollisionThread(){
+        hitDet = HitDetectionHandler.getInstance();
     }
 
     @Override
     public void run() {
         running = true;
-        prevTick = System.currentTimeMillis();
         while(running){
 
             long timeElapsed = System.currentTimeMillis() - prevTick;
-            engine.update((double)timeElapsed / 1000);
+            hitDet.updatePositions();
+            hitDet.lookForCollision();
             prevTick = System.currentTimeMillis();
 
             try {
@@ -54,5 +47,4 @@ public class UpdateThread implements Runnable {
     public void terminate(){
         running = false;
     }
-
 }

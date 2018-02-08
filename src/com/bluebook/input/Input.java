@@ -18,10 +18,13 @@ public class Input {
     private static Input singelton;
 
     public ArrayList<KeyCode> input = new ArrayList<KeyCode>();
+    public ArrayList<KeyCode> input_once = new ArrayList<>();
     boolean mouseButton0 = false;
     boolean mouseButton1 = false;
     boolean mouseOnScreen = false;
     double mouse_X = 0.0, mouse_y = 0.0;
+
+    public static boolean DEBUG = false;
 
     public Input(Stage stage){
         singelton = this;
@@ -41,17 +44,25 @@ public class Input {
 
             @Override
             public void handle(KeyEvent event) {
-                if(GameEngine.DEBUG){
+                if(Input.DEBUG){
                     System.out.println("KEY PRESSED " + event.getCode());
                 }
                 keyPressed(event);
+                if(event.getCode() ==  KeyCode.ESCAPE){
+                    GameEngine engine = GameEngine.getInstance();
+                    if(engine.isPaused()){
+                        engine.unPause();
+                    }else {
+                        engine.Pause();
+                    }
+                }
             }
         });
 
         stage.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(GameEngine.DEBUG){
+                if(Input.DEBUG){
                     System.out.println("KEY RELEASED " + event.getCode());
                 }
                 keyReleased(event);
@@ -68,7 +79,7 @@ public class Input {
         stage.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(GameEngine.DEBUG){
+                if(Input.DEBUG){
                     System.out.println("MOUSE PRESSED " + event.getButton());
                 }
                 if(event.isPrimaryButtonDown()){
@@ -82,7 +93,7 @@ public class Input {
         stage.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(GameEngine.DEBUG){
+                if(Input.DEBUG){
                     System.out.println("MOUSE Released " + event.getButton());
                 }
                 if(event.isPrimaryButtonDown()){
@@ -92,23 +103,6 @@ public class Input {
                 }
             }
         });
-
-        stage.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("MOUSE ENTERED");
-                mouseEnter();
-            }
-        });
-
-        stage.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("MOUSE EXITED");
-                mouseExit();
-            }
-        });
-
     }
 
     private void mouseEnter(){
@@ -149,6 +143,10 @@ public class Input {
         if(!input.contains(pressed)){
             input.add(pressed);
         }
+
+        if(!input_once.contains(pressed)){
+            input_once.add(pressed);
+        }
     }
 
     private void keyReleased(KeyEvent event){
@@ -156,6 +154,11 @@ public class Input {
         if(input.contains(released)){
             input.remove(released);
         }
+
+        if(input_once.contains(released)){
+            input_once.remove(released);
+        }
+
     }
 
     /**
@@ -163,7 +166,7 @@ public class Input {
      * @param code Key to check
      * @return is pressed
      */
-    public boolean isPressed(KeyCode code){
+    public boolean isKeyDown(KeyCode code){
         if(input.contains(code)){
             return true;
         }else{
@@ -171,6 +174,19 @@ public class Input {
         }
     }
 
+    /**
+     * Will return if a key is pressed, and then remove it to avoid multiple presses
+     * @param code Key To check
+     * @return
+     */
+    public boolean isKeyPressed(KeyCode code){
+        if(input_once.contains(code)){
+            input_once.remove(code);
+            return true;
+        }else{
+            return false;
+        }
+    }
     /**
      * This will return the pressed state of the primary mouse button
      * @return

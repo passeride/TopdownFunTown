@@ -1,9 +1,13 @@
 package com.bluebook.renderer;
 
+import com.bluebook.engine.GameEngine;
+import com.bluebook.physics.Collider;
+import com.topdownfuntown.objects.Player;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import com.bluebook.util.GameObject;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 
@@ -12,19 +16,37 @@ import java.util.ArrayList;
  */
 public class CanvasRenderer {
 
-    public ArrayList<GameObject> drawables = new ArrayList<>();
+    private ArrayList<GameObject> drawables = new ArrayList<>();
+    private ArrayList<GameObject> drawablesInBuffer = new ArrayList<>();
+    private ArrayList<GameObject> drawableOutBuffer = new ArrayList<>();
+    private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
+    private ArrayList<Collider> colliderInBuffer = new ArrayList<>();
+    private ArrayList<Collider> colliderOutBuffer = new ArrayList<>();
+
+
 
     private static CanvasRenderer singelton;
 
     private Canvas canvas;
 
+    public void addCollider(Collider col){
+        colliderInBuffer.add(col);
+    }
+
+    public void removeCollider(Collider col){
+        colliderOutBuffer.add(col);
+    }
 
     /**
      * This function will add the GameObject to the list of drawables to be drawn onto the canvas
      * @param in Object to be drawn on canvas
      */
-    public void AddGameObject(GameObject in){
-        drawables.add(in);
+    public void addGameObject(GameObject in){
+        drawablesInBuffer.add(in);
+    }
+
+    public void removeGameObject(GameObject go){
+        drawableOutBuffer.add(go);
     }
 
     /**
@@ -40,21 +62,59 @@ public class CanvasRenderer {
     /**
      * Draw all objects onto canvas
      */
-    public void DrawAll(){
+    public void drawAll(){
         GraphicsContext gc = canvas.getGraphicsContext2D();
         clearCanvas(gc);
         for(GameObject go : drawables){
             go.draw(gc);
+            if(go instanceof Player){
+                gc.setFont(new Font(20.0));
+                gc.setFill(Color.RED);
+                gc.fillText("Health: " +  ((Player)go).getHealth(),10,50);
+            }
         }
+
+        if(GameEngine.DEBUG){
+            for(Collider c : colliderDebugDrawables){
+                c.debugDraw(gc);
+            }
+        }
+
+;
+
+        moveDrawablesBuffers();
+        moveColliderBuffers();
+    }
+
+    private void moveColliderBuffers() {
+        colliderDebugDrawables.addAll(colliderInBuffer);
+        colliderInBuffer.clear();
+
+        for(Collider col : colliderOutBuffer){
+            if(colliderDebugDrawables.contains(col))
+                colliderDebugDrawables.remove(col);
+        }
+        colliderOutBuffer.clear();
+    }
+
+    private void moveDrawablesBuffers() {
+        drawables.addAll(drawablesInBuffer);
+        drawablesInBuffer.clear();
+
+        for(GameObject go : drawableOutBuffer){
+            if(drawables.contains(go))
+                drawables.remove(go);
+        }
+        drawableOutBuffer.clear();
     }
 
     /**
      * Draw all objects onto canvas
      * @param canvas canvas for objects to be drawn to
      */
-    public void DrawAll(Canvas canvas){
+    public void drawAll(Canvas canvas){
         setCanvas(canvas);
-        DrawAll();
+        drawAll();
     }
 
     private void clearCanvas(GraphicsContext gc){
