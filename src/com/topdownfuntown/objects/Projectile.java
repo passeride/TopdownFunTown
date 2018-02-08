@@ -2,7 +2,6 @@ package com.topdownfuntown.objects;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
-import com.bluebook.physics.CollisionBox;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;

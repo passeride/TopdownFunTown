@@ -2,25 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/physics/Collider.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/physics/CollisionBox.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/physics/CollisionThread.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/physics/HitDetectionHandler.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/bluebook/physics/listeners/OnCollisionListener.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/renderer/CanvasRenderer.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/renderer/CanvasRenderer.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/Vector2.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/Vector2.class" />
+      <change beforePath="$PROJECT_DIR$/org/bluebook.plantuml" afterPath="$PROJECT_DIR$/org/bluebook.plantuml" />
+      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameApplication.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameApplication.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameEngine.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/engine/GameEngine.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/GameObject.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/bluebook/util/GameObject.class" />
       <change beforePath="$PROJECT_DIR$/out/production/SemesterOppgave/com/topdownfuntown/main/Topdownfuntown.class" afterPath="$PROJECT_DIR$/out/production/SemesterOppgave/com/topdownfuntown/main/Topdownfuntown.class" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java" afterPath="$PROJECT_DIR$/src/com/bluebook/engine/GameApplication.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" afterPath="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" />
       <change beforePath="$PROJECT_DIR$/src/com/bluebook/input/Input.java" afterPath="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java" afterPath="$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java" afterPath="$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" afterPath="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/bluebook/util/Vector2.java" afterPath="$PROJECT_DIR$/src/com/bluebook/util/Vector2.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/bluebook/physics/Collider.java" afterPath="$PROJECT_DIR$/src/com/bluebook/physics/Collider.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/bluebook/physics/CollisionBox.java" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" afterPath="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java" afterPath="$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java" />
       <change beforePath="$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java" afterPath="$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java" />
+      <change beforePath="$PROJECT_DIR$/uml/bluebook.png" afterPath="$PROJECT_DIR$/uml/bluebook.png" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,7 +76,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UpdateThread.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UpdateThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
@@ -96,15 +89,53 @@
       <file leaf-file-name="Topdownfuntown.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="60" column="9" lean-forward="false" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+            <state relative-caret-position="511">
+              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#627#628#0" expanded="true" />
-                <element signature="e#650#651#0" expanded="true" />
-                <element signature="e#2003#2004#0" expanded="true" />
-                <element signature="e#2031#2032#0" expanded="true" />
+                <element signature="e#585#586#0" expanded="true" />
+                <element signature="e#608#609#0" expanded="true" />
+                <element signature="method#update#0;class#Topdownfuntown#0" expanded="false" />
+                <element signature="e#1961#1962#0" expanded="true" />
+                <element signature="e#1989#1990#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bluebook.plantuml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/org/bluebook.plantuml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-194">
+              <caret line="102" column="38" lean-forward="false" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HitDetectionHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/HitDetectionHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+              <folding>
+                <element signature="docComment;class#HitDetectionHandler#0" expanded="false" />
+                <element signature="method#HitDetectionHandler#0;class#HitDetectionHandler#0" expanded="false" />
+                <element signature="method#updatePositions#0;class#HitDetectionHandler#0" expanded="false" />
+                <element signature="method#lookForCollision#0;class#HitDetectionHandler#0" expanded="false" />
+                <element signature="method#moveBuffer#0;class#HitDetectionHandler#0" expanded="false" />
+                <element signature="method#getInstance#0;class#HitDetectionHandler#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OnCollisionListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/listeners/OnCollisionListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,34 +143,48 @@
       <file leaf-file-name="Input.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bluebook/input/Input.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="46" column="32" lean-forward="true" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+            <state relative-caret-position="164">
+              <caret line="24" column="40" lean-forward="false" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
               <folding>
+                <element signature="docComment;class#Input#0" expanded="false" />
                 <element signature="method#Input#0;class#Input#0" expanded="false" />
-                <element signature="e#942#943#0" expanded="true" />
-                <element signature="e#974#975#0" expanded="true" />
-                <element signature="e#2184#2185#0" expanded="true" />
-                <element signature="e#2260#2261#0" expanded="true" />
-                <element signature="e#3390#3391#0" expanded="true" />
-                <element signature="e#3426#3427#0" expanded="true" />
-                <element signature="e#3457#3458#0" expanded="true" />
-                <element signature="e#3494#3495#0" expanded="true" />
-                <element signature="e#3549#3550#0" expanded="true" />
-                <element signature="e#3585#3586#0" expanded="true" />
-                <element signature="e#3640#3641#0" expanded="true" />
-                <element signature="e#3676#3677#0" expanded="true" />
-                <element signature="method#setMousePosition#0;class#Input#0" expanded="false" />
-                <element signature="e#3830#3831#0" expanded="true" />
-                <element signature="e#3866#3867#0" expanded="true" />
-                <element signature="docComment;method#getMousePosition#0;class#Input#0" expanded="false" />
-                <element signature="e#3997#3998#0" expanded="true" />
-                <element signature="e#4049#4050#0" expanded="true" />
+                <element signature="docComment;method#isKeyDown#0;class#Input#0" expanded="false" />
+                <element signature="method#isKeyDown#0;class#Input#0" expanded="false" />
+                <element signature="docComment;method#isKeyPressed#0;class#Input#0" expanded="false" />
+                <element signature="method#isKeyPressed#0;class#Input#0" expanded="false" />
                 <element signature="docComment;method#isMouseButton0Pressed#0;class#Input#0" expanded="false" />
-                <element signature="e#5374#5375#0" expanded="true" />
-                <element signature="e#5409#5410#0" expanded="true" />
                 <element signature="docComment;method#isMouseButton1Pressed#0;class#Input#0" expanded="false" />
-                <element signature="e#5557#5558#0" expanded="true" />
-                <element signature="e#5592#5593#0" expanded="true" />
+                <element signature="docComment;method#getInstance#0;class#Input#0" expanded="false" />
+                <element signature="e#2118#2119#0" expanded="true" />
+                <element signature="e#2150#2151#0" expanded="true" />
+                <element signature="method#setEventHandlers#0;class#Input#0" expanded="false" />
+                <element signature="class#2257:2854" expanded="false" />
+                <element signature="method#handle#0;class#2257:2854" expanded="false" />
+                <element signature="class#2915:3198" expanded="false" />
+                <element signature="method#handle#0;class#2915:3198" expanded="false" />
+                <element signature="class#3260:3447" expanded="false" />
+                <element signature="e#3360#3361#0" expanded="true" />
+                <element signature="e#3436#3437#0" expanded="true" />
+                <element signature="class#3511:3985" expanded="false" />
+                <element signature="method#handle#0;class#3511:3985" expanded="false" />
+                <element signature="class#4050:4527" expanded="false" />
+                <element signature="method#handle#0;class#4050:4527" expanded="false" />
+                <element signature="e#4566#4567#0" expanded="true" />
+                <element signature="e#4602#4603#0" expanded="true" />
+                <element signature="e#4633#4634#0" expanded="true" />
+                <element signature="e#4670#4671#0" expanded="true" />
+                <element signature="e#4725#4726#0" expanded="true" />
+                <element signature="e#4761#4762#0" expanded="true" />
+                <element signature="e#4816#4817#0" expanded="true" />
+                <element signature="e#4852#4853#0" expanded="true" />
+                <element signature="method#setMousePosition#0;class#Input#0" expanded="false" />
+                <element signature="e#5006#5007#0" expanded="true" />
+                <element signature="e#5042#5043#0" expanded="true" />
+                <element signature="docComment;method#getMousePosition#0;class#Input#0" expanded="false" />
+                <element signature="e#5173#5174#0" expanded="true" />
+                <element signature="e#5225#5226#0" expanded="true" />
+                <element signature="method#keyPressed#0;class#Input#0" expanded="false" />
+                <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -149,11 +194,11 @@
         <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="472">
-              <caret line="33" column="28" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+              <caret line="32" column="28" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1386#1387#0" expanded="true" />
-                <element signature="e#1455#1456#0" expanded="true" />
+                <element signature="e#1344#1345#0" expanded="true" />
+                <element signature="e#1413#1414#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -162,71 +207,16 @@
       <file leaf-file-name="Collider.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/Collider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="26" column="86" lean-forward="false" selection-start-line="26" selection-start-column="86" selection-end-line="26" selection-end-column="86" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2205#2206#0" expanded="true" />
-                <element signature="e#2246#2247#0" expanded="true" />
-                <element signature="e#2298#2299#0" expanded="true" />
-                <element signature="e#2334#2335#0" expanded="true" />
-                <element signature="e#2374#2375#0" expanded="true" />
-                <element signature="e#2412#2413#0" expanded="true" />
-                <element signature="e#2443#2444#0" expanded="true" />
-                <element signature="e#2470#2471#0" expanded="true" />
-                <element signature="e#2510#2511#0" expanded="true" />
-                <element signature="e#2542#2543#0" expanded="true" />
-                <element signature="e#2572#2573#0" expanded="true" />
-                <element signature="e#2598#2599#0" expanded="true" />
-                <element signature="e#2636#2637#0" expanded="true" />
-                <element signature="e#2666#2667#0" expanded="true" />
-                <element signature="e#2737#2738#0" expanded="true" />
-                <element signature="e#2777#2778#0" expanded="true" />
-                <element signature="e#2811#2812#0" expanded="true" />
-                <element signature="e#2838#2839#0" expanded="true" />
-                <element signature="e#2881#2882#0" expanded="true" />
-                <element signature="e#2913#2914#0" expanded="true" />
-                <element signature="e#2954#2955#0" expanded="true" />
-                <element signature="e#2987#2988#0" expanded="true" />
-                <element signature="e#3043#3044#0" expanded="true" />
-                <element signature="e#3087#3088#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="59" column="14" lean-forward="false" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
-              <folding>
-                <element signature="e#624#625#0" expanded="true" />
-                <element signature="e#674#675#0" expanded="true" />
-                <element signature="e#797#798#0" expanded="true" />
-                <element signature="e#867#868#0" expanded="true" />
-                <element signature="e#1192#1193#0" expanded="true" />
-                <element signature="e#1264#1265#0" expanded="true" />
-                <element signature="e#1489#1490#0" expanded="true" />
-                <element signature="e#1514#1515#0" expanded="true" />
-                <element signature="e#1543#1544#0" expanded="true" />
-                <element signature="e#1572#1573#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HitDetectionHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/HitDetectionHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1780#1781#0" expanded="true" />
-                <element signature="e#1826#1827#0" expanded="true" />
-                <element signature="e#1881#1882#0" expanded="true" />
-                <element signature="e#1932#1933#0" expanded="true" />
+                <element signature="docComment;class#Collider#0" expanded="false" />
+                <element signature="method#Collider#0;class#Collider#0" expanded="false" />
+                <element signature="method#updatePosition#0;class#Collider#0" expanded="false" />
+                <element signature="method#debugDraw#0;class#Collider#0" expanded="false" />
+                <element signature="method#rotateGraphicsContext#0;class#Collider#0" expanded="false" />
+                <element signature="docComment;method#destroy#0;class#Collider#0" expanded="false" />
+                <element signature="method#destroy#0;class#Collider#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -257,16 +247,6 @@
                 <element signature="e#3387#3388#0" expanded="true" />
                 <element signature="e#3423#3424#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scene.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/Scene.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="2288" column="0" lean-forward="false" selection-start-line="2288" selection-start-column="0" selection-end-line="2288" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -307,7 +287,12 @@
       <find>inpu</find>
       <find>com.bluebook.</find>
       <find>fxml</find>
+      <find>--&gt;</find>
+      <find>gameobj</find>
     </findStrings>
+    <replaceStrings>
+      <replace>-&gt;</replace>
+    </replaceStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -346,7 +331,6 @@
         <option value="$PROJECT_DIR$/src/com/bluebook/javafx/Main.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/util/UpdateThread.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/graphics/Sprite.java" />
-        <option value="$PROJECT_DIR$/org/bluebook.plantuml" />
         <option value="$PROJECT_DIR$/src/com/bluebook/graphics/SpriteLoader.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/javafx/Controller.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/util/Vector2.java" />
@@ -359,14 +343,15 @@
         <option value="$PROJECT_DIR$/src/com/bluebook/util/GameObject.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/physics/CollisionBox.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/physics/HitDetectionHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/physics/Collider.java" />
         <option value="$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/renderer/CanvasRenderer.java" />
         <option value="$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java" />
-        <option value="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" />
-        <option value="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
         <option value="$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/input/Input.java" />
+        <option value="$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java" />
+        <option value="$PROJECT_DIR$/src/com/bluebook/physics/Collider.java" />
+        <option value="$PROJECT_DIR$/org/bluebook.plantuml" />
       </list>
     </option>
   </component>
@@ -451,38 +436,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="engine" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="graphics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="javafx" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
               <item name="physics" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -491,23 +444,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="renderer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="threads" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SemesterOppgave" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bluebook" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="physics" type="462c0819:PsiDirectoryNode" />
+              <item name="listeners" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SemesterOppgave" type="b2602c69:ProjectViewProjectNode" />
@@ -573,7 +511,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="SearchEverywhereHistoryKey" value="getter&#9;ACTION&#9;GenerateGetterAndSetter&#10;setter&#9;ACTION&#9;GenerateGetterAndSetter&#10;collapse&#9;ACTION&#9;CollapseAllRegions&#10;fold&#9;ACTION&#9;FoldingGroup&#10;replace&#9;ACTION&#9;Replace&#10;format&#9;ACTION&#9;ReformatCode&#10;comment&#9;ACTION&#9;CollapseDocComments&#10;javadoc&#9;ACTION&#9;GenerateJavadoc&#10;test&#9;ACTION&#9;GotoTest&#10;getters&#9;ACTION&#9;GenerateGetterAndSetter" />
+    <property name="SearchEverywhereHistoryKey" value="collapse&#9;ACTION&#9;CollapseAllRegions&#10;getter&#9;ACTION&#9;GenerateGetterAndSetter&#10;setter&#9;ACTION&#9;GenerateGetterAndSetter&#10;fold&#9;ACTION&#9;FoldingGroup&#10;replace&#9;ACTION&#9;Replace&#10;format&#9;ACTION&#9;ReformatCode&#10;comment&#9;ACTION&#9;CollapseDocComments&#10;javadoc&#9;ACTION&#9;GenerateJavadoc&#10;test&#9;ACTION&#9;GotoTest&#10;getters&#9;ACTION&#9;GenerateGetterAndSetter" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -835,7 +773,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518028974062</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added Collider &#10;Added DebugRendering for collider&#10;Added onCollideListener&#10;Added Pause Key (ESCAPE)&#10;Added CollisionThread&#10;Fixed TopDownFunTown to reflect new changes">
+      <created>1518080456047</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1518080456047</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -876,7 +821,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="26" width="1920" height="1053" extended-state="6" />
     <layout>
-      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46666667" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46666667" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -885,7 +830,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16719243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1829653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23238696" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1787592" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -921,7 +866,8 @@
     <MESSAGE value="FIRST" />
     <MESSAGE value="Fixed Inputhandler&#10;Seperated gamefiles from engine files (diff packages)&#10;Started Working on the projectile class&#10;Added UML" />
     <MESSAGE value="Added missing JAVADOC &#10;and regenerated JAVADOC&#10;&#10;Added couple of missing images" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added missing JAVADOC &#10;and regenerated JAVADOC&#10;&#10;Added couple of missing images" />
+    <MESSAGE value="Added Collider &#10;Added DebugRendering for collider&#10;Added onCollideListener&#10;Added Pause Key (ESCAPE)&#10;Added CollisionThread&#10;Fixed TopDownFunTown to reflect new changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Collider &#10;Added DebugRendering for collider&#10;Added onCollideListener&#10;Added Pause Key (ESCAPE)&#10;Added CollisionThread&#10;Fixed TopDownFunTown to reflect new changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -947,27 +893,23 @@
         <state relative-caret-position="1905">
           <caret line="127" column="11" lean-forward="false" selection-start-line="127" selection-start-column="11" selection-end-line="127" selection-end-column="11" />
           <folding>
-            <element signature="e#942#943#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
-            <element signature="e#2184#2185#0" expanded="true" />
-            <element signature="e#2260#2261#0" expanded="true" />
-            <element signature="e#3390#3391#0" expanded="true" />
-            <element signature="e#3426#3427#0" expanded="true" />
-            <element signature="e#3457#3458#0" expanded="true" />
-            <element signature="e#3494#3495#0" expanded="true" />
-            <element signature="e#3549#3550#0" expanded="true" />
-            <element signature="e#3585#3586#0" expanded="true" />
-            <element signature="e#3640#3641#0" expanded="true" />
-            <element signature="e#3676#3677#0" expanded="true" />
-            <element signature="e#3830#3831#0" expanded="true" />
-            <element signature="e#3866#3867#0" expanded="true" />
-            <element signature="e#3997#3998#0" expanded="true" />
-            <element signature="e#4049#4050#0" expanded="true" />
+            <element signature="e#2118#2119#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#3360#3361#0" expanded="true" />
+            <element signature="e#3436#3437#0" expanded="true" />
+            <element signature="e#4566#4567#0" expanded="true" />
+            <element signature="e#4602#4603#0" expanded="true" />
+            <element signature="e#4633#4634#0" expanded="true" />
+            <element signature="e#4670#4671#0" expanded="true" />
+            <element signature="e#4725#4726#0" expanded="true" />
+            <element signature="e#4761#4762#0" expanded="true" />
+            <element signature="e#4816#4817#0" expanded="true" />
+            <element signature="e#4852#4853#0" expanded="true" />
+            <element signature="e#5006#5007#0" expanded="true" />
+            <element signature="e#5042#5043#0" expanded="true" />
+            <element signature="e#5173#5174#0" expanded="true" />
+            <element signature="e#5225#5226#0" expanded="true" />
             <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
-            <element signature="e#5374#5375#0" expanded="true" />
-            <element signature="e#5409#5410#0" expanded="true" />
-            <element signature="e#5557#5558#0" expanded="true" />
-            <element signature="e#5592#5593#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1000,8 +942,8 @@
           <caret line="27" column="106" lean-forward="false" selection-start-line="27" selection-start-column="106" selection-end-line="27" selection-end-column="106" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2003#2004#0" expanded="true" />
-            <element signature="e#2031#2032#0" expanded="true" />
+            <element signature="e#1961#1962#0" expanded="true" />
+            <element signature="e#1989#1990#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1011,12 +953,12 @@
         <state relative-caret-position="270">
           <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
           <folding>
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#674#675#0" expanded="true" />
-            <element signature="e#797#798#0" expanded="true" />
-            <element signature="e#867#868#0" expanded="true" />
-            <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1264#1265#0" expanded="true" />
+            <element signature="e#624#625#0" expanded="false" />
+            <element signature="e#674#675#0" expanded="false" />
+            <element signature="e#797#798#0" expanded="false" />
+            <element signature="e#867#868#0" expanded="false" />
+            <element signature="e#1192#1193#0" expanded="false" />
+            <element signature="e#1264#1265#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1027,10 +969,10 @@
           <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#639#640#0" expanded="true" />
-            <element signature="e#1332#1333#0" expanded="false" />
-            <element signature="e#1386#1387#0" expanded="true" />
-            <element signature="e#1455#1456#0" expanded="true" />
+            <element signature="e#597#598#0" expanded="false" />
+            <element signature="e#1290#1291#0" expanded="false" />
+            <element signature="e#1344#1345#0" expanded="true" />
+            <element signature="e#1413#1414#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1040,20 +982,20 @@
         <state relative-caret-position="345">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#1392#1393#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-            <element signature="e#1985#1986#0" expanded="true" />
-            <element signature="e#2016#2017#0" expanded="true" />
-            <element signature="e#2065#2066#0" expanded="true" />
-            <element signature="e#2105#2106#0" expanded="true" />
-            <element signature="e#2142#2143#0" expanded="true" />
-            <element signature="e#2174#2175#0" expanded="true" />
-            <element signature="e#2225#2226#0" expanded="true" />
-            <element signature="e#2267#2268#0" expanded="true" />
-            <element signature="e#2300#2301#0" expanded="true" />
-            <element signature="e#2329#2330#0" expanded="true" />
-            <element signature="e#2373#2374#0" expanded="true" />
-            <element signature="e#2409#2410#0" expanded="true" />
+            <element signature="e#1392#1393#0" expanded="false" />
+            <element signature="e#1452#1453#0" expanded="false" />
+            <element signature="e#1985#1986#0" expanded="false" />
+            <element signature="e#2016#2017#0" expanded="false" />
+            <element signature="e#2065#2066#0" expanded="false" />
+            <element signature="e#2105#2106#0" expanded="false" />
+            <element signature="e#2142#2143#0" expanded="false" />
+            <element signature="e#2174#2175#0" expanded="false" />
+            <element signature="e#2225#2226#0" expanded="false" />
+            <element signature="e#2267#2268#0" expanded="false" />
+            <element signature="e#2300#2301#0" expanded="false" />
+            <element signature="e#2329#2330#0" expanded="false" />
+            <element signature="e#2373#2374#0" expanded="false" />
+            <element signature="e#2409#2410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1076,12 +1018,12 @@
         <state relative-caret-position="285">
           <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#824#825#0" expanded="false" />
+            <element signature="e#862#863#0" expanded="false" />
+            <element signature="e#987#988#0" expanded="false" />
+            <element signature="e#1027#1028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1099,12 +1041,12 @@
         <state relative-caret-position="60">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#824#825#0" expanded="false" />
+            <element signature="e#862#863#0" expanded="false" />
+            <element signature="e#987#988#0" expanded="false" />
+            <element signature="e#1027#1028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1197,20 +1139,20 @@
         <state relative-caret-position="285">
           <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
           <folding>
-            <element signature="e#1392#1393#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-            <element signature="e#1985#1986#0" expanded="true" />
-            <element signature="e#2016#2017#0" expanded="true" />
-            <element signature="e#2065#2066#0" expanded="true" />
-            <element signature="e#2105#2106#0" expanded="true" />
-            <element signature="e#2142#2143#0" expanded="true" />
-            <element signature="e#2174#2175#0" expanded="true" />
-            <element signature="e#2225#2226#0" expanded="true" />
-            <element signature="e#2267#2268#0" expanded="true" />
-            <element signature="e#2300#2301#0" expanded="true" />
-            <element signature="e#2329#2330#0" expanded="true" />
-            <element signature="e#2373#2374#0" expanded="true" />
-            <element signature="e#2409#2410#0" expanded="true" />
+            <element signature="e#1392#1393#0" expanded="false" />
+            <element signature="e#1452#1453#0" expanded="false" />
+            <element signature="e#1985#1986#0" expanded="false" />
+            <element signature="e#2016#2017#0" expanded="false" />
+            <element signature="e#2065#2066#0" expanded="false" />
+            <element signature="e#2105#2106#0" expanded="false" />
+            <element signature="e#2142#2143#0" expanded="false" />
+            <element signature="e#2174#2175#0" expanded="false" />
+            <element signature="e#2225#2226#0" expanded="false" />
+            <element signature="e#2267#2268#0" expanded="false" />
+            <element signature="e#2300#2301#0" expanded="false" />
+            <element signature="e#2329#2330#0" expanded="false" />
+            <element signature="e#2373#2374#0" expanded="false" />
+            <element signature="e#2409#2410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1239,12 +1181,12 @@
         <state relative-caret-position="60">
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#824#825#0" expanded="false" />
+            <element signature="e#862#863#0" expanded="false" />
+            <element signature="e#987#988#0" expanded="false" />
+            <element signature="e#1027#1028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1297,12 +1239,12 @@
         <state relative-caret-position="570">
           <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
           <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#824#825#0" expanded="false" />
+            <element signature="e#862#863#0" expanded="false" />
+            <element signature="e#987#988#0" expanded="false" />
+            <element signature="e#1027#1028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1311,14 +1253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/org/bluebook.plantuml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="127" column="5" lean-forward="true" selection-start-line="127" selection-start-column="5" selection-end-line="127" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1367,22 +1301,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/listeners/OnCollisionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/CollisionThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#551#552#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#551#552#0" expanded="false" />
+            <element signature="e#609#610#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1396,27 +1322,27 @@
             <element signature="docComment;method#draw#0;class#GameObject#0" expanded="false" />
             <element signature="docComment;method#update#0;class#GameObject#0" expanded="false" />
             <element signature="method#update#0;class#GameObject#0" expanded="false" />
-            <element signature="e#1392#1393#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
+            <element signature="e#1392#1393#0" expanded="false" />
+            <element signature="e#1452#1453#0" expanded="false" />
             <element signature="method#lookAt#0;class#GameObject#0" expanded="false" />
-            <element signature="e#1985#1986#0" expanded="true" />
-            <element signature="e#2016#2017#0" expanded="true" />
-            <element signature="e#2065#2066#0" expanded="true" />
-            <element signature="e#2105#2106#0" expanded="true" />
-            <element signature="e#2142#2143#0" expanded="true" />
-            <element signature="e#2174#2175#0" expanded="true" />
-            <element signature="e#2225#2226#0" expanded="true" />
-            <element signature="e#2267#2268#0" expanded="true" />
-            <element signature="e#2300#2301#0" expanded="true" />
-            <element signature="e#2329#2330#0" expanded="true" />
-            <element signature="e#2373#2374#0" expanded="true" />
-            <element signature="e#2409#2410#0" expanded="true" />
-            <element signature="e#2442#2443#0" expanded="true" />
-            <element signature="e#2469#2470#0" expanded="true" />
-            <element signature="e#2510#2511#0" expanded="true" />
-            <element signature="e#2542#2543#0" expanded="true" />
-            <element signature="e#2579#2580#0" expanded="true" />
-            <element signature="e#2610#2611#0" expanded="true" />
+            <element signature="e#1985#1986#0" expanded="false" />
+            <element signature="e#2016#2017#0" expanded="false" />
+            <element signature="e#2065#2066#0" expanded="false" />
+            <element signature="e#2105#2106#0" expanded="false" />
+            <element signature="e#2142#2143#0" expanded="false" />
+            <element signature="e#2174#2175#0" expanded="false" />
+            <element signature="e#2225#2226#0" expanded="false" />
+            <element signature="e#2267#2268#0" expanded="false" />
+            <element signature="e#2300#2301#0" expanded="false" />
+            <element signature="e#2329#2330#0" expanded="false" />
+            <element signature="e#2373#2374#0" expanded="false" />
+            <element signature="e#2409#2410#0" expanded="false" />
+            <element signature="e#2442#2443#0" expanded="false" />
+            <element signature="e#2469#2470#0" expanded="false" />
+            <element signature="e#2510#2511#0" expanded="false" />
+            <element signature="e#2542#2543#0" expanded="false" />
+            <element signature="e#2579#2580#0" expanded="false" />
+            <element signature="e#2610#2611#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1441,45 +1367,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/CollisionBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="38" column="21" lean-forward="true" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#CollisionBox#0" expanded="false" />
-            <element signature="method#contains#2;class#CollisionBox#0" expanded="false" />
-            <element signature="method#contains#5;class#CollisionBox#0" expanded="false" />
-            <element signature="method#contains#6;class#CollisionBox#0" expanded="false" />
-            <element signature="method#intersects#1;class#CollisionBox#0" expanded="false" />
-            <element signature="method#intersects#2;class#CollisionBox#0" expanded="false" />
-            <element signature="method#valueBoundsToPoints#0;class#CollisionBox#0" expanded="false" />
-            <element signature="method#rectangleBoundsToPoints#0;class#CollisionBox#0" expanded="false" />
-            <element signature="method#doesListContains#0;class#CollisionBox#0" expanded="false" />
-            <element signature="e#4263#4264#0" expanded="true" />
-            <element signature="e#4294#4295#0" expanded="true" />
-            <element signature="e#4487#4488#0" expanded="true" />
-            <element signature="e#4514#4515#0" expanded="true" />
-            <element signature="e#4555#4556#0" expanded="true" />
-            <element signature="e#4587#4588#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/HitDetectionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1780#1781#0" expanded="true" />
-            <element signature="e#1826#1827#0" expanded="true" />
-            <element signature="e#1881#1882#0" expanded="true" />
-            <element signature="e#1932#1933#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/Scene.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="332">
@@ -1488,55 +1375,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/Collider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2205#2206#0" expanded="true" />
-            <element signature="e#2246#2247#0" expanded="true" />
-            <element signature="e#2298#2299#0" expanded="true" />
-            <element signature="e#2334#2335#0" expanded="true" />
-            <element signature="e#2374#2375#0" expanded="true" />
-            <element signature="e#2412#2413#0" expanded="true" />
-            <element signature="e#2443#2444#0" expanded="true" />
-            <element signature="e#2470#2471#0" expanded="true" />
-            <element signature="e#2510#2511#0" expanded="true" />
-            <element signature="e#2542#2543#0" expanded="true" />
-            <element signature="e#2572#2573#0" expanded="true" />
-            <element signature="e#2598#2599#0" expanded="true" />
-            <element signature="e#2636#2637#0" expanded="true" />
-            <element signature="e#2666#2667#0" expanded="true" />
-            <element signature="e#2737#2738#0" expanded="true" />
-            <element signature="e#2777#2778#0" expanded="true" />
-            <element signature="e#2811#2812#0" expanded="true" />
-            <element signature="e#2838#2839#0" expanded="true" />
-            <element signature="e#2881#2882#0" expanded="true" />
-            <element signature="e#2913#2914#0" expanded="true" />
-            <element signature="e#2954#2955#0" expanded="true" />
-            <element signature="e#2987#2988#0" expanded="true" />
-            <element signature="e#3043#3044#0" expanded="true" />
-            <element signature="e#3087#3088#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="59" column="14" lean-forward="false" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
           <folding>
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#674#675#0" expanded="true" />
-            <element signature="e#797#798#0" expanded="true" />
-            <element signature="e#867#868#0" expanded="true" />
-            <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1264#1265#0" expanded="true" />
-            <element signature="e#1489#1490#0" expanded="true" />
-            <element signature="e#1514#1515#0" expanded="true" />
-            <element signature="e#1543#1544#0" expanded="true" />
-            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#624#625#0" expanded="false" />
+            <element signature="e#674#675#0" expanded="false" />
+            <element signature="e#797#798#0" expanded="false" />
+            <element signature="e#867#868#0" expanded="false" />
+            <element signature="e#1192#1193#0" expanded="false" />
+            <element signature="e#1264#1265#0" expanded="false" />
+            <element signature="e#1489#1490#0" expanded="false" />
+            <element signature="e#1514#1515#0" expanded="false" />
+            <element signature="e#1543#1544#0" expanded="false" />
+            <element signature="e#1572#1573#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1568,18 +1421,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="33" column="28" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1386#1387#0" expanded="true" />
-            <element signature="e#1455#1456#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bluebook/engine/GameEngine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -1598,58 +1439,140 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java">
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="60" column="9" lean-forward="false" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+        <state relative-caret-position="450">
+          <caret line="33" column="46" lean-forward="false" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/CollisionBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="38" column="21" lean-forward="true" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/objects/Projectile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="32" column="28" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#627#628#0" expanded="true" />
-            <element signature="e#650#651#0" expanded="true" />
-            <element signature="e#2003#2004#0" expanded="true" />
-            <element signature="e#2031#2032#0" expanded="true" />
+            <element signature="e#1344#1345#0" expanded="true" />
+            <element signature="e#1413#1414#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/topdownfuntown/main/Topdownfuntown.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#585#586#0" expanded="true" />
+            <element signature="e#608#609#0" expanded="true" />
+            <element signature="method#update#0;class#Topdownfuntown#0" expanded="false" />
+            <element signature="e#1961#1962#0" expanded="true" />
+            <element signature="e#1989#1990#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bluebook/input/Input.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="46" column="32" lean-forward="true" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+        <state relative-caret-position="164">
+          <caret line="24" column="40" lean-forward="false" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
           <folding>
+            <element signature="docComment;class#Input#0" expanded="false" />
             <element signature="method#Input#0;class#Input#0" expanded="false" />
-            <element signature="e#942#943#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
-            <element signature="e#2184#2185#0" expanded="true" />
-            <element signature="e#2260#2261#0" expanded="true" />
-            <element signature="e#3390#3391#0" expanded="true" />
-            <element signature="e#3426#3427#0" expanded="true" />
-            <element signature="e#3457#3458#0" expanded="true" />
-            <element signature="e#3494#3495#0" expanded="true" />
-            <element signature="e#3549#3550#0" expanded="true" />
-            <element signature="e#3585#3586#0" expanded="true" />
-            <element signature="e#3640#3641#0" expanded="true" />
-            <element signature="e#3676#3677#0" expanded="true" />
-            <element signature="method#setMousePosition#0;class#Input#0" expanded="false" />
-            <element signature="e#3830#3831#0" expanded="true" />
-            <element signature="e#3866#3867#0" expanded="true" />
-            <element signature="docComment;method#getMousePosition#0;class#Input#0" expanded="false" />
-            <element signature="e#3997#3998#0" expanded="true" />
-            <element signature="e#4049#4050#0" expanded="true" />
+            <element signature="docComment;method#isKeyDown#0;class#Input#0" expanded="false" />
+            <element signature="method#isKeyDown#0;class#Input#0" expanded="false" />
+            <element signature="docComment;method#isKeyPressed#0;class#Input#0" expanded="false" />
+            <element signature="method#isKeyPressed#0;class#Input#0" expanded="false" />
             <element signature="docComment;method#isMouseButton0Pressed#0;class#Input#0" expanded="false" />
-            <element signature="e#5374#5375#0" expanded="true" />
-            <element signature="e#5409#5410#0" expanded="true" />
             <element signature="docComment;method#isMouseButton1Pressed#0;class#Input#0" expanded="false" />
-            <element signature="e#5557#5558#0" expanded="true" />
-            <element signature="e#5592#5593#0" expanded="true" />
+            <element signature="docComment;method#getInstance#0;class#Input#0" expanded="false" />
+            <element signature="e#2118#2119#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="method#setEventHandlers#0;class#Input#0" expanded="false" />
+            <element signature="class#2257:2854" expanded="false" />
+            <element signature="method#handle#0;class#2257:2854" expanded="false" />
+            <element signature="class#2915:3198" expanded="false" />
+            <element signature="method#handle#0;class#2915:3198" expanded="false" />
+            <element signature="class#3260:3447" expanded="false" />
+            <element signature="e#3360#3361#0" expanded="true" />
+            <element signature="e#3436#3437#0" expanded="true" />
+            <element signature="class#3511:3985" expanded="false" />
+            <element signature="method#handle#0;class#3511:3985" expanded="false" />
+            <element signature="class#4050:4527" expanded="false" />
+            <element signature="method#handle#0;class#4050:4527" expanded="false" />
+            <element signature="e#4566#4567#0" expanded="true" />
+            <element signature="e#4602#4603#0" expanded="true" />
+            <element signature="e#4633#4634#0" expanded="true" />
+            <element signature="e#4670#4671#0" expanded="true" />
+            <element signature="e#4725#4726#0" expanded="true" />
+            <element signature="e#4761#4762#0" expanded="true" />
+            <element signature="e#4816#4817#0" expanded="true" />
+            <element signature="e#4852#4853#0" expanded="true" />
+            <element signature="method#setMousePosition#0;class#Input#0" expanded="false" />
+            <element signature="e#5006#5007#0" expanded="true" />
+            <element signature="e#5042#5043#0" expanded="true" />
+            <element signature="docComment;method#getMousePosition#0;class#Input#0" expanded="false" />
+            <element signature="e#5173#5174#0" expanded="true" />
+            <element signature="e#5225#5226#0" expanded="true" />
+            <element signature="method#keyPressed#0;class#Input#0" expanded="false" />
+            <element signature="method#keyReleased#0;class#Input#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bluebook/threads/UpdateThread.java">
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/Collider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="33" column="46" lean-forward="false" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+        <state relative-caret-position="195">
+          <caret line="26" column="86" lean-forward="false" selection-start-line="26" selection-start-column="86" selection-end-line="26" selection-end-column="86" />
+          <folding>
+            <element signature="docComment;class#Collider#0" expanded="false" />
+            <element signature="method#Collider#0;class#Collider#0" expanded="false" />
+            <element signature="method#updatePosition#0;class#Collider#0" expanded="false" />
+            <element signature="method#debugDraw#0;class#Collider#0" expanded="false" />
+            <element signature="method#rotateGraphicsContext#0;class#Collider#0" expanded="false" />
+            <element signature="docComment;method#destroy#0;class#Collider#0" expanded="false" />
+            <element signature="method#destroy#0;class#Collider#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/listeners/OnCollisionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bluebook/physics/HitDetectionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding>
+            <element signature="docComment;class#HitDetectionHandler#0" expanded="false" />
+            <element signature="method#HitDetectionHandler#0;class#HitDetectionHandler#0" expanded="false" />
+            <element signature="method#updatePositions#0;class#HitDetectionHandler#0" expanded="false" />
+            <element signature="method#lookForCollision#0;class#HitDetectionHandler#0" expanded="false" />
+            <element signature="method#moveBuffer#0;class#HitDetectionHandler#0" expanded="false" />
+            <element signature="method#getInstance#0;class#HitDetectionHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/org/bluebook.plantuml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-194">
+          <caret line="102" column="38" lean-forward="false" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
           <folding />
         </state>
       </provider>

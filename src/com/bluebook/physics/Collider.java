@@ -15,7 +15,6 @@ import javafx.scene.transform.Rotate;
  */
 public class Collider {
 
-    private CollisionBox collisionBox;
     private String name;
     private String tag;
 
@@ -24,6 +23,10 @@ public class Collider {
     private Rectangle rect;
 
 
+    /**
+     * Constructor for {@link Collider} require a {@link GameObject} to be attached to
+     * @param go
+     */
     public Collider(GameObject go){
         this.rect = new Rectangle(go.getPosition().getX() - go.getSize().getX(), go.getPosition().getY() - go.getSize().getY() * 2.0, go.getSize().getX(), go.getSize().getY());
 

@@ -32,6 +32,56 @@ public class Input {
     }
 
     /**
+     * Will return the pressed state of keycode
+     * @param code Key to check
+     * @return is pressed
+     */
+    public boolean isKeyDown(KeyCode code){
+        if(input.contains(code)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Will return if a key is pressed, and then remove it to avoid multiple presses
+     * @param code Key To check
+     * @return
+     */
+    public boolean isKeyPressed(KeyCode code){
+        if(input_once.contains(code)){
+            input_once.remove(code);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    /**
+     * This will return the pressed state of the primary mouse button
+     * @return
+     */
+    public boolean isMouseButton0Pressed(){
+        if(mouseButton0){
+            mouseButton0 = false;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This will return the pressed state of the secondary mouse button
+     * @return
+     */
+    public boolean isMouseButton1Pressed(){
+        if(mouseButton1){
+            mouseButton1 = false;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Singelton Getter
      * @return
      */
@@ -161,46 +211,6 @@ public class Input {
 
     }
 
-    /**
-     * Will return the pressed state of keycode
-     * @param code Key to check
-     * @return is pressed
-     */
-    public boolean isKeyDown(KeyCode code){
-        if(input.contains(code)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
-    /**
-     * Will return if a key is pressed, and then remove it to avoid multiple presses
-     * @param code Key To check
-     * @return
-     */
-    public boolean isKeyPressed(KeyCode code){
-        if(input_once.contains(code)){
-            input_once.remove(code);
-            return true;
-        }else{
-            return false;
-        }
-    }
-    /**
-     * This will return the pressed state of the primary mouse button
-     * @return
-     */
-    public boolean isMouseButton0Pressed(){
-        return mouseButton0;
-    }
-
-    /**
-     * This will return the pressed state of the secondary mouse button
-     * @return
-     */
-    public boolean isMouseButton1Pressed(){
-        return mouseButton1;
-    }
 
 }

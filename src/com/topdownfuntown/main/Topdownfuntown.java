@@ -5,7 +5,6 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.physics.Collider;
-import com.bluebook.physics.CollisionBox;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.objects.Player;
 import com.topdownfuntown.objects.Projectile;
@@ -56,7 +55,7 @@ public class Topdownfuntown extends GameApplication {
             player.deactivateGottaGoFast();
         }
 
-        if(input.isKeyPressed(KeyCode.E)){
+        if(input.isMouseButton0Pressed()){
             shoot();
         }
 
