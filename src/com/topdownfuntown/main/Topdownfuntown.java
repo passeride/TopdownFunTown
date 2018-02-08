@@ -10,6 +10,7 @@ import com.topdownfuntown.objects.Player;
 import com.topdownfuntown.objects.Projectile;
 import javafx.scene.input.KeyCode;
 
+import java.security.Key;
 import java.util.ArrayList;
 
 public class Topdownfuntown extends GameApplication {
@@ -24,7 +25,7 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("senik")));;
+        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("hilde")));;
         player.setSize(new Vector2(128, 128));
         Collider c = new Collider(player);
         c.setName("Player");
@@ -55,7 +56,7 @@ public class Topdownfuntown extends GameApplication {
             player.deactivateGottaGoFast();
         }
 
-        if(input.isMouseButton0Pressed()){
+        if(input.isMouseButton0Pressed() ||  input.isKeyDown(KeyCode.G)){
             shoot();
         }
 
@@ -63,7 +64,7 @@ public class Topdownfuntown extends GameApplication {
     }
 
     public void shoot(){
-        projectiles.add(new Projectile(Vector2.add(player.getPosition(), Vector2.multiply(player.getDirection(), player.getSize().getX() * 2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
+        projectiles.add(new Projectile(Vector2.add(player.getPosition(), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
 
     }
 

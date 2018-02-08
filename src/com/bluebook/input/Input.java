@@ -8,6 +8,7 @@ import com.bluebook.engine.GameEngine;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.security.Key;
 import java.util.ArrayList;
 
 /**
@@ -98,6 +99,10 @@ public class Input {
                     System.out.println("KEY PRESSED " + event.getCode());
                 }
                 keyPressed(event);
+                if(event.getCode() == KeyCode.F1){
+                    GameEngine.DEBUG = !GameEngine.DEBUG;
+                }
+                // Freeze stuff
                 if(event.getCode() ==  KeyCode.ESCAPE){
                     GameEngine engine = GameEngine.getInstance();
                     if(engine.isPaused()){

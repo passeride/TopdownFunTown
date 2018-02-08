@@ -2,6 +2,7 @@ package com.bluebook.engine;
 
 import com.bluebook.physics.CollisionThread;
 import com.bluebook.util.GameObject;
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import com.topdownfuntown.objects.Player;
 import com.bluebook.renderer.CanvasRenderer;
@@ -44,6 +45,14 @@ public class GameEngine {
 
         updateThread = new UpdateThread(this, messageQueue);
         collisionThread = new CollisionThread();
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                CanvasRenderer.getInstance().drawAll();
+            }
+        };
+        timer.start();
     }
 
     public void Pause(){
@@ -95,7 +104,7 @@ public class GameEngine {
         for(GameObject go : updateObjects)
             go.update(delta);
         GameApplication.getInstance().update(delta);
-        CanvasRenderer.getInstance().drawAll();
+        //CanvasRenderer.getInstance().drawAll();
     }
 
     /**

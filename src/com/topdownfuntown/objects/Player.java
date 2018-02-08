@@ -9,7 +9,7 @@ public class Player extends GameObject {
 
     private double speed = 100.0; // Gotta go fast
     private double baseSpeed = 100.0;
-    private double speedBoostSpeed = 3000.0;
+    private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
 
     private int health = 100;

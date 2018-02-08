@@ -17,11 +17,7 @@ import java.util.ArrayList;
 public class CanvasRenderer {
 
     private ArrayList<GameObject> drawables = new ArrayList<>();
-    private ArrayList<GameObject> drawablesInBuffer = new ArrayList<>();
-    private ArrayList<GameObject> drawableOutBuffer = new ArrayList<>();
     private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
-    private ArrayList<Collider> colliderInBuffer = new ArrayList<>();
-    private ArrayList<Collider> colliderOutBuffer = new ArrayList<>();
 
 
 
@@ -30,11 +26,16 @@ public class CanvasRenderer {
     private Canvas canvas;
 
     public void addCollider(Collider col){
-        colliderInBuffer.add(col);
+        synchronized (this) {
+            colliderDebugDrawables.add(col);
+        }
     }
 
     public void removeCollider(Collider col){
-        colliderOutBuffer.add(col);
+        synchronized (this) {
+            if(colliderDebugDrawables.contains(col))
+                colliderDebugDrawables.remove(col);
+        }
     }
 
     /**
@@ -42,11 +43,16 @@ public class CanvasRenderer {
      * @param in Object to be drawn on canvas
      */
     public void addGameObject(GameObject in){
-        drawablesInBuffer.add(in);
+        synchronized (this) {
+            drawables.add(in);
+        }
     }
 
     public void removeGameObject(GameObject go){
-        drawableOutBuffer.add(go);
+        synchronized (this) {
+            if(drawables.contains(go))
+                drawables.remove(go);
+        }
     }
 
     /**
@@ -63,49 +69,24 @@ public class CanvasRenderer {
      * Draw all objects onto canvas
      */
     public void drawAll(){
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        clearCanvas(gc);
-        for(GameObject go : drawables){
-            go.draw(gc);
-            if(go instanceof Player){
-                gc.setFont(new Font(20.0));
-                gc.setFill(Color.RED);
-                gc.fillText("Health: " +  ((Player)go).getHealth(),10,50);
+        synchronized (this) {
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            clearCanvas(gc);
+            for (GameObject go : drawables) {
+                go.draw(gc);
+                if (go instanceof Player) {
+                    gc.setFont(new Font(20.0));
+                    gc.setFill(Color.RED);
+                    gc.fillText("Health: " + ((Player) go).getHealth(), 10, 50);
+                }
+            }
+
+            if (GameEngine.DEBUG) {
+                for (Collider c : colliderDebugDrawables) {
+                    c.debugDraw(gc);
+                }
             }
         }
-
-        if(GameEngine.DEBUG){
-            for(Collider c : colliderDebugDrawables){
-                c.debugDraw(gc);
-            }
-        }
-
-;
-
-        moveDrawablesBuffers();
-        moveColliderBuffers();
-    }
-
-    private void moveColliderBuffers() {
-        colliderDebugDrawables.addAll(colliderInBuffer);
-        colliderInBuffer.clear();
-
-        for(Collider col : colliderOutBuffer){
-            if(colliderDebugDrawables.contains(col))
-                colliderDebugDrawables.remove(col);
-        }
-        colliderOutBuffer.clear();
-    }
-
-    private void moveDrawablesBuffers() {
-        drawables.addAll(drawablesInBuffer);
-        drawablesInBuffer.clear();
-
-        for(GameObject go : drawableOutBuffer){
-            if(drawables.contains(go))
-                drawables.remove(go);
-        }
-        drawableOutBuffer.clear();
     }
 
     /**
