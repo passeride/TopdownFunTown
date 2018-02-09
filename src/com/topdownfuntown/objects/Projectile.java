@@ -6,10 +6,15 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.MotionBlur;
+import javafx.scene.paint.Color;
 
 public class Projectile extends GameObject{
 
-    private double speed = 100.0;
+    private double speed = 500.0;
 
 
     /**
@@ -43,6 +48,16 @@ public class Projectile extends GameObject{
     @Override
     public void update(double delta){
         translate(Vector2.multiply(direction, speed * delta));
+    }
+
+    @Override
+    public void draw(GraphicsContext gc){
+        gc.save();
+
+        gc.setEffect(new MotionBlur(direction.getAngleInRadians(), 70));
+        sprite.draw(gc, position, direction);
+
+        gc.restore();
     }
 
 }

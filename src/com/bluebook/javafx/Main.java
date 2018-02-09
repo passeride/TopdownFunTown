@@ -21,8 +21,8 @@ public class Main extends Application {
         setWidthListener(primaryStage, controller);
         setHeightListener(primaryStage, controller);
 
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Game GAME! GAAAAME!");
+        primaryStage.setScene(new Scene(root, 800, 400));
         primaryStage.show();
 
         setStageKeyListener(primaryStage);

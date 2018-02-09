@@ -1,0 +1,36 @@
+@startuml
+
+title TopDownFunTown
+
+package com.topdownfuntown{
+
+package main{
+    class Topdownfuntown <<GameApplication>>{
+        -player : Player
+        -ArrayList<Projectile> : projectils
+    }
+}
+
+package objects{
+    class Player <<GameObject>>{
+        -speed : double
+        -health : int
+        +moveUp():void
+        +moveDown():void
+        +moveLeft():void
+        +moveRight():void
+    }
+
+    class Projectile <<GameObject>> {
+        -speed : double
+    }
+}
+
+}
+
+'' assoc
+Topdownfuntown <-- Player
+Topdownfuntown <-- Projectile
+
+
+@enduml

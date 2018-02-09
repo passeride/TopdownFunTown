@@ -23,11 +23,17 @@ public class GameEngine {
 
     public ArrayList<GameObject> updateObjects = new ArrayList<>();
 
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0;
+    private boolean arrayFilled = false;
+
     public static boolean DEBUG = false;
 
     private boolean isPaused = false;
 
     public static GameEngine singelton;
+
+    public double FPS = 0.0;
 
     Canvas canvas;
     Player p;
@@ -50,9 +56,24 @@ public class GameEngine {
             @Override
             public void handle(long now) {
                 CanvasRenderer.getInstance().drawAll();
+
+                // Finding FSP for debugging
+                long oldFrameTime = frameTimes[frameTimeIndex] ;
+                frameTimes[frameTimeIndex] = now ;
+                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+                if (frameTimeIndex == 0) {
+                    arrayFilled = true ;
+                }
+                if (arrayFilled) {
+                    long elapsedNanos = now - oldFrameTime ;
+                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
+                    FPS = 1_000_000_000.0 / elapsedNanosPerFrame ;
+                }
             }
         };
         timer.start();
+
+
     }
 
     public void Pause(){
@@ -101,9 +122,10 @@ public class GameEngine {
      * @param delta
      */
     public void update(double delta){
+        GameApplication.getInstance().update(delta);
         for(GameObject go : updateObjects)
             go.update(delta);
-        GameApplication.getInstance().update(delta);
+
         //CanvasRenderer.getInstance().drawAll();
     }
 

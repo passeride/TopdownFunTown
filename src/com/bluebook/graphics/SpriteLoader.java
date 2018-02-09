@@ -2,6 +2,7 @@ package com.bluebook.graphics;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class SpriteLoader {

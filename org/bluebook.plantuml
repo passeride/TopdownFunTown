@@ -159,7 +159,7 @@ GameApplication <-- Input
 GameApplication --> FXMLController
 GameEngine -RIGHT-> CollisionThread
 GameEngine <--> UpdateThread
-UpdateThread --> CanvasRenderer
+UpdateThread -LEFT-{ GameObject
 CanvasRenderer --{ GameObject
 OnCollisionListener <.RIGHT.> GameObject
 
