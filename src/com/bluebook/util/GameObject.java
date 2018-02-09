@@ -3,8 +3,12 @@ package com.bluebook.util;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
+import com.bluebook.renderer.RenderLayer;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import com.bluebook.renderer.CanvasRenderer;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
 public abstract class GameObject {
 
@@ -72,6 +76,14 @@ public abstract class GameObject {
         if(collider != null)
             collider.destroy();
         CanvasRenderer.getInstance().removeGameObject(this);
+    }
+
+    /**
+     * Will change the renderlayer of the object t
+     * @param layer {@link com.bluebook.renderer.RenderLayer.RenderLayerName} to be used
+     */
+    public void setRenderLayer(RenderLayer.RenderLayerName layer){
+        CanvasRenderer.getInstance().moveGameObjectToLayer(this, layer);
     }
 
     public Vector2 getPosition() {

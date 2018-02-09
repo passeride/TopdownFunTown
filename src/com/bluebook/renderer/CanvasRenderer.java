@@ -5,6 +5,8 @@ import com.bluebook.physics.Collider;
 import com.topdownfuntown.objects.Player;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.MotionBlur;
 import javafx.scene.paint.Color;
 import com.bluebook.util.GameObject;
 import javafx.scene.text.Font;
@@ -17,13 +19,22 @@ import java.util.ArrayList;
 public class CanvasRenderer {
 
     private ArrayList<GameObject> drawables = new ArrayList<>();
+    private RenderLayer[] layers = new RenderLayer[RenderLayer.RenderLayerName.values().length];
     private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
-
-
 
     private static CanvasRenderer singelton;
 
+    private FPSLineGraph flg;
+
     private Canvas canvas;
+
+    private CanvasRenderer(){
+        for(int i = 0; i < layers.length; i++){
+            layers[i] = new RenderLayer(RenderLayer.RenderLayerName.get(i));
+        }
+        flg = new FPSLineGraph();
+
+    }
 
     public void addCollider(Collider col){
         synchronized (this) {
@@ -40,18 +51,63 @@ public class CanvasRenderer {
 
     /**
      * This function will add the GameObject to the list of drawables to be drawn onto the canvas
+     * IF nothing is specified the {@link RenderLayer} beeing used is LOW_BLOCKS
      * @param in Object to be drawn on canvas
      */
     public void addGameObject(GameObject in){
         synchronized (this) {
-            drawables.add(in);
+            layers[RenderLayer.RenderLayerName.LOW_BLOCKS.getValue()].addGameObject(in);
         }
     }
 
+    /**
+     * Will add drawable to layer
+     * @param in Object to be drawn
+     * @param layer RenderLayer to be used
+     */
+    public void  addGameObject(GameObject in, RenderLayer.RenderLayerName layer){
+        synchronized (this) {
+            layers[layer.getValue()].addGameObject(in);
+        }
+    }
+
+    /**
+     * Will move gameobject to designated renderlayer
+     * @param go
+     * @param layer
+     */
+    public void moveGameObjectToLayer(GameObject go, RenderLayer.RenderLayerName layer){
+        synchronized (this){
+            removeGameObject(go);
+            System.out.println("Adding to layer " + layer.getName());
+            addGameObject(go, layer);
+        }
+    }
+
+    /**
+     * Will return the layer this objects is in
+     * @param go {@link GameObject} to be searched for
+     * @return {@link com.bluebook.renderer.RenderLayer.RenderLayerName} that contains GO
+     */
+    public RenderLayer.RenderLayerName getLayer(GameObject go){
+        synchronized (this){
+            for(int i = 0; i < layers.length; i++){
+                if(layers[i].hasGameObject(go))
+                    return RenderLayer.RenderLayerName.get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Will remove the {@link GameObject} from all {@link RenderLayer}
+     * @param go {@link GameObject} to be removed
+     */
     public void removeGameObject(GameObject go){
         synchronized (this) {
-            if(drawables.contains(go))
-                drawables.remove(go);
+            for(int i =  0; i < layers.length; i++){
+                layers[i].removeGameObject(go);
+            }
         }
     }
 
@@ -71,20 +127,18 @@ public class CanvasRenderer {
     public void drawAll(){
         synchronized (this) {
             GraphicsContext gc = canvas.getGraphicsContext2D();
+
             clearCanvas(gc);
-            for (GameObject go : drawables) {
-                go.draw(gc);
-                if (go instanceof Player) {
-                    gc.setFont(new Font(20.0));
-                    gc.setFill(Color.RED);
-                    gc.fillText("Health: " + ((Player) go).getHealth(), 10, 50);
-                }
+            for(int i = 0; i < layers.length;  i++){
+                layers[i].drawAll(gc);
             }
 
             if (GameEngine.DEBUG) {
                 for (Collider c : colliderDebugDrawables) {
                     c.debugDraw(gc);
                 }
+                flg.addFPS(GameEngine.getInstance().FPS);
+                flg.draw(gc);
             }
         }
     }
