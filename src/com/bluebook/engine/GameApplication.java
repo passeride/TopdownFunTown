@@ -2,7 +2,6 @@ package com.bluebook.engine;
 
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
-import com.bluebook.javafx.Main;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -41,7 +40,7 @@ public abstract class GameApplication extends Application {
         setHeightListener(primaryStage, controller);
 
         primaryStage.setTitle("Top Down Fun Town");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
 
         setStageKeyListener(primaryStage);

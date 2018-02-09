@@ -1,5 +1,6 @@
 package com.topdownfuntown.main;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
@@ -10,14 +11,18 @@ import com.topdownfuntown.objects.Player;
 import com.topdownfuntown.objects.Projectile;
 import javafx.scene.input.KeyCode;
 
-import java.security.Key;
 import java.util.ArrayList;
 
 public class Topdownfuntown extends GameApplication {
 
     Player player;
+    AudioPlayer audioPlayer = new AudioPlayer(testFil);
+    AudioPlayer audioPlayer1 = new AudioPlayer(testFil1);
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
+
+    private static String testFil = "./assets/audio/MoodyLoop.wav";
+    private static String testFil1 = "./assets/audio/scifi002.wav";
 
     public Topdownfuntown() {
         super();
@@ -56,8 +61,13 @@ public class Topdownfuntown extends GameApplication {
             player.deactivateGottaGoFast();
         }
 
-        if(input.isMouseButton0Pressed() ||  input.isKeyDown(KeyCode.G)){
+        if(input.isKeyPressed(KeyCode.J))
+            audioPlayer.playOnce();
+
+
+        if(input.isMouseButton0Pressed()){
             shoot();
+            audioPlayer1.playOnce();
         }
 
         player.lookAt(input.getMousePosition());
