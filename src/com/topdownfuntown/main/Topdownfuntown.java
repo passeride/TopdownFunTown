@@ -36,7 +36,8 @@ public class Topdownfuntown extends GameApplication {
         c.setName("Player");
         c.setTag("Hittable");
         c.attachToGameObject(player);
-        GameEngine.DEBUG = true;
+        audioPlayer.loop();
+       // GameEngine.DEBUG = true;
     }
 
     @Override
@@ -60,10 +61,6 @@ public class Topdownfuntown extends GameApplication {
         }else{
             player.deactivateGottaGoFast();
         }
-
-        if(input.isKeyPressed(KeyCode.J))
-            audioPlayer.playOnce();
-
 
         if(input.isMouseButton0Pressed()){
             shoot();
