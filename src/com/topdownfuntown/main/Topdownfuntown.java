@@ -30,7 +30,7 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("hilde")));;
+        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("hilde")));
         player.setSize(new Vector2(128, 128));
         Collider c = new Collider(player);
         c.setName("Player");
