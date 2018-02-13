@@ -110,7 +110,6 @@ public abstract class GameObject {
         this.sprite = sprite;
     }
 
-
     public Vector2 getSize() {
         return size;
     }

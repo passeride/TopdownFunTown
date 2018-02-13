@@ -42,6 +42,7 @@ public abstract class GameApplication extends Application {
         primaryStage.setTitle("Top Down Fun Town");
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
+        primaryStage.setFullScreen(true);
 
         setStageKeyListener(primaryStage);
 

@@ -51,7 +51,11 @@ public class GameEngine {
 
         updateThread = new UpdateThread(this, messageQueue);
         collisionThread = new CollisionThread();
+        startAnimationTimer();
 
+    }
+
+    private void startAnimationTimer(){
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -72,8 +76,6 @@ public class GameEngine {
             }
         };
         timer.start();
-
-
     }
 
     public void Pause(){

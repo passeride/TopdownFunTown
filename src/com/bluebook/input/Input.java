@@ -1,6 +1,9 @@
 package com.bluebook.input;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.util.Vector2;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -101,9 +104,16 @@ public class Input {
                 keyPressed(event);
                 if(event.getCode() == KeyCode.F1){
                     GameEngine.DEBUG = !GameEngine.DEBUG;
+                } else if(event.getCode() == KeyCode.ESCAPE){
+                    try {
+                        GameApplication.getInstance().stop();
+                        Platform.exit();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 // Freeze stuff
-                if(event.getCode() ==  KeyCode.ESCAPE){
+                if(event.getCode() ==  KeyCode.F2){
                     GameEngine engine = GameEngine.getInstance();
                     if(engine.isPaused()){
                         engine.unPause();
