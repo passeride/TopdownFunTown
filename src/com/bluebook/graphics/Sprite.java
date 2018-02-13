@@ -12,10 +12,10 @@ public class Sprite {
 
     private Image img;
     private double rotateAngle;
-    private double squareWidth = 128;
-    private double squareHeight = 128;
+    protected double squareWidth = 128;
+    protected double squareHeight = 128;
 
-    private boolean isRotated = false;
+    protected boolean isRotated = false;
 
 
     /**
@@ -24,6 +24,10 @@ public class Sprite {
      */
     public Sprite(Image img){
         this.img = img;
+    }
+
+    public Sprite(){
+
     }
 
     /**
@@ -53,7 +57,7 @@ public class Sprite {
         gc.restore();
     }
 
-    private GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vector2 position){
+    protected GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vector2 position){
         Rotate r = new Rotate(rotateAngle, position.getX(), position.getY());
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
         return gc;

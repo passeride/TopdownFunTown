@@ -52,12 +52,9 @@ public class Projectile extends GameObject{
 
     @Override
     public void draw(GraphicsContext gc){
-        gc.save();
 
-        gc.setEffect(new MotionBlur(direction.getAngleInRadians(), 70));
         sprite.draw(gc, position, direction);
 
-        gc.restore();
     }
 
 }

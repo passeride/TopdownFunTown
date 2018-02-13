@@ -3,6 +3,7 @@ package com.topdownfuntown.main;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.physics.Collider;
@@ -30,13 +31,12 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("hilde")));;
+        player = new Player(new Vector2(5, 5), Vector2.ZERO, new AnimationSprite(SpriteLoader.loadAnimationImage("enemyGreen")));;
         player.setSize(new Vector2(128, 128));
         Collider c = new Collider(player);
         c.setName("Player");
         c.setTag("Hittable");
         c.attachToGameObject(player);
-        GameEngine.DEBUG = true;
     }
 
     @Override
