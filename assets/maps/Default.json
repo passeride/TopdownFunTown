@@ -1,0 +1,21 @@
+{
+  "Name":"StartRoom",
+  "isSafeRoom":false,
+  "BackgroundImage":"bakgrunn",
+  "SoundTrack":null,
+  "Enemies":[
+    {
+      "Type":"Alien",
+      "x_pos":5.0,
+      "y_pos":5.0
+    },{
+      "Type":"Wizard",
+      "x_pos":5.0,
+      "y_pos":5.0
+    },{
+      "Type":"BLEP",
+      "x_pos":5.0,
+      "y_pos":5.0
+    }
+  ]
+}

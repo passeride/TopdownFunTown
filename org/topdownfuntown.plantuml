@@ -6,8 +6,42 @@ package com.topdownfuntown{
 
 package main{
     class Topdownfuntown <<GameApplication>>{
-        -player : Player
-        -ArrayList<Projectile> : projectils
+    Will only load and GameMap
+    ..
+        -currentGameMap: GameMap
+    }
+
+    class GameManager{
+        -stage: int
+        -currentWeapon: weapon
+
+    }
+}
+
+package weapon{
+    abstract class Weapon{
+
+    }
+}
+
+package stages{
+    abstract class GameMap <<GameObject>>{
+        Will manage logic
+        ..
+        ~players: Player[]
+        ~enemies: Enemies[]
+        ~obstacles: Blocks[]
+        +draw(GraphicsContext gc):void
+        +update(double delta):void
+
+    }
+
+    class RoomX <<GameMap>>{
+        ..
+    }
+
+    abstract class SafeRoom{
+        -SafeZone: zone
     }
 }
 
@@ -21,16 +55,35 @@ package objects{
         +moveRight():void
     }
 
+    abstract class Enemy <<GameObject>>{
+        -dmg: int
+        -dmg_type: int
+    }
+
+    class Alien <<Enemy>>{
+        Do spooky shit
+
+    }
+
     class Projectile <<GameObject>> {
         -speed : double
+    }
+
+    class SavePortal<<GameObject>>{
+
     }
 }
 
 }
 
 '' assoc
-Topdownfuntown <-- Player
-Topdownfuntown <-- Projectile
+SafeRoom --> GameMap
+RoomX --> GameMap
+Alien --> Enemy
+Player -RIGHT- GameMap
+Enemy --{ GameMap
+Projectile --{ GameMap
+Topdownfuntown -DOWN-{ GameMap
 
 
 @enduml
