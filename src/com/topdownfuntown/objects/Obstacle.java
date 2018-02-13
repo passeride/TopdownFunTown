@@ -4,7 +4,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 
-public class Crate extends GameObject {
+public class Obstacle extends GameObject {
 
 
     /**
@@ -14,7 +14,7 @@ public class Crate extends GameObject {
      * @param direction
      * @param sprite
      */
-    public Crate(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Obstacle(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
     }
 
