@@ -5,6 +5,7 @@ skinparam handwritten false
 'skinparam backgroundColor #EEEBDC
 skinparam classFontColor Black
 skinparam classFontSize 18
+skinparam classAttributeIconSize 0
 
 skinparam abstract {
 	BackgroundColor blue
@@ -69,6 +70,11 @@ package  graphics{
         -Image: img
         +draw(GraphicsContext gc, Vector2 position, Vector2 direction):void
         +draw(GraphicsContext gc, Vector2 position):void
+    }
+
+    class AnimationSprite <<Sprite>>{
+        -Image[]: animation
+        -double: length
     }
 
 }
@@ -153,15 +159,17 @@ Collider --> OnCollisionListener
 GameObject --> Vector2
 GameObject <--> Sprite
 SpriteLoader ..> Sprite
+SpriteLoader .LEFT.> AnimationSprite
 AudioLoader ..>  AudioPlayer
-AudioPlayer --> GameObject
+AudioPlayer -UP-> GameObject
 GameApplication <-- Input
 GameApplication --> FXMLController
 GameEngine -RIGHT-> CollisionThread
 GameEngine <--> UpdateThread
-UpdateThread -LEFT-{ GameObject
+UpdateThread -DOWN-{ GameObject
 CanvasRenderer --{ GameObject
 OnCollisionListener <.RIGHT.> GameObject
+AnimationSprite -DOWN-|> Sprite
 
 /'
 

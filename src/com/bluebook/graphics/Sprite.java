@@ -1,6 +1,7 @@
 package com.bluebook.graphics;
 
 import com.bluebook.util.Vector2;
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -39,6 +40,14 @@ public class Sprite {
     public void draw(GraphicsContext gc, Vector2 position, Vector2 angle){
         rotate(angle);
         draw(gc, position);
+    }
+
+    /**
+     * Used to draw background
+     * @param gc
+     */
+    public void drawBackground(GraphicsContext gc){
+        gc.drawImage(img, 0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
     /**

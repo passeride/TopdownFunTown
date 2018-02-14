@@ -31,7 +31,7 @@ public class AnimationSprite extends Sprite{
      * @param time in nanoseconds elapsed since start.
      * @return animation[index] is the current frame.
      */
-    public Image getNextFrame(double time) {
+    private Image getNextFrame(double time) {
         int index = (int)((time % (animation.length * length)) / length);
         return animation[index];
     }
@@ -49,7 +49,7 @@ public class AnimationSprite extends Sprite{
 
         double t = (System.nanoTime() - startNanoTime) / 1_000_000_000.0;
         Image img = getNextFrame(t);
-        gc.drawImage(img, position.getX() - img.getWidth() / 2f, position.getY() - img.getHeight() / 2f);
+        gc.drawImage(img, position.getX() - squareWidth / 2f, position.getY() - squareHeight / 2f, squareWidth, squareHeight);
         gc.restore();
     }
 

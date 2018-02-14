@@ -8,6 +8,8 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.physics.Collider;
 import com.bluebook.util.Vector2;
+import com.topdownfuntown.maps.GameMap;
+import com.topdownfuntown.maps.maploader.MapLoader;
 import com.topdownfuntown.objects.Player;
 import com.topdownfuntown.objects.Projectile;
 import javafx.scene.input.KeyCode;
@@ -19,6 +21,8 @@ public class Topdownfuntown extends GameApplication {
     Player player;
     AudioPlayer audioPlayer = new AudioPlayer(testFil);
     AudioPlayer audioPlayer1 = new AudioPlayer(testFil1);
+
+    GameMap currentGameMap;
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
@@ -37,6 +41,9 @@ public class Topdownfuntown extends GameApplication {
         c.setName("Player");
         c.setTag("Hittable");
         c.attachToGameObject(player);
+
+
+        currentGameMap = MapLoader.loadMapJson("Default");
     }
 
     @Override
@@ -74,7 +81,7 @@ public class Topdownfuntown extends GameApplication {
     }
 
     public void shoot(){
-        projectiles.add(new Projectile(Vector2.add(player.getPosition(), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("/projectiles/bullet"))));
+        projectiles.add(new Projectile(Vector2.add(new Vector2(player.getPosition().getX(), player.getPosition().getY() + 25.0f), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
 
     }
 

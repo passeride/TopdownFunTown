@@ -1,5 +1,7 @@
 @startuml
 
+skinparam classAttributeIconSize 0
+
 title TopDownFunTown
 
 package com.topdownfuntown{
@@ -12,8 +14,8 @@ package main{
     }
 
     class GameManager{
-        -stage: int
-        -currentWeapon: weapon
+        -int:stage
+        -weapon: currentWeapon
 
     }
 }
@@ -28,9 +30,9 @@ package stages{
     abstract class GameMap <<GameObject>>{
         Will manage logic
         ..
-        ~players: Player[]
-        ~enemies: Enemies[]
-        ~obstacles: Blocks[]
+        ~Player[]: players
+        ~Enemies[]: enemies
+        ~Blocks[]: obstacles
         +draw(GraphicsContext gc):void
         +update(double delta):void
 
@@ -47,8 +49,8 @@ package stages{
 
 package objects{
     class Player <<GameObject>>{
-        -speed : double
-        -health : int
+        -double: speed
+        -int: health
         +moveUp():void
         +moveDown():void
         +moveLeft():void
@@ -56,8 +58,8 @@ package objects{
     }
 
     abstract class Enemy <<GameObject>>{
-        -dmg: int
-        -dmg_type: int
+        -int: dmg
+        -int: dmg_type
     }
 
     class Alien <<Enemy>>{
@@ -66,7 +68,8 @@ package objects{
     }
 
     class Projectile <<GameObject>> {
-        -speed : double
+        -double: speed
+        -Vector2: direction
     }
 
     class SavePortal<<GameObject>>{
@@ -77,9 +80,9 @@ package objects{
 }
 
 '' assoc
-SafeRoom --> GameMap
-RoomX --> GameMap
-Alien --> Enemy
+SafeRoom --|> GameMap
+RoomX --|> GameMap
+Alien --|> Enemy
 Player -RIGHT- GameMap
 Enemy --{ GameMap
 Projectile --{ GameMap
