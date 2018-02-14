@@ -31,7 +31,7 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new AnimationSprite(SpriteLoader.loadAnimationImage("enemyGreen")));;
+        player = new Player(new Vector2(5, 5), Vector2.ZERO, new AnimationSprite(SpriteLoader.loadAnimationImage("/enemies/enemyGreen")));;
         player.setSize(new Vector2(128, 128));
         Collider c = new Collider(player);
         c.setName("Player");
@@ -74,7 +74,7 @@ public class Topdownfuntown extends GameApplication {
     }
 
     public void shoot(){
-        projectiles.add(new Projectile(Vector2.add(player.getPosition(), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
+        projectiles.add(new Projectile(Vector2.add(player.getPosition(), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("/projectiles/bullet"))));
 
     }
 
