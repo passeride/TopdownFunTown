@@ -1,8 +1,11 @@
 package com.topdownfuntown.objects;
 
+import com.bluebook.audio.AudioPlayer;
+import com.bluebook.engine.GameApplication;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
+import com.sun.javafx.geom.Vec2d;
 
 public class Player extends GameObject {
 
@@ -11,7 +14,7 @@ public class Player extends GameObject {
     private double baseSpeed = 100.0;
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
-
+    AudioPlayer hitSound;
     private int health = 100;
 
     /**
@@ -23,6 +26,7 @@ public class Player extends GameObject {
      */
     public Player(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
+        hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
     }
 
     /**
@@ -53,8 +57,33 @@ public class Player extends GameObject {
         translate(Vector2.multiply(Vector2.RIGHT, speed * delta));
     }
 
+    /**
+     * Override to create a 8 % margin for movement
+     * @param moveVector
+     */
+    @Override
+    public void translate(Vector2 moveVector){
+        Vector2 newValue = Vector2.add(position, moveVector);
+
+        double screenWidth = GameApplication.getInstance().getScreenWidth();
+        double screenHeihgt = GameApplication.getInstance().getScreenHeight();
+        double boudMargin = screenWidth * 0.08;
+
+        if(newValue.getX() <= screenWidth - boudMargin
+                && newValue.getX() > boudMargin
+                && newValue.getY() <= screenHeihgt - boudMargin
+                && newValue.getY() > boudMargin){
+            position = newValue;
+        }
+    }
+
     public void hit(){
         health --;
+        HealthElement.health --;
+        if(HealthElement.health <= 0){
+            destroy();
+        }
+        hitSound.playOnce();
     }
 
     public int getHealth(){

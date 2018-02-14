@@ -10,16 +10,16 @@ import com.bluebook.physics.Collider;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
-import com.topdownfuntown.objects.Enemy;
-import com.topdownfuntown.objects.GreenAlien;
-import com.topdownfuntown.objects.Player;
-import com.topdownfuntown.objects.Projectile;
+import com.topdownfuntown.objects.*;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Topdownfuntown extends GameApplication {
+
+    ScoreElement score;
+    HealthElement health;
 
     Player player;
     AudioPlayer audioPlayer1 = new AudioPlayer(testFil1);
@@ -28,7 +28,7 @@ public class Topdownfuntown extends GameApplication {
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
-    Enemy e;
+    Enemy[] enemies = new Enemy[5];
 
     private static String testFil1 = "./assets/audio/scifi002.wav";
 
@@ -38,11 +38,11 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("/friendlies/hilde")));
+        player = new Player(new Vector2(getScreenWidth(), getScreenHeight()), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("/friendlies/hilde")));
         player.setSize(new Vector2(128, 128));
 
-        e = new GreenAlien(new Vector2(1920/2, 1080/2));
-        e.setTarget(player);
+        score = new ScoreElement(new Vector2(getScreenWidth() - 200, 200));
+        health = new HealthElement(new Vector2(100,  100));
 
         Collider c = new Collider(player);
         c.setName("Player");
@@ -83,11 +83,25 @@ public class Topdownfuntown extends GameApplication {
         }
 
         player.lookAt(input.getMousePosition());
+        score.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
+        checkEnemies();
+    }
 
-        if(!e.isAlive()){
-            Random r = new Random();
-            e = new GreenAlien(new Vector2(r.nextInt((int)getScreenWidth()), r.nextInt((int)getScreenHeight())));
-            e.setTarget(player);
+    private void checkEnemies(){
+        Random r = new Random();
+        for(int i = 0; i < enemies.length;  i++){
+            if(enemies[i] != null) {
+                if (!enemies[i].isAlive()) {
+                    // Dead Enemie indcrease score
+                    score.score += 100;
+
+                    enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
+                    enemies[i].setTarget(player);
+                }
+            }else{
+                enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
+                enemies[i].setTarget(player);
+            }
         }
     }
 

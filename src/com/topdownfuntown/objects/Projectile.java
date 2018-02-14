@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 
 public class Projectile extends GameObject{
 
-    private double speed = 500.0;
+    private double speed = 800.0;
 
 
     /**
