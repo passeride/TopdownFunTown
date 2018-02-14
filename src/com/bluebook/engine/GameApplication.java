@@ -15,6 +15,7 @@ public abstract class GameApplication extends Application {
     private static GameApplication singelton;
     protected Input input;
     protected GameEngine engine;
+    private Stage stage;
 
     public GameApplication(){
         singelton = this;
@@ -30,6 +31,8 @@ public abstract class GameApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        this.stage = primaryStage;
 
         FXMLLoader fxml = new FXMLLoader();
 
@@ -87,6 +90,15 @@ public abstract class GameApplication extends Application {
 
         });
     }
+
+    public double getScreenWidth(){
+        return stage.getWidth();
+    }
+
+    public double getScreenHeight(){
+        return stage.getHeight();
+    }
+
 
     /**
      * This function will be called every tick, should be used for logic

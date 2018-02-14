@@ -86,7 +86,7 @@ public class Topdownfuntown extends GameApplication {
 
         if(!e.isAlive()){
             Random r = new Random();
-            e = new GreenAlien(new Vector2(r.nextInt(1920), r.nextInt(1080)));
+            e = new GreenAlien(new Vector2(r.nextInt((int)getScreenWidth()), r.nextInt((int)getScreenHeight())));
             e.setTarget(player);
         }
     }
