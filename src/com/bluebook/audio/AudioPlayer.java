@@ -59,7 +59,7 @@ public class AudioPlayer {
     /**
      * sets LOOP_CONTINOUSLY to true and calls clip.PlayOce()
      */
-    public void loop(){
+    public void playLoop(){
         clip.loop(clip.LOOP_CONTINUOUSLY);
         playOnce();
     }

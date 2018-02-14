@@ -26,19 +26,25 @@ public class Projectile extends GameObject{
      */
     public Projectile(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        size = new Vector2(128, 32);
+        size = new Vector2(100, 30);
         this.setCollider(new Collider(this));
         collider.setName("Bullet");
         collider.setTag("DMG");
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-                if(other.getGameObject() instanceof Player) {
-                    Player p = (Player) other.getGameObject();
-                    p.hit();
-                    if (GameEngine.DEBUG)
-                        System.out.println("Bullet Hit " + other.getName());
-                    destroy();
+                System.out.println("HIT:  "  + other.getName() + "  :  " + other.getTag());
+                if(other.getTag() == "Hittable") {
+                    if(other.getGameObject() instanceof Player) {
+                        Player p = (Player) other.getGameObject();
+                        p.hit();
+                        if (GameEngine.DEBUG)
+                            System.out.println("Bullet Hit " + other.getName());
+                        destroy();
+                    }else{
+                        other.getGameObject().destroy();
+                        destroy();
+                    }
                 }
             }
         });

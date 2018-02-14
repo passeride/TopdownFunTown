@@ -51,6 +51,7 @@ public class Collider {
     }
 
     private GraphicsContext rotateGraphicsContext(GraphicsContext gc, Rectangle rect){
+        this.rect.setRotate(getGameObject().getDirection().getAngleInDegrees());
         Rotate r = new Rotate(rect.getRotate(), rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
         return gc;

@@ -10,23 +10,26 @@ import com.bluebook.physics.Collider;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
+import com.topdownfuntown.objects.Enemy;
+import com.topdownfuntown.objects.GreenAlien;
 import com.topdownfuntown.objects.Player;
 import com.topdownfuntown.objects.Projectile;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Topdownfuntown extends GameApplication {
 
     Player player;
-    AudioPlayer audioPlayer = new AudioPlayer(testFil);
     AudioPlayer audioPlayer1 = new AudioPlayer(testFil1);
 
     GameMap currentGameMap;
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
-    private static String testFil = "./assets/audio/MoodyLoop.wav";
+    Enemy e;
+
     private static String testFil1 = "./assets/audio/scifi002.wav";
 
     public Topdownfuntown() {
@@ -35,8 +38,12 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void onLoad(){
-        player = new Player(new Vector2(5, 5), Vector2.ZERO, new AnimationSprite(SpriteLoader.loadAnimationImage("/enemies/enemyGreen")));;
+        player = new Player(new Vector2(5, 5), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("/friendlies/hilde")));
         player.setSize(new Vector2(128, 128));
+
+        e = new GreenAlien(new Vector2(1920/2, 1080/2));
+        e.setTarget(player);
+
         Collider c = new Collider(player);
         c.setName("Player");
         c.setTag("Hittable");
@@ -51,6 +58,7 @@ public class Topdownfuntown extends GameApplication {
         if(input.isKeyDown(KeyCode.S)){
             player.moveDown(delta);
         }
+
         if(input.isKeyDown(KeyCode.W)){
             player.moveUp(delta);
         }
@@ -58,6 +66,7 @@ public class Topdownfuntown extends GameApplication {
         if(input.isKeyDown(KeyCode.D)){
             player.moveRight(delta);
         }
+
         if(input.isKeyDown(KeyCode.A)){
             player.moveLeft(delta);
         }
@@ -68,20 +77,22 @@ public class Topdownfuntown extends GameApplication {
             player.deactivateGottaGoFast();
         }
 
-        if(input.isKeyPressed(KeyCode.J))
-            audioPlayer.playOnce();
-
-
         if(input.isMouseButton0Pressed()){
             shoot();
             audioPlayer1.playOnce();
         }
 
         player.lookAt(input.getMousePosition());
+
+        if(!e.isAlive()){
+            Random r = new Random();
+            e = new GreenAlien(new Vector2(r.nextInt(1920), r.nextInt(1080)));
+            e.setTarget(player);
+        }
     }
 
     public void shoot(){
-        projectiles.add(new Projectile(Vector2.add(new Vector2(player.getPosition().getX(), player.getPosition().getY() + 25.0f), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("bullet"))));
+        projectiles.add(new Projectile(Vector2.add(new Vector2(player.getPosition().getX(), player.getPosition().getY() + 25.0f), Vector2.multiply(player.getDirection(), player.getSize().getX() * 1.2)), player.getDirection(), new Sprite(SpriteLoader.loadImage("/projectiles/bullet"))));
 
     }
 

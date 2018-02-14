@@ -22,6 +22,13 @@ public class SpriteLoader {
         return images.get(name);
     }
 
+    public static  Image loadBackground(String name){
+        if(!images.containsKey(name)){
+            images.put(name, new Image("file:./assets/bg/" + name + ".png"));
+        }
+        return images.get(name);
+    }
+
     public static Image[] loadAnimationImage(String name){
         Image[] imageArray = new Image[3];
         for (int i = 0; i < 3; i++) {

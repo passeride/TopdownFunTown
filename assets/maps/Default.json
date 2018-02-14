@@ -1,8 +1,8 @@
 {
   "Name":"StartRoom",
   "isSafeRoom":false,
-  "BackgroundImage":"spaceBackground",
-  "SoundTrack":null,
+  "BackgroundImage":"room_01",
+  "SoundTrack":"./assets/audio/MoodyLoop.wav",
   "Enemies":[
     {
       "Type":"Alien",

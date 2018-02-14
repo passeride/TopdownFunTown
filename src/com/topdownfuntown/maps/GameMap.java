@@ -67,5 +67,6 @@ public class GameMap extends GameObject {
 
     public void setSoundTrack(AudioPlayer soundTrack) {
         this.soundTrack = soundTrack;
+        soundTrack.playLoop();
     }
 }

@@ -1,14 +1,20 @@
 package com.topdownfuntown.maps.maploader;
 
 
+import com.bluebook.audio.AudioLoader;
+import com.bluebook.audio.AudioPlayer;
+import com.bluebook.graphics.Sprite;
+import com.bluebook.graphics.SpriteLoader;
+import com.bluebook.util.Vector2;
 import com.google.gson.Gson;
+import com.topdownfuntown.maps.GameMap;
 
 import java.io.*;
 import java.nio.file.Files;
 
 public class MapLoader {
 
-    public static void loadMapJson(String name) throws FileNotFoundException {
+    public static GameMap loadMapJson(String name){
         File f = new File("./assets/maps/" + name + ".json");
         String s = "NULL";
         try {
@@ -22,16 +28,18 @@ public class MapLoader {
         System.out.println(stuff.Name);
         System.out.println(stuff.Enemies.get(2).Type);
 
-
-
+        return convertToGameMap(stuff);
     }
 
-    public static void main(String[] args){
-        try {
-            loadMapJson("Default");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    private static GameMap convertToGameMap(MapDOA mapdoa){
+        GameMap ret = new GameMap(new Sprite(SpriteLoader.loadBackground(mapdoa.BackgroundImage)));
+        ret.setName(mapdoa.Name);
+        ret.setSafeRoom(mapdoa.isSafeRoome);
+        if(mapdoa.SoundTrack != null)
+            ret.setSoundTrack(new AudioPlayer(mapdoa.SoundTrack));
 
+
+
+        return ret;
+    }
 }

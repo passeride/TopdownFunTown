@@ -18,6 +18,8 @@ public abstract class GameObject {
 
     protected Sprite sprite;
 
+    protected boolean isAlive = true;
+
     protected Collider collider;
 
     /**
@@ -76,6 +78,7 @@ public abstract class GameObject {
         if(collider != null)
             collider.destroy();
         CanvasRenderer.getInstance().removeGameObject(this);
+        isAlive = false;
     }
 
     /**
@@ -84,6 +87,14 @@ public abstract class GameObject {
      */
     public void setRenderLayer(RenderLayer.RenderLayerName layer){
         CanvasRenderer.getInstance().moveGameObjectToLayer(this, layer);
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 
     public Vector2 getPosition() {
