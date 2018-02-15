@@ -44,7 +44,7 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player = new Player(new Vector2(getScreenWidth(), getScreenHeight()), Vector2.ZERO, new Sprite("/friendlies/hilde"));
+        player = new Player(new Vector2(600, 600), Vector2.ZERO, new Sprite("/friendlies/hilde"));
         player.setSize(new Vector2(128, 128));
 
         setScore(1000);
