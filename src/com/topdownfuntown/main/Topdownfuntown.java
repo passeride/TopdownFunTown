@@ -40,7 +40,7 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player = new Player(new Vector2(getScreenWidth(), getScreenHeight()), Vector2.ZERO, new Sprite(SpriteLoader.loadImage("/friendlies/hilde")));
+        player = new Player(new Vector2(getScreenWidth(), getScreenHeight()), Vector2.ZERO, new Sprite("/friendlies/hilde"));
         player.setSize(new Vector2(128, 128));
 
         score = new ScoreElement(new Vector2(getScreenWidth() - 200, 200));
@@ -108,7 +108,7 @@ public class Topdownfuntown extends GameApplication {
     public void shoot(){
         audioPlayer1.playOnce();
         score.score -= 50;
-        Projectile p = new Projectile(player.getPosition(), player.getDirection(), new Sprite(SpriteLoader.loadImage("/projectiles/bullet")));
+        Projectile p = new Projectile(player.getPosition(), player.getDirection(), new Sprite("/projectiles/bullet"));
         p.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {

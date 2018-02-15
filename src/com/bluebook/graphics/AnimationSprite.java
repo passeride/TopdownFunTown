@@ -18,11 +18,11 @@ public class AnimationSprite extends Sprite{
 
     /**
      * Sprite object with required image
-     * @param img is an Array of images to be drawn
+     * @param name is the name of the asset to be loaded
      */
-    public AnimationSprite(Image[] img) {
+    public AnimationSprite(String name) {
         super();
-        this.animation = img;
+        this.animation = SpriteLoader.loadAnimationImage(name);
         length = 0.10;
         startNanoTime = System.nanoTime();
     }

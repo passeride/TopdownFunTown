@@ -1,5 +1,9 @@
 {
   "grid_x": 15,
-  "grid_y": 8
+  "grid_y": 8,
+  "score_movement_padding":8,
+  "player_health":100,
+  "player_shoot_cost":40,
+  "player_hit_distance_multiplier": 0.5
 
 }

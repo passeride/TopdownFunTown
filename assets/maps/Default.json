@@ -1,7 +1,7 @@
 {
   "Name":"StartRoom",
   "isSafeRoom":false,
-  "BackgroundImage":"room_01",
+  "BackgroundImage":"../bg/room_01",
   "SoundTrack":"./assets/audio/MoodyLoop.wav",
   "Enemies":[
     {

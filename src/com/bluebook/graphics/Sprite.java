@@ -21,10 +21,10 @@ public class Sprite {
 
     /**
      * Sprite object with required image
-     * @param img image to be drawn
+     * @param name relative name to asset
      */
-    public Sprite(Image img){
-        this.img = img;
+    public Sprite(String name){
+        this.img = SpriteLoader.loadImage(name);
     }
 
     public Sprite(){
