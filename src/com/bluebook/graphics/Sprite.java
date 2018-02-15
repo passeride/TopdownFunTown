@@ -12,10 +12,12 @@ import javafx.scene.transform.Rotate;
  */
 public class Sprite {
 
-    private Image img;
+    protected Image img;
     private double rotateAngle;
-    protected double squareWidth = 64 * GameApplication.X_scale;
-    protected double squareHeight = 64 * GameApplication.Y_scale;
+    protected double squareWidth = 64;
+    protected double squareHeight = 64;
+
+    private double scaledSquareWidth, scaledSquareHeight;
 
     protected boolean isRotated = false;
 
@@ -59,10 +61,13 @@ public class Sprite {
     public void draw(GraphicsContext gc, Vector2 position){
         gc.save();
 
+        scaledSquareWidth = squareWidth * GameApplication.X_scale;
+        scaledSquareHeight = squareHeight * GameApplication.Y_scale;
+
         if(isRotated)
             gc = rotateGraphicsContext(gc, position);
 
-        gc.drawImage(img, position.getX() - (squareWidth / 2f), position.getY() - (squareHeight / 2f), squareWidth, squareHeight);
+        gc.drawImage(img, position.getX() - (scaledSquareWidth / 2f), position.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
 
         gc.restore();
     }

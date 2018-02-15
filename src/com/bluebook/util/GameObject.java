@@ -1,5 +1,6 @@
 package com.bluebook.util;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
@@ -15,6 +16,7 @@ public abstract class GameObject {
     protected Vector2 position;
     protected Vector2 direction;
     protected Vector2 size;
+    protected Vector2 scaledSize;
 
     protected Sprite sprite;
 
@@ -126,8 +128,16 @@ public abstract class GameObject {
         return size;
     }
 
+    public Vector2 getScaledSize() {
+        if(scaledSize != null)
+            return scaledSize;
+        else
+            return size;
+    }
+
     public void setSize(Vector2 size) {
         this.size = size;
+        this.scaledSize = new Vector2(size.getX() * GameApplication.X_scale, size.getY() * GameApplication.Y_scale);
     }
 
     public Collider getCollider() {

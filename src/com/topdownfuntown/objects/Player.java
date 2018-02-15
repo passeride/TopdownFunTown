@@ -68,8 +68,8 @@ public class Player extends GameObject {
     public void translate(Vector2 moveVector) {
         Vector2 newValue = Vector2.add(position, moveVector);
 
-        double screenWidth = GameApplication.getInstance().getScreenWidth();
-        double screenHeihgt = GameApplication.getInstance().getScreenHeight();
+        double screenWidth = GameSettings.getInt("game_resolution_X");
+        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
         double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
         double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
 

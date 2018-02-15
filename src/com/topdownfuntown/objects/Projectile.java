@@ -1,26 +1,29 @@
 package com.topdownfuntown.objects;
 
 import com.bluebook.engine.GameApplication;
-import com.bluebook.graphics.Sprite;
+import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
+import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Projectile extends GameObject {
+public class Projectile extends GameObject{
 
+    private double speed = 800.0;
     float period = 0.5f;
     float frequency;
     float angularFrequency;
     float elapsedTime = 0.0f;
     float amplitude = 15.0f;
     float phase = 500f;
+
+    private Vector2 startPosition;
     boolean isSine = false;
     boolean isBouncy = true;
-    private double speed = 800.0;
-    private Vector2 startPosition;
+
 
 
     /**
@@ -63,8 +66,8 @@ public class Projectile extends GameObject {
     public void translate(Vector2 moveVector) {
         Vector2 newValue = Vector2.add(position, moveVector);
 
-        double screenWidth = GameApplication.getInstance().getScreenWidth();
-        double screenHeihgt = GameApplication.getInstance().getScreenHeight();
+        double screenWidth = GameSettings.getInt("game_resolution_X");
+        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
         double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
         double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
 
@@ -124,9 +127,10 @@ public class Projectile extends GameObject {
     }
 
     @Override
-    public void setSize(Vector2 vec) {
-        this.size = vec;
-        collider.updateRect();
+    public void setSize(Vector2 vec){
+        super.setSize(vec);
+        if(collider != null)
+            collider.updateRect();
     }
 
     @Override

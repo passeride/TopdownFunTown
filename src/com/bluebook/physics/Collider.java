@@ -1,5 +1,6 @@
 package com.bluebook.physics;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.CanvasRenderer;
@@ -35,13 +36,16 @@ public class Collider {
     }
 
     public void updateRect(){
-        this.rect = new Rectangle(gameObject.getPosition().getX() - gameObject.getSize().getX(), gameObject.getPosition().getY() - gameObject.getSize().getY() * 2.0, gameObject.getSize().getX(), gameObject.getSize().getY());
+        rect = new Rectangle(gameObject.getPosition().getX() - gameObject.getScaledSize().getX(), gameObject.getPosition().getY() - gameObject.getScaledSize().getY() * 2.0, gameObject.getScaledSize().getX(), gameObject.getScaledSize().getY());
     }
 
     protected void updatePosition(){
         if(gameObject != null){
-            rect.setX(gameObject.getPosition().getX() - gameObject.getSize().getX() / 2.0);
-            rect.setY(gameObject.getPosition().getY() - gameObject.getSize().getY() / 2.0);
+            gameObject.setSize(gameObject.getSize());
+            rect.setX(gameObject.getPosition().getX() - gameObject.getScaledSize().getX() / 2.0);
+            rect.setY(gameObject.getPosition().getY() - gameObject.getScaledSize().getY() / 2.0);
+            rect.setWidth(gameObject.getScaledSize().getX());
+            rect.setHeight(gameObject.getScaledSize().getY());
             rect.setRotate(gameObject.getDirection().getAngleInDegrees());
         }
     }

@@ -2,6 +2,7 @@ package com.bluebook.engine;
 
 import com.bluebook.physics.CollisionThread;
 import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import com.topdownfuntown.objects.Player;
@@ -129,6 +130,10 @@ public class GameEngine {
      */
     public void update(double delta){
         synchronized (this) {
+            GameApplication ga = GameApplication.getInstance();
+            ga.X_scale = ga.getScreenWidth() / GameSettings.getInt("game_resolution_X");
+            //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
+            ga.Y_scale = ga.X_scale;
             GameApplication.getInstance().update(delta);
             int lengthOfArray = updateObjects.size();
             for (int i = 0; i < lengthOfArray; i++)
