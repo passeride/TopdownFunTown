@@ -3,10 +3,12 @@ package com.topdownfuntown.main;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
@@ -61,6 +63,7 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void update(double delta) {
+
         if(input.isKeyDown(KeyCode.S)){
             player.moveDown(delta);
         }
@@ -100,7 +103,7 @@ public class Topdownfuntown extends GameApplication {
         }
 
         player.lookAt(input.getMousePosition());
-        scoreObject.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
+        score.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
         checkEnemies();
     }
 

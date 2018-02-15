@@ -6,6 +6,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -66,21 +67,23 @@ public class Projectile extends GameObject{
 
         double screenWidth = GameApplication.getInstance().getScreenWidth();
         double screenHeihgt = GameApplication.getInstance().getScreenHeight();
-        double boudMargin = screenWidth * 0.08;
+        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
+        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
 
-        if(newValue.getX() <= screenWidth - boudMargin
-                && newValue.getX() > boudMargin
-                && newValue.getY() <= screenHeihgt - boudMargin
-                && newValue.getY() > boudMargin){
+
+        if(newValue.getX() <= screenWidth - boudMarginX
+                && newValue.getX() > boudMarginX
+                && newValue.getY() <= screenHeihgt - boudMarginY
+                && newValue.getY() > boudMarginY){
             position = newValue;
         }else{
             if(!isBouncy)
                 destroy();
             else{
-                if(newValue.getX() >= screenWidth - boudMargin || newValue.getX() <= boudMargin){
+                if(newValue.getX() >= screenWidth - boudMarginX || newValue.getX() <= boudMarginX){
                     direction.setX(-direction.getX());
                 }
-                if(newValue.getY() >= screenHeihgt - boudMargin || newValue.getY() <= boudMargin){
+                if(newValue.getY() >= screenHeihgt - boudMarginY || newValue.getY() <= boudMarginY){
                     direction.setY(-direction.getY());
                 }
                 position = newValue;

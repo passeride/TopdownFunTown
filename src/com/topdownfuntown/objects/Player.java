@@ -5,6 +5,7 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Vec2d;
 
@@ -67,12 +68,13 @@ public class Player extends GameObject {
 
         double screenWidth = GameApplication.getInstance().getScreenWidth();
         double screenHeihgt = GameApplication.getInstance().getScreenHeight();
-        double boudMargin = screenWidth * 0.08;
+        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
+        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
 
-        if(newValue.getX() <= screenWidth - boudMargin
-                && newValue.getX() > boudMargin
-                && newValue.getY() <= screenHeihgt - boudMargin
-                && newValue.getY() > boudMargin){
+        if(newValue.getX() <= screenWidth - boudMarginX
+                && newValue.getX() > boudMarginX
+                && newValue.getY() <= screenHeihgt - boudMarginY
+                && newValue.getY() > boudMarginY){
             position = newValue;
         }
     }

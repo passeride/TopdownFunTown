@@ -32,7 +32,7 @@ public class MapLoader {
     }
 
     private static GameMap convertToGameMap(MapDOA mapdoa){
-        GameMap ret = new GameMap(new Sprite(SpriteLoader.loadBackground(mapdoa.BackgroundImage)));
+        GameMap ret = new GameMap(new Sprite(mapdoa.BackgroundImage));
         ret.setName(mapdoa.Name);
         ret.setSafeRoom(mapdoa.isSafeRoome);
         if(mapdoa.SoundTrack != null)

@@ -22,7 +22,7 @@ public class GreenAlien extends Enemy {
      * @param position
      */
     public GreenAlien(Vector2 position) {
-        super(position, Vector2.ZERO, new AnimationSprite(SpriteLoader.loadAnimationImage("/enemies/enemyGreen")));
+        super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyGreen"));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int)(shootInterval * 1000));
     }
@@ -38,7 +38,7 @@ public class GreenAlien extends Enemy {
     }
 
     public void shoot(){
-        Projectile p = new Projectile(position, direction, new Sprite(SpriteLoader.loadImage("/projectiles/balltest")));
+        Projectile p = new Projectile(position, direction, new Sprite("/projectiles/balltest"));
         p.setSize(new Vector2(32, 32));
 
         p.getSprite().setSquareHeight(32);
