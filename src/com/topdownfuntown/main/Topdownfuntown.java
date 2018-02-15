@@ -58,6 +58,7 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void update(double delta) {
+
         if(input.isKeyDown(KeyCode.S)){
             player.moveDown(delta);
         }
@@ -107,7 +108,7 @@ public class Topdownfuntown extends GameApplication {
 
     public void shoot(){
         audioPlayer1.playOnce();
-        score.score -= 50;
+        score.score -= GameApplication.getInstance().getInt("player_shoot_cost");
         Projectile p = new Projectile(player.getPosition(), player.getDirection(), new Sprite("/projectiles/bullet"));
         p.setOnCollisionListener(new OnCollisionListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.bluebook.graphics;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.util.Vector2;
 import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,8 +14,8 @@ public class Sprite {
 
     private Image img;
     private double rotateAngle;
-    protected double squareWidth = 64;
-    protected double squareHeight = 64;
+    protected double squareWidth = 64 * GameApplication.X_scale;
+    protected double squareHeight = 64 * GameApplication.Y_scale;
 
     protected boolean isRotated = false;
 

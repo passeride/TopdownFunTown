@@ -1,5 +1,6 @@
 package com.topdownfuntown.objects;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
@@ -17,6 +18,7 @@ public class HealthElement extends GameObject {
      */
     public HealthElement(Vector2 position) {
         super(position, Vector2.ZERO, null);
+        health = GameApplication.getInstance().getInt("player_health");
     }
 
     @Override

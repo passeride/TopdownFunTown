@@ -67,12 +67,13 @@ public class Player extends GameObject {
 
         double screenWidth = GameApplication.getInstance().getScreenWidth();
         double screenHeihgt = GameApplication.getInstance().getScreenHeight();
-        double boudMargin = screenWidth * 0.08;
+        double boudMarginX = screenWidth * GameApplication.getInstance().getDouble("map_movement_padding_X");
+        double boudMarginY = screenHeihgt * GameApplication.getInstance().getDouble("map_movement_padding_Y");
 
-        if(newValue.getX() <= screenWidth - boudMargin
-                && newValue.getX() > boudMargin
-                && newValue.getY() <= screenHeihgt - boudMargin
-                && newValue.getY() > boudMargin){
+        if(newValue.getX() <= screenWidth - boudMarginX
+                && newValue.getX() > boudMarginX
+                && newValue.getY() <= screenHeihgt - boudMarginY
+                && newValue.getY() > boudMarginY){
             position = newValue;
         }
     }

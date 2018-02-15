@@ -1,7 +1,10 @@
 package com.bluebook.engine;
 
+import com.bluebook.graphics.Sprite;
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,12 +13,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.util.Map;
+
 public abstract class GameApplication extends Application {
 
     private static GameApplication singelton;
     protected Input input;
     protected GameEngine engine;
     private Stage stage;
+    public static double X_scale = 1.0, Y_scale = 1.0;
+    public Map<String, String> loadedSettings;
 
     public GameApplication(){
         singelton = this;
@@ -52,10 +63,17 @@ public abstract class GameApplication extends Application {
         engine = GameEngine.getInstance();
         input = Input.getInstance();
 
+        loadSettings();
+
         onLoad();
 
         engine.startUpdateThread();
         engine.startCollisionThread();
+
+
+        X_scale = getScreenWidth() / getInt("game_resolution_X");
+        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
+        Y_scale = X_scale;
     }
 
     /**
@@ -63,6 +81,25 @@ public abstract class GameApplication extends Application {
      */
     protected void onLoad(){
 
+    }
+
+    protected void loadSettings(){
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Gson gson = new Gson();
+        loadedSettings = gson.fromJson(readSettingsFile(), type);
+    }
+
+    private String readSettingsFile(){
+        File f = new File("./assets/settings/Default.json");
+        String s = "";
+        if(f.exists()) {
+            try {
+                s = new String(Files.readAllBytes(f.toPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return s;
     }
 
     private void setStageKeyListener(Stage primaryStage){
@@ -99,6 +136,18 @@ public abstract class GameApplication extends Application {
         return stage.getHeight();
     }
 
+
+    public double getDouble(String s){
+        return Double.parseDouble(loadedSettings.get(s));
+    }
+
+    public String getString(String s){
+        return loadedSettings.get(s);
+    }
+
+    public int getInt(String s){
+        return Integer.parseInt(loadedSettings.get(s));
+    }
 
     /**
      * This function will be called every tick, should be used for logic
