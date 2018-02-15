@@ -3,6 +3,7 @@ package com.bluebook.engine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
+import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
@@ -71,7 +72,7 @@ public abstract class GameApplication extends Application {
         engine.startCollisionThread();
 
 
-        X_scale = getScreenWidth() / getInt("game_resolution_X");
+        X_scale = getScreenWidth() / GameSettings.getInt("game_resolution_X");
         //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
         Y_scale = X_scale;
     }
@@ -86,7 +87,7 @@ public abstract class GameApplication extends Application {
     protected void loadSettings(){
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Gson gson = new Gson();
-        loadedSettings = gson.fromJson(readSettingsFile(), type);
+        GameSettings.setLoadedSettings(gson.fromJson(readSettingsFile(), type));
     }
 
     private String readSettingsFile(){
@@ -134,19 +135,6 @@ public abstract class GameApplication extends Application {
 
     public double getScreenHeight(){
         return stage.getHeight();
-    }
-
-
-    public double getDouble(String s){
-        return Double.parseDouble(loadedSettings.get(s));
-    }
-
-    public String getString(String s){
-        return loadedSettings.get(s);
-    }
-
-    public int getInt(String s){
-        return Integer.parseInt(loadedSettings.get(s));
     }
 
     /**

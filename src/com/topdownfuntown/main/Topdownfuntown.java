@@ -8,6 +8,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
@@ -108,7 +109,7 @@ public class Topdownfuntown extends GameApplication {
 
     public void shoot(){
         audioPlayer1.playOnce();
-        score.score -= GameApplication.getInstance().getInt("player_shoot_cost");
+        score.score -= GameSettings.getInt("player_shoot_cost");
         Projectile p = new Projectile(player.getPosition(), player.getDirection(), new Sprite("/projectiles/bullet"));
         p.setOnCollisionListener(new OnCollisionListener() {
             @Override

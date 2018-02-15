@@ -43,7 +43,8 @@ public abstract class GameObject {
      * @param gc
      */
     public void draw(GraphicsContext gc){
-        sprite.draw(gc, position, direction);
+        if(sprite != null)
+            sprite.draw(gc, position, direction);
     }
 
     /**

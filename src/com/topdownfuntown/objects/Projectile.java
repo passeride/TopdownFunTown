@@ -6,6 +6,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -66,8 +67,8 @@ public class Projectile extends GameObject{
 
         double screenWidth = GameApplication.getInstance().getScreenWidth();
         double screenHeihgt = GameApplication.getInstance().getScreenHeight();
-        double boudMarginX = screenWidth * GameApplication.getInstance().getDouble("map_movement_padding_X");
-        double boudMarginY = screenHeihgt * GameApplication.getInstance().getDouble("map_movement_padding_Y");
+        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
+        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
 
 
         if(newValue.getX() <= screenWidth - boudMarginX
