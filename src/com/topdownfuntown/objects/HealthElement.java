@@ -29,4 +29,12 @@ public class HealthElement extends GameObject {
         gc.setFill(Color.RED);
         gc.fillText("Life: " + hp, position.getX(), position.getY());
     }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 }

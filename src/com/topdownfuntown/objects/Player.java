@@ -28,6 +28,7 @@ public class Player extends GameObject {
      */
     public Player(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
+        topdownfuntown = (Topdownfuntown) GameApplication.getInstance();
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
     }
 
@@ -86,7 +87,8 @@ public class Player extends GameObject {
      */
     public void hit() {
         int hp = topdownfuntown.getHealth();
-        topdownfuntown.setHealth(hp--);
+        System.out.println(hp);
+        topdownfuntown.setHealth(--hp);
         if (hp <= 0) {
             die();
             destroy();

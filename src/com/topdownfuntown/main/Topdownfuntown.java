@@ -5,6 +5,7 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
@@ -55,6 +56,7 @@ public class Topdownfuntown extends GameApplication {
         c.setTag("UnHittable");
         c.attachToGameObject(player);
 
+        health = GameSettings.getInt("player_health");
 
         currentGameMap = MapLoader.loadMapJson("Default");
     }
@@ -159,6 +161,7 @@ public class Topdownfuntown extends GameApplication {
 
     public void setHealth(int health) {
         this.health = health;
+        healthObject.setHp(this.health);
     }
 
 /*DUMMY FUNCTION
