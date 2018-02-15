@@ -19,9 +19,10 @@ import static com.topdownfuntown.stateHandler.StateHandling.saveProgression;
 public class Topdownfuntown extends GameApplication {
 
     private int score;
+    private int health;
     private int level;
     private ScoreElement scoreObject;
-    private HealthElement health;
+    private HealthElement healthObject;
 
     private Player player;
     private AudioPlayer audioPlayer1 = new AudioPlayer(testFil1);
@@ -47,7 +48,7 @@ public class Topdownfuntown extends GameApplication {
 
         setScore(1000);
         scoreObject = new ScoreElement(new Vector2(getScreenWidth() - 200, 200));
-        health = new HealthElement(new Vector2(100,  100));
+        healthObject = new HealthElement(new Vector2(100,  100));
 
         Collider c = new Collider(player);
         c.setName("Player");
@@ -152,8 +153,15 @@ public class Topdownfuntown extends GameApplication {
         this.score = score;
     }
 
+    public int getHealth() {
+        return health;
+    }
 
-    /*DUMMY FUNCTION
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+/*DUMMY FUNCTION
     public void setLevelNumber(){
         if(LevelLoading.loadLevel()){
             level++;
