@@ -11,7 +11,8 @@ import javafx.scene.text.Font;
 public class HealthElement extends GameObject {
 
     Topdownfuntown topdownfuntown;
-     private int hp;
+    private int hp;
+
     /**
      * Constructor for GameObject given position rotation and sprite
      *
@@ -23,9 +24,9 @@ public class HealthElement extends GameObject {
     }
 
     @Override
-    public void draw(GraphicsContext gc){
+    public void draw(GraphicsContext gc) {
         gc.setFont(new Font(80));
         gc.setFill(Color.RED);
-        gc.fillText("Life: " + hp, position.getX(),  position.getY());
+        gc.fillText("Life: " + hp, position.getX(), position.getY());
     }
 }

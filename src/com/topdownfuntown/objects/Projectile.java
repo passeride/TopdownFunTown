@@ -1,29 +1,26 @@
 package com.topdownfuntown.objects;
 
 import com.bluebook.engine.GameApplication;
-import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
-import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Projectile extends GameObject{
+public class Projectile extends GameObject {
 
-    private double speed = 800.0;
     float period = 0.5f;
     float frequency;
     float angularFrequency;
     float elapsedTime = 0.0f;
     float amplitude = 15.0f;
     float phase = 500f;
-
-    private Vector2 startPosition;
     boolean isSine = false;
     boolean isBouncy = true;
-
+    private double speed = 800.0;
+    private Vector2 startPosition;
 
 
     /**
@@ -42,13 +39,13 @@ public class Projectile extends GameObject{
         collider.setTag("DMG");
     }
 
-    public void setOnCollisionListener(OnCollisionListener listener){
-        this.collider.setOnCollisionListener( listener);
+    public void setOnCollisionListener(OnCollisionListener listener) {
+        this.collider.setOnCollisionListener(listener);
     }
 
     @Override
-    public void update(double delta){
-        if(isSine)
+    public void update(double delta) {
+        if (isSine)
             translate(Vector2.add(rotateVectorAroundPoint(SmoothSineWave(delta), direction.getAngleInDegrees()), Vector2.multiply(direction, speed * delta)));
         else
             translate(Vector2.multiply(direction, speed * delta));
@@ -59,10 +56,11 @@ public class Projectile extends GameObject{
 
     /**
      * Override to create a 8 % margin for movement
+     *
      * @param moveVector
      */
     @Override
-    public void translate(Vector2 moveVector){
+    public void translate(Vector2 moveVector) {
         Vector2 newValue = Vector2.add(position, moveVector);
 
         double screenWidth = GameApplication.getInstance().getScreenWidth();
@@ -71,19 +69,19 @@ public class Projectile extends GameObject{
         double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
 
 
-        if(newValue.getX() <= screenWidth - boudMarginX
+        if (newValue.getX() <= screenWidth - boudMarginX
                 && newValue.getX() > boudMarginX
                 && newValue.getY() <= screenHeihgt - boudMarginY
-                && newValue.getY() > boudMarginY){
+                && newValue.getY() > boudMarginY) {
             position = newValue;
-        }else{
-            if(!isBouncy)
+        } else {
+            if (!isBouncy)
                 destroy();
-            else{
-                if(newValue.getX() >= screenWidth - boudMarginX || newValue.getX() <= boudMarginX){
+            else {
+                if (newValue.getX() >= screenWidth - boudMarginX || newValue.getX() <= boudMarginX) {
                     direction.setX(-direction.getX());
                 }
-                if(newValue.getY() >= screenHeihgt - boudMarginY || newValue.getY() <= boudMarginY){
+                if (newValue.getY() >= screenHeihgt - boudMarginY || newValue.getY() <= boudMarginY) {
                     direction.setY(-direction.getY());
                 }
                 position = newValue;
@@ -91,14 +89,14 @@ public class Projectile extends GameObject{
         }
     }
 
-    private Vector2 rotateVectorAroundPoint(Vector2 vec, double angle){
+    private Vector2 rotateVectorAroundPoint(Vector2 vec, double angle) {
         double x = vec.getX() * Math.cos(angle) - vec.getY() * Math.sin(angle);
         double y = vec.getX() * Math.sin(angle) + vec.getY() * Math.cos(angle);
 
         return new Vector2(x, y);
     }
 
-    private Vector2 SmoothSineWave (double deltaTime) {
+    private Vector2 SmoothSineWave(double deltaTime) {
         // y(t) = A * sin(ωt + θ) [Basic Sine Wave Equation]
         // [A = amplitude | ω = AngularFrequency ((2*PI)f) | f = 1/T | T = [period (s)] | θ = phase | t = elapsedTime]
         // Public/Serialized Variables: amplitude, period, phase
@@ -109,30 +107,30 @@ public class Projectile extends GameObject{
         if (1 / (period) != frequency) {
             // Recalculate frequency & omega.
             frequency = 1 / (period);
-            angularFrequency = (float)(2f * Math.PI) * frequency;
+            angularFrequency = (float) (2f * Math.PI) * frequency;
         }
         // Update elapsed time.
         elapsedTime += deltaTime;
         // Calculate new omega-time product.
         float omegaProduct = (angularFrequency * elapsedTime);
         // Plug in all calculated variables into the complete Sine wave equation.
-        float y = (amplitude * (float)Math.sin (omegaProduct + phase));
+        float y = (amplitude * (float) Math.sin(omegaProduct + phase));
         //
-        return new Vector2 (0, y);
+        return new Vector2(0, y);
     }
 
-    public double getLengthTraveled(){
+    public double getLengthTraveled() {
         return startPosition.distance(position);
     }
 
     @Override
-    public void setSize(Vector2 vec){
+    public void setSize(Vector2 vec) {
         this.size = vec;
         collider.updateRect();
     }
 
     @Override
-    public void draw(GraphicsContext gc){
+    public void draw(GraphicsContext gc) {
 
         sprite.draw(gc, position, direction);
 
