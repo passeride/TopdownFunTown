@@ -28,10 +28,14 @@ public class Collider {
      * @param go
      */
     public Collider(GameObject go){
-        this.rect = new Rectangle(go.getPosition().getX() - go.getSize().getX(), go.getPosition().getY() - go.getSize().getY() * 2.0, go.getSize().getX(), go.getSize().getY());
-
+        this.gameObject = go;
+        updateRect();
         HitDetectionHandler.getInstance().addCollider(this);
         CanvasRenderer.getInstance().addCollider(this);
+    }
+
+    public void updateRect(){
+        this.rect = new Rectangle(gameObject.getPosition().getX() - gameObject.getSize().getX(), gameObject.getPosition().getY() - gameObject.getSize().getY() * 2.0, gameObject.getSize().getX(), gameObject.getSize().getY());
     }
 
     protected void updatePosition(){
@@ -51,6 +55,7 @@ public class Collider {
     }
 
     private GraphicsContext rotateGraphicsContext(GraphicsContext gc, Rectangle rect){
+
         this.rect.setRotate(getGameObject().getDirection().getAngleInDegrees());
         Rotate r = new Rotate(rect.getRotate(), rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());

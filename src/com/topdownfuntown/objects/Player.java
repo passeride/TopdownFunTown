@@ -2,6 +2,7 @@ package com.topdownfuntown.objects;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
+import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
@@ -15,7 +16,6 @@ public class Player extends GameObject {
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
     AudioPlayer hitSound;
-    private int health = 100;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -77,17 +77,20 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * Used when player is hit to subtract health and check for death
+     */
     public void hit(){
-        health --;
         HealthElement.health --;
         if(HealthElement.health <= 0){
+            die();
             destroy();
         }
         hitSound.playOnce();
     }
 
-    public int getHealth(){
-        return health;
+    private void die(){
+        GameEngine.getInstance().Pause();
     }
 
     public void activateGottaGoFast(){

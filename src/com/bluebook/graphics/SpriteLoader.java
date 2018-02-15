@@ -22,6 +22,11 @@ public class SpriteLoader {
         return images.get(name);
     }
 
+    /**
+     * Will load png from asset/bg and return image
+     * @param name
+     * @return
+     */
     public static  Image loadBackground(String name){
         if(!images.containsKey(name)){
             images.put(name, new Image("file:./assets/bg/" + name + ".png"));
@@ -29,11 +34,16 @@ public class SpriteLoader {
         return images.get(name);
     }
 
+    /**
+     * Will load set of sprites with naming convention name_X.png where X is
+     * a numbering sequence
+     * @param name name of
+     * @return
+     */
     public static Image[] loadAnimationImage(String name){
         Image[] imageArray = new Image[3];
         for (int i = 0; i < 3; i++) {
             File f = new File("./assets/sprite/" + name + "_" + i + ".png");
-            System.out.println("File exists: " + f.exists() + " File path: " + f.getAbsolutePath());
             try {
                 imageArray[i] = new Image(new FileInputStream(f));
             } catch (FileNotFoundException e) {

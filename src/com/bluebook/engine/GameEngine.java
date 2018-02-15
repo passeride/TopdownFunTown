@@ -107,7 +107,9 @@ public class GameEngine {
      * @param go
      */
     public void addGameObject(GameObject go){
-        updateObjects.add(go);
+        synchronized (this) {
+            updateObjects.add(go);
+        }
     }
 
     /**
@@ -115,8 +117,10 @@ public class GameEngine {
      * @param go
      */
     public void removeGameObject(GameObject go){
-        if(updateObjects.contains(go))
-            updateObjects.remove(go);
+        synchronized (this) {
+            if (updateObjects.contains(go))
+                updateObjects.remove(go);
+        }
     }
 
     /**
@@ -124,10 +128,13 @@ public class GameEngine {
      * @param delta
      */
     public void update(double delta){
-        GameApplication.getInstance().update(delta);
-        for(GameObject go : updateObjects)
-            go.update(delta);
-
+        synchronized (this) {
+            GameApplication.getInstance().update(delta);
+            int lengthOfArray = updateObjects.size();
+            for (int i = 0; i < lengthOfArray; i++)
+                if(updateObjects.get(i).isAlive())
+                    updateObjects.get(i).update(delta);
+        }
         //CanvasRenderer.getInstance().drawAll();
     }
 

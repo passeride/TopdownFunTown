@@ -13,8 +13,8 @@ public class Sprite {
 
     private Image img;
     private double rotateAngle;
-    protected double squareWidth = 128;
-    protected double squareHeight = 128;
+    protected double squareWidth = 64;
+    protected double squareHeight = 64;
 
     protected boolean isRotated = false;
 
@@ -97,4 +97,19 @@ public class Sprite {
         isRotated = false;
     }
 
+    public double getSquareWidth() {
+        return squareWidth;
+    }
+
+    public void setSquareWidth(double squareWidth) {
+        this.squareWidth = squareWidth;
+    }
+
+    public double getSquareHeight() {
+        return squareHeight;
+    }
+
+    public void setSquareHeight(double squareHeight) {
+        this.squareHeight = squareHeight;
+    }
 }

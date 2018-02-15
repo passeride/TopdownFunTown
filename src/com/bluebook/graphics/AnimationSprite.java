@@ -1,5 +1,6 @@
 package com.bluebook.graphics;
 
+import com.bluebook.engine.GameEngine;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -47,7 +48,9 @@ public class AnimationSprite extends Sprite{
         if(isRotated)
             gc = rotateGraphicsContext(gc, position);
 
-        double t = (System.nanoTime() - startNanoTime) / 1_000_000_000.0;
+        double t = 0;
+        if(!GameEngine.getInstance().isPaused())
+            t = (System.nanoTime() - startNanoTime) / 1_000_000_000.0;
         Image img = getNextFrame(t);
         gc.drawImage(img, position.getX() - squareWidth / 2f, position.getY() - squareHeight / 2f, squareWidth, squareHeight);
         gc.restore();

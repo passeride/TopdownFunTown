@@ -79,7 +79,6 @@ public class CanvasRenderer {
     public void moveGameObjectToLayer(GameObject go, RenderLayer.RenderLayerName layer){
         synchronized (this){
             removeGameObject(go);
-            System.out.println("Adding to layer " + layer.getName());
             addGameObject(go, layer);
         }
     }

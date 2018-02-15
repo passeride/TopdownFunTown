@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 
 public class HealthElement extends GameObject {
 
-    public static int health = 5;
+    public static int health = 5000;
     /**
      * Constructor for GameObject given position rotation and sprite
      *

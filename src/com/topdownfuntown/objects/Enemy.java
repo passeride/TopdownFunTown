@@ -13,6 +13,7 @@ public abstract class Enemy extends GameObject{
 
     double speed = 100;
     GameObject target;
+    double angularDampening = 0.05;
 
 
 
@@ -53,7 +54,8 @@ public abstract class Enemy extends GameObject{
     public void update(double detla){
         if(target != null) {
             translate(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, target.getPosition())));
-            direction = Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, target.getPosition()));
+            direction = Vector2.add(direction, Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, target.getPosition())), angularDampening));
+            direction.normalize();
         }
     }
 
