@@ -30,7 +30,7 @@ public class Sprite {
         this.img = SpriteLoader.loadImage(name);
     }
 
-    public Sprite(){
+    protected Sprite(){
 
     }
 
