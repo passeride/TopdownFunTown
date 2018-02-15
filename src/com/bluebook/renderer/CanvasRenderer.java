@@ -1,7 +1,9 @@
 package com.bluebook.renderer;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
+import com.bluebook.util.GameSettings;
 import com.topdownfuntown.objects.Player;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -127,6 +129,8 @@ public class CanvasRenderer {
         synchronized (this) {
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
+            gc.save();
+
             clearCanvas(gc);
             for(int i = 0; i < layers.length;  i++){
                 layers[i].drawAll(gc);
@@ -139,6 +143,7 @@ public class CanvasRenderer {
                 flg.addFPS(GameEngine.getInstance().FPS);
                 flg.draw(gc);
             }
+            gc.restore();
         }
     }
 
@@ -151,9 +156,8 @@ public class CanvasRenderer {
         drawAll();
     }
 
-    private void clearCanvas(GraphicsContext gc){
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    private void clearCanvas(GraphicsContext gc){ ;
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
     public void setCanvas(Canvas canvas){

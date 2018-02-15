@@ -44,6 +44,8 @@ public abstract class GameApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        loadSettings();
+
         this.stage = primaryStage;
 
         FXMLLoader fxml = new FXMLLoader();
@@ -57,20 +59,19 @@ public abstract class GameApplication extends Application {
         primaryStage.setTitle("Top Down Fun Town");
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
 
         setStageKeyListener(primaryStage);
 
         engine = GameEngine.getInstance();
         input = Input.getInstance();
 
-        loadSettings();
+
 
         onLoad();
 
         engine.startUpdateThread();
         engine.startCollisionThread();
-
 
         X_scale = getScreenWidth() / GameSettings.getInt("game_resolution_X");
         //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));

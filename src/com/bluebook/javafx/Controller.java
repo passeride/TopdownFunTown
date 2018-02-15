@@ -22,19 +22,6 @@ public class Controller implements Initializable{
     }
 
     /**
-     * This is used when a change is detected in scaling
-     * @param size
-     */
-    public void resizeCanvas(Vector2 size){
-
-    }
-
-    @FXML
-    public void mouseHandler(MouseEvent event){
-
-    }
-
-    /**
      * Is called when stage is resized
      * @param width
      */

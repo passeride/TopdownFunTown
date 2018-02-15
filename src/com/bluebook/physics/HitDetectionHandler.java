@@ -23,6 +23,7 @@ public class HitDetectionHandler {
 
     protected void updatePositions(){
         for(Collider collider : colliders){
+            collider.getGameObject().setSize(collider.getGameObject().getSize());
             collider.updatePosition();
         }
     }

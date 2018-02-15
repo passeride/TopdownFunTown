@@ -43,17 +43,12 @@ public class AnimationSprite extends Sprite{
 
     @Override
     public void draw(GraphicsContext gc, Vector2 position){
-        gc.save();
-
-        if(isRotated)
-            gc = rotateGraphicsContext(gc, position);
-
         double t = 0;
         if(!GameEngine.getInstance().isPaused())
             t = (System.nanoTime() - startNanoTime) / 1_000_000_000.0;
-        Image img = getNextFrame(t);
-        gc.drawImage(img, position.getX() - squareWidth / 2f, position.getY() - squareHeight / 2f, squareWidth, squareHeight);
-        gc.restore();
+        Image currentFrame = getNextFrame(t);
+        this.img = currentFrame;
+        super.draw(gc, position);
     }
 
     @Override
