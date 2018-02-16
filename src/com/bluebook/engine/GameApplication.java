@@ -1,6 +1,5 @@
 package com.bluebook.engine;
 
-import com.bluebook.graphics.Sprite;
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
 import com.bluebook.javafx.ControllerMenu;
@@ -58,7 +57,7 @@ public abstract class GameApplication extends Application {
         ControllerMenu controllerMenu = (ControllerMenu) fxml.getController();
 
         primaryStage.setTitle("TOP DOWN FUN TOWN");
-        primaryStage.setScene(new Scene(rootMenu, 800, 800));
+        primaryStage.setScene(new Scene(rootMenu, 1920 , 1080));
         primaryStage.show();
 
 
@@ -154,7 +153,12 @@ public abstract class GameApplication extends Application {
         FXMLLoader fxmlGame = new FXMLLoader();
 
 
-        Parent root = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        Parent root = null;
+        try {
+            root = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Controller controller = (Controller) fxmlGame.getController();
 
         setWidthListener(primaryStage, controller);
