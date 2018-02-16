@@ -67,24 +67,24 @@ public class Projectile extends GameObject{
         Vector2 newValue = Vector2.add(position, moveVector);
 
         double screenWidth = GameSettings.getInt("game_resolution_X");
-        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
-        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
-        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
+        double screenHeight = GameSettings.getInt("game_resolution_Y");
+        double boundMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
+        double boundMarginY = screenHeight * GameSettings.getDouble("map_movement_padding_Y");
 
 
-        if (newValue.getX() <= screenWidth - boudMarginX
-                && newValue.getX() > boudMarginX
-                && newValue.getY() <= screenHeihgt - boudMarginY
-                && newValue.getY() > boudMarginY) {
+        if (newValue.getX() <= screenWidth - boundMarginX
+                && newValue.getX() > boundMarginX
+                && newValue.getY() <= screenHeight - boundMarginY
+                && newValue.getY() > boundMarginY) {
             position = newValue;
         } else {
             if (!isBouncy)
                 destroy();
             else {
-                if (newValue.getX() >= screenWidth - boudMarginX || newValue.getX() <= boudMarginX) {
+                if (newValue.getX() >= screenWidth - boundMarginX || newValue.getX() <= boundMarginX) {
                     direction.setX(-direction.getX());
                 }
-                if (newValue.getY() >= screenHeihgt - boudMarginY || newValue.getY() <= boudMarginY) {
+                if (newValue.getY() >= screenHeight - boundMarginY || newValue.getY() <= boundMarginY) {
                     direction.setY(-direction.getY());
                 }
                 position = newValue;
