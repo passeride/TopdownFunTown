@@ -1,8 +1,8 @@
 package com.bluebook.engine;
 
-import com.bluebook.graphics.Sprite;
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
+import com.bluebook.javafx.ControllerMenu;
 import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -43,39 +43,20 @@ public abstract class GameApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         loadSettings();
 
         this.stage = primaryStage;
 
         FXMLLoader fxml = new FXMLLoader();
 
-        Parent root = fxml.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
-        Controller controller = (Controller) fxml.getController();
+        Parent rootMenu = fxml.load(getClass().getResource("../../bluebook/javafx/menu.fxml").openStream());
+        ControllerMenu controllerMenu = (ControllerMenu) fxml.getController();
 
-        setWidthListener(primaryStage, controller);
-        setHeightListener(primaryStage, controller);
-
-        primaryStage.setTitle("Top Down Fun Town");
-        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.setTitle("TOP DOWN FUN TOWN");
+        primaryStage.setScene(new Scene(rootMenu, 800, 800));
         primaryStage.show();
-        //primaryStage.setFullScreen(true);
-
-        setStageKeyListener(primaryStage);
-
-        engine = GameEngine.getInstance();
-        input = Input.getInstance();
 
 
-
-        onLoad();
-
-        engine.startUpdateThread();
-        engine.startCollisionThread();
-
-        X_scale = getScreenWidth() / GameSettings.getInt("game_resolution_X");
-        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
-        Y_scale = X_scale;
     }
 
     /**
@@ -130,6 +111,7 @@ public abstract class GameApplication extends Application {
         });
     }
 
+
     public double getScreenWidth(){
         return stage.getWidth();
     }
@@ -147,6 +129,46 @@ public abstract class GameApplication extends Application {
 
     public void setWindowTitle(String s){
 
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void callGame(Stage primaryStage){
+        FXMLLoader fxmlGame = new FXMLLoader();
+
+        Parent rootGame = null;
+        try {
+            rootGame = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Controller controller = (Controller) fxmlGame.getController();
+
+        setWidthListener(primaryStage, controller);
+        setHeightListener(primaryStage, controller);
+
+        primaryStage.setTitle("Top Down Fun Town");
+        primaryStage.setScene(new Scene(rootGame, 800, 800));
+        primaryStage.show();
+        //primaryStage.setFullScreen(true);
+
+        setStageKeyListener(primaryStage);
+
+        engine = GameEngine.getInstance();
+        input = Input.getInstance();
+
+
+
+        onLoad();
+
+        engine.startUpdateThread();
+        engine.startCollisionThread();
+
+        X_scale = getScreenWidth() / GameSettings.getInt("game_resolution_X");
+        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
+        Y_scale = X_scale;
     }
 
 }
