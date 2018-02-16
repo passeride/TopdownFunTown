@@ -3,6 +3,7 @@ package com.bluebook.audio;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * class 'AudioLoader' is generated to handle loading of audio-files from the assets folder.
@@ -10,7 +11,9 @@ import java.io.IOException;
 public class AudioLoader {
 
     private static Clip clip; //clip lagres i minnet for hurtigere aksessering
-    private static FloatControl gainControl;
+
+    private static HashMap<String, Clip> audioClips = new HashMap<>();
+
 
     /**
      * loads audio-file through the path specified to the function by the use of a clip.
@@ -18,28 +21,32 @@ public class AudioLoader {
      * @return clip
      */
     public static Clip loadAudioClip(String path) {
-        try {
+        boolean success = false;
+        if(!audioClips.containsKey(path)) {
+            try {
 
-            //Debug
-            File f = new File(path);
-            System.out.println("EXISTS: " + f.exists() + " PATH: " + f.getAbsolutePath());
+                //Debug
+                File f = new File(path);
+                System.out.println("EXISTS: " + f.exists() + " PATH: " + f.getAbsolutePath());
 
-            // normal
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream( f.toURL() );
-            clip = AudioSystem.getClip();
-            clip.open( audioIn );
+                // normal
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURL());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioIn);
 
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e){
-            e.printStackTrace();
+                audioClips.put(path, clip);
+                success = true;
+
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
         }
-        return clip;
+        return audioClips.get(path);
     }
 
-    public static FloatControl getGainControl(){
-        return gainControl;
-    }
+
 }

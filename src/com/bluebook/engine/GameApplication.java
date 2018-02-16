@@ -1,5 +1,6 @@
 package com.bluebook.engine;
 
+import com.bluebook.graphics.Sprite;
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
 import com.bluebook.javafx.ControllerMenu;
@@ -152,26 +153,23 @@ public abstract class GameApplication extends Application {
     public void callGame(Stage primaryStage){
         FXMLLoader fxmlGame = new FXMLLoader();
 
-        Parent rootGame = null;
-        try {
-            rootGame = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Parent root = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
         Controller controller = (Controller) fxmlGame.getController();
 
         setWidthListener(primaryStage, controller);
         setHeightListener(primaryStage, controller);
-
+        Scene scene = new Scene(root, 800, 800);
         primaryStage.setTitle("Top Down Fun Town");
-        primaryStage.setScene(new Scene(rootGame, 800, 800));
+        primaryStage.setScene(scene);
         primaryStage.show();
-        //primaryStage.setFullScreen(true);
+
+
 
         if(GameSettings.getBoolean("fullscreen")){
             primaryStage.setFullScreen(true);
         }else{
-            //Set aspect ratio
+            // Sets aspect ratio
             primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(2));
             primaryStage.minHeightProperty().bind(scene.widthProperty().divide(2));
         }
@@ -181,8 +179,9 @@ public abstract class GameApplication extends Application {
         engine = GameEngine.getInstance();
         input = Input.getInstance();
 
+
         X_scale.set(GameSettings.getInt("game_resolution_X") / getScreenWidth());
-        //Y_scale = getScreenHeight() / Integer.parseInt(leadedSettings.get("game_resolution_Y));
+        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
         Y_scale.set(GameSettings.getInt("game_resolution_Y") / getScreenHeight());
 
         controller.canvas.scaleXProperty().bindBidirectional(X_scale);
@@ -192,10 +191,6 @@ public abstract class GameApplication extends Application {
 
         engine.startUpdateThread();
         engine.startCollisionThread();
-
-        X_scale = getScreenWidth() / GameSettings.getInt("game_resolution_X");
-        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
-        Y_scale = X_scale;
     }
 
 }

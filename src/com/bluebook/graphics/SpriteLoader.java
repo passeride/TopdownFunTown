@@ -10,6 +10,8 @@ import java.util.HashMap;
 public class SpriteLoader {
 
     private static HashMap<String, Image> images = new HashMap<>();
+    private static HashMap<String, Image[]> animationImages = new HashMap<>();
+    private static HashMap<String, Image> bgImages = new HashMap<>();
     /**
      * Will load a png from assets/sprite/ and return the image, to be used with spriteclass
      * @param name
@@ -28,10 +30,10 @@ public class SpriteLoader {
      * @return
      */
     public static  Image loadBackground(String name){
-        if(!images.containsKey(name)){
-            images.put(name, new Image("file:./assets/bg/" + name + ".png"));
+        if(!bgImages.containsKey(name)){
+            bgImages.put(name, new Image("file:./assets/bg/" + name + ".png"));
         }
-        return images.get(name);
+        return bgImages.get(name);
     }
 
     /**
@@ -41,15 +43,18 @@ public class SpriteLoader {
      * @return
      */
     public static Image[] loadAnimationImage(String name){
-        Image[] imageArray = new Image[3];
-        for (int i = 0; i < 3; i++) {
-            File f = new File("./assets/sprite/" + name + "_" + i + ".png");
-            try {
-                imageArray[i] = new Image(new FileInputStream(f));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        if(!animationImages.containsKey(name)) {
+            Image[] imageArray = new Image[3];
+            for (int i = 0; i < 3; i++) {
+                File f = new File("./assets/sprite/" + name + "_" + i + ".png");
+                try {
+                    imageArray[i] = new Image(new FileInputStream(f));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
+            animationImages.put(name, imageArray);
         }
-        return imageArray;
+        return animationImages.get(name);
     }
 }
