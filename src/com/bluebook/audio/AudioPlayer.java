@@ -1,7 +1,10 @@
 package com.bluebook.audio;
 
+import com.bluebook.util.GameObject;
+
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Control;
+import javax.sound.sampled.EnumControl;
 import javax.sound.sampled.FloatControl;
 
 /**
@@ -12,6 +15,8 @@ public class AudioPlayer {
     private boolean spital = false;
     private static String path = "";
     Clip clip;
+
+    private GameObject source;
 
     FloatControl gainControl;
 
@@ -29,6 +34,17 @@ public class AudioPlayer {
      * plays the selected audio once
      */
     public void playOnce(){
+        if(spital){
+            if(clip.isControlSupported(FloatControl.Type.PAN)) {
+                FloatControl balance = (FloatControl) clip.getControl(FloatControl.Type.PAN);
+                balance.setValue((float)(source.getProcentageXPosition() * 1.0 - 1.0));
+            }else if(clip.isControlSupported(FloatControl.Type.BALANCE)){
+                FloatControl balance = (FloatControl) clip.getControl(FloatControl.Type.BALANCE);
+                balance.setValue((float)(source.getProcentageXPosition() * 2.0 - 1.0));
+            }else{
+                System.out.println("NO PAN OR BALANCE SUPPORTED channels: " + clip.getFormat().getChannels());
+            }
+        }
         if(clip == null){
             return;
         }
@@ -91,9 +107,10 @@ public class AudioPlayer {
 
     /**
      * Sets the boolean value of spital
-     * @param spital
+     * @param source
      */
-    public void setSpital(boolean spital) {
-        this.spital = spital;
+    public void setSpital(GameObject source) {
+        this.spital = true;
+        this.source = source;
     }
 }

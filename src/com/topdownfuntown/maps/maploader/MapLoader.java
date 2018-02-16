@@ -25,8 +25,6 @@ public class MapLoader {
 
         Gson gs = new Gson();
         MapDOA stuff = gs.fromJson(s, MapDOA.class);
-        System.out.println(stuff.Name);
-        System.out.println(stuff.Enemies.get(2).Type);
 
         return convertToGameMap(stuff);
     }

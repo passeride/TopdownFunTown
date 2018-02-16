@@ -22,12 +22,13 @@ public class RenderLayer {
      */
     public enum RenderLayerName{
         BACKGROUND(0),
-        ENEMIES(1),
-        LOW_BLOCKS(2),
-        PLAYER(3),
-        HIGH_BLOCKS(4),
-        PROJECTILE(5),
-        GUI(6);
+        TILES(1),
+        ENEMIES(2),
+        LOW_BLOCKS(3),
+        PLAYER(4),
+        HIGH_BLOCKS(5),
+        PROJECTILE(6),
+        GUI(7);
 
         private static Map<Integer, RenderLayerName> map = new HashMap<Integer, RenderLayerName>();
 

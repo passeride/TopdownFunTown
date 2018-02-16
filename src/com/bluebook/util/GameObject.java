@@ -135,6 +135,14 @@ public abstract class GameObject {
             return size;
     }
 
+    /**
+     * Will return a value from 0 -> 1.0 that is the relative X position on the screen
+     * @return
+     */
+    public double getProcentageXPosition(){
+        return  position.getX() / GameSettings.getInt("game_resolution_X");
+    }
+
     public void setSize(Vector2 size) {
         this.size = size;
         this.scaledSize = new Vector2(size.getX() * GameApplication.X_scale.get(), size.getY() * GameApplication.Y_scale.get());
