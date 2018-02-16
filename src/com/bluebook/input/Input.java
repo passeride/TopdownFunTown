@@ -1,6 +1,7 @@
 package com.bluebook.input;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -187,8 +188,15 @@ public class Input {
     }
 
     private void setMousePosition(double X, double Y){
-        this.mouse_X = X;
-        this.mouse_y = Y;
+        this.mouse_X = mapMouseToCanvas(0,
+                GameSettings.getInt("game_resolution_X"), 0,
+                GameApplication.getInstance().getScreenWidth(), X);
+        this.mouse_y = mapMouseToCanvas(0, GameSettings.getInt("game_resolution_Y"),
+                0, GameApplication.getInstance().getScreenHeight(), Y);
+    }
+
+    private double mapMouseToCanvas(double output_start, double output_end, double input_start, double input_end, double input){
+        return output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
     }
 
     private boolean isMouseOnScreen(){
