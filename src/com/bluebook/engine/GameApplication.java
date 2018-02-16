@@ -2,10 +2,13 @@ package com.bluebook.engine;
 
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
+import com.bluebook.javafx.ControllerMenu;
 import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -165,12 +168,25 @@ public abstract class GameApplication extends Application {
         primaryStage.show();
         //primaryStage.setFullScreen(true);
 
+        if(GameSettings.getBoolean("fullscreen")){
+            primaryStage.setFullScreen(true);
+        }else{
+            //Set aspect ratio
+            primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(2));
+            primaryStage.minHeightProperty().bind(scene.widthProperty().divide(2));
+        }
+
         setStageKeyListener(primaryStage);
 
         engine = GameEngine.getInstance();
         input = Input.getInstance();
 
+        X_scale.set(GameSettings.getInt("game_resolution_X") / getScreenWidth());
+        //Y_scale = getScreenHeight() / Integer.parseInt(leadedSettings.get("game_resolution_Y));
+        Y_scale.set(GameSettings.getInt("game_resolution_Y") / getScreenHeight());
 
+        controller.canvas.scaleXProperty().bindBidirectional(X_scale);
+        controller.canvas.scaleYProperty().bindBidirectional(Y_scale);
 
         onLoad();
 
