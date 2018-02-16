@@ -27,8 +27,6 @@ public class AudioLoader {
 
                 //Debug
                 File f = new File(path);
-                System.out.println("EXISTS: " + f.exists() + " PATH: " + f.getAbsolutePath());
-
                 // normal
                 AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURL());
                 Clip clip = AudioSystem.getClip();

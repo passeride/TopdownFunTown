@@ -3,6 +3,7 @@ package com.topdownfuntown.main;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.util.GameSettings;
@@ -34,6 +35,8 @@ public class Topdownfuntown extends GameApplication {
 
     private Enemy[] enemies = new Enemy[3];
 
+    private Tile tiles;
+
     private static String testFil1 = "./assets/audio/scifi002.wav";
     private static String lagringsFil = "./assets/progression/savedFile";
 
@@ -44,8 +47,10 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player = new Player(new Vector2(600, 600), Vector2.ZERO, new Sprite("/friendlies/hilde"));
+        player = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character"));
         player.setSize(new Vector2(128, 128));
+
+        tiles = new Tile();
 
         setScore(1000);
         scoreObject = new ScoreElement(new Vector2(GameSettings.getInt("game_resolution_X") - 200, 200));
@@ -125,6 +130,7 @@ public class Topdownfuntown extends GameApplication {
     }
 
     public void shoot(){
+        audioPlayer1.setSpital(player);
         audioPlayer1.playOnce();
         score -= 50;
         Projectile p = new Projectile(player.getPosition(), player.getDirection(), new Sprite("/projectiles/bullet"));

@@ -154,7 +154,12 @@ public abstract class GameApplication extends Application {
         FXMLLoader fxmlGame = new FXMLLoader();
 
 
-        Parent root = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        Parent root = null;
+        try {
+            root = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Controller controller = (Controller) fxmlGame.getController();
 
         setWidthListener(primaryStage, controller);

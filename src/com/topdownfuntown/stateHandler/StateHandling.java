@@ -14,17 +14,14 @@ public class StateHandling {
         String[] items;
 
         File f = new File(path);
-        System.out.println(f.exists());
         if(f.exists() && !f.isDirectory()){
             /* filen eksisterer. overwrite */
             try(ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(String.valueOf(f))))){
                 oos.writeObject("\r" +new Date() + ": Score = " + score);
                 oos.close();
-                System.out.println("fantes. skrev over");
             }
         }else{
 
-            System.out.println("HELLO");
             /* eksisterte IKKE, lag ny fil. */
             boolean fileCheck = f.createNewFile();
             if(fileCheck) System.out.println("fil lagd");
