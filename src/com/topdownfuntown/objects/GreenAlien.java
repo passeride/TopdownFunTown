@@ -21,7 +21,7 @@ public class GreenAlien extends Enemy {
      * @param position
      */
     public GreenAlien(Vector2 position) {
-        super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyGreen"));
+        super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyGreen",3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
     }

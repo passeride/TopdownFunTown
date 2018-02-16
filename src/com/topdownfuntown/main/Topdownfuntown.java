@@ -47,7 +47,7 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character"), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms"), Vector2.ZERO));
+        player = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
         player.setSize(new Vector2(128, 128));
 
         tiles = new Tile();
