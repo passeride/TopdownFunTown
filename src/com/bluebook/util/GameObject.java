@@ -137,7 +137,7 @@ public abstract class GameObject {
 
     public void setSize(Vector2 size) {
         this.size = size;
-        this.scaledSize = new Vector2(size.getX() * GameApplication.X_scale, size.getY() * GameApplication.Y_scale);
+        this.scaledSize = new Vector2(size.getX() * GameApplication.X_scale.get(), size.getY() * GameApplication.Y_scale.get());
     }
 
     public Collider getCollider() {

@@ -131,6 +131,7 @@ public class CanvasRenderer {
 
             gc.save();
 
+
             clearCanvas(gc);
             for(int i = 0; i < layers.length;  i++){
                 layers[i].drawAll(gc);

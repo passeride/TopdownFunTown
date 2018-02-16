@@ -1,6 +1,7 @@
 package com.bluebook.graphics;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
@@ -50,7 +51,7 @@ public class Sprite {
      * @param gc
      */
     public void drawBackground(GraphicsContext gc){
-        gc.drawImage(img, 0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        gc.drawImage(img, 0, 0, GameSettings.getInt("game_resolution_X"), GameSettings.getInt("game_resolution_Y"));
     }
 
     /**
@@ -61,8 +62,8 @@ public class Sprite {
     public void draw(GraphicsContext gc, Vector2 position){
         gc.save();
 
-        scaledSquareWidth = squareWidth * GameApplication.X_scale;
-        scaledSquareHeight = squareHeight * GameApplication.Y_scale;
+        scaledSquareWidth = squareWidth;
+        scaledSquareHeight = squareHeight;
 
         if(isRotated)
             gc = rotateGraphicsContext(gc, position);

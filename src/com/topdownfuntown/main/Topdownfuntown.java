@@ -48,7 +48,7 @@ public class Topdownfuntown extends GameApplication {
         player.setSize(new Vector2(128, 128));
 
         setScore(1000);
-        scoreObject = new ScoreElement(new Vector2(getScreenWidth() - 200, 200));
+        scoreObject = new ScoreElement(new Vector2(GameSettings.getInt("game_resolution_X") - 200, 200));
         healthObject = new HealthElement(new Vector2(100,  100));
 
         Collider c = new Collider(player);
@@ -63,7 +63,6 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void update(double delta) {
-
         if(input.isKeyDown(KeyCode.S)){
             player.moveDown(delta);
         }
@@ -79,6 +78,7 @@ public class Topdownfuntown extends GameApplication {
         if(input.isKeyDown(KeyCode.A)){
             player.moveLeft(delta);
         }
+
 
         if(input.isKeyDown(KeyCode.SPACE)){
             player.activateGottaGoFast();

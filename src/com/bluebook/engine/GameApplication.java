@@ -7,6 +7,8 @@ import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +28,8 @@ public abstract class GameApplication extends Application {
     protected Input input;
     protected GameEngine engine;
     private Stage stage;
-    public static double X_scale = 1.0, Y_scale = 1.0;
+    public static DoubleProperty X_scale = new SimpleDoubleProperty();
+    public static DoubleProperty Y_scale = new SimpleDoubleProperty();
     public Map<String, String> loadedSettings;
 
     public GameApplication(){
@@ -53,6 +56,9 @@ public abstract class GameApplication extends Application {
         Parent root = fxml.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
         Controller controller = (Controller) fxml.getController();
 
+
+
+
         setWidthListener(primaryStage, controller);
         setHeightListener(primaryStage, controller);
 
@@ -67,15 +73,19 @@ public abstract class GameApplication extends Application {
         input = Input.getInstance();
 
 
+        X_scale.set(GameSettings.getInt("game_resolution_X") / getScreenWidth());
+        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
+        Y_scale.set(GameSettings.getInt("game_resolution_Y") / getScreenHeight());
+
+        controller.canvas.scaleXProperty().bindBidirectional(X_scale);
+        controller.canvas.scaleYProperty().bindBidirectional(Y_scale);
 
         onLoad();
 
         engine.startUpdateThread();
         engine.startCollisionThread();
 
-        X_scale = getScreenWidth() / GameSettings.getInt("game_resolution_X");
-        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
-        Y_scale = X_scale;
+
     }
 
     /**
@@ -113,7 +123,8 @@ public abstract class GameApplication extends Application {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                controller.setCanvasHeight((double)newValue);
+                Y_scale.set((double) newValue / GameSettings.getInt("game_resolution_Y"));
+                //controller.setCanvasHeight((double)newValue);
             }
 
         });
@@ -124,10 +135,19 @@ public abstract class GameApplication extends Application {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                controller.setCanvasWidth((double) newValue);
+                X_scale.set((double) newValue/ GameSettings.getInt("game_resolution_X"));
+                //controller.setCanvasWidth((double) newValue);
             }
 
         });
+    }
+
+    public double getSceneX(){
+        return stage.getX();
+    }
+
+    public double getSceneY(){
+        return stage.getY();
     }
 
     public double getScreenWidth(){

@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable{
 
     @FXML
-    Canvas canvas;
+    public Canvas canvas;
 
 
     @Override
