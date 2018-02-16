@@ -1,6 +1,7 @@
 package com.bluebook.audio;
 
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.Control;
 import javax.sound.sampled.FloatControl;
 
 /**
@@ -21,7 +22,7 @@ public class AudioPlayer {
     public AudioPlayer(String path){
         this.path = path;
         clip = AudioLoader.loadAudioClip(path);
-        gainControl = AudioLoader.getGainControl();
+        gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
     }
 
     /**

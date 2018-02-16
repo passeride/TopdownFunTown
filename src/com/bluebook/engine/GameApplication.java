@@ -56,16 +56,22 @@ public abstract class GameApplication extends Application {
         Parent root = fxml.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
         Controller controller = (Controller) fxml.getController();
 
-
-
-
         setWidthListener(primaryStage, controller);
         setHeightListener(primaryStage, controller);
-
+        Scene scene = new Scene(root, 800, 800);
         primaryStage.setTitle("Top Down Fun Town");
-        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.setScene(scene);
         primaryStage.show();
-        //primaryStage.setFullScreen(true);
+
+
+
+        if(GameSettings.getBoolean("fullscreen")){
+            primaryStage.setFullScreen(true);
+        }else{
+            // Sets aspect ratio
+            primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(2));
+            primaryStage.minHeightProperty().bind(scene.widthProperty().divide(2));
+        }
 
         setStageKeyListener(primaryStage);
 

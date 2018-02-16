@@ -22,4 +22,7 @@ public class GameSettings {
         return Integer.parseInt(loadedSettings.get(s));
     }
 
+    public static boolean getBoolean(String s){
+        return Boolean.parseBoolean(loadedSettings.get(s));
+    }
 }
