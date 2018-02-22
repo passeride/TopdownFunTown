@@ -10,6 +10,8 @@ import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
+
 public class Projectile extends GameObject{
 
     private double speed = 800.0;
@@ -19,6 +21,8 @@ public class Projectile extends GameObject{
     float elapsedTime = 0.0f;
     float amplitude = 15.0f;
     float phase = 500f;
+
+    private static ArrayList<Projectile> allProjectilse = new ArrayList<>();
 
     private Vector2 startPosition;
     boolean isSine = false;
@@ -35,11 +39,19 @@ public class Projectile extends GameObject{
      */
     public Projectile(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
+        allProjectilse.add(this);
         this.startPosition = position;
         size = new Vector2(100, 30);
         this.setCollider(new Collider(this));
         collider.setName("Bullet");
         collider.setTag("DMG");
+    }
+
+    public static void clearAllProjectiles(){
+        for(Projectile p : allProjectilse){
+            p.destroy();
+        }
+        allProjectilse.clear();
     }
 
     public void setOnCollisionListener(OnCollisionListener listener) {
@@ -49,7 +61,7 @@ public class Projectile extends GameObject{
     @Override
     public void update(double delta) {
         if (isSine)
-            translate(Vector2.add(rotateVectorAroundPoint(SmoothSineWave(delta), direction.getAngleInDegrees()), Vector2.multiply(direction, speed * delta)));
+            translate(Vector2.add(Vector2.rotateVectorAroundPoint(SmoothSineWave(delta), Vector2.ZERO, direction.getAngleInDegrees()), Vector2.multiply(direction, speed * delta)));
         else
             translate(Vector2.multiply(direction, speed * delta));
 
@@ -92,12 +104,7 @@ public class Projectile extends GameObject{
         }
     }
 
-    private Vector2 rotateVectorAroundPoint(Vector2 vec, double angle) {
-        double x = vec.getX() * Math.cos(angle) - vec.getY() * Math.sin(angle);
-        double y = vec.getX() * Math.sin(angle) + vec.getY() * Math.cos(angle);
 
-        return new Vector2(x, y);
-    }
 
     private Vector2 SmoothSineWave(double deltaTime) {
         // y(t) = A * sin(ωt + θ) [Basic Sine Wave Equation]

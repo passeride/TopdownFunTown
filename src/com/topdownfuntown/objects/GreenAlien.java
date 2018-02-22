@@ -1,11 +1,13 @@
 package com.topdownfuntown.objects;
 
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
+import com.topdownfuntown.main.Topdownfuntown;
 
 import java.util.Random;
 
@@ -24,6 +26,7 @@ public class GreenAlien extends Enemy {
         super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyGreen",3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
+        setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
     }
 
 
@@ -32,7 +35,6 @@ public class GreenAlien extends Enemy {
         super.update(delta);
         if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
-            ;
             shoot();
         }
     }

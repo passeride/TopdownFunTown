@@ -4,19 +4,6 @@
   "BackgroundImage":"../bg/room_01",
   "SoundTrack":"./assets/audio/scifi.aiff",
   "Enemies":[
-    {
-      "Type":"GreenAlien",
-      "x_pos":300.0,
-      "y_pos":5.0
-    },{
-      "Type":"GreenAlien",
-      "x_pos":5.0,
-      "y_pos":200.0
-    },{
-      "Type":"GreenAlien",
-      "x_pos":50.0,
-      "y_pos":50.0
-    }
   ],
   "Blocks":[
     {

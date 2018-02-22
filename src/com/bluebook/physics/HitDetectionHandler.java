@@ -2,6 +2,7 @@ package com.bluebook.physics;
 
 import javafx.scene.shape.Rectangle;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +13,7 @@ public class HitDetectionHandler {
     private static HitDetectionHandler singelton;
 
     ArrayList<Collider> colliders = new ArrayList<>();
+    ArrayList<RayCast> raycasts = new ArrayList<>();
 
     // And out buffers needed for thread safe operation
     ArrayList<Collider> colliderInBuffer = new ArrayList<>();
@@ -40,6 +42,11 @@ public class HitDetectionHandler {
                     }
                 }
             }
+        }
+
+        // Raycasting
+        for(RayCast r : raycasts){
+            r.Cast();
         }
         moveBuffer();
     }

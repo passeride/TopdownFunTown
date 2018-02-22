@@ -174,8 +174,8 @@ public abstract class GameApplication extends Application {
             primaryStage.setFullScreen(true);
         }else{
             // Sets aspect ratio
-            primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(2));
-            primaryStage.minHeightProperty().bind(scene.widthProperty().divide(2));
+            //primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(2));
+            //primaryStage.minHeightProperty().bind(scene.widthProperty().divide(2));
         }
 
         setStageKeyListener(primaryStage);

@@ -17,4 +17,5 @@ public class MapDOA {
     public String SoundTrack;
 
     public ArrayList<EnemyDOA> Enemies;
+    public ArrayList<BlockDOA> Blocks;
 }

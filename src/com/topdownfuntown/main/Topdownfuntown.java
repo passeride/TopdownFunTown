@@ -33,7 +33,7 @@ public class Topdownfuntown extends GameApplication {
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
-    private Enemy[] enemies = new Enemy[3];
+    private Enemy[] enemies = new Enemy[10];
 
     private Tile tiles;
 
@@ -63,7 +63,24 @@ public class Topdownfuntown extends GameApplication {
 
         health = GameSettings.getInt("player_health");
 
-        currentGameMap = MapLoader.loadMapJson("Default");
+        currentGameMap = MapLoader.loadMapJson("TestMap");
+       // createAliens();
+    }
+
+    void createAliens(){
+        Random r = new Random();
+        for(int i = 0; i < enemies.length;  i++){
+            enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
+            enemies[i].setTarget(player);
+        }
+    }
+
+    public void moveToNextRoom(){
+        player.setPosition(new Vector2(600, 600));
+        tiles.setupGrid();
+        Projectile.clearAllProjectiles();
+        currentGameMap = MapLoader.loadMapJson("Room2");
+        createAliens();
     }
 
     @Override
@@ -82,6 +99,10 @@ public class Topdownfuntown extends GameApplication {
 
         if(input.isKeyDown(KeyCode.A)){
             player.moveLeft(delta);
+        }
+
+        if(input.isKeyPressed(KeyCode.L)){
+            moveToNextRoom();
         }
 
 
@@ -114,8 +135,17 @@ public class Topdownfuntown extends GameApplication {
     }
 
     private void checkEnemies(){
-        Random r = new Random();
-        for(int i = 0; i < enemies.length;  i++){
+
+        boolean levelComplete = true;
+        for(int i = 0; i < enemies.length;  i++) {
+            if(enemies[i] != null && enemies[i].isAlive()){
+                levelComplete = false;
+            }
+        }
+        if(levelComplete){
+           // moveToNextRoom();
+        }
+        /*for(int i = 0; i < enemies.length;  i++){
             if(enemies[i] != null) {
                 if (!enemies[i].isAlive()) {
 
@@ -126,7 +156,7 @@ public class Topdownfuntown extends GameApplication {
                 enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
                 enemies[i].setTarget(player);
             }
-        }
+        }*/
     }
 
     public int getScore() {
@@ -146,7 +176,11 @@ public class Topdownfuntown extends GameApplication {
         healthObject.setHp(this.health);
     }
 
-/*DUMMY FUNCTION
+    public Player getPlayer() {
+        return player;
+    }
+
+    /*DUMMY FUNCTION
     public void setLevelNumber(){
         if(LevelLoading.loadLevel()){
             level++;

@@ -73,7 +73,7 @@ public class Tile extends GameObject {
 
     }
 
-    void setupGrid(){
+    public void setupGrid(){
         for(int i = 0; i < grid_X; i++){
             for(int j = 0; j < grid_Y; j++){
                 int num = randomTile(0,tiles.size()-1);

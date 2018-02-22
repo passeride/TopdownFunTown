@@ -10,6 +10,7 @@ import com.topdownfuntown.objects.Obstacle;
 import com.topdownfuntown.objects.Player;
 import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creating GameMap/Area with player, enemy and obstacle array lists.
@@ -33,6 +34,26 @@ public class GameMap extends GameObject {
         super(Vector2.ZERO, Vector2.ZERO, sprite);
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
 
+    }
+
+    /**
+     * Used by {@link com.topdownfuntown.maps.maploader.MapLoader} to add enemies
+     * @param e
+     */
+    public void addEnemy(Enemy e){
+        enemies.add(e);
+    }
+
+    public void addObstale(Obstacle o){
+        obstacles.add(o);
+    }
+
+    /**
+     * Used by {@link com.topdownfuntown.maps.maploader.MapLoader} to add enemies
+     * @param e
+     */
+    public void addEnemyList(List<Enemy> e){
+        enemies.addAll(e);
     }
 
     @Override

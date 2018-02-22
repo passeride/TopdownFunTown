@@ -4,11 +4,25 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
+import com.bluebook.graphics.ConvexHull;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.physics.HitDetectionHandler;
+import com.bluebook.physics.RayCast;
+import com.bluebook.physics.RayCastHit;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
+import com.sun.javafx.geom.Line2D;
 import com.topdownfuntown.main.Topdownfuntown;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends GameObject {
     AudioPlayer hitSound;
@@ -18,6 +32,9 @@ public class Player extends GameObject {
     private boolean speedBost = false;
     private StarterWeapon currentWeapon;
     Topdownfuntown topdownfuntown;
+
+    private int rayCastResolution = 720;
+    private ArrayList<RayCast> raycasts = new ArrayList<>();
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -32,13 +49,72 @@ public class Player extends GameObject {
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
         currentWeapon = weapon;
+        setUpRayCast();
+    }
+
+    private void setUpRayCast(){
+        for(int i = 0; i < rayCastResolution; i++){
+            double dir = (Math.PI * 2) * ((double) i / rayCastResolution);
+            raycasts.add(new RayCast(dir, this));
+        }
+    }
+
+    private void updatePositionRaycast(){
+        for(RayCast r : raycasts){
+            r.updatePosition();
+        }
     }
 
     @Override
     public void update(double delta) {
+        updatePositionRaycast();
         currentWeapon.setPosition(position);
         currentWeapon.setDirection(direction);
     }
+
+    @Override
+    public void draw(GraphicsContext gc){
+
+
+        gc.setFill(Color.RED);
+
+        double[] xs = new double[raycasts.size()];
+        double[] ys = new double[raycasts.size()];
+
+
+        for(int i = 0; i < raycasts.size(); i++){
+            RayCastHit rch = raycasts.get(i).hit;
+            if(rch != null) {
+                if (rch.isHit) {
+                    //gc.setStroke(Color.RED);
+                    //gc.strokeLine(rch.ray.x1, rch.ray.y1, rch.ray.x2, rch.ray.y2);
+                    xs[i] = rch.ray.x2;
+                    ys[i] = rch.ray.y2;
+                    //gc.strokeLine(rch.originalRay.x1, rch.originalRay.y1, rch.originalRay.x2, rch.originalRay.y2);
+
+                } else {
+                    //gc.setStroke(Color.GREEN);
+                    xs[i] = rch.ray.x2;
+                    ys[i] = rch.ray.y2;
+                    //xs[i] = ((int)rch.originalRay.x2);
+                    //ys[i] = ((int)rch.originalRay.y2);
+                    //gc.strokeLine(rch.originalRay.x1, rch.originalRay.y1, rch.originalRay.x2, rch.originalRay.y2);
+                }
+            }
+        }
+
+        gc.save();
+        gc.setFill(Color.WHITE);
+        gc.applyEffect(new ColorAdjust(0, 0, -0.7, 0));
+        gc.setGlobalBlendMode(BlendMode.OVERLAY);
+        gc.fillPolygon(xs, ys, xs.length);
+        gc.restore();
+
+        super.draw(gc);
+
+    }
+
+
 
     /**
      * Will move the player object NORTH/UP by {@link Player#speed}
