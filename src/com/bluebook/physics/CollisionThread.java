@@ -27,12 +27,15 @@ public class CollisionThread implements Runnable{
         while(running){
 
             long timeElapsed = System.currentTimeMillis() - prevTick;
+            long startTime = System.currentTimeMillis();
             hitDet.updatePositions();
             hitDet.lookForCollision();
             prevTick = System.currentTimeMillis();
+            long processTime = prevTick - startTime;
+            long newSleepTime = sleepTime - processTime;
 
             try {
-                Thread.sleep(sleepTime);
+                Thread.sleep(newSleepTime > 0 ?  newSleepTime : 0);
 
             }catch(InterruptedException e){
                 System.out.println(e.getMessage());

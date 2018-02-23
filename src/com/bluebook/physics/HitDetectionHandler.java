@@ -1,6 +1,9 @@
 package com.bluebook.physics;
 
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -30,15 +33,21 @@ public class HitDetectionHandler {
         }
     }
 
+    /**
+     * This will go over  all collision and raytracing looking for intersections
+     */
     protected void lookForCollision(){
         for(Collider base : colliders){
             Rectangle cbBase = base.getRect();
             for(Collider dest : colliders){
                 if(base.getName() != dest.getName()){
                     Rectangle cbDest = dest.getRect();
-                    if(cbBase.intersects(cbDest.getBoundsInLocal())){
+                    if(cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())){
+                        base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
                         if(base.listener != null)
                             base.listener.onCollision(dest);
+                    }else{
+                        base.setIntersection(null);
                     }
                 }
             }

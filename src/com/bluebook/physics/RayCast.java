@@ -6,6 +6,9 @@ import com.sun.javafx.geom.Line2D;
 
 import java.util.ArrayList;
 
+/**
+ * This class will create a raycast to interact with {@link Collider}
+ */
 public class RayCast {
 
     public Line2D ray;
@@ -22,6 +25,9 @@ public class RayCast {
         updatePosition();
     }
 
+    /**
+     * Used to update the position of the ray as on the gameobject
+     */
     public void updatePosition(){
         ray = new Line2D((float)source.getPosition().getX(),
                 (float)source.getPosition().getY(),
@@ -30,10 +36,11 @@ public class RayCast {
     }
 
     public void Cast(){
+        updatePosition();
         float collisionDistance = max_distance;
         Collider colliderHit = null;
         for(Collider c : HitDetectionHandler.getInstance().colliders){
-            if(c.getTag() == "DMG" || c.getTag() == "Block") {
+            if(c.getTag() == "Block") {
                 Line2D[] box = c.getLines();
                 for (Line2D l : box) {
                     //float distanceHit = getRayCast(ray, l);

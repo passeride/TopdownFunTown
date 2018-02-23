@@ -1,7 +1,5 @@
 package com.bluebook.physics;
 
-import com.bluebook.engine.GameApplication;
-import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
@@ -10,8 +8,10 @@ import com.sun.javafx.geom.Line2D;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
+
+import java.util.List;
 
 /**
  * Collider is the phycisc class that handle collision
@@ -21,6 +21,8 @@ public class Collider {
 
     private String name;
     private String tag;
+
+    private Path intersection;
 
     private GameObject gameObject;
     protected OnCollisionListener listener;
@@ -33,6 +35,7 @@ public class Collider {
      */
     public Collider(GameObject go){
         this.gameObject = go;
+        attachToGameObject(go);
         updateRect();
         HitDetectionHandler.getInstance().addCollider(this);
         CanvasRenderer.getInstance().addCollider(this);
@@ -64,6 +67,30 @@ public class Collider {
         //gc.strokeRect(rect.getX(), rect.getY(),  rect.getWidth(), rect.getHeight());
         for(Line2D l : getLines()){
             gc.strokeLine(l.x1, l.y1, l.x2, l.y2);
+        }
+
+        if(intersection != null){
+            gc.setFill(Color.RED);
+            intersection.setFill(Color.RED);
+            Bounds b = intersection.getBoundsInParent();
+            gc.beginPath();
+
+            double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
+            double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
+            List<PathElement> elements  = intersection.getElements();
+            for(PathElement pe : elements){
+                if(pe.getClass()==MoveTo.class){
+                    gc.moveTo(((MoveTo)pe).getX(), ((MoveTo)pe).getY());
+                }else if(pe.getClass()==LineTo.class) {
+                    gc.lineTo(((LineTo) pe).getX(), ((LineTo) pe).getY());
+                }
+            }
+
+            gc.closePath();
+            gc.fill();
+            gc.stroke();
+            gc.setFill(Color.GREEN);
+            gc.fillRect(centerX - 25, centerY - 25,  50, 50);
         }
 
         gc.restore();
@@ -155,4 +182,11 @@ public class Collider {
         this.gameObject = gameObject;
     }
 
+    public Shape getIntersection() {
+        return intersection;
+    }
+
+    public void setIntersection(Path intersection) {
+        this.intersection = intersection;
+    }
 }

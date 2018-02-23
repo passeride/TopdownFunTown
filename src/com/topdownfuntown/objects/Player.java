@@ -6,6 +6,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.ConvexHull;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.physics.RayCast;
 import com.bluebook.physics.RayCastHit;
@@ -17,7 +18,11 @@ import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Shadow;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Polygon;
 
 import java.lang.reflect.Array;
@@ -49,6 +54,9 @@ public class Player extends GameObject {
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
         currentWeapon = weapon;
+        collider = new Collider(this);
+        collider.setName("Player");
+        collider.setTag("UnHittable");
         setUpRayCast();
     }
 
@@ -59,15 +67,8 @@ public class Player extends GameObject {
         }
     }
 
-    private void updatePositionRaycast(){
-        for(RayCast r : raycasts){
-            r.updatePosition();
-        }
-    }
-
     @Override
     public void update(double delta) {
-        updatePositionRaycast();
         currentWeapon.setPosition(position);
         currentWeapon.setDirection(direction);
     }
@@ -75,46 +76,51 @@ public class Player extends GameObject {
     @Override
     public void draw(GraphicsContext gc){
 
-
-        gc.setFill(Color.RED);
-
-        double[] xs = new double[raycasts.size()];
-        double[] ys = new double[raycasts.size()];
-
-
-        for(int i = 0; i < raycasts.size(); i++){
-            RayCastHit rch = raycasts.get(i).hit;
-            if(rch != null) {
-                if (rch.isHit) {
-                    //gc.setStroke(Color.RED);
-                    //gc.strokeLine(rch.ray.x1, rch.ray.y1, rch.ray.x2, rch.ray.y2);
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                    //gc.strokeLine(rch.originalRay.x1, rch.originalRay.y1, rch.originalRay.x2, rch.originalRay.y2);
-
-                } else {
-                    //gc.setStroke(Color.GREEN);
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                    //xs[i] = ((int)rch.originalRay.x2);
-                    //ys[i] = ((int)rch.originalRay.y2);
-                    //gc.strokeLine(rch.originalRay.x1, rch.originalRay.y1, rch.originalRay.x2, rch.originalRay.y2);
-                }
-            }
-        }
+        double[][] polygon = getPolygon();
 
         gc.save();
-        gc.setFill(Color.WHITE);
-        gc.applyEffect(new ColorAdjust(0, 0, -0.7, 0));
+
+        gc.applyEffect(new ColorAdjust(0, 0, -0.3, 0));
+
+        gc.setFill( new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0.0, new Color(1, 1, 1, 0.3)),
+                new Stop(1.0, Color.TRANSPARENT)));
         gc.setGlobalBlendMode(BlendMode.OVERLAY);
-        gc.fillPolygon(xs, ys, xs.length);
+        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+
         gc.restore();
 
         super.draw(gc);
 
     }
 
+    /**
+     * Goes over {@link #raycasts} and returns a double array with positions first array is X cooridnates
+     * second is Y coordinates
+     * @return [x/y][position]
+     */
+    private double[][] getPolygon(){
+        double[][] ret = new double[2][];
+        double[] xs = new double[raycasts.size()];
+        double[] ys = new double[raycasts.size()];
 
+        for(int i = 0; i < raycasts.size(); i++){
+            RayCastHit rch = raycasts.get(i).hit;
+            if(rch != null) {
+                if (rch.isHit) {
+                    xs[i] = rch.ray.x2;
+                    ys[i] = rch.ray.y2;
+                } else {
+                    xs[i] = rch.ray.x2;
+                    ys[i] = rch.ray.y2;
+                }
+            }
+        }
+        ret[0] = xs;
+        ret[1] = ys;
+        return ret;
+    }
 
     /**
      * Will move the player object NORTH/UP by {@link Player#speed}
