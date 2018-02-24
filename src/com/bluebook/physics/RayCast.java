@@ -11,13 +11,18 @@ import java.util.ArrayList;
  */
 public class RayCast {
 
-    public Line2D ray;
-    public float max_distance = 2000;
-    public RayCastHit hit = null;
-    public double angle;
-    public GameObject source;
+    private Line2D ray;
+    private float max_distance = 2000;
+    private RayCastHit hit = null;
+    private double angle;
+    private GameObject source;
 
 
+    /**
+     * This will create a raycast for the PhysicsThread to compile from a game object in an angle
+     * @param angle
+     * @param source
+     */
     public RayCast(double angle, GameObject source){
         HitDetectionHandler.getInstance().raycasts.add(this);
         this.source = source;
@@ -95,4 +100,19 @@ public class RayCast {
         return -1; // No collision
     }
 
+    public float getMax_distance() {
+        return max_distance;
+    }
+
+    public void setMax_distance(float max_distance) {
+        this.max_distance = max_distance;
+    }
+
+    public RayCastHit getHit() {
+        return hit;
+    }
+
+    public void setHit(RayCastHit hit) {
+        this.hit = hit;
+    }
 }

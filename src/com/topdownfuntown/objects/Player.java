@@ -10,6 +10,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.physics.RayCast;
 import com.bluebook.physics.RayCastHit;
+import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
@@ -30,15 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends GameObject {
+
     AudioPlayer hitSound;
+    protected Vector2 collisionDirection;
     private double speed = 100.0; // Gotta go fast
     private double baseSpeed = 100.0;
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
     private StarterWeapon currentWeapon;
     Topdownfuntown topdownfuntown;
+    private Collider walkCollider;
 
-    private int rayCastResolution = 720;
+    private int rayCastResolution = 1080;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
 
     /**
@@ -57,6 +61,13 @@ public class Player extends GameObject {
         collider = new Collider(this);
         collider.setName("Player");
         collider.setTag("UnHittable");
+
+        // WalkCollider
+        walkCollider = new Collider(this);
+        walkCollider.setName("Player_Walk");
+        walkCollider.setTag("Walk");
+        walkCollider.setPadding(new Vector2(20, 20));
+
         setUpRayCast();
     }
 
@@ -106,7 +117,7 @@ public class Player extends GameObject {
         double[] ys = new double[raycasts.size()];
 
         for(int i = 0; i < raycasts.size(); i++){
-            RayCastHit rch = raycasts.get(i).hit;
+            RayCastHit rch = raycasts.get(i).getHit();
             if(rch != null) {
                 if (rch.isHit) {
                     xs[i] = rch.ray.x2;
@@ -157,7 +168,13 @@ public class Player extends GameObject {
      */
     @Override
     public void translate(Vector2 moveVector) {
+
         Vector2 newValue = Vector2.add(position, moveVector);
+        if(walkCollider.getIntersectionCenter() != null) {
+            newValue = Vector2.add(position, Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
+            System.out.println("Trying to avoid collision");
+        }
+
 
         double screenWidth = GameSettings.getInt("game_resolution_X");
         double screenHeihgt = GameSettings.getInt("game_resolution_Y");

@@ -23,6 +23,8 @@ public class Collider {
     private String tag;
 
     private Path intersection;
+    private Vector2 intersectionCenter;
+    private Vector2 padding = Vector2.ZERO;
 
     private GameObject gameObject;
     protected OnCollisionListener listener;
@@ -42,18 +44,30 @@ public class Collider {
     }
 
     public void updateRect(){
-        rect = new Rectangle(gameObject.getPosition().getX() - gameObject.getScaledSize().getX(), gameObject.getPosition().getY() - gameObject.getScaledSize().getY() * 2.0, gameObject.getScaledSize().getX(), gameObject.getScaledSize().getY());
+        double xSize = gameObject.getScaledSize().getX() + padding.getX();
+        double ySize = gameObject.getScaledSize().getY() + padding.getY();
+        rect = new Rectangle(gameObject.getPosition().getX() - xSize, gameObject.getPosition().getY() - ySize * 2.0, xSize, ySize);
     }
 
     protected void updatePosition(){
         if(gameObject != null){
             gameObject.setSize(gameObject.getSize());
-            rect.setX(gameObject.getPosition().getX() - gameObject.getScaledSize().getX() / 2.0);
-            rect.setY(gameObject.getPosition().getY() - gameObject.getScaledSize().getY() / 2.0);
-            rect.setWidth(gameObject.getScaledSize().getX());
-            rect.setHeight(gameObject.getScaledSize().getY());
+            double xSize = gameObject.getScaledSize().getX() + padding.getX();
+            double ySize = gameObject.getScaledSize().getY() + padding.getY();
+            rect.setX(gameObject.getPosition().getX() - xSize / 2.0);
+            rect.setY(gameObject.getPosition().getY() - ySize / 2.0);
+            rect.setWidth(xSize);
+            rect.setHeight(ySize);
             rect.setRotate(gameObject.getDirection().getAngleInDegrees());
         }
+    }
+
+    protected void updateCenterPoint(){
+        Bounds b = intersection.getBoundsInParent();
+        double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
+        double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
+
+        intersectionCenter = new Vector2(centerX, centerY);
     }
 
     /**
@@ -61,39 +75,41 @@ public class Collider {
      * @param gc
      */
     public void debugDraw(GraphicsContext gc){
-        gc.setStroke(Color.GREEN);
-        gc.save();
-        //rotateGraphicsContext(gc, rect);
-        //gc.strokeRect(rect.getX(), rect.getY(),  rect.getWidth(), rect.getHeight());
-        for(Line2D l : getLines()){
-            gc.strokeLine(l.x1, l.y1, l.x2, l.y2);
-        }
-
-        if(intersection != null){
-            gc.setFill(Color.RED);
-            intersection.setFill(Color.RED);
-            Bounds b = intersection.getBoundsInParent();
-            gc.beginPath();
-
-            double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
-            double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
-            List<PathElement> elements  = intersection.getElements();
-            for(PathElement pe : elements){
-                if(pe.getClass()==MoveTo.class){
-                    gc.moveTo(((MoveTo)pe).getX(), ((MoveTo)pe).getY());
-                }else if(pe.getClass()==LineTo.class) {
-                    gc.lineTo(((LineTo) pe).getX(), ((LineTo) pe).getY());
-                }
+        synchronized (this) {
+            gc.setStroke(Color.GREEN);
+            gc.save();
+            //rotateGraphicsContext(gc, rect);
+            //gc.strokeRect(rect.getX(), rect.getY(),  rect.getWidth(), rect.getHeight());
+            for (Line2D l : getLines()) {
+                gc.strokeLine(l.x1, l.y1, l.x2, l.y2);
             }
 
-            gc.closePath();
-            gc.fill();
-            gc.stroke();
-            gc.setFill(Color.GREEN);
-            gc.fillRect(centerX - 25, centerY - 25,  50, 50);
-        }
+            if (intersection != null) {
+                gc.setFill(Color.RED);
+                intersection.setFill(Color.RED);
+                Bounds b = intersection.getBoundsInParent();
+                gc.beginPath();
 
-        gc.restore();
+                double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
+                double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
+                List<PathElement> elements = intersection.getElements();
+                for (PathElement pe : elements) {
+                    if (pe.getClass() == MoveTo.class) {
+                        gc.moveTo(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
+                    } else if (pe.getClass() == LineTo.class) {
+                        gc.lineTo(((LineTo) pe).getX(), ((LineTo) pe).getY());
+                    }
+                }
+
+                gc.closePath();
+                gc.fill();
+                gc.stroke();
+//            gc.setFill(Color.GREEN);
+//            gc.fillRect(centerX - 25, centerY - 25,  50, 50);
+            }
+
+            gc.restore();
+        }
     }
 
     /**
@@ -187,6 +203,29 @@ public class Collider {
     }
 
     public void setIntersection(Path intersection) {
-        this.intersection = intersection;
+        synchronized (this) {
+            this.intersection = intersection;
+            if (intersection != null) {
+                updateCenterPoint();
+            } else {
+                intersectionCenter = null;
+            }
+        }
+    }
+
+    public Vector2 getIntersectionCenter() {
+        return intersectionCenter;
+    }
+
+    public void setIntersectionCenter(Vector2 intersectionCenter) {
+        this.intersectionCenter = intersectionCenter;
+    }
+
+    public Vector2 getPadding() {
+        return padding;
+    }
+
+    public void setPadding(Vector2 padding) {
+        this.padding = padding;
     }
 }
