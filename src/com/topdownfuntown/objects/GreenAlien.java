@@ -9,6 +9,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GreenAlien extends Enemy {
@@ -50,14 +51,20 @@ public class GreenAlien extends Enemy {
         p.setPhase(200f);
         p.setSpeed(600);
         p.setSine(true);
+
+        // Adding colliders layers
+        p.getCollider().addInteractionLayer("UnHittable");
+        p.getCollider().addInteractionLayer("Block");
+
         p.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit();
-                    p.destroy();
+
                 }
+                p.destroy();
 
             }
         });

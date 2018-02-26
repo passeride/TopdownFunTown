@@ -16,6 +16,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MapLoader {
 
@@ -61,6 +62,14 @@ public class MapLoader {
                     break;
             }
         }
+
+        if(ret.size() > 0) {
+            Random r = new Random();
+            int getNumber = r.nextInt(ret.size());
+            System.out.println("Next stufa;sldkkfj  " + getNumber);
+            ret.get(getNumber).isKeyHolder = true;
+        }
+
         return ret;
     }
 }

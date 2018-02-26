@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class Collider {
     private String name;
     private String tag;
 
+    private List<String> interactionLayer = new ArrayList<>();
+
     private Path intersection;
     private Vector2 intersectionCenter;
     private Vector2 padding = Vector2.ZERO;
@@ -32,7 +35,8 @@ public class Collider {
 
 
     /**
-     * Constructor for {@link Collider} require a {@link GameObject} to be attached to
+     * Constructor for {@link Collider} require a {@link GameObject} to be attached to gameobject
+     * Colliders need to use {@link Collider#addInteractionLayer(String)} to get a whitelist of interactions to raport
      * @param go
      */
     public Collider(GameObject go){
@@ -43,6 +47,9 @@ public class Collider {
         CanvasRenderer.getInstance().addCollider(this);
     }
 
+    /**
+     * Will update the rectangle used for collision based on the size of the attached gameobject
+     */
     public void updateRect(){
         double xSize = gameObject.getScaledSize().getX() + padding.getX();
         double ySize = gameObject.getScaledSize().getY() + padding.getY();
@@ -227,5 +234,27 @@ public class Collider {
 
     public void setPadding(Vector2 padding) {
         this.padding = padding;
+    }
+
+    public List<String> getInteractionLayer(){
+        return this.interactionLayer;
+    }
+
+    /**
+     * This will remove an interactcionLayer
+     * @param tagName
+     */
+    public void removeInteractcionLayer(String tagName){
+        if(interactionLayer.contains(tagName)){
+            interactionLayer.remove(tagName);
+        }
+    }
+
+    /**
+     * Will add a string corresponding to a TAG, and interactions between this collider and colliders with this tag will be marked
+     * @param tagName
+     */
+    public void addInteractionLayer(String tagName) {
+        interactionLayer.add(tagName);
     }
 }

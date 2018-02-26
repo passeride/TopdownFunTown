@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Projectile extends GameObject{
 
     private double speed = 800.0;
+    private double TTL = 1.2;
     float period = 0.5f;
     float frequency;
     float angularFrequency;
@@ -22,11 +23,20 @@ public class Projectile extends GameObject{
     float amplitude = 15.0f;
     float phase = 500f;
 
+    private long startTime = 0;
+
+
     private static ArrayList<Projectile> allProjectilse = new ArrayList<>();
 
     private Vector2 startPosition;
     boolean isSine = false;
     boolean isBouncy = true;
+    boolean isTimeDecay = true;
+
+    double squareWithStart;
+    double squareHeightStart;
+
+    private Vector2 startSize = size;
 
 
 
@@ -45,6 +55,9 @@ public class Projectile extends GameObject{
         this.setCollider(new Collider(this));
         collider.setName("Bullet");
         collider.setTag("DMG");
+        startTime = System.currentTimeMillis();
+        squareHeightStart = sprite.getSquareHeight();
+        squareWithStart = sprite.getSquareWidth();
     }
 
     public static void clearAllProjectiles(){
@@ -65,8 +78,31 @@ public class Projectile extends GameObject{
         else
             translate(Vector2.multiply(direction, speed * delta));
 
+        if(isTimeDecay){
+
+            double elapseInSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
+            double elapseProgress = (TTL - elapseInSeconds) / TTL;
+
+            if(elapseProgress > 0) {
+                double x_size = startSize.getX() * elapseProgress;
+                double y_size = startSize.getY() * elapseProgress;
+                elapseProgress = elapseProgress / 2 + 0.5;
+                sprite.setSquareWidth(squareWithStart * elapseProgress);
+                sprite.setSquareHeight(squareHeightStart * elapseProgress);
+                size = new Vector2(x_size, y_size);
+            }else{
+                destroy();
+            }
+        }
 
         //position = sinVector(position,  t);
+    }
+
+
+
+    double lerp(double point1, double point2, double alpha)
+    {
+        return point1 + alpha * (point2 - point1);
     }
 
     /**

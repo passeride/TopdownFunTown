@@ -39,18 +39,22 @@ public class HitDetectionHandler {
     protected void lookForCollision(){
         for(Collider base : colliders){
             Rectangle cbBase = base.getRect();
+            Boolean notCollided = true;
             for(Collider dest : colliders){
-                if(base.getName() != dest.getName()){
-                    Rectangle cbDest = dest.getRect();
-                    if(cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())){
-                        base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
-                        if(base.listener != null)
-                            base.listener.onCollision(dest);
-                    }else{
-                        base.setIntersection(null);
+                if(base.getName() != dest.getName()) {
+                    if (base.getInteractionLayer().contains(dest.getTag())) {
+                        Rectangle cbDest = dest.getRect();
+                        if (cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())) {
+                            base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
+                            notCollided = false;
+                            if (base.listener != null)
+                                base.listener.onCollision(dest);
+                        }
                     }
                 }
             }
+            if(notCollided)
+                base.setIntersection(null);
         }
 
         // Raycasting

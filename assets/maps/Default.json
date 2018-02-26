@@ -1,7 +1,7 @@
 {
   "Name":"StartRoom",
   "isSafeRoom":false,
-  "BackgroundImage":"../bg/room_01",
+  "BackgroundImage":"../bg/backgroundGradient_01",
   "SoundTrack":"./assets/audio/scifi.aiff",
   "Enemies":[
     {

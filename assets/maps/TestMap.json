@@ -1,7 +1,7 @@
 {
   "Name":"StartRoom",
   "isSafeRoom":false,
-  "BackgroundImage":"../bg/room_01",
+  "BackgroundImage":"../bg/backgroundGradient_01",
   "SoundTrack":"./assets/audio/scifi.aiff",
   "Enemies":[
   ],
@@ -20,6 +20,16 @@
       "Type":"Crate",
       "x_pos":600,
       "y_pos":900
+    },
+    {
+      "Type":"Crate",
+      "x_pos":1000,
+      "y_pos":900
+    },
+    {
+      "Type":"Crate",
+      "x_pos":1000,
+      "y_pos":300
     }
   ]
 }

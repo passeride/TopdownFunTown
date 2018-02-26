@@ -11,6 +11,7 @@ import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.physics.RayCast;
 import com.bluebook.physics.RayCastHit;
 import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
@@ -28,6 +29,7 @@ import javafx.scene.shape.Polygon;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Player extends GameObject {
@@ -42,7 +44,7 @@ public class Player extends GameObject {
     Topdownfuntown topdownfuntown;
     private Collider walkCollider;
 
-    private int rayCastResolution = 1080;
+    private int rayCastResolution = 0;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
 
     /**
@@ -54,19 +56,24 @@ public class Player extends GameObject {
      */
     public Player(Vector2 position, Vector2 direction, Sprite sprite, StarterWeapon weapon) {
         super(position, direction, sprite);
+        setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
         topdownfuntown = (Topdownfuntown) GameApplication.getInstance();
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
         currentWeapon = weapon;
+        currentWeapon.setOffset(new Vector2(0, 25));
+
         collider = new Collider(this);
         collider.setName("Player");
         collider.setTag("UnHittable");
+        collider.addInteractionLayer("Hittable");
 
         // WalkCollider
         walkCollider = new Collider(this);
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
-        walkCollider.setPadding(new Vector2(20, 20));
+        walkCollider.addInteractionLayer("Block");
+        walkCollider.setPadding(new Vector2(-20, -20));
 
         setUpRayCast();
     }
@@ -91,7 +98,7 @@ public class Player extends GameObject {
 
         gc.save();
 
-        gc.applyEffect(new ColorAdjust(0, 0, -0.3, 0));
+        //gc.applyEffect(new ColorAdjust(0, 0, -0.3, 0));
 
         gc.setFill( new RadialGradient(0, 0, 0.5, 0.5, 0., true,
                 CycleMethod.NO_CYCLE,

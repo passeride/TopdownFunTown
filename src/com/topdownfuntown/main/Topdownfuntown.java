@@ -6,6 +6,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
+import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
@@ -31,9 +32,9 @@ public class Topdownfuntown extends GameApplication {
 
     private GameMap currentGameMap;
 
-    ArrayList<Projectile> projectiles = new ArrayList<>();
+    public boolean hasKey = false;
 
-    private Enemy[] enemies = new Enemy[10];
+    ArrayList<Projectile> projectiles = new ArrayList<>();
 
     private Tile tiles;
 
@@ -47,8 +48,7 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player[0] = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
-        player[1] = new Player(new Vector2(800, 800), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
+        //player[1] = new Player(new Vector2(800, 800), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
 
 
 
@@ -61,26 +61,27 @@ public class Topdownfuntown extends GameApplication {
         health = GameSettings.getInt("player_health");
 
         currentGameMap = MapLoader.loadMapJson("TestMap");
+
+        player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
+
+
+
+
     }
 
-    void createAliens(){
-        Random r = new Random();
-        for(int i = 0; i < enemies.length;  i++){
-            enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
-            enemies[i].setTarget(player[0]);
-        }
-    }
 
     public void moveToNextRoom(){
-        player[0].setPosition(new Vector2(600, 600));
+        currentGameMap.destroy();
         tiles.setupGrid();
         Projectile.clearAllProjectiles();
         currentGameMap = MapLoader.loadMapJson("Room2");
-        createAliens();
+        player[0].setPosition(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()));
+        hasKey = false;
     }
 
     @Override
     public void update(double delta) {
+        System.out.println("KEY: " + hasKey);
         if(input.isKeyDown(KeyCode.S)){
             player[0].moveDown(delta);
         }
@@ -97,21 +98,21 @@ public class Topdownfuntown extends GameApplication {
             player[0].moveLeft(delta);
         }
 
-        if(input.isKeyDown(KeyCode.DOWN)){
-            player[1].moveDown(delta);
-        }
-
-        if(input.isKeyDown(KeyCode.UP)){
-            player[1].moveUp(delta);
-        }
-
-        if(input.isKeyDown(KeyCode.RIGHT)){
-            player[1].moveRight(delta);
-        }
-
-        if(input.isKeyDown(KeyCode.LEFT)){
-            player[1].moveLeft(delta);
-        }
+//        if(input.isKeyDown(KeyCode.DOWN)){
+//            player[1].moveDown(delta);
+//        }
+//
+//        if(input.isKeyDown(KeyCode.UP)){
+//            player[1].moveUp(delta);
+//        }
+//
+//        if(input.isKeyDown(KeyCode.RIGHT)){
+//            player[1].moveRight(delta);
+//        }
+//
+//        if(input.isKeyDown(KeyCode.LEFT)){
+//            player[1].moveLeft(delta);
+//        }
 
         if(input.isKeyPressed(KeyCode.L)){
             moveToNextRoom();
@@ -120,7 +121,7 @@ public class Topdownfuntown extends GameApplication {
 
         if(input.isKeyDown(KeyCode.SPACE)){
             player[0].activateGottaGoFast();
-            player[1].activateGottaGoFast();
+            //player[1].activateGottaGoFast();
             /* debug for saving file
             try {
                 System.out.println(loadProgression(lagringsFil));
@@ -130,13 +131,13 @@ public class Topdownfuntown extends GameApplication {
             System.out.println();
             */
         }else{
-            player[1].deactivateGottaGoFast();
+            //player[1].deactivateGottaGoFast();
             player[0].deactivateGottaGoFast();
         }
 
         if(input.isMouseButton0Pressed()){
             player[0].shoot();
-            player[1].shoot();
+            //player[1].shoot();
             try {
                 //saveProgression(lagringsFil);
             } catch (Exception e) {
@@ -145,22 +146,22 @@ public class Topdownfuntown extends GameApplication {
         }
 
         player[0].lookAt(input.getMousePosition());
-        player[1].lookAt(input.getMousePosition());
+        //player[1].lookAt(input.getMousePosition());
         scoreObject.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
         checkEnemies();
     }
 
     private void checkEnemies(){
 
-        boolean levelComplete = true;
-        for(int i = 0; i < enemies.length;  i++) {
-            if(enemies[i] != null && enemies[i].isAlive()){
-                levelComplete = false;
-            }
-        }
-        if(levelComplete){
-           // moveToNextRoom();
-        }
+//        boolean levelComplete = true;
+//        for(int i = 0; i < enemies.length;  i++) {
+//            if(enemies[i] != null && enemies[i].isAlive()){
+//                levelComplete = false;
+//            }
+//        }
+//        if(levelComplete){
+//           // moveToNextRoom();
+//        }
         /*for(int i = 0; i < enemies.length;  i++){
             if(enemies[i] != null) {
                 if (!enemies[i].isAlive()) {

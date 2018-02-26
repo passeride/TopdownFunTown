@@ -1,11 +1,13 @@
 package com.topdownfuntown.objects;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.topdownfuntown.main.Topdownfuntown;
 
 public abstract class Enemy extends GameObject {
 
@@ -13,6 +15,8 @@ public abstract class Enemy extends GameObject {
     double speed = 100;
     GameObject target;
     double angularDampening = 0.05;
+
+    public boolean isKeyHolder = false;
 
 
     /**
@@ -31,6 +35,8 @@ public abstract class Enemy extends GameObject {
         collider.setName("Enemy");
         collider.setTag("Hittable");
         collider.attachToGameObject(this);
+        collider.addInteractionLayer("UnHittable");
+        collider.addInteractionLayer("Block");
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
@@ -45,6 +51,13 @@ public abstract class Enemy extends GameObject {
 
     public void setTarget(GameObject target) {
         this.target = target;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(isKeyHolder)
+            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;
     }
 
     @Override

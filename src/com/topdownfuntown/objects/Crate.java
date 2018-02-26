@@ -5,6 +5,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.util.Vector2;
 
 public class Crate extends Obstacle {
+    public static int counter = 0;
     /**
      * Constructor for GameObject given position rotation and sprite
      *
@@ -15,7 +16,9 @@ public class Crate extends Obstacle {
         setSize(new Vector2(sprite.getSquareWidth(), sprite.getSquareHeight()));
         this.collider = new Collider(this);
         collider.setTag("Block");
-        collider.setName("Crate");
+        collider.setName("Crate " + counter++);
+        collider.addInteractionLayer("UnHittable");
+        collider.addInteractionLayer("DMG");
 
     }
 }
