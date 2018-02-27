@@ -6,8 +6,10 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
@@ -15,6 +17,7 @@ import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,7 +28,7 @@ public class ControllerMenu implements Initializable{
     @FXML
     private ImageView imageViewPug;
     @FXML
-    private Label label;
+    private javafx.scene.control.Button button1;
 
 
         @Override
@@ -43,12 +46,33 @@ public class ControllerMenu implements Initializable{
         pathTransition.setCycleCount(Timeline.INDEFINITE);
         pathTransition.setAutoReverse(true);
         pathTransition.play();
+
         }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         Stage stage = gameApplication.getStage();
         gameApplication.callGame(stage);
+    }
+
+    @FXML
+    private void gaaTilOptions(ActionEvent event){
+            FXMLLoader fxml = new FXMLLoader();
+        Parent root = null;
+        try {
+            root = fxml.load(getClass().getResource("options.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stageOptions = gameApplication.getStage();
+            stageOptions.setScene(new Scene(root));
+            stageOptions.show();
+    }
+
+    @FXML
+    private void skruAvSpill(ActionEvent event){
+        Stage stage = (Stage) button1.getScene().getWindow();
+        stage.close();
     }
 
 

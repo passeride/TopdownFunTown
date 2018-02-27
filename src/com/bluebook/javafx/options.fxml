@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bluebook.javafx.ControllerOptions">
+    <children>
+        <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="file:/home/pm/Git/topdownfuntown/assets/pictures/mountain.jpg" />
+            </image>
+        </ImageView>
+      <Slider fx:id="slider" layoutX="890.0" layoutY="469.0" orientation="HORIZONTAL" prefHeight="53.0" prefWidth="140.0" scaleX="3.0" scaleY="1.5" showTickLabels="true" value="100.0" />
+      <CheckBox fx:id="lydCheckBox" layoutX="1282.0" layoutY="469.0" mnemonicParsing="false" onAction="#toggleLyd" selected="true" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="39.0" />
+         </font>
+      </CheckBox>
+      <TextField fx:id="navnInput" layoutX="739.0" layoutY="343.0" prefHeight="64.0" prefWidth="443.0" promptText="Player" />
+      <Label layoutX="457.0" layoutY="350.0" text="Navn">
+         <font>
+            <Font name="System Bold Italic" size="41.0" />
+         </font>
+      </Label>
+      <Label layoutX="475.0" layoutY="456.0" text="Lyd">
+         <font>
+            <Font name="System Bold Italic" size="41.0" />
+         </font>
+      </Label>
+      <Label layoutX="462.0" layoutY="561.0" text="Gore">
+         <font>
+            <Font name="System Bold Italic" size="41.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="goreCheck" layoutX="916.0" layoutY="577.0" mnemonicParsing="false" selected="true">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="returnButton" defaultButton="true" layoutX="795.0" layoutY="723.0" mnemonicParsing="false" onAction="#returnToMenu" prefHeight="150.0" prefWidth="330.0" text="tilbake" />
+    </children>
+
+</AnchorPane>
