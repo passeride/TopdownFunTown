@@ -34,6 +34,8 @@ public abstract class GameObject {
         this.position = position;
         this.direction = direction;
         this.sprite = sprite;
+        if(sprite != null)
+            this.size = new Vector2(sprite.getSquareWidth(),  sprite.getSquareHeight());
 
         CanvasRenderer.getInstance().addGameObject(this);
         GameEngine.getInstance().addGameObject(this);

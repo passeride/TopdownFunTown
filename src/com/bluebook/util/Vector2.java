@@ -145,6 +145,26 @@ public class Vector2 extends Point2D{
         return ret;
     }
 
+
+    /**
+     * Will rotate vec around rotationPoint the amout of degrees specified in angle,  and return new vector
+     * @param vec Vector to be rotated
+     * @param rotationPoint Point of rotation
+     * @param angle Angle in degrees to be rotated
+     * @return A new Vector
+     */
+    public static Vector2 rotateVectorAroundPoint(Vector2 vec, Vector2 rotationPoint, double angle) {
+        /*
+        x_rotated = ((x - x_origin) * cos(angle)) - ((y_origin - y) * sin(angle)) + x_origin
+        y_rotated = ((y_origin - y) * cos(angle)) - ((x - x_origin) * sin(angle)) + y_origins
+         */
+        angle = Math.toRadians(angle);
+        double x = (vec.getX() - rotationPoint.getX()) * Math.cos(angle) - (rotationPoint.getY() - vec.getY()) * Math.sin(angle) + rotationPoint.getX();
+        double y = (rotationPoint.getY() - vec.getY()) * Math.cos(angle) + ((vec.getX() - rotationPoint.getX()) * Math.sin(angle)) + rotationPoint.getY();
+
+        return new Vector2(x, y);
+    }
+
     /**
      * Normalizes vector
      * The vector will now have the same direction but with a norm length (Length of 1)

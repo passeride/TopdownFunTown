@@ -6,6 +6,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
+import javafx.scene.canvas.GraphicsContext;
 
 abstract class Weapon extends GameObject {
     public Vector2 offset;
@@ -33,25 +34,37 @@ abstract class Weapon extends GameObject {
         this.offset = offset;
     }
 
+    @Override
+    public void draw(GraphicsContext gc){
+        sprite.rotate(direction);
+        sprite.draw(gc, Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()));
+    }
+
+    @Override
+    public void setDirection(Vector2 direction) {
+        super.setDirection(Vector2.Vector2FromAngleInDegrees(direction.getAngleInDegrees() + 90));
+    }
+
+
     public void shoot(){
         audioPlayer.setSpital(this);
         audioPlayer.playOnce();
         // score -= 50;
-        Projectile p = new Projectile(getPosition(), getDirection(), new Sprite("/projectiles/bullet"));
+        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()), Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90), new Sprite("/projectiles/bullet"));
+        p.getCollider().addInteractionLayer("Block");
+        p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {
             //System.out.println("HIT:  "  + other.getName() + "  :  " + other.getTag());
-            if(other.getTag() == "Hittable") {
-                if(other.getGameObject() instanceof Player) {
-                    Player player = (Player) other.getGameObject();
-                    player.hit();
-                    if (GameEngine.DEBUG)
-                        System.out.println("Bullet Hit " + other.getName());
-                    player.destroy();
-                }else{
-                    // score += (int)(0.2 * p.getLengthTraveled());
-                    other.getGameObject().destroy();
-                    p.destroy();
-                }
+            if(other.getGameObject() instanceof Player) {
+                Player player = (Player) other.getGameObject();
+                player.hit();
+                if (GameEngine.DEBUG)
+                    System.out.println("Bullet Hit " + other.getName());
+                player.destroy();
+            }else{
+                // score += (int)(0.2 * p.getLengthTraveled());
+                other.getGameObject().destroy();
+                p.destroy();
             }
         });
 

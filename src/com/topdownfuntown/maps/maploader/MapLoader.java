@@ -8,9 +8,15 @@ import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.util.Vector2;
 import com.google.gson.Gson;
 import com.topdownfuntown.maps.GameMap;
+import com.topdownfuntown.objects.Crate;
+import com.topdownfuntown.objects.Enemy;
+import com.topdownfuntown.objects.GreenAlien;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class MapLoader {
 
@@ -36,7 +42,33 @@ public class MapLoader {
         if(mapdoa.SoundTrack != null)
             ret.setSoundTrack(new AudioPlayer(mapdoa.SoundTrack));
 
+        // Enemies
+        ret.addEnemyList(populateEnemies(mapdoa.Enemies));
 
+        for(BlockDOA b : mapdoa.Blocks){
+            ret.addObstale(new Crate(new Vector2(b.x_pos, b.y_pos)));
+        }
+
+
+        return ret;
+    }
+
+    private  static List<Enemy> populateEnemies(List<EnemyDOA> edoa){
+        ArrayList<Enemy> ret = new ArrayList<>();
+        for(EnemyDOA e : edoa){
+            switch(e.Type){
+                case "GreenAlien":
+                    ret.add(new GreenAlien(new Vector2(e.x_pos, e.y_pos)));
+                    break;
+            }
+        }
+
+        if(ret.size() > 0) {
+            Random r = new Random();
+            int getNumber = r.nextInt(ret.size());
+            System.out.println("Next stufa;sldkkfj  " + getNumber);
+            ret.get(getNumber).isKeyHolder = true;
+        }
 
         return ret;
     }

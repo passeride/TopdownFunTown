@@ -1,7 +1,11 @@
 package com.bluebook.physics;
 
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +16,7 @@ public class HitDetectionHandler {
     private static HitDetectionHandler singelton;
 
     ArrayList<Collider> colliders = new ArrayList<>();
+    ArrayList<RayCast> raycasts = new ArrayList<>();
 
     // And out buffers needed for thread safe operation
     ArrayList<Collider> colliderInBuffer = new ArrayList<>();
@@ -28,18 +33,33 @@ public class HitDetectionHandler {
         }
     }
 
+    /**
+     * This will go over  all collision and raytracing looking for intersections
+     */
     protected void lookForCollision(){
         for(Collider base : colliders){
             Rectangle cbBase = base.getRect();
+            Boolean notCollided = true;
             for(Collider dest : colliders){
-                if(base.getName() != dest.getName()){
-                    Rectangle cbDest = dest.getRect();
-                    if(cbBase.intersects(cbDest.getBoundsInLocal())){
-                        if(base.listener != null)
-                            base.listener.onCollision(dest);
+                if(base.getName() != dest.getName()) {
+                    if (base.getInteractionLayer().contains(dest.getTag())) {
+                        Rectangle cbDest = dest.getRect();
+                        if (cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())) {
+                            base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
+                            notCollided = false;
+                            if (base.listener != null)
+                                base.listener.onCollision(dest);
+                        }
                     }
                 }
             }
+            if(notCollided)
+                base.setIntersection(null);
+        }
+
+        // Raycasting
+        for(RayCast r : raycasts){
+            r.Cast();
         }
         moveBuffer();
     }

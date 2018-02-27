@@ -6,6 +6,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
+import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
@@ -26,14 +27,14 @@ public class Topdownfuntown extends GameApplication {
     private ScoreElement scoreObject;
     private HealthElement healthObject;
 
-    private Player player;
+    private Player[] player = new Player[2];
     private AudioPlayer audioPlayer1 = new AudioPlayer(testFil1);
 
     private GameMap currentGameMap;
 
-    ArrayList<Projectile> projectiles = new ArrayList<>();
+    public boolean hasKey = false;
 
-    private Enemy[] enemies = new Enemy[3];
+    ArrayList<Projectile> projectiles = new ArrayList<>();
 
     private Tile tiles;
 
@@ -47,8 +48,9 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
-        player.setSize(new Vector2(128, 128));
+        //player[1] = new Player(new Vector2(800, 800), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
+
+
 
         tiles = new Tile();
 
@@ -56,37 +58,70 @@ public class Topdownfuntown extends GameApplication {
         scoreObject = new ScoreElement(new Vector2(GameSettings.getInt("game_resolution_X") - 200, 200));
         healthObject = new HealthElement(new Vector2(100,  100));
 
-        Collider c = new Collider(player);
-        c.setName("Player");
-        c.setTag("UnHittable");
-        c.attachToGameObject(player);
-
         health = GameSettings.getInt("player_health");
 
-        currentGameMap = MapLoader.loadMapJson("Default");
+        currentGameMap = MapLoader.loadMapJson("TestMap");
+
+        player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
+
+
+
+
+    }
+
+
+    public void moveToNextRoom(){
+        currentGameMap.destroy();
+        tiles.setupGrid();
+        Projectile.clearAllProjectiles();
+        currentGameMap = MapLoader.loadMapJson("Room2");
+        player[0].setPosition(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()));
+        hasKey = false;
     }
 
     @Override
     public void update(double delta) {
+        System.out.println("KEY: " + hasKey);
         if(input.isKeyDown(KeyCode.S)){
-            player.moveDown(delta);
+            player[0].moveDown(delta);
         }
 
         if(input.isKeyDown(KeyCode.W)){
-            player.moveUp(delta);
+            player[0].moveUp(delta);
         }
 
         if(input.isKeyDown(KeyCode.D)){
-            player.moveRight(delta);
+            player[0].moveRight(delta);
         }
 
         if(input.isKeyDown(KeyCode.A)){
-            player.moveLeft(delta);
+            player[0].moveLeft(delta);
+        }
+
+//        if(input.isKeyDown(KeyCode.DOWN)){
+//            player[1].moveDown(delta);
+//        }
+//
+//        if(input.isKeyDown(KeyCode.UP)){
+//            player[1].moveUp(delta);
+//        }
+//
+//        if(input.isKeyDown(KeyCode.RIGHT)){
+//            player[1].moveRight(delta);
+//        }
+//
+//        if(input.isKeyDown(KeyCode.LEFT)){
+//            player[1].moveLeft(delta);
+//        }
+
+        if(input.isKeyPressed(KeyCode.L)){
+            moveToNextRoom();
         }
 
 
         if(input.isKeyDown(KeyCode.SPACE)){
-            player.activateGottaGoFast();
+            player[0].activateGottaGoFast();
+            //player[1].activateGottaGoFast();
             /* debug for saving file
             try {
                 System.out.println(loadProgression(lagringsFil));
@@ -96,26 +131,38 @@ public class Topdownfuntown extends GameApplication {
             System.out.println();
             */
         }else{
-            player.deactivateGottaGoFast();
+            //player[1].deactivateGottaGoFast();
+            player[0].deactivateGottaGoFast();
         }
 
         if(input.isMouseButton0Pressed()){
-            player.shoot();
+            player[0].shoot();
+            //player[1].shoot();
             try {
-                saveProgression(lagringsFil);
+                //saveProgression(lagringsFil);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        player.lookAt(input.getMousePosition());
+        player[0].lookAt(input.getMousePosition());
+        //player[1].lookAt(input.getMousePosition());
         scoreObject.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
         checkEnemies();
     }
 
     private void checkEnemies(){
-        Random r = new Random();
-        for(int i = 0; i < enemies.length;  i++){
+
+//        boolean levelComplete = true;
+//        for(int i = 0; i < enemies.length;  i++) {
+//            if(enemies[i] != null && enemies[i].isAlive()){
+//                levelComplete = false;
+//            }
+//        }
+//        if(levelComplete){
+//           // moveToNextRoom();
+//        }
+        /*for(int i = 0; i < enemies.length;  i++){
             if(enemies[i] != null) {
                 if (!enemies[i].isAlive()) {
 
@@ -126,7 +173,7 @@ public class Topdownfuntown extends GameApplication {
                 enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
                 enemies[i].setTarget(player);
             }
-        }
+        }*/
     }
 
     public int getScore() {
@@ -146,7 +193,11 @@ public class Topdownfuntown extends GameApplication {
         healthObject.setHp(this.health);
     }
 
-/*DUMMY FUNCTION
+    public Player getPlayer() {
+        return player[0];
+    }
+
+    /*DUMMY FUNCTION
     public void setLevelNumber(){
         if(LevelLoading.loadLevel()){
             level++;
