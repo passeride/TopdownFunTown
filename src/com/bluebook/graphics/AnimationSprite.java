@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 public class AnimationSprite extends Sprite{
     public Image[] animation;
     public double length;
+    public int frameNum;
     long startNanoTime;
 
     boolean playing = true;
@@ -20,9 +21,10 @@ public class AnimationSprite extends Sprite{
      * Sprite object with required image
      * @param name is the name of the asset to be loaded
      */
-    public AnimationSprite(String name) {
+    public AnimationSprite(String name, int frames) {
         super();
-        this.animation = SpriteLoader.loadAnimationImage(name);
+        this.frameNum = frames;
+        this.animation = SpriteLoader.loadAnimationImage(name,frameNum);
         length = 0.10;
         startNanoTime = System.nanoTime();
     }

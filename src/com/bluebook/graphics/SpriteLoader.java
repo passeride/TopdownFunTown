@@ -12,6 +12,8 @@ public class SpriteLoader {
     private static HashMap<String, Image> images = new HashMap<>();
     private static HashMap<String, Image[]> animationImages = new HashMap<>();
     private static HashMap<String, Image> bgImages = new HashMap<>();
+    private static int frameInputNum;
+
     /**
      * Will load a png from assets/sprite/ and return the image, to be used with spriteclass
      * @param name
@@ -42,10 +44,11 @@ public class SpriteLoader {
      * @param name name of
      * @return
      */
-    public static Image[] loadAnimationImage(String name){
+    public static Image[] loadAnimationImage(String name, int frameNumber){
         if(!animationImages.containsKey(name)) {
-            Image[] imageArray = new Image[3];
-            for (int i = 0; i < 3; i++) {
+            frameInputNum = frameNumber;
+            Image[] imageArray = new Image[frameInputNum];
+            for (int i = 0; i < frameInputNum; i++) {
                 File f = new File("./assets/sprite/" + name + "_" + i + ".png");
                 try {
                     imageArray[i] = new Image(new FileInputStream(f));

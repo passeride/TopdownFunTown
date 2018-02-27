@@ -47,7 +47,7 @@ public class Topdownfuntown extends GameApplication {
     @Override
     public void onLoad(){
 
-        player = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character"));
+        player = new Player(new Vector2(600, 600), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
         player.setSize(new Vector2(128, 128));
 
         tiles = new Tile();
@@ -100,7 +100,7 @@ public class Topdownfuntown extends GameApplication {
         }
 
         if(input.isMouseButton0Pressed()){
-            shoot();
+            player.shoot();
             try {
                 saveProgression(lagringsFil);
             } catch (Exception e) {
@@ -127,30 +127,6 @@ public class Topdownfuntown extends GameApplication {
                 enemies[i].setTarget(player);
             }
         }
-    }
-
-    public void shoot(){
-        audioPlayer1.setSpital(player);
-        audioPlayer1.playOnce();
-        score -= 50;
-        Projectile p = new Projectile(player.getPosition(), player.getDirection(), new Sprite("/projectiles/bullet"));
-        p.setOnCollisionListener(other -> {
-            //System.out.println("HIT:  "  + other.getName() + "  :  " + other.getTag());
-            if(other.getTag() == "Hittable") {
-                if(other.getGameObject() instanceof Player) {
-                    Player player = (Player) other.getGameObject();
-                    player.hit();
-                    if (GameEngine.DEBUG)
-                        System.out.println("Bullet Hit " + other.getName());
-                    Topdownfuntown.this.player.destroy();
-                }else{
-                    score += (int)(0.2 * p.getLengthTraveled());
-                    other.getGameObject().destroy();
-                    p.destroy();
-                }
-            }
-        });
-
     }
 
     public int getScore() {

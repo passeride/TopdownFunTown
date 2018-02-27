@@ -3,6 +3,7 @@ package com.topdownfuntown.objects;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
@@ -10,13 +11,12 @@ import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
 
 public class Player extends GameObject {
-
-
     AudioPlayer hitSound;
     private double speed = 100.0; // Gotta go fast
     private double baseSpeed = 100.0;
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
+    private StarterWeapon currentWeapon;
     Topdownfuntown topdownfuntown;
 
     /**
@@ -26,11 +26,18 @@ public class Player extends GameObject {
      * @param direction
      * @param sprite
      */
-    public Player(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Player(Vector2 position, Vector2 direction, Sprite sprite, StarterWeapon weapon) {
         super(position, direction, sprite);
         topdownfuntown = (Topdownfuntown) GameApplication.getInstance();
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
+        currentWeapon = weapon;
+    }
+
+    @Override
+    public void update(double delta) {
+        currentWeapon.setPosition(position);
+        currentWeapon.setDirection(direction);
     }
 
     /**
@@ -110,5 +117,7 @@ public class Player extends GameObject {
         speed = baseSpeed;
     }
 
-
+    public void shoot() {
+        currentWeapon.shoot();
+    }
 }
