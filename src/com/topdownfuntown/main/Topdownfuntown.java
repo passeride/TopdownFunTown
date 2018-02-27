@@ -2,9 +2,7 @@ package com.topdownfuntown.main;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
-import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameSettings;
