@@ -5,6 +5,7 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
@@ -62,6 +63,7 @@ public class Topdownfuntown extends GameApplication {
 
         player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
 
+        Turret t = new Turret(new Vector2(850, 1000), Vector2.DOWN);
 
 
 
@@ -79,7 +81,12 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void update(double delta) {
-        System.out.println("KEY: " + hasKey);
+        if(input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input.isKeyDown(KeyCode.A) || input.isKeyDown(KeyCode.D)){
+            ((AnimationSprite)player[0].getSprite()).setPlaying(true);
+        }else{
+            ((AnimationSprite)player[0].getSprite()).setPlaying(false);
+        }
+
         if(input.isKeyDown(KeyCode.S)){
             player[0].moveDown(delta);
         }
@@ -134,6 +141,9 @@ public class Topdownfuntown extends GameApplication {
         }
 
         if(input.isMouseButton0Pressed()){
+            // TODO: Fix trainwreck
+            ((AnimationSprite)((GameObject)player[0].getCurrentWeapon()).getSprite()).setPlaying(true);
+
             player[0].shoot();
             //player[1].shoot();
             try {
@@ -141,6 +151,9 @@ public class Topdownfuntown extends GameApplication {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else{
+            ((AnimationSprite)((GameObject)player[0].getCurrentWeapon()).getSprite()).setPlaying(false);
+
         }
 
         player[0].lookAt(input.getMousePosition());

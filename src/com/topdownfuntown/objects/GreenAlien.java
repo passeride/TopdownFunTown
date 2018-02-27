@@ -41,7 +41,7 @@ public class GreenAlien extends Enemy {
     }
 
     public void shoot() {
-        Projectile p = new Projectile(position, direction, new Sprite("/projectiles/balltest"));
+        Projectile p = new Projectile(position, direction, new Sprite("/projectiles/projectile_enemy_00"));
         p.setSize(new Vector2(32, 32));
 
         p.getSprite().setSquareHeight(32);
@@ -49,7 +49,7 @@ public class GreenAlien extends Enemy {
         p.setPeriod(1.2f);
         p.setAmplitude(3f);
         p.setPhase(200f);
-        p.setSpeed(600);
+        p.setSpeed(1600);
         p.setSine(true);
 
         // Adding colliders layers

@@ -37,31 +37,33 @@ public class HitDetectionHandler {
      * This will go over  all collision and raytracing looking for intersections
      */
     protected void lookForCollision(){
-        for(Collider base : colliders){
-            Rectangle cbBase = base.getRect();
-            Boolean notCollided = true;
-            for(Collider dest : colliders){
-                if(base.getName() != dest.getName()) {
-                    if (base.getInteractionLayer().contains(dest.getTag())) {
-                        Rectangle cbDest = dest.getRect();
-                        if (cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())) {
-                            base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
-                            notCollided = false;
-                            if (base.listener != null)
-                                base.listener.onCollision(dest);
+        synchronized (this) {
+            for (Collider base : colliders) {
+                Rectangle cbBase = base.getRect();
+                Boolean notCollided = true;
+                for (Collider dest : colliders) {
+                    if (base.getName() != dest.getName()) {
+                        if (base.getInteractionLayer().contains(dest.getTag())) {
+                            Rectangle cbDest = dest.getRect();
+                            if (cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())) {
+                                base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
+                                notCollided = false;
+                                if (base.listener != null)
+                                    base.listener.onCollision(dest);
+                            }
                         }
                     }
                 }
+                if (notCollided)
+                    base.setIntersection(null);
             }
-            if(notCollided)
-                base.setIntersection(null);
-        }
 
-        // Raycasting
-        for(RayCast r : raycasts){
-            r.Cast();
+            // Raycasting
+            for (RayCast r : raycasts) {
+                r.Cast();
+            }
+            moveBuffer();
         }
-        moveBuffer();
     }
 
     public void moveBuffer(){
@@ -83,11 +85,17 @@ public class HitDetectionHandler {
     }
 
     protected void addCollider(Collider collider){
-        colliderInBuffer.add(collider);
+        synchronized (this) {
+            colliderInBuffer.add(collider);
+        }
     }
 
     protected void removeCollider(Collider collider){
+        synchronized (this) {
             colliderOutBuffer.add(collider);
+        }
     }
+
+
 
 }

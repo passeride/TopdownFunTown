@@ -5,6 +5,7 @@ import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Line2D;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class will create a raycast to interact with {@link Collider}
@@ -16,7 +17,7 @@ public class RayCast {
     private RayCastHit hit = null;
     private double angle;
     private GameObject source;
-
+    private List<String> interactionLayer = new ArrayList<>();
 
     /**
      * This will create a raycast for the PhysicsThread to compile from a game object in an angle
@@ -27,6 +28,20 @@ public class RayCast {
         HitDetectionHandler.getInstance().raycasts.add(this);
         this.source = source;
         this.angle = angle;
+        updatePosition();
+    }
+
+
+    /**
+     * This will create a raycast for the PhysicsThread to compile from a game object in an angle
+     * @param angle
+     * @param source
+     */
+    public RayCast(double angle, GameObject source, float max_distance){
+        HitDetectionHandler.getInstance().raycasts.add(this);
+        this.source = source;
+        this.angle = angle;
+        this.max_distance = max_distance;
         updatePosition();
     }
 
@@ -45,7 +60,7 @@ public class RayCast {
         float collisionDistance = max_distance;
         Collider colliderHit = null;
         for(Collider c : HitDetectionHandler.getInstance().colliders){
-            if(c.getTag() == "Block") {
+            if(interactionLayer.contains(c.getTag())) {
                 Line2D[] box = c.getLines();
                 for (Line2D l : box) {
                     //float distanceHit = getRayCast(ray, l);
@@ -115,4 +130,27 @@ public class RayCast {
     public void setHit(RayCastHit hit) {
         this.hit = hit;
     }
+
+    public void addInteractionLayer(String interactionTag){
+        interactionLayer.add(interactionTag);
+    }
+
+    public void removeInteractionLayer(String interactionTag){
+        if (interactionLayer.contains(interactionTag))
+            interactionLayer.remove(interactionTag);
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+        updatePosition();
+    }
+
+    public Line2D getRay() {
+        return ray;
+    }
+
 }
