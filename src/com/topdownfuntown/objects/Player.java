@@ -3,6 +3,7 @@ package com.topdownfuntown.objects;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.Animation;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.ConvexHull;
 import com.bluebook.graphics.Sprite;
@@ -76,6 +77,7 @@ public class Player extends GameObject {
         walkCollider.setPadding(new Vector2(-20, -20));
 
         setUpRayCast();
+        ((AnimationSprite)currentWeapon.getSprite()).setPlaying(false);
     }
 
     private void setUpRayCast(){
@@ -211,6 +213,8 @@ public class Player extends GameObject {
 
     private void die() {
         GameEngine.getInstance().Pause();
+        destroy();
+        currentWeapon.destroy();
     }
 
     public void activateGottaGoFast() {
@@ -225,5 +229,9 @@ public class Player extends GameObject {
 
     public void shoot() {
         currentWeapon.shoot();
+    }
+
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
     }
 }

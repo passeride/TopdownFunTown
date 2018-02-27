@@ -17,6 +17,8 @@ public class AnimationSprite extends Sprite{
 
     boolean playing = true;
 
+    // TODO: Add play once function
+
     /**
      * Sprite object with required image
      * @param name is the name of the asset to be loaded
@@ -25,6 +27,7 @@ public class AnimationSprite extends Sprite{
         super();
         this.frameNum = frames;
         this.animation = SpriteLoader.loadAnimationImage(name,frameNum);
+        img = animation[0];
         length = 0.10;
         startNanoTime = System.nanoTime();
     }
@@ -45,12 +48,18 @@ public class AnimationSprite extends Sprite{
 
     @Override
     public void draw(GraphicsContext gc, Vector2 position){
-        double t = 0;
-        if(!GameEngine.getInstance().isPaused())
-            t = (System.nanoTime() - startNanoTime) / 1_000_000_000.0;
-        Image currentFrame = getNextFrame(t);
-        this.img = currentFrame;
-        super.draw(gc, position);
+        if(playing) {
+            double t = 0;
+            if (!GameEngine.getInstance().isPaused())
+                t = (System.nanoTime() - startNanoTime) / 1_000_000_000.0;
+            Image currentFrame = getNextFrame(t);
+            this.img = currentFrame;
+            super.draw(gc, position);
+
+        }else{
+            super.draw(gc, position);
+
+        }
     }
 
     @Override
@@ -59,4 +68,11 @@ public class AnimationSprite extends Sprite{
         draw(gc, position);
     }
 
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
 }

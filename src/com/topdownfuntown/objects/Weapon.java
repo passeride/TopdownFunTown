@@ -50,7 +50,7 @@ abstract class Weapon extends GameObject {
         audioPlayer.setSpital(this);
         audioPlayer.playOnce();
         // score -= 50;
-        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()), Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90), new Sprite("/projectiles/bullet"));
+        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()), Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90), new Sprite("/projectiles/projectile_gold_00"));
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {
