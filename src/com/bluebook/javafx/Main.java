@@ -17,7 +17,6 @@ public class Main extends Application {
         FXMLLoader fxml = new FXMLLoader();
         Parent root = fxml.load(getClass().getResource("sample.fxml").openStream());
 
-
         Controller controller = (Controller) fxml.getController();
 
         setWidthListener(primaryStage, controller);

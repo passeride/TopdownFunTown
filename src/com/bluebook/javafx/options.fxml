@@ -44,7 +44,10 @@
             <Font size="39.0" />
          </font>
       </CheckBox>
-      <Button fx:id="returnButton" defaultButton="true" layoutX="795.0" layoutY="723.0" mnemonicParsing="false" onAction="#returnToMenu" prefHeight="150.0" prefWidth="330.0" text="tilbake" />
+      <Button fx:id="returnButton" defaultButton="true" layoutX="795.0" layoutY="723.0" mnemonicParsing="false" onAction="#returnToMenu" prefHeight="150.0" prefWidth="330.0" text="tilbake">
+         <font>
+            <Font size="44.0" />
+         </font></Button>
     </children>
 
 </AnchorPane>
