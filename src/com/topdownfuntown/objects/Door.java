@@ -15,7 +15,7 @@ public class Door extends GameObject {
      * @param direction
      */
     public Door(Vector2 position, Vector2 direction) {
-        super(position, direction, new Sprite("../bg/door"));
+        super(position, direction, new Sprite("../bg/door_locked"));
         this.setRenderLayer(RenderLayer.RenderLayerName.LOW_BLOCKS);
     }
 }
