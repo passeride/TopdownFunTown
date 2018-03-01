@@ -52,6 +52,7 @@ public abstract class GameApplication extends Application {
         this.stage = primaryStage;
 
         FXMLLoader fxml = new FXMLLoader();
+        fxml.setLocation(new File("assets").toURL());
 
         Parent rootMenu = fxml.load(getClass().getResource("../../bluebook/javafx/menu.fxml").openStream());
         ControllerMenu controllerMenu = (ControllerMenu) fxml.getController();
@@ -168,6 +169,9 @@ public abstract class GameApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        primaryStage.setWidth(900);
+
+        primaryStage.setHeight(900);
 
 
         if(GameSettings.getBoolean("fullscreen")){

@@ -21,6 +21,10 @@ public class Tile extends GameObject {
 
     public Image[][] gridTile;
 
+    int bloodied = 0;
+    int cracked = 0;
+    int num;
+
     public Tile() {
         super(Vector2.ZERO, Vector2.ZERO, null);
 
@@ -42,23 +46,6 @@ public class Tile extends GameObject {
         gridTile = new Image[grid_X][grid_Y];
 
         tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
-        tiles.add(SpriteLoader.loadBackground("tile_00_00"));
         tiles.add(SpriteLoader.loadBackground("tile_00_01"));
         tiles.add(SpriteLoader.loadBackground("tile_00_02"));
         setupGrid();
@@ -78,9 +65,26 @@ public class Tile extends GameObject {
 
         for(int i = 0; i < grid_X; i++){
             for(int j = 0; j < grid_Y; j++){
-                int num = randomTile(0,tiles.size()-1);
-                Image tile = tiles.get(num);
-                gridTile[i][j] = tile;
+               num = randomTile(0,tiles.size()-1);
+                if(num == 1) {
+                    bloodied++;
+                }
+                if(num == 2) {
+                    cracked++;
+                }
+                if(bloodied >= 3)
+                {
+                    num = 0;
+                    Image tile = tiles.get(num);
+                    gridTile[i][j] = tile;
+                } else if (cracked >= 3) {
+                    num = 0;
+                    Image tile = tiles.get(num);
+                    gridTile[i][j] = tile;
+                } else {
+                    Image tile = tiles.get(num);
+                    gridTile[i][j] = tile;
+                }
             }
         }
     }

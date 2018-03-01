@@ -41,9 +41,7 @@ public class GreenAlien extends Enemy {
     }
 
     public void shoot() {
-        Projectile p = new Projectile(position, direction, new Sprite("/projectiles/projectile_enemy_00"));
-        p.setSize(new Vector2(32, 32));
-
+        Projectile p = new Projectile(transform.getGlobalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
         p.setPeriod(1.2f);

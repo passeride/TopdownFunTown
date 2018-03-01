@@ -100,12 +100,22 @@ package renderer {
 }
 
 package util{
+
+    abstract class Component{
+
+    }
+
+    class Transform{
+        ~Vector2: position
+        ~Vector2: rotation
+        ~Vector2: size
+        ~Transform: parent
+    }
+
     abstract GameObject{
         Objects to be drawn on screen
         ..
-        ~Sprite: sprite
-        ~Vector2: position
-        ~Vector2: direction
+        ~Transform: transform
         +draw(GraphicsContext gc):void
     }
 
@@ -152,6 +162,7 @@ package physics{
 }
 
 ' assoc
+GameObject -RIGHT-> Transform
 CollisionThread --> HitDetectionHandler
 HitDetectionHandler --{ Collider
 Collider <-RIGHT-> GameObject

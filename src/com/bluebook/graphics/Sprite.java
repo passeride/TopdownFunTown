@@ -2,6 +2,7 @@ package com.bluebook.graphics;
 
 import com.bluebook.engine.GameApplication;
 import com.bluebook.util.GameSettings;
+import com.bluebook.util.Transform;
 import com.bluebook.util.Vector2;
 import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +19,8 @@ public class Sprite {
     protected double squareWidth = 64;
     protected double squareHeight = 64;
 
+    private Transform origin;
+
     private double scaledSquareWidth, scaledSquareHeight;
 
     protected boolean isRotated = false;
@@ -28,7 +31,21 @@ public class Sprite {
      * @param name relative name to asset
      */
     public Sprite(String name){
+        loadImage(name);
+    }
+
+    public Sprite(String name, Transform origin){
+        loadImage(name);
+        this.origin = origin;
+
+    }
+
+    void loadImage(String name){
         this.img = SpriteLoader.loadImage(name);
+    }
+
+    public void setOrigin(Transform origin){
+        this.origin = origin;
     }
 
     protected Sprite(){
@@ -68,7 +85,22 @@ public class Sprite {
         if(isRotated)
             gc = rotateGraphicsContext(gc, position);
 
-        gc.drawImage(img, position.getX() - (scaledSquareWidth / 2f), position.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+        if(origin != null) {
+
+            Vector2 pos = origin.getGlobalPosition();
+            Vector2 scale = origin.getGlobalScale();
+            rotate(origin.getGlobalRotation());
+            gc = rotateGraphicsContext(gc, pos);
+
+            Vector2 scaleVec = GameSettings.getScreenScale();
+            scaledSquareHeight = scaleVec.getY() * scale.getY();
+            scaledSquareWidth = scaleVec.getX() * scale.getY();
+
+
+            gc.drawImage(img, pos.getX()- (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+        }else {
+            gc.drawImage(img, position.getX() - (scaledSquareWidth / 2f), position.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+        }
 
         gc.restore();
     }

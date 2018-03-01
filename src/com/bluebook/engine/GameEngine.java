@@ -56,6 +56,8 @@ public class GameEngine {
 
     }
 
+
+
     private void startAnimationTimer(){
         AnimationTimer timer = new AnimationTimer() {
             @Override

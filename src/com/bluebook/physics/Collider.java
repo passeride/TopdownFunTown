@@ -3,6 +3,7 @@ package com.bluebook.physics;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Line2D;
 import javafx.geometry.Bounds;
@@ -58,9 +59,9 @@ public class Collider {
 
     protected void updatePosition(){
         if(gameObject != null){
-            gameObject.setSize(gameObject.getSize());
-            double xSize = gameObject.getScaledSize().getX() + padding.getX();
-            double ySize = gameObject.getScaledSize().getY() + padding.getY();
+            Vector2 scaleVec = GameSettings.getScreenScale();
+            double xSize = scaleVec.getX() * gameObject.getScale().getX() + padding.getX();
+            double ySize = scaleVec.getY() * gameObject.getScale().getY() + padding.getY();
             rect.setX(gameObject.getPosition().getX() - xSize / 2.0);
             rect.setY(gameObject.getPosition().getY() - ySize / 2.0);
             rect.setWidth(xSize);

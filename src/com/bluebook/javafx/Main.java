@@ -15,6 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         FXMLLoader fxml = new FXMLLoader();
+        fxml.setLocation(getClass().getResource("./com/bluebook/javafx/menu.fxml"));
         Parent root = fxml.load(getClass().getResource("sample.fxml").openStream());
 
 
