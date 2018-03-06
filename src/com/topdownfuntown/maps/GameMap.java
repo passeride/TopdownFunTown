@@ -62,6 +62,7 @@ public class GameMap extends GameObject {
                 // TODO: make one time only, this is multithread issue
                 if(!isExitTriggered) {
                     if(((Topdownfuntown) GameApplication.getInstance()).hasKey) {
+                        exit.setSprite(new Sprite("../bg/door_open"));
                         isExitTriggered = true;
                         ((Topdownfuntown) GameApplication.getInstance()).moveToNextRoom();
                     }

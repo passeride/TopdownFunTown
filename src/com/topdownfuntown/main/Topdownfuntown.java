@@ -73,7 +73,7 @@ public class Topdownfuntown extends GameApplication {
         currentGameMap.destroy();
         tiles.setupGrid();
         Projectile.clearAllProjectiles();
-        currentGameMap = MapLoader.loadMapJson("Room2");
+        currentGameMap = MapLoader.loadMapJson("Room3");
         player[0].setPosition(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()));
         hasKey = false;
     }

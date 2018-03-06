@@ -11,6 +11,7 @@ import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.objects.Crate;
 import com.topdownfuntown.objects.Enemy;
 import com.topdownfuntown.objects.GreenAlien;
+import com.topdownfuntown.objects.PurpleAlien;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -59,6 +60,9 @@ public class MapLoader {
             switch(e.Type){
                 case "GreenAlien":
                     ret.add(new GreenAlien(new Vector2(e.x_pos, e.y_pos)));
+                    break;
+                case "PurpleAlien":
+                    ret.add(new PurpleAlien(new Vector2(e.x_pos, e.y_pos)));
                     break;
             }
         }
