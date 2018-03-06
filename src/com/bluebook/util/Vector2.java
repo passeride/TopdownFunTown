@@ -100,6 +100,10 @@ public class Vector2 extends Point2D{
         return new Vector2(a.X * b, a.Y * b);
     }
 
+    public static Vector2 multiply(Vector2 a, Vector2 b){
+        return new Vector2(a.getX() * b.getX(), b.getY() * b.getY());
+    }
+
     /**
      * Returns the length of the vector
      * @return length of vector

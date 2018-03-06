@@ -45,7 +45,7 @@ public class Transform extends Component{
 
     private Vector2 getScaleoffsett(){
         if(parent != null)
-            return Vector2.add(scale, parent.getScaleoffsett());
+            return Vector2.multiply(scale, parent.getScaleoffsett());
         else
             return scale;
     }
