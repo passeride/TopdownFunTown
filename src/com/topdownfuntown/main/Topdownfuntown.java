@@ -61,7 +61,7 @@ public class Topdownfuntown extends GameApplication {
 
         currentGameMap = MapLoader.loadMapJson("TestMap");
 
-        StarterWeapon w = new StarterWeapon(new Vector2(0,55), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
+        StarterWeapon w = new StarterWeapon(new Vector2(0,25), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
         player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO,
                 new AnimationSprite("/friendlies/character",4),w);
 

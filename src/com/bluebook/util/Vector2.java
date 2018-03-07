@@ -101,7 +101,7 @@ public class Vector2 extends Point2D{
     }
 
     public static Vector2 multiply(Vector2 a, Vector2 b){
-        return new Vector2(a.getX() * b.getX(), b.getY() * b.getY());
+        return new Vector2(a.getX() * b.getX(), a.getY() * b.getY());
     }
 
     /**

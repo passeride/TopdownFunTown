@@ -31,7 +31,7 @@ public class Transform extends Component{
 
     private Vector2 getPositionOffsett(){
         if(parent != null)
-            return Vector2.add(Vector2.rotateVectorAroundPoint(position, Vector2.ZERO, parent.getLocalRotation().getAngleInDegrees()), parent.getPositionOffsett());
+            return Vector2.add(Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale), Vector2.ZERO, parent.getLocalRotation().getAngleInDegrees()), parent.getPositionOffsett());
         else
             return position;
     }

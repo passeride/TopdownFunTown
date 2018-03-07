@@ -40,10 +40,8 @@ public class PurpleAlien extends Enemy {
     }
 
     public void shoot() {
-        Projectile p = new Projectile(position, direction, new Sprite("/projectiles/projectile_enemy_00"));
-       Projectile p2 = new Projectile(position, direction, new Sprite("/projectiles/projectile_enemy_00"));
-
-        p.setSize(new Vector2(32, 32));
+        Projectile p = new Projectile(transform.getGlobalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
+       Projectile p2 = new Projectile(transform.getGlobalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
 
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
@@ -52,8 +50,6 @@ public class PurpleAlien extends Enemy {
         p.setPhase(200f);
         p.setSpeed(1000);
         p.setSine(true);
-
-       p2.setSize(new Vector2(32, 32));
 
         p2.getSprite().setSquareHeight(32);
         p2.getSprite().setSquareWidth(32);
