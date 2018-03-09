@@ -122,6 +122,9 @@ public class Topdownfuntown extends GameApplication {
             moveToNextRoom();
         }
 
+        if(input.isKeyDown(KeyCode.G)){
+            player[0].rb2.addForce(Vector2.multiply(Vector2.UP, 1.0));
+        }
 
         if(input.isKeyDown(KeyCode.SPACE)){
             player[0].activateGottaGoFast();

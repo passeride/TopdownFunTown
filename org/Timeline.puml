@@ -1,0 +1,19 @@
+@startuml
+robust "Web Browser" as WB
+concise "Web User" as WU
+concise "Camera" as CAM
+
+@0
+WU is Idle
+WB is Idle
+
+@100
+WU is Waiting
+WB is Processing
+
+@300
+WB is Waiting
+
+@100
+WB -> WU
+@enduml

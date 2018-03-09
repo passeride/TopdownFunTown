@@ -7,10 +7,7 @@ import com.bluebook.graphics.Animation;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.ConvexHull;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.HitDetectionHandler;
-import com.bluebook.physics.RayCast;
-import com.bluebook.physics.RayCastHit;
+import com.bluebook.physics.*;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
@@ -44,6 +41,8 @@ public class Player extends GameObject {
     private StarterWeapon currentWeapon;
     Topdownfuntown topdownfuntown;
     private Collider walkCollider;
+
+    public RigidBody2D rb2;
 
     private int rayCastResolution = 0;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
@@ -80,6 +79,8 @@ public class Player extends GameObject {
         ((AnimationSprite)currentWeapon.getSprite()).setPlaying(false);
 
         currentWeapon.getTransform().setParent(transform);
+
+        rb2 = new RigidBody2D(this);
     }
 
     private void setUpRayCast(){
@@ -91,6 +92,8 @@ public class Player extends GameObject {
 
     @Override
     public void update(double delta) {
+        rb2.update(delta);
+        translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
     }
 
     @Override
@@ -102,14 +105,17 @@ public class Player extends GameObject {
 
         //gc.applyEffect(new ColorAdjust(0, 0, -0.3, 0));
 
-        gc.setFill( new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-                CycleMethod.NO_CYCLE,
-                new Stop(0.0, new Color(1, 1, 1, 0.3)),
-                new Stop(1.0, Color.TRANSPARENT)));
-        gc.setGlobalBlendMode(BlendMode.OVERLAY);
-        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+//        gc.setFill( new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+//                CycleMethod.NO_CYCLE,
+//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
+//                new Stop(1.0, Color.TRANSPARENT)));
+//        gc.setGlobalBlendMode(BlendMode.OVERLAY);
+//        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+        gc.setFill(Color.GREEN);
+        gc.strokeLine(getPosition().getX(), getPosition().getY(), getPosition().getX() + rb2.getLinearVelocity().getX(), getPosition().getY() + rb2.getLinearVelocity().getY());
 
         gc.restore();
+//        gc.fillText("X:" + rb2.getLinearVelocity().getX() + "-Y:"+ rb2.getLinearVelocity().getY(), getPosition().getX(), getPosition().getY());
 
         super.draw(gc);
 
