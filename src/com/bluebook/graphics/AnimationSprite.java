@@ -1,6 +1,7 @@
 package com.bluebook.graphics;
 
 import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -15,7 +16,12 @@ public class AnimationSprite extends Sprite{
     public int frameNum;
     long startNanoTime;
 
+    OnAnimationFinishedListener doneListener;
+
     boolean playing = true;
+    boolean playOnce = false;
+
+
 
     // TODO: Add play once function
 
@@ -55,7 +61,10 @@ public class AnimationSprite extends Sprite{
             Image currentFrame = getNextFrame(t);
             this.img = currentFrame;
             super.draw(gc, position);
-
+            if(currentFrame == animation[animation.length - 1]){
+                if(doneListener != null)
+                    doneListener.AnimationFinnished();
+            }
         }else{
             super.draw(gc, position);
 
@@ -74,5 +83,9 @@ public class AnimationSprite extends Sprite{
 
     public void setPlaying(boolean playing) {
         this.playing = playing;
+    }
+
+    public void setOnAnimationFinnishedListener(OnAnimationFinishedListener listener){
+        doneListener = listener;
     }
 }

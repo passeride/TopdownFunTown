@@ -1,5 +1,6 @@
 package com.topdownfuntown.objects;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.RayCast;
@@ -8,6 +9,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Line2D;
+import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
@@ -120,6 +122,11 @@ public class Turret extends Enemy {
         }
     }
 
+    @Override
+    public void destroy() {
+        new Explotion(getPosition());
+        super.destroy();
+    }
 
     @Override
     public void update(double detla) {

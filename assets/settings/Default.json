@@ -1,9 +1,9 @@
 {
-  "grid_X": 15,
-  "grid_Y": 8,
+  "grid_X": 30,
+  "grid_Y": 16,
   "game_resolution_X":1920,
   "game_resolution_Y":1080,
-  "fullscreen":false,
+  "fullscreen":true,
   "map_movement_padding_X":0.08,
   "map_movement_padding_Y":0.08,
   "player_health":100,

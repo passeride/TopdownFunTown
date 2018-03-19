@@ -73,23 +73,31 @@ public class RenderLayer {
     }
 
     protected void drawAll(GraphicsContext gc){
-        for(GameObject go : drawables)
-            go.draw(gc);
+        synchronized (this) {
+            for (GameObject go : drawables)
+                go.draw(gc);
+        }
 
     }
 
     public boolean hasGameObject(GameObject go){
-        return drawables.contains(go);
+        synchronized (this) {
+            return drawables.contains(go);
+        }
     }
 
 
-    public void addGameObject(GameObject go){
-        drawables.add(go);
+    public void addGameObject(GameObject go) {
+        synchronized (this) {
+            drawables.add(go);
+        }
     }
 
     public void removeGameObject(GameObject go){
-        if(drawables.contains(go))
-            drawables.remove(go);
+        synchronized (this) {
+            if (drawables.contains(go))
+                drawables.remove(go);
+        }
     }
 
 }

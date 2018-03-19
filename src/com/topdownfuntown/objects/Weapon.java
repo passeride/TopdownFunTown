@@ -34,12 +34,6 @@ abstract class Weapon extends GameObject {
         this.offset = offset;
     }
 
-//    @Override
-//    public void draw(GraphicsContext gc){
-        //sprite.rotate(direction);
-        //sprite.draw(gc, Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()));
-//    }
-
     @Override
     public void setDirection(Vector2 direction) {
         super.setDirection(Vector2.Vector2FromAngleInDegrees(direction.getAngleInDegrees() + 90));
@@ -52,6 +46,7 @@ abstract class Weapon extends GameObject {
         // score -= 50;
         Vector2 angle = Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
         Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(transform.getGlobalPosition(),  offset), transform.getGlobalPosition(), transform.getGlobalRotation().getAngleInDegrees()), angle, new Sprite("/projectiles/projectile_gold_00"));
+        p.setSpeed(800);
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {
