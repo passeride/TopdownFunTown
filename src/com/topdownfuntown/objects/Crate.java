@@ -13,7 +13,7 @@ public class Crate extends Obstacle {
      */
     public Crate(Vector2 position) {
         super(position, Vector2.ZERO, new Sprite("items/crate_02"));
-        setSize(new Vector2(sprite.getSquareWidth(), sprite.getSquareHeight()));
+        //setSize(new Vector2(sprite.getSquareWidth(), sprite.getSquareHeight()));
         this.collider = new Collider(this);
         collider.setTag("Block");
         collider.setName("Crate " + counter++);

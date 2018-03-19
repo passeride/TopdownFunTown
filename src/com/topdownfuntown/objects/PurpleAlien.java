@@ -9,10 +9,9 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-public class GreenAlien extends Enemy {
+public class PurpleAlien extends Enemy {
 
 
     private double shootInterval = 1.8;
@@ -23,8 +22,8 @@ public class GreenAlien extends Enemy {
      *
      * @param position
      */
-    public GreenAlien(Vector2 position) {
-        super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyGreen",3));
+    public PurpleAlien(Vector2 position) {
+        super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyPurple",3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
@@ -41,14 +40,29 @@ public class GreenAlien extends Enemy {
     }
 
     public void shoot() {
-        Projectile p = new Projectile(transform.getGlobalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
+        Projectile p = new Projectile(position, direction, new Sprite("/projectiles/projectile_enemy_00"));
+       Projectile p2 = new Projectile(position, direction, new Sprite("/projectiles/projectile_enemy_00"));
+
+        p.setSize(new Vector2(32, 32));
+
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
         p.setPeriod(1.2f);
         p.setAmplitude(3f);
         p.setPhase(200f);
-        p.setSpeed(1600);
+        p.setSpeed(1000);
         p.setSine(true);
+
+       p2.setSize(new Vector2(32, 32));
+
+        p2.getSprite().setSquareHeight(32);
+        p2.getSprite().setSquareWidth(32);
+        p2.setPeriod(2.2f);
+        p2.setAmplitude(3f);
+        p2.setPhase(200f);
+        p2.setSpeed(800);
+        p2.setSine(true);
+
 
         // Adding colliders layers
         p.getCollider().addInteractionLayer("UnHittable");

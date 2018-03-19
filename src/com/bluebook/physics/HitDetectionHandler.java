@@ -1,11 +1,9 @@
 package com.bluebook.physics;
 
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +26,7 @@ public class HitDetectionHandler {
 
     protected void updatePositions(){
         for(Collider collider : colliders){
-            collider.getGameObject().setSize(collider.getGameObject().getSize());
+            collider.getGameObject().setSize(collider.getGameObject().getScale());
             collider.updatePosition();
         }
     }

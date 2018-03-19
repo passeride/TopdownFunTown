@@ -34,11 +34,11 @@ abstract class Weapon extends GameObject {
         this.offset = offset;
     }
 
-    @Override
-    public void draw(GraphicsContext gc){
-        sprite.rotate(direction);
-        sprite.draw(gc, Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()));
-    }
+//    @Override
+//    public void draw(GraphicsContext gc){
+        //sprite.rotate(direction);
+        //sprite.draw(gc, Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()));
+//    }
 
     @Override
     public void setDirection(Vector2 direction) {
@@ -50,7 +50,8 @@ abstract class Weapon extends GameObject {
         audioPlayer.setSpital(this);
         audioPlayer.playOnce();
         // score -= 50;
-        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(position,  offset), position, direction.getAngleInDegrees()), Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90), new Sprite("/projectiles/projectile_gold_00"));
+        Vector2 angle = Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
+        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(transform.getGlobalPosition(),  offset), transform.getGlobalPosition(), transform.getGlobalRotation().getAngleInDegrees()), angle, new Sprite("/projectiles/projectile_gold_00"));
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {

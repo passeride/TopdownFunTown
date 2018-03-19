@@ -61,12 +61,11 @@ public class Topdownfuntown extends GameApplication {
 
         currentGameMap = MapLoader.loadMapJson("TestMap");
 
-        player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO, new AnimationSprite("/friendlies/character",4), new StarterWeapon(new Vector2(600,600), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO));
+        StarterWeapon w = new StarterWeapon(new Vector2(0,55), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
+        player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO,
+                new AnimationSprite("/friendlies/character",4),w);
 
-        Turret t = new Turret(new Vector2(850, 1000), Vector2.DOWN);
-
-
-
+       Turret t = new Turret(new Vector2(800,500), Vector2.DOWN);
     }
 
 
@@ -74,7 +73,7 @@ public class Topdownfuntown extends GameApplication {
         currentGameMap.destroy();
         tiles.setupGrid();
         Projectile.clearAllProjectiles();
-        currentGameMap = MapLoader.loadMapJson("Room2");
+        currentGameMap = MapLoader.loadMapJson("Room3");
         player[0].setPosition(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()));
         hasKey = false;
     }

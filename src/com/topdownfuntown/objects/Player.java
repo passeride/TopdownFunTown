@@ -62,7 +62,7 @@ public class Player extends GameObject {
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
         currentWeapon = weapon;
-        currentWeapon.setOffset(new Vector2(0, 25));
+        //currentWeapon.setOffset(new Vector2(0, 25));
 
         collider = new Collider(this);
         collider.setName("Player");
@@ -78,6 +78,8 @@ public class Player extends GameObject {
 
         setUpRayCast();
         ((AnimationSprite)currentWeapon.getSprite()).setPlaying(false);
+
+        currentWeapon.getTransform().setParent(transform);
     }
 
     private void setUpRayCast(){
@@ -89,8 +91,6 @@ public class Player extends GameObject {
 
     @Override
     public void update(double delta) {
-        currentWeapon.setPosition(position);
-        currentWeapon.setDirection(direction);
     }
 
     @Override
@@ -178,9 +178,9 @@ public class Player extends GameObject {
     @Override
     public void translate(Vector2 moveVector) {
 
-        Vector2 newValue = Vector2.add(position, moveVector);
+        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
         if(walkCollider.getIntersectionCenter() != null) {
-            newValue = Vector2.add(position, Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
+            newValue = Vector2.add(transform.getGlobalPosition(), Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
             System.out.println("Trying to avoid collision");
         }
 
@@ -194,7 +194,7 @@ public class Player extends GameObject {
                 && newValue.getX() > boudMarginX
                 && newValue.getY() <= screenHeihgt - boudMarginY
                 && newValue.getY() > boudMarginY) {
-            position = newValue;
+            transform.setLocalPosition(newValue);
         }
     }
 

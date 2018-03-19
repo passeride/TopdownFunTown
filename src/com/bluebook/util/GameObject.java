@@ -18,6 +18,8 @@ public abstract class GameObject {
     protected Vector2 size;
     protected Vector2 scaledSize;
 
+    protected Transform transform;
+
     protected Sprite sprite;
 
     protected boolean isAlive = true;
@@ -34,13 +36,21 @@ public abstract class GameObject {
         this.position = position;
         this.direction = direction;
         this.sprite = sprite;
+
+        transform = new Transform();
+        transform.setLocalPosition(position);
+        transform.setLocalRotation(direction);
+        transform.setLocalScale(new Vector2(1, 1));
+        if(sprite != null)
+        this.sprite.setOrigin(transform);
+
+
         if(sprite != null)
             this.size = new Vector2(sprite.getSquareWidth(),  sprite.getSquareHeight());
 
         CanvasRenderer.getInstance().addGameObject(this);
         GameEngine.getInstance().addGameObject(this);
     }
-
 
     /**
      * Used to draw GameObject on canvas
@@ -65,7 +75,7 @@ public abstract class GameObject {
      * @param moveVector
      */
     public void translate(Vector2 moveVector){
-        position = Vector2.add(position, moveVector);
+        transform.translate(moveVector);
     }
 
     /**
@@ -73,7 +83,7 @@ public abstract class GameObject {
      * @param lookPosition
      */
     public void lookAt(Vector2 lookPosition){
-        direction =  Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, lookPosition));
+        transform.setLocalRotation(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(transform.getLocalPosition(), lookPosition) + 90));
     }
 
     /**
@@ -103,19 +113,19 @@ public abstract class GameObject {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return transform.getLocalPosition();
     }
 
     public void setPosition(Vector2 position) {
-        this.position = position;
+        transform.setLocalPosition(position);
     }
 
     public Vector2 getDirection() {
-        return direction;
+        return transform.getLocalRotation();
     }
 
     public void setDirection(Vector2 direction) {
-        this.direction = direction;
+        transform.setLocalRotation(direction);
     }
 
     public Sprite getSprite() {
@@ -126,15 +136,12 @@ public abstract class GameObject {
         this.sprite = sprite;
     }
 
-    public Vector2 getSize() {
-        return size;
+    public Vector2 getScale() {
+        return transform.getLocalScale();
     }
 
     public Vector2 getScaledSize() {
-        if(scaledSize != null)
-            return scaledSize;
-        else
-            return size;
+        return transform.getLocalScale();
     }
 
     /**
@@ -145,9 +152,8 @@ public abstract class GameObject {
         return  position.getX() / GameSettings.getInt("game_resolution_X");
     }
 
-    public void setSize(Vector2 size) {
-        this.size = size;
-        this.scaledSize = new Vector2(size.getX() * GameApplication.X_scale.get(), size.getY() * GameApplication.Y_scale.get());
+    public void setSize(Vector2 scale) {
+        transform.setLocalScale(scale);
     }
 
     public Collider getCollider() {
@@ -157,6 +163,14 @@ public abstract class GameObject {
     public void setCollider(Collider collider) {
         this.collider = collider;
         collider.attachToGameObject(this);
+    }
+
+    public Transform getTransform() {
+        return transform;
+    }
+
+    public void setTransform(Transform transform) {
+        this.transform = transform;
     }
 
 }

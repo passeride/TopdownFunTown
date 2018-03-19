@@ -50,14 +50,14 @@ public class Projectile extends GameObject{
     public Projectile(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
         allProjectilse.add(this);
-        this.startPosition = position;
-        size = new Vector2(100, 30);
+        this.startPosition = getPosition();
         this.setCollider(new Collider(this));
         collider.setName("Bullet");
         collider.setTag("DMG");
         startTime = System.currentTimeMillis();
-        squareHeightStart = sprite.getSquareHeight();
-        squareWithStart = sprite.getSquareWidth();
+        startSize = new Vector2(1, 1);
+        squareHeightStart = 1;
+        squareWithStart = 1;
     }
 
     public static void clearAllProjectiles(){
@@ -74,31 +74,24 @@ public class Projectile extends GameObject{
     @Override
     public void update(double delta) {
         if (isSine)
-            translate(Vector2.add(Vector2.rotateVectorAroundPoint(SmoothSineWave(delta), Vector2.ZERO, direction.getAngleInDegrees()), Vector2.multiply(direction, speed * delta)));
+            translate(Vector2.add(Vector2.rotateVectorAroundPoint(SmoothSineWave(delta), Vector2.ZERO, getDirection().getAngleInDegrees()), Vector2.multiply(getDirection(), speed * delta)));
         else
-            translate(Vector2.multiply(direction, speed * delta));
+            translate(Vector2.multiply(getDirection(), speed * delta));
 
         if(isTimeDecay){
 
             double elapseInSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
-            double elapseProgress = (TTL - elapseInSeconds) / TTL;
+            double TTLAdjusted = TTL * 1.2;
+            double elapseProgress = (TTLAdjusted - elapseInSeconds) / TTLAdjusted;
 
-            if(elapseProgress > 0) {
-                double x_size = startSize.getX() * elapseProgress;
-                double y_size = startSize.getY() * elapseProgress;
+            if(elapseProgress > 0.1) {
                 elapseProgress = elapseProgress / 2 + 0.5;
-                sprite.setSquareWidth(squareWithStart * elapseProgress);
-                sprite.setSquareHeight(squareHeightStart * elapseProgress);
-                size = new Vector2(x_size, y_size);
+                transform.setLocalScale(Vector2.multiply(startSize, elapseProgress));
             }else{
                 destroy();
             }
         }
-
-        //position = sinVector(position,  t);
     }
-
-
 
     double lerp(double point1, double point2, double alpha)
     {
@@ -112,35 +105,32 @@ public class Projectile extends GameObject{
      */
     @Override
     public void translate(Vector2 moveVector) {
-        Vector2 newValue = Vector2.add(position, moveVector);
+        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
 
         double screenWidth = GameSettings.getInt("game_resolution_X");
         double screenHeight = GameSettings.getInt("game_resolution_Y");
         double boundMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
         double boundMarginY = screenHeight * GameSettings.getDouble("map_movement_padding_Y");
 
-
         if (newValue.getX() <= screenWidth - boundMarginX
                 && newValue.getX() > boundMarginX
                 && newValue.getY() <= screenHeight - boundMarginY
                 && newValue.getY() > boundMarginY) {
-            position = newValue;
+            transform.setLocalPosition(newValue);
         } else {
             if (!isBouncy)
                 destroy();
             else {
                 if (newValue.getX() >= screenWidth - boundMarginX || newValue.getX() <= boundMarginX) {
-                    direction.setX(-direction.getX());
+                    getDirection().setX(-getDirection().getX());
                 }
                 if (newValue.getY() >= screenHeight - boundMarginY || newValue.getY() <= boundMarginY) {
-                    direction.setY(-direction.getY());
+                    getDirection().setY(-getDirection().getY());
                 }
-                position = newValue;
+                transform.setLocalPosition(newValue);
             }
         }
     }
-
-
 
     private Vector2 SmoothSineWave(double deltaTime) {
         // y(t) = A * sin(ωt + θ) [Basic Sine Wave Equation]

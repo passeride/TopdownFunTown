@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class Turret extends Enemy {
 
-    private int rayCastResolution = 180;
+    private int rayCastResolution = 90;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
     private Sprite turretHead;
 
@@ -34,7 +34,9 @@ public class Turret extends Enemy {
     private double angleRotate = 90;
 
     private boolean playerSeen = false;
+    private boolean enemySeen = false;
     GameObject player;
+    GameObject enemy;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -45,6 +47,7 @@ public class Turret extends Enemy {
     public Turret(Vector2 position, Vector2 direction) {
         super(position, direction, new Sprite("enemies/turret"));
         turretHead = new Sprite("enemies/turret_arm_r");
+        collider.setTag("Turret");
         setUpRayCast();
     }
 
@@ -59,6 +62,7 @@ public class Turret extends Enemy {
         double[] ys = new double[raycasts.size() + 1];
 
         boolean playerNotSeen = true;
+        boolean enemyNotSeen = true;
 
         for(int i = 0; i < raycasts.size(); i++){
             RayCastHit rch = raycasts.get(i).getHit();
@@ -68,23 +72,28 @@ public class Turret extends Enemy {
                         player = rch.colliderHit.getGameObject();
                         playerSeen = true;
                         playerNotSeen = false;
+                    }else if(rch.colliderHit.getTag() == "Hittable"){
+                        enemy = rch.colliderHit.getGameObject();
+                        enemySeen = true;
+                        enemyNotSeen = false;
                     }
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                } else {
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
                 }
+                xs[i] = rch.ray.x2;
+                ys[i] = rch.ray.y2;
             }
         }
-        xs[xs.length - 1] = position.getX();
-        ys[ys.length - 1] = position.getY();
+        Vector2 pos = transform.getGlobalPosition();
+        xs[xs.length - 1] = pos.getX();
+        ys[ys.length - 1] = pos.getY();
         ret[0] = xs;
         ret[1] = ys;
 
         if(playerNotSeen){
             playerSeen = false;
         }
+
+        if(enemyNotSeen)
+            enemySeen = false;
 
         return ret;
     }
@@ -93,9 +102,10 @@ public class Turret extends Enemy {
         for(int i = 0; i < rayCastResolution; i++){
             //double dir = (Math.PI / 2) + ((Math.PI * 2) * (progress + 1.0)) * ((double) i / rayCastResolution);
             double dir = (Math.PI / 2) + ((double) i / rayCastResolution);
-            RayCast r = new RayCast(dir, this, 600);
+            RayCast r = new RayCast(dir, this, 6000);
             r.addInteractionLayer("Block");
             r.addInteractionLayer("UnHittable");
+            r.addInteractionLayer("Hittable");
             raycasts.add(r);
         }
     }
@@ -103,7 +113,7 @@ public class Turret extends Enemy {
     private void updateRayCast(){
         for(int i = 0; i < rayCastResolution; i++){
 
-            double dir = direction.getAngleInRadians() + (Math.PI * 1.25) + ((Math.PI / 2) * ((double) i / rayCastResolution));
+            double dir = getDirection().getAngleInRadians() + (Math.PI * 1.25) + ((Math.PI / 2) * ((double) i / rayCastResolution));
             RayCast r = raycasts.get(i);
             r.setAngle(dir);
 
@@ -114,24 +124,25 @@ public class Turret extends Enemy {
     @Override
     public void update(double detla) {
         super.update(detla);
-        if(!playerSeen){
+        if(playerSeen) {
+            setDirection(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
+            shoot();
+        }else if(enemySeen){
+            setDirection(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), enemy.getPosition()) + 90));
+            shoot();
+        }else{
             timeTest += detla;
             progress = (timeTest % osscilation) / osscilation;
-//        if((progress > .04 && progress > .96)) {
             if (timesChanged < (int) (timeTest / osscilation))
                 angleGrowing = !angleGrowing;
             if (!angleGrowing) {
                 progress = 1 - progress;
             }
-            direction = Vector2.Vector2FromAngleInDegrees(Math.sin(progress) * 90);
+            setDirection(Vector2.Vector2FromAngleInDegrees(Math.sin(progress) * 90));
 
             timesChanged = (int) (timeTest / osscilation);
             updateRayCast();
-        }else{
-            direction = Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(position, player.getPosition()) + 90);
-            shoot();
         }
-//        }
     }
 
     @Override
@@ -148,6 +159,11 @@ public class Turret extends Enemy {
                     CycleMethod.NO_CYCLE,
                     new Stop(0.0, new Color(1, 0, 0, 0.3)),
                     new Stop(1.0, Color.TRANSPARENT)));
+        }else if(enemySeen){
+            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+                    CycleMethod.NO_CYCLE,
+                    new Stop(0.0, new Color(0.5, 0.5, 1, 0.6)),
+                    new Stop(1.0, Color.TRANSPARENT)));
         }else{
             gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
                     CycleMethod.NO_CYCLE,
@@ -160,26 +176,24 @@ public class Turret extends Enemy {
 
         gc.restore();
 
-        sprite.draw(gc, position);
+        sprite.draw(gc, getPosition());
         sprite.rotate(Vector2.ZERO);
-        turretHead.rotate(direction);
-        turretHead.draw(gc, position);
+        turretHead.rotate(getDirection());
+        turretHead.draw(gc, transform.getGlobalPosition());
     }
 
     public void shoot() {
-        Projectile p = new Projectile(position, Vector2.Vector2FromAngleInDegrees(direction.getAngleInDegrees() - 90), new Sprite("/projectiles/balltest"));
-        p.setSize(new Vector2(32, 32));
+        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(getPosition(), new Vector2(0,  80)), getPosition(), getDirection().getAngleInDegrees()), Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90), new Sprite("/projectiles/projectile_c_00"));
 
-        p.getSprite().setSquareHeight(32);
-        p.getSprite().setSquareWidth(32);
         p.setPeriod(.2f);
-        p.setAmplitude(0f);
+        p.setAmplitude(8f);
         p.setPhase(2000f);
         p.setSpeed(800);
         p.setSine(true);
 
         // Adding colliders layers
         p.getCollider().addInteractionLayer("UnHittable");
+        p.getCollider().addInteractionLayer("Hittable");
         p.getCollider().addInteractionLayer("Block");
 
         p.setOnCollisionListener(new OnCollisionListener() {
@@ -189,6 +203,8 @@ public class Turret extends Enemy {
                     Player pl = (Player) other.getGameObject();
                     pl.hit();
 
+                }else if(other.getGameObject() instanceof Enemy){
+                    other.getGameObject().destroy();
                 }
                 p.destroy();
 

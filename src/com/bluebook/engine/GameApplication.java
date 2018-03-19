@@ -346,6 +346,9 @@ public abstract class GameApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        primaryStage.setWidth(900);
+
+        primaryStage.setHeight(900);
 
 
         if(GameSettings.getBoolean("fullscreen")){

@@ -3,10 +3,10 @@
   "grid_Y": 8,
   "game_resolution_X":1920,
   "game_resolution_Y":1080,
-  "fullscreen":true,
+  "fullscreen":false,
   "map_movement_padding_X":0.08,
   "map_movement_padding_Y":0.08,
-  "player_health":10,
+  "player_health":100,
   "player_shoot_cost":40,
   "player_initial_score":1500,
   "player_hit_distance_multiplier": 0.5

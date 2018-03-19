@@ -48,13 +48,11 @@ public class GameMap extends GameObject {
         //  TODO: Make smart
         entry = new Door(new Vector2(120, GameSettings.getInt("game_resolution_Y") / 2), Vector2.RIGHT);
         entry.getSprite().setSquareHeight(128);
-        entry.getSprite().setSquareWidth(128);
-        entry.setSize(new Vector2(512, 512));
+        entry.getSprite().setSquareWidth(128);;
 
         exit = new Door(new Vector2(GameSettings.getInt("game_resolution_X") - 128, GameSettings.getInt("game_resolution_Y") / 2), Vector2.LEFT);
         exit.getSprite().setSquareHeight(128);
         exit.getSprite().setSquareWidth(128);
-        exit.setSize(new Vector2(128, 128));
         Collider doorCollider = new Collider(exit);
         exit.setCollider(doorCollider);
         doorCollider.addInteractionLayer("UnHittable");
@@ -64,6 +62,7 @@ public class GameMap extends GameObject {
                 // TODO: make one time only, this is multithread issue
                 if(!isExitTriggered) {
                     if(((Topdownfuntown) GameApplication.getInstance()).hasKey) {
+                        exit.setSprite(new Sprite("../bg/door_open"));
                         isExitTriggered = true;
                         ((Topdownfuntown) GameApplication.getInstance()).moveToNextRoom();
                     }

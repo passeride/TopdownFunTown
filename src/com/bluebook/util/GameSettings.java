@@ -25,4 +25,18 @@ public class GameSettings {
     public static boolean getBoolean(String s){
         return Boolean.parseBoolean(loadedSettings.get(s));
     }
+
+    public static Vector2 getScreenScale(){
+        int resolutionX = GameSettings.getInt("game_resolution_X");
+        double deadZoneX = GameSettings.getDouble("map_movement_padding_X") * 2;
+        int gridX = GameSettings.getInt("grid_X");
+        double x = ((resolutionX * (1-deadZoneX)) / gridX);
+
+        int resolutionY = GameSettings.getInt("game_resolution_Y");
+        double deadZoneY = GameSettings.getDouble("map_movement_padding_Y") * 2;
+        int gridY = GameSettings.getInt("grid_Y");
+        double y = ((resolutionY * (1-deadZoneY)) / gridY);
+
+        return new Vector2(x, y);
+    }
 }
