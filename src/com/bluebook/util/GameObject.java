@@ -1,15 +1,12 @@
 package com.bluebook.util;
 
-import com.bluebook.engine.GameApplication;
+import com.bluebook.camera.TopDownCamera;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
-import com.bluebook.renderer.RenderLayer;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import com.bluebook.renderer.CanvasRenderer;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.paint.Color;
+import com.bluebook.renderer.RenderLayer;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject {
 
@@ -25,6 +22,8 @@ public abstract class GameObject {
     protected boolean isAlive = true;
 
     protected Collider collider;
+
+    TopDownCamera camera;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -59,6 +58,8 @@ public abstract class GameObject {
     public void draw(GraphicsContext gc){
         if(sprite != null)
             sprite.draw(gc, position, direction);
+        // legge til spillerID for å følge spiller
+        camera.follow();
     }
 
     /**

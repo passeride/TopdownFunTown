@@ -70,7 +70,6 @@ public abstract class GameApplication extends Application {
         loadSettings();
 
         this.stage = primaryStage;
-        Stage gameStage = getStage();
 
         Pane rootMenu = new Pane();
 
@@ -97,7 +96,8 @@ public abstract class GameApplication extends Application {
                     gameMenu.setVisible(true);
                     fadeTransition.play();
 
-                    callGame(gameStage);
+                    //calling the game
+                    callGame(this.stage);
 
                 }else{
                     FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), gameMenu);
@@ -105,6 +105,8 @@ public abstract class GameApplication extends Application {
                     fadeTransition.setToValue(0);
                     fadeTransition.setOnFinished(evt -> gameMenu.setVisible(false));
                     fadeTransition.play();
+
+
 
                 }
             }
@@ -192,7 +194,7 @@ public abstract class GameApplication extends Application {
             menu1.getChildren().addAll(buttonBack, buttonSound, buttonVideo);
 
             Rectangle bg = new Rectangle(1920, 1080);
-            bg.setFill(Color.GREY);
+            bg.setFill(Color.SLATEGRAY);
             bg.setOpacity(0.4);
 
             getChildren().addAll(bg, menu0);

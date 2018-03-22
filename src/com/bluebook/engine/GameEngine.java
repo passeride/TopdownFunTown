@@ -1,13 +1,13 @@
 package com.bluebook.engine;
 
+import com.bluebook.camera.TopDownCamera;
 import com.bluebook.physics.CollisionThread;
-import com.bluebook.util.GameObject;
-import com.bluebook.util.GameSettings;
-import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-import com.topdownfuntown.objects.Player;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
+import com.bluebook.util.GameObject;
+import com.topdownfuntown.objects.Player;
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.Canvas;
 
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -38,6 +38,7 @@ public class GameEngine {
 
     Canvas canvas;
     Player p;
+    TopDownCamera camera;
 
     /**
      * Constructor for GameEngine
