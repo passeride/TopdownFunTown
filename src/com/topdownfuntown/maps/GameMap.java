@@ -105,7 +105,7 @@ public class GameMap extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        sprite.drawBackground(gc);
+        //sprite.drawBackground(gc);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.topdownfuntown.main;
 
 import com.bluebook.audio.AudioPlayer;
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.physics.Collider;
@@ -11,6 +12,7 @@ import com.bluebook.util.Vector2;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
 import com.topdownfuntown.objects.*;
+import javafx.scene.Camera;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class Topdownfuntown extends GameApplication {
     private GameMap currentGameMap;
 
     public boolean hasKey = false;
+
+    OrtographicCamera cam;
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
@@ -61,11 +65,13 @@ public class Topdownfuntown extends GameApplication {
 
         currentGameMap = MapLoader.loadMapJson("TestMap");
 
-        StarterWeapon w = new StarterWeapon(new Vector2(0,25), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
+        StarterWeapon w = new StarterWeapon(new Vector2(0,23), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
         player[0] = new Player(new Vector2(currentGameMap.entry.getPosition().getX() + 50, currentGameMap.entry.getPosition().getY()), Vector2.ZERO,
                 new AnimationSprite("/friendlies/character",4),w);
 
        Turret t = new Turret(new Vector2(800,500), Vector2.DOWN);
+       cam = new OrtographicCamera();
+       cam.follow(player[0]);
     }
 
 
@@ -80,6 +86,7 @@ public class Topdownfuntown extends GameApplication {
 
     @Override
     public void update(double delta) {
+        cam.update();
         if(input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input.isKeyDown(KeyCode.A) || input.isKeyDown(KeyCode.D)){
             ((AnimationSprite)player[0].getSprite()).setPlaying(true);
         }else{
@@ -100,6 +107,22 @@ public class Topdownfuntown extends GameApplication {
 
         if(input.isKeyDown(KeyCode.A)){
             player[0].moveLeft(delta);
+        }
+
+        if(input.isKeyDown(KeyCode.LEFT)){
+            cam.setX(cam.getX() + 10);
+        }
+
+        if(input.isKeyDown(KeyCode.RIGHT)){
+            cam.setX(cam.getX() - 10);
+        }
+
+        if(input.isKeyDown(KeyCode.UP)){
+            cam.setY(cam.getY() - 10);
+        }
+
+        if(input.isKeyDown(KeyCode.DOWN)){
+            cam.setY(cam.getY() + 10);
         }
 
 //        if(input.isKeyDown(KeyCode.DOWN)){
@@ -158,7 +181,11 @@ public class Topdownfuntown extends GameApplication {
 
         }
 
-        player[0].lookAt(input.getMousePosition());
+        if(OrtographicCamera.main != null)
+            player[0].lookAt(Vector2.subtract(input.getMousePosition(), new Vector2(OrtographicCamera.main.getX(), OrtographicCamera.main.getY())));
+        else
+            player[0].lookAt(input.getMousePosition());
+
         //player[1].lookAt(input.getMousePosition());
         scoreObject.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
         checkEnemies();

@@ -73,10 +73,12 @@ public class RenderLayer {
     }
 
     protected void drawAll(GraphicsContext gc){
-        synchronized (this) {
-            for (GameObject go : drawables)
-                go.draw(gc);
-        }
+        int drawablesSize = drawables.size();
+            for (int i = 0;  i <  drawablesSize; i++) {
+                GameObject go = drawables.get(i);
+                if(go != null)
+                    go.draw(gc);
+            }
 
     }
 

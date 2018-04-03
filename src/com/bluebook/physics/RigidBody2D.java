@@ -10,7 +10,8 @@ public class RigidBody2D extends Component {
     private Vector2 linearDrag;
     private Vector2 angularVelocity;
     private Vector2 angularDrag;
-    private double velocityThreshold = 200;
+    //TODO: Replace with FALLOFF CURVE
+    private double velocityThreshold = 0;
     GameObject go;
 
     public RigidBody2D(GameObject go){

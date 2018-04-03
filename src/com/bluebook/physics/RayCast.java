@@ -49,10 +49,10 @@ public class RayCast {
      * Used to update the position of the ray as on the gameobject
      */
     public void updatePosition(){
-        ray = new Line2D((float)source.getPosition().getX(),
-                (float)source.getPosition().getY(),
-                (float) source.getPosition().getX() + (float)Math.cos(angle) * max_distance,
-                (float)source.getPosition().getY() + (float)Math.sin(angle) * max_distance);
+        ray = new Line2D((float)source.getTransform().getGlobalPosition().getX(),
+                (float)source.getTransform().getGlobalPosition().getY(),
+                (float) source.getTransform().getGlobalPosition().getX() + (float)Math.cos(angle) * max_distance,
+                (float)source.getTransform().getGlobalPosition().getY() + (float)Math.sin(angle) * max_distance);
     }
 
     public void Cast(){

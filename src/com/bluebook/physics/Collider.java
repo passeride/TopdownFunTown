@@ -1,5 +1,6 @@
 package com.bluebook.physics;
 
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
@@ -125,21 +126,41 @@ public class Collider {
      * @return array of 4 {@link Line2D} elements making a rectangle
      */
     public Line2D[] getLines(){
-        Line2D[] ret = new Line2D[4];
-        // rect
-        Vector2 rotationPoint = new Vector2(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
-        double angle = rect.getRotate();
-        Vector2 topLeft = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX(), rect.getY()), rotationPoint, angle);
-        Vector2 bottomLeft = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX(), rect.getY() + rect.getHeight()), rotationPoint, angle);
-        Vector2 topRight = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + rect.getWidth(), rect.getY()), rotationPoint, angle);
-        Vector2 bottomRight = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight()),  rotationPoint, angle);
+        if(OrtographicCamera.main != null){
+            double xOff = OrtographicCamera.main.getX();
+            double yOff = OrtographicCamera.main.getY();
+            Line2D[] ret = new Line2D[4];
+            // rect
+            Vector2 rotationPoint = new Vector2(rect.getX() + xOff + rect.getWidth() / 2, rect.getY() + yOff + rect.getHeight() / 2);
+            double angle = rect.getRotate();
+            Vector2 topLeft = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + xOff, rect.getY() + yOff), rotationPoint, angle);
+            Vector2 bottomLeft = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + xOff, rect.getY() + yOff + rect.getHeight()), rotationPoint, angle);
+            Vector2 topRight = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + xOff + rect.getWidth(), rect.getY() + yOff), rotationPoint, angle);
+            Vector2 bottomRight = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + xOff + rect.getWidth(), rect.getY() + yOff + rect.getHeight()), rotationPoint, angle);
 
-        ret[0] = new Line2D((float)topLeft.getX(), (float)topLeft.getY(), (float)bottomLeft.getX(), (float)bottomLeft.getY());
-        ret[1] = new Line2D((float)topLeft.getX(), (float)topLeft.getY(), (float)topRight.getX(), (float)topRight.getY());
-        ret[2] = new Line2D((float)bottomRight.getX(), (float)bottomRight.getY(), (float)topRight.getX(), (float)topRight.getY());
-        ret[3] = new Line2D((float)bottomRight.getX(), (float)bottomRight.getY(), (float)bottomLeft.getX(), (float)bottomLeft.getY());
+            ret[0] = new Line2D((float) topLeft.getX(), (float) topLeft.getY(), (float) bottomLeft.getX(), (float) bottomLeft.getY());
+            ret[1] = new Line2D((float) topLeft.getX(), (float) topLeft.getY(), (float) topRight.getX(), (float) topRight.getY());
+            ret[2] = new Line2D((float) bottomRight.getX(), (float) bottomRight.getY(), (float) topRight.getX(), (float) topRight.getY());
+            ret[3] = new Line2D((float) bottomRight.getX(), (float) bottomRight.getY(), (float) bottomLeft.getX(), (float) bottomLeft.getY());
 
-        return ret;
+            return ret;
+        }else {
+            Line2D[] ret = new Line2D[4];
+            // rect
+            Vector2 rotationPoint = new Vector2(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+            double angle = rect.getRotate();
+            Vector2 topLeft = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX(), rect.getY()), rotationPoint, angle);
+            Vector2 bottomLeft = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX(), rect.getY() + rect.getHeight()), rotationPoint, angle);
+            Vector2 topRight = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + rect.getWidth(), rect.getY()), rotationPoint, angle);
+            Vector2 bottomRight = Vector2.rotateVectorAroundPoint(new Vector2(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight()), rotationPoint, angle);
+
+            ret[0] = new Line2D((float) topLeft.getX(), (float) topLeft.getY(), (float) bottomLeft.getX(), (float) bottomLeft.getY());
+            ret[1] = new Line2D((float) topLeft.getX(), (float) topLeft.getY(), (float) topRight.getX(), (float) topRight.getY());
+            ret[2] = new Line2D((float) bottomRight.getX(), (float) bottomRight.getY(), (float) topRight.getX(), (float) topRight.getY());
+            ret[3] = new Line2D((float) bottomRight.getX(), (float) bottomRight.getY(), (float) bottomLeft.getX(), (float) bottomLeft.getY());
+
+            return ret;
+        }
     }
 
     private GraphicsContext rotateGraphicsContext(GraphicsContext gc, Rectangle rect){

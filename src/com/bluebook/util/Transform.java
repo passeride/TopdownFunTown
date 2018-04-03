@@ -1,5 +1,7 @@
 package com.bluebook.util;
 
+import com.bluebook.camera.OrtographicCamera;
+
 import java.util.ArrayList;
 
 /**
@@ -31,9 +33,16 @@ public class Transform extends Component{
 
     private Vector2 getPositionOffsett(){
         if(parent != null)
-            return Vector2.add(Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale), Vector2.ZERO, parent.getLocalRotation().getAngleInDegrees()), parent.getPositionOffsett());
+            return Vector2.add(
+                    Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
+                    Vector2.ZERO,
+                    parent.getLocalRotation().getAngleInDegrees()),
+                    parent.getPositionOffsett());
         else
-            return position;
+            if(OrtographicCamera.main != null)
+                return Vector2.add(position, new Vector2(OrtographicCamera.main.getX(), OrtographicCamera.main.getY()));
+            else
+                return position;
     }
 
     private Vector2 getRotationOffsett(){

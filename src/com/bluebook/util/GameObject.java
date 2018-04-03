@@ -1,6 +1,6 @@
 package com.bluebook.util;
 
-import com.bluebook.camera.TopDownCamera;
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
@@ -23,7 +23,7 @@ public abstract class GameObject {
 
     protected Collider collider;
 
-    TopDownCamera camera;
+    OrtographicCamera camera;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -57,9 +57,9 @@ public abstract class GameObject {
      */
     public void draw(GraphicsContext gc){
         if(sprite != null)
-            sprite.draw(gc, position, direction);
+            sprite.draw(gc, transform.getGlobalPosition(), transform.getGlobalRotation());
         // legge til spillerID for å følge spiller
-        camera.follow();
+        //camera.follow();
     }
 
     /**

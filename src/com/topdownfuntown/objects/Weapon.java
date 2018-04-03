@@ -45,7 +45,12 @@ abstract class Weapon extends GameObject {
         audioPlayer.playOnce();
         // score -= 50;
         Vector2 angle = Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
-        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(transform.getGlobalPosition(),  offset), transform.getGlobalPosition(), transform.getGlobalRotation().getAngleInDegrees()), angle, new Sprite("/projectiles/projectile_gold_00"));
+
+        Vector2 spawnPosition = transform.getParent().getLocalPosition();
+
+        Projectile p = new Projectile(spawnPosition,
+                Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
+                new Sprite("/projectiles/projectile_gold_00"));
         p.setSpeed(800);
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");

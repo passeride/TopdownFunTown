@@ -34,8 +34,8 @@ public class Player extends GameObject {
 
     AudioPlayer hitSound;
     protected Vector2 collisionDirection;
-    private double speed = 100.0; // Gotta go fast
-    private double baseSpeed = 100.0;
+    private double speed = 800.0; // Gotta go fast
+    private double baseSpeed = 300.0;
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
     private StarterWeapon currentWeapon;
@@ -111,8 +111,8 @@ public class Player extends GameObject {
 //                new Stop(1.0, Color.TRANSPARENT)));
 //        gc.setGlobalBlendMode(BlendMode.OVERLAY);
 //        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
-        gc.setFill(Color.GREEN);
-        gc.strokeLine(getPosition().getX(), getPosition().getY(), getPosition().getX() + rb2.getLinearVelocity().getX(), getPosition().getY() + rb2.getLinearVelocity().getY());
+        //gc.setFill(Color.GREEN);
+        //gc.strokeLine(getPosition().getX(), getPosition().getY(), getPosition().getX() + rb2.getLinearVelocity().getX(), getPosition().getY() + rb2.getLinearVelocity().getY());
 
         gc.restore();
 //        gc.fillText("X:" + rb2.getLinearVelocity().getX() + "-Y:"+ rb2.getLinearVelocity().getY(), getPosition().getX(), getPosition().getY());
@@ -184,24 +184,25 @@ public class Player extends GameObject {
     @Override
     public void translate(Vector2 moveVector) {
 
-        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
-        if(walkCollider.getIntersectionCenter() != null) {
-            newValue = Vector2.add(transform.getGlobalPosition(), Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
-            System.out.println("Trying to avoid collision");
-        }
-
-
-        double screenWidth = GameSettings.getInt("game_resolution_X");
-        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
-        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
-        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
-
-        if (newValue.getX() <= screenWidth - boudMarginX
-                && newValue.getX() > boudMarginX
-                && newValue.getY() <= screenHeihgt - boudMarginY
-                && newValue.getY() > boudMarginY) {
-            transform.setLocalPosition(newValue);
-        }
+//        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
+//        if(walkCollider.getIntersectionCenter() != null) {
+//            //newValue = Vector2.add(transform.getGlobalPosition(), Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
+//            rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(walkCollider.getIntersectionCenter(), getPosition())), 15));
+//        }
+//
+//
+//        double screenWidth = GameSettings.getInt("game_resolution_X");
+//        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
+//        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
+//        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
+//
+//        if (newValue.getX() <= screenWidth - boudMarginX
+//                && newValue.getX() > boudMarginX
+//                && newValue.getY() <= screenHeihgt - boudMarginY
+//                && newValue.getY() > boudMarginY) {
+//            transform.setLocalPosition(newValue);
+//        }
+        transform.setLocalPosition(Vector2.add(getPosition(), moveVector));
     }
 
     /**
@@ -234,6 +235,7 @@ public class Player extends GameObject {
     }
 
     public void shoot() {
+        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  300));
         currentWeapon.shoot();
     }
 

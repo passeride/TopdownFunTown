@@ -60,6 +60,8 @@ public class GreenAlien extends Enemy {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit();
+                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())), 300.0));
+
 
                 }
                 p.destroy();

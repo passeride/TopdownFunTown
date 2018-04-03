@@ -124,8 +124,8 @@ public class Turret extends Enemy {
 
     @Override
     public void destroy() {
-        new Explotion(getPosition());
         super.destroy();
+        new Explotion(getPosition());
     }
 
     @Override

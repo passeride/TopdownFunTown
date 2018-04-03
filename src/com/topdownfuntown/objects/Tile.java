@@ -1,5 +1,6 @@
 package com.topdownfuntown.objects;
 
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.renderer.RenderLayer;
@@ -155,6 +156,9 @@ public class Tile extends GameObject {
 //                if(swapWidthHeight){
 //                    gc.drawImage(gridTile[i][j], i * tileWidth + marginX, j * tileHeight + marginY, tileHeight, tileWidth);
 //                }else {
+                if(OrtographicCamera.main != null){
+                    gc.drawImage(gridTile[i][j], OrtographicCamera.main.getX() + i * tileWidth + marginX, OrtographicCamera.main.getY() + j * tileHeight + marginY, tileWidth, tileHeight);
+                }else
                     gc.drawImage(gridTile[i][j], i * tileWidth + marginX, j * tileHeight + marginY, tileWidth, tileHeight);
 //                }
 //                gc.restore();

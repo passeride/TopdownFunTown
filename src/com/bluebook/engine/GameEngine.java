@@ -1,6 +1,6 @@
 package com.bluebook.engine;
 
-import com.bluebook.camera.TopDownCamera;
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.CollisionThread;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
@@ -38,7 +38,7 @@ public class GameEngine {
 
     Canvas canvas;
     Player p;
-    TopDownCamera camera;
+    OrtographicCamera camera;
 
     /**
      * Constructor for GameEngine
