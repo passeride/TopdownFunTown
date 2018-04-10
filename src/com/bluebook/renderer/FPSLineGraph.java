@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class FPSLineGraph {
 
+    public static FPSLineGraph main;
     private ArrayList<Double> fpsArray = new ArrayList<>();
     private int arrayCounter = 0;
 
@@ -19,10 +20,14 @@ public class FPSLineGraph {
 
     double max_value = 100, min_value = 10;
 
-    int pointsOnGraph = 10;
+    int pointsOnGraph = 100;
 
     int horziontal_lines = 5;
     int fontSize = 20;
+
+    public FPSLineGraph(){
+        main = this;
+    }
 
     // TODO: make stuff right bro, also optimize
     public void draw(GraphicsContext gc){
@@ -54,6 +59,15 @@ public class FPSLineGraph {
         double FPS = GameEngine.getInstance().FPS;
         gc.setFill(FPS > 60 ? Color.BLACK : Color.RED);
         gc.fillText("FPS: "  + GameEngine.getInstance().FPS, X, Y + height);
+    }
+
+    public double getAverage(){
+        double fpsSum = 0.0;
+        for(Double d: fpsArray){
+            fpsSum += (double)d;
+        }
+
+        return fpsSum / fpsArray.size();
     }
 
     public double mapFPSValue(double  fps){

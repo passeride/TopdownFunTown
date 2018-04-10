@@ -3,6 +3,7 @@ package com.bluebook.engine;
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
 import com.bluebook.javafx.ControllerMenu;
+import com.bluebook.renderer.FPSLineGraph;
 import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -148,6 +149,13 @@ public abstract class GameApplication extends Application {
 
     public Stage getStage() {
         return stage;
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        if(FPSLineGraph.main != null)
+        System.out.println("Average FPS: " + FPSLineGraph.main.getAverage());
     }
 
     public void callGame(Stage primaryStage){

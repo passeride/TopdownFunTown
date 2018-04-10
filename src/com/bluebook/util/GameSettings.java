@@ -2,6 +2,10 @@ package com.bluebook.util;
 
 import java.util.Map;
 
+/**
+ * This class is used to load a settings file and make them accessible
+ *
+ */
 public class GameSettings {
 
     private static Map<String, String> loadedSettings;
