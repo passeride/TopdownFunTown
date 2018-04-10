@@ -14,7 +14,7 @@
     <children>
         <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/home/pm/Git/topdownfuntown/assets/pictures/mountain.jpg" />
+                <Image url="file: ./pictures/mountain.jpg" />
             </image>
         </ImageView>
       <Slider fx:id="slider" layoutX="890.0" layoutY="469.0" orientation="HORIZONTAL" prefHeight="53.0" prefWidth="140.0" scaleX="3.0" scaleY="1.5" showTickLabels="true" value="100.0" />
