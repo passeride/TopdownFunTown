@@ -40,8 +40,8 @@ public class PurpleAlien extends Enemy {
     }
 
     public void shoot() {
-        Projectile p = new Projectile(transform.getGlobalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
-       Projectile p2 = new Projectile(transform.getGlobalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
+        Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
+        Projectile p2 = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(), new Sprite("/projectiles/projectile_enemy_00"));
 
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);

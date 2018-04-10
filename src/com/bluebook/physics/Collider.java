@@ -99,20 +99,29 @@ public class Collider {
                 Bounds b = intersection.getBoundsInParent();
                 gc.beginPath();
 
+                double offX = OrtographicCamera.main != null ? OrtographicCamera.main.getX() : 0.0;
+                double offY = OrtographicCamera.main != null ? OrtographicCamera.main.getY() : 0.0;
+
+
+
                 double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
                 double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
                 List<PathElement> elements = intersection.getElements();
                 for (PathElement pe : elements) {
                     if (pe.getClass() == MoveTo.class) {
-                        gc.moveTo(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
+                        gc.moveTo(((MoveTo) pe).getX() + offX, ((MoveTo) pe).getY() + offY);
                     } else if (pe.getClass() == LineTo.class) {
-                        gc.lineTo(((LineTo) pe).getX(), ((LineTo) pe).getY());
+                        gc.lineTo(((LineTo) pe).getX() + offX, ((LineTo) pe).getY() + offY);
                     }
                 }
+
 
                 gc.closePath();
                 gc.fill();
                 gc.stroke();
+
+                gc.setFill(Color.BLUE);
+                gc.fillRect(centerX + 2 + offX, centerY + 2 + offY, 4, 4);
 //            gc.setFill(Color.GREEN);
 //            gc.fillRect(centerX - 25, centerY - 25,  50, 50);
             }

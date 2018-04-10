@@ -159,6 +159,13 @@ package physics{
             +OnCollision(Collider other):void
        }
     }
+    package quadtree{
+        class  QuadTree{
+            +insert(GameObject go):void
+            +draw(GraphicsContext gc):void
+            +query(Rectangle rect):ArrayList<GameObject>
+        }
+    }
 }
 
 ' assoc

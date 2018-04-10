@@ -42,6 +42,8 @@ public class Player extends GameObject {
     Topdownfuntown topdownfuntown;
     private Collider walkCollider;
 
+
+
     public RigidBody2D rb2;
 
     private int rayCastResolution = 0;
@@ -61,7 +63,6 @@ public class Player extends GameObject {
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
         currentWeapon = weapon;
-        //currentWeapon.setOffset(new Vector2(0, 25));
 
         collider = new Collider(this);
         collider.setName("Player");

@@ -3,6 +3,7 @@ package com.bluebook.renderer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
+import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.GameSettings;
 import com.topdownfuntown.objects.Player;
 import javafx.scene.canvas.Canvas;
@@ -143,6 +144,7 @@ public class CanvasRenderer {
                 }
                 flg.addFPS(GameEngine.getInstance().FPS);
                 flg.draw(gc);
+                HitDetectionHandler.getInstance().qtTree.draw(gc);
             }
             gc.restore();
         }
