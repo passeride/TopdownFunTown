@@ -3,8 +3,6 @@ package com.bluebook.audio;
 import com.bluebook.util.GameObject;
 
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.Control;
-import javax.sound.sampled.EnumControl;
 import javax.sound.sampled.FloatControl;
 
 /**
@@ -13,19 +11,17 @@ import javax.sound.sampled.FloatControl;
 public class AudioPlayer {
 
     private boolean spital = false;
-    private static String path = "";
-    Clip clip;
+    private Clip clip;
 
     private GameObject source;
 
-    FloatControl gainControl;
+    private FloatControl gainControl;
 
     /**
-     * Constructor for AudioPlayer which sets and loads audio-path and gains control of the audio thorugh FloatControls gainControl
-     * @param path
+     * Constructor for AudioPlayer which sets and loads audio-path and gains control of the audio through FloatControls gainControl
+     * @param path path
      */
     public AudioPlayer(String path){
-        this.path = path;
         clip = AudioLoader.loadAudioClip(path);
         gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
     }
@@ -58,7 +54,7 @@ public class AudioPlayer {
     /**
      * stops currently playing audio if clip.isRunning() returns true
      */
-    public void stop(){
+    private void stop(){
         if(clip.isRunning()){
             clip.stop();
         }
@@ -83,7 +79,7 @@ public class AudioPlayer {
 
     /**
      * Sets the volum of selected audio-clip through decibel. e.g. -30 to lower the amount
-     * @param decibel
+     * @param decibel decibel
      */
     public void setVolume(float decibel){
         gainControl.setValue(decibel);
@@ -107,7 +103,7 @@ public class AudioPlayer {
 
     /**
      * Sets the boolean value of spital
-     * @param source
+     * @param source GameObject source
      */
     public void setSpital(GameObject source) {
         this.spital = true;
