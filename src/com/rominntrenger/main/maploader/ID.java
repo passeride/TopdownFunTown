@@ -27,5 +27,4 @@ public enum ID {
     AlienExplode,
     AlienTurret,
     SpawnPlayer;
-
 }

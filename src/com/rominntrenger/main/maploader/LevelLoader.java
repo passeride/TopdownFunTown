@@ -26,6 +26,7 @@ public class LevelLoader {
                     case ("FFFFFF"):
                         gameMap[x][y] = ID.Wall;
                     break;
+
                     //DOORS
                     case ("DDDDDD"):
                         gameMap[x][y] = ID.Door;
@@ -45,6 +46,7 @@ public class LevelLoader {
                     case ("DDF0F0"):
                         gameMap[x][y] = ID.DoorR;
                     break;
+
                     // KEYS
                     case ("CCCCCC"):
                         gameMap[x][y] = ID.Key;
@@ -64,6 +66,7 @@ public class LevelLoader {
                     case ("CCF0F0"):
                         gameMap[x][y] = ID.KeyR;
                     break;
+
                     //ITEMS
                     case ("330000"):
                         gameMap[x][y] = ID.StasisBox;
@@ -86,6 +89,7 @@ public class LevelLoader {
                     case ("337777"):
                         gameMap[x][y] = ID.Bench;
                     break;
+
                     //ENEMIES
                     case ("EE2222"):
                         gameMap[x][y] = ID.AlienGreen;
@@ -114,12 +118,12 @@ public class LevelLoader {
             String hexColor = String.format("%06X", (0xFFFFFF & value));
             return hexColor;
         }
-
+        /*
         public static void main(String[] args) {
             MapLoader loader = new MapLoader();
             BufferedImage level;
             level = loader.loadImage("mapStart",32,32);
-            ID[][] cake = loadLevel(level);
+            ID[][] newLevel = loadLevel(level);
             System.out.println(cake[3][6]);
-        }
+    } */
 }
