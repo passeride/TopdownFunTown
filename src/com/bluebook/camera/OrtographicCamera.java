@@ -61,19 +61,6 @@ public class OrtographicCamera {
         }
     }
 
-//    public void draw(GraphicsContext gc){
-//
-//
-//        gc.setFill(Color.BLUE);
-//        int widthWDeadzone = (int)(width - deadzone * 2);
-//        int heightWDeadzone = (int)(height - deadzone);
-//        int deadzoneXStart = (int)(width / 2 - widthWDeadzone / 2);
-//        int deadzoneYStart = (int)(height / 2 - heightWDeadzone / 2);
-//        System.out.println("DEADZONE: " + heightWDeadzone);
-//        gc.fillRect(deadzoneXStart, deadzoneYStart, widthWDeadzone, heightWDeadzone);
-//
-//    }
-
     public double getX() {
         return x;
     }

@@ -141,7 +141,6 @@ public class CanvasRenderer {
                 HitDetectionHandler.getInstance().qtTree.draw(gc);
             }
             if(OrtographicCamera.main != null)
-//                OrtographicCamera.main.draw(gc);
             gc.restore();
         }
     }
