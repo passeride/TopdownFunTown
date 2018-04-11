@@ -1,0 +1,33 @@
+Wall -> FFFFFF
+Empty -> 000000
+
+Door -> DDDDDD
+
+DoorY -> DD0000
+DoorB -> DD00FF
+DoorG -> DDFF00
+DoorP -> DD0F0F
+DoorR -> DDF0F0
+
+Key -> CCCCCC
+
+KeyY -> CC0000
+KeyB -> CC00FF
+KeyG -> CCFF00
+KeyP -> CC0F0F
+KeyR -> CCF0F0
+
+StasisBox -> 330000
+Barrel -> 33FFFF
+Crate -> 33CCCC
+Corpse -> 334444
+Ship -> 336666
+Table -> 335555
+Bench -> 337777
+
+AlienGreen -> EE2222
+AlienPurple -> EE4444
+AlienExplode -> EE6666
+AlienTurret -> EECCCC
+
+SpawnPlayer -> 440000
