@@ -5,10 +5,7 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.RayCast;
-import com.bluebook.physics.RayCastHit;
-import com.bluebook.physics.RigidBody2D;
+import com.bluebook.physics.*;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
@@ -47,13 +44,13 @@ public class Player extends GameObject {
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
 
-        collider = new Collider(this);
+        collider = new BoxCollider(this);
         collider.setName("Player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
 
         // WalkCollider
-        walkCollider = new Collider(this);
+        walkCollider = new CircleCollider(this, 20);
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
         walkCollider.addInteractionLayer("Block");
@@ -74,7 +71,7 @@ public class Player extends GameObject {
     @Override
     public void update(double delta) {
         rb2.update(delta);
-        translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
+//        translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
     }
 
     @Override

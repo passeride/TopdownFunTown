@@ -18,7 +18,8 @@ public class RomInntrenger {
         MapLoader loader = new MapLoader();
         BufferedImage thisMap;
         thisMap = loader.loadImage("mapStart",32,32);
-        NewLevel level = new NewLevel(thisMap);
-        level.createLevel();
+        // TODO: ERRORES HERE BEWARE
+//        NewLevel level = new NewLevel(thisMap);
+//        level.createLevel();
     }
 }
