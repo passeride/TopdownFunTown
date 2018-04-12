@@ -1,11 +1,8 @@
 package com.rominntrenger.main.maploader;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
-import com.rominntrenger.main.maploader.MapLoader;
-
-public class LevelLoader {
+public class LevelImageLoader {
 
     public static ID[][] loadLevel(BufferedImage image) {
         int w = image.getWidth();
@@ -120,7 +117,7 @@ public class LevelLoader {
         }
         /*
         public static void main(String[] args) {
-            MapLoader loader = new MapLoader();
+            ImageBuffering loader = new ImageBuffering();
             BufferedImage level;
             level = loader.loadImage("mapStart",32,32);
             ID[][] newLevel = loadLevel(level);

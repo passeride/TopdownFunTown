@@ -9,12 +9,11 @@ import com.topdownfuntown.objects.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * Creating GameMap/Area with player, enemy and obstacle array lists.
  */
-public class NewLevel extends GameObject {
+public class MapCreator extends GameObject {
     ID[][] currentLevel;
     BufferedImage newMap;
     GraphicsContext gc;
@@ -36,7 +35,7 @@ public class NewLevel extends GameObject {
     public Obstacle crate;
     public Obstacle barrel;
 
-    public NewLevel(String spritePath, BufferedImage map) {
+    public MapCreator(String spritePath, BufferedImage map) {
         super(Vector2.ZERO,Vector2.ZERO,new Sprite(spritePath));
         this.newMap = map;
     }
@@ -48,7 +47,7 @@ public class NewLevel extends GameObject {
     }
 
     public void createLevel() {
-        currentLevel = LevelLoader.loadLevel(newMap);
+        currentLevel = LevelImageLoader.loadLevel(newMap);
         int x = currentLevel.length;
         int y = currentLevel[0].length;
         vector = new Vector2(x,y);
