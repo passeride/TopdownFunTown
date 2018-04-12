@@ -1,5 +1,6 @@
 package com.rominntrenger.main;
 
+import com.bluebook.graphics.Sprite;
 import com.rominntrenger.main.maploader.NewLevel;
 import com.rominntrenger.main.maploader.MapLoader;
 
@@ -18,7 +19,7 @@ public class RomInntrenger {
         MapLoader loader = new MapLoader();
         BufferedImage thisMap;
         thisMap = loader.loadImage("mapStart",32,32);
-        NewLevel level = new NewLevel(thisMap);
+        NewLevel level = new NewLevel("../bg/backgroundGradient_01", thisMap);
         level.createLevel();
     }
 }

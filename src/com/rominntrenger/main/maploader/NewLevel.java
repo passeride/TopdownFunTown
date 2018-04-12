@@ -18,6 +18,7 @@ public class NewLevel extends GameObject {
     ID[][] currentLevel;
     BufferedImage newMap;
     GraphicsContext gc;
+    Vector2 vector;
 
     private String name = "Space Adventures in Space";
     private AudioPlayer soundTrack;
@@ -35,16 +36,10 @@ public class NewLevel extends GameObject {
     public Obstacle crate;
     public Obstacle barrel;
 
-    public NewLevel(Sprite sprite, BufferedImage map) {
-        super(Vector2.ZERO,Vector2.ZERO,sprite);
+    public NewLevel(String spritePath, BufferedImage map) {
+        super(Vector2.ZERO,Vector2.ZERO,new Sprite(spritePath));
         this.newMap = map;
     }
-
-    /*
-    public NewLevel(Sprite sprite, BufferedImage map) {
-        super(Vector2.ZERO, Vector2.ZERO, sprite);
-        this.newMap = map;
-    }*/
 
     @Override
     public void draw(GraphicsContext gc) {
@@ -54,12 +49,13 @@ public class NewLevel extends GameObject {
 
     public void createLevel() {
         currentLevel = LevelLoader.loadLevel(newMap);
-        int w = currentLevel.length;
-        int h = currentLevel[0].length;
+        int x = currentLevel.length;
+        int y = currentLevel[0].length;
+        vector = new Vector2(x,y);
 
-        for(int x = 0; x < w; x++) {
-            for(int y = 0; y < h; y++) {
-                tempID = currentLevel[x][y];
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
+                tempID = currentLevel[i][j];
 
                 switch (tempID) {
                     case Wall:
@@ -70,31 +66,31 @@ public class NewLevel extends GameObject {
 
                     //KEYS AND DOORS
                     case Key:
-                        key.draw(gc);
+                        key = new Key(vector,Vector2.ZERO,new Sprite("../sprite/items/key_gold00.png"));
                     break;
 
                     case KeyY:
-                        keyY.draw(gc);
+
                     break;
 
                     case KeyB:
-                        keyB.draw(gc);
+
                     break;
 
                     case KeyG:
-                        keyG.draw(gc);
+
                     break;
 
                     case KeyP:
-                        keyP.draw(gc);
+
                     break;
 
                     case KeyR:
-                        keyR.draw(gc);
+
                     break;
 
                     case Door:
-                        door.draw(gc);
+
                     break;
 
                     case DoorY:
