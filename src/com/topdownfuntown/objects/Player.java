@@ -55,7 +55,7 @@ public class Player extends GameObject {
         collider.addInteractionLayer("Hittable");
 
         // WalkCollider
-        walkCollider = new CircleCollider(this, 40);
+        walkCollider = new CircleCollider(this, 20);
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
         walkCollider.addInteractionLayer("Block");

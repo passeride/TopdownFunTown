@@ -66,7 +66,6 @@ public class Turret extends Enemy {
             RayCastHit rch = raycasts.get(i).getHit();
             if(rch != null) {
                 if (rch.isHit) {
-                    System.out.println(rch.colliderHit.getTag());
                     if(rch.colliderHit.getTag() == "UnHittable" || rch.colliderHit.getTag() == "Walk"){
                         player = rch.colliderHit.getGameObject();
                         playerSeen = true;
@@ -201,20 +200,20 @@ public class Turret extends Enemy {
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
         p.getCollider().addInteractionLayer("Block");
+        p.getCollider().addInteractionLayer("Walk");
 
-        p.setOnCollisionListener(new OnCollisionListener() {
-            @Override
-            public void onCollision(Collider other) {
-                if (other.getGameObject() instanceof Player) {
-                    Player pl = (Player) other.getGameObject();
-                    pl.hit();
 
-                }else if(other.getGameObject() instanceof Enemy){
-                    other.getGameObject().destroy();
-                }
-                p.destroy();
+        p.setOnCollisionListener(other -> {
+            System.out.println("OTHER TAG " + other.getTag());
+            if (other.getGameObject() instanceof Player) {
+                Player pl = (Player) other.getGameObject();
+                pl.hit();
 
+            }else if(other.getGameObject() instanceof Enemy){
+                other.getGameObject().destroy();
             }
+            p.destroy();
+
         });
     }
 }
