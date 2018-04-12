@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class NewLevel extends GameObject {
     ID[][] currentLevel;
     BufferedImage newMap;
+    GraphicsContext gc;
 
     private String name = "Space Adventures in Space";
     private AudioPlayer soundTrack;
@@ -48,6 +49,7 @@ public class NewLevel extends GameObject {
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
+        this.gc = gc;
     }
 
     public void createLevel() {
@@ -68,21 +70,33 @@ public class NewLevel extends GameObject {
 
                     //KEYS AND DOORS
                     case Key:
-
+                        key.draw(gc);
                     break;
 
                     case KeyY:
+                        keyY.draw(gc);
                     break;
+
                     case KeyB:
+                        keyB.draw(gc);
                     break;
+
                     case KeyG:
+                        keyG.draw(gc);
                     break;
+
                     case KeyP:
+                        keyP.draw(gc);
                     break;
+
                     case KeyR:
+                        keyR.draw(gc);
                     break;
+
                     case Door:
+                        door.draw(gc);
                     break;
+
                     case DoorY:
                     break;
                     case DoorB:

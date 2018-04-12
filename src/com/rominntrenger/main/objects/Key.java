@@ -2,6 +2,7 @@ package com.rominntrenger.main.objects;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Key extends Item {
     private Door door;
@@ -28,5 +29,10 @@ public class Key extends Item {
 
     public Door getDoor() {
         return door;
+    }
+
+    @Override
+    public void draw(GraphicsContext gc) {
+        super.draw(gc);
     }
 }
