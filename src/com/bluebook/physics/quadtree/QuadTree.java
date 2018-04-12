@@ -68,7 +68,7 @@ public class QuadTree {
 
     public void insert(GameObject go){
         synchronized (this) {
-            Vector2 goLocPos = go.getTransform().getGlobalPosition();
+            Vector2 goLocPos = go.getTransform().getLocalPosition();
 
             if (boundry.intersects(goLocPos.getX(), goLocPos.getY(), 5, 5)) {
                 if (isSubdevided) {

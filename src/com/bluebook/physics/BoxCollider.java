@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +34,20 @@ public class BoxCollider extends Collider {
      */
     public BoxCollider(GameObject go){
         super(go);
-        updateRect();
+        synchronized (this) {
+            updateRect();
+        }
     }
 
     /**
      * Will update the rectangle used for collision based on the size of the attached gameobject
      */
     public void updateRect(){
-        double xSize = gameObject.getScaledSize().getX() + padding.getX();
-        double ySize = gameObject.getScaledSize().getY() + padding.getY();
-        rect = new Rectangle(gameObject.getPosition().getX() - xSize, gameObject.getPosition().getY() - ySize * 2.0, xSize, ySize);
+        synchronized (this) {
+            double xSize = Math.min(gameObject.getScaledSize().getX() + padding.getX(), 0.4);
+            double ySize = Math.min(gameObject.getScaledSize().getY() + padding.getY(), 0.4);
+            rect = new Rectangle(gameObject.getPosition().getX() - xSize, gameObject.getPosition().getY() - ySize * 2.0, xSize, ySize);
+        }
     }
 
     protected void updatePosition(){
@@ -76,10 +81,15 @@ public class BoxCollider extends Collider {
             gc.setStroke(Color.GREEN);
             gc.save();
             //rotateGraphicsContext(gc, rect);
-            //gc.strokeRect(rect.getX(), rect.getY(),  rect.getWidth(), rect.getHeight());
-            for (Line2D l : getLines()) {
-                gc.strokeLine(l.x1, l.y1, l.x2, l.y2);
+            Rectangle tmpRect = rect;
+//            gc.strokeRect(tmpRect.getX(), tmpRect.getY(),  tmpRect.getWidth(), tmpRect.getHeight());
+            if(rect != null) {
+                Line2D[] lines = getLines();
+                for (Line2D l : lines) {
+                    gc.strokeLine(l.x1, l.y1, l.x2, l.y2);
+                }
             }
+
 
             if (intersection != null) {
                 gc.setFill(Color.RED);

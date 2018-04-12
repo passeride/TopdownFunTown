@@ -29,6 +29,8 @@ public class GameEngine {
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
 
+    private long prevTick = 0;
+
     public static boolean DEBUG = false;
 
     private boolean isPaused = false;
@@ -53,7 +55,7 @@ public class GameEngine {
 
 
         updateThread = new UpdateThread(this, messageQueue);
-//        collisionThread = new CollisionThread();
+        collisionThread = new CollisionThread();
         startAnimationTimer();
 
     }
@@ -85,14 +87,14 @@ public class GameEngine {
 
     public void Pause(){
         isPaused = true;
-//        stopCollisionThread();
+        stopCollisionThread();
         stopUpdateThread();
     }
 
     public void unPause(){
         isPaused = false;
         startUpdateThread();
-//        startCollisionThread();
+        startCollisionThread();
     }
 
     public boolean isPaused(){
@@ -138,9 +140,9 @@ public class GameEngine {
 
             //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
 
-            HitDetectionHandler.getInstance().updatePositions();
-
-            HitDetectionHandler.getInstance().lookForCollision();
+//            HitDetectionHandler.getInstance().updatePositions();
+//
+//            HitDetectionHandler.getInstance().lookForCollision();
             GameApplication.getInstance().update(delta);
             int lengthOfArray = updateObjects.size();
             for (int i = 0; i < lengthOfArray; i++)

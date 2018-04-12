@@ -71,7 +71,7 @@ public class RayCast {
                     if (distanceHit > 0 && distanceHit < collisionDistance) {
                         //System.out.println("COllision found " + c.getName() + " DISTANCE " + distanceHit + " ANGLE: " + angle);
                         collisionDistance = distanceHit;
-//                        colliderHit = c;
+                        colliderHit = c;
                     }
                 }
             }
