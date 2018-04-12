@@ -1,18 +1,12 @@
 package com.bluebook.renderer;
 
-import com.bluebook.engine.GameApplication;
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
-import com.bluebook.util.GameSettings;
-import com.topdownfuntown.objects.Player;
+import com.bluebook.util.GameObject;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.MotionBlur;
-import javafx.scene.paint.Color;
-import com.bluebook.util.GameObject;
-import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 
@@ -146,6 +140,7 @@ public class CanvasRenderer {
                 flg.draw(gc);
                 HitDetectionHandler.getInstance().qtTree.draw(gc);
             }
+            if(OrtographicCamera.main != null)
             gc.restore();
         }
     }
