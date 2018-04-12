@@ -1,14 +1,13 @@
 package com.bluebook.physics;
 
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Line2D;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class will create a raycast to interact with {@link Collider}
+ * This class will create a raycast to interact with {@link BoxCollider}
  */
 public class RayCast {
 
@@ -72,7 +71,7 @@ public class RayCast {
                     if (distanceHit > 0 && distanceHit < collisionDistance) {
                         //System.out.println("COllision found " + c.getName() + " DISTANCE " + distanceHit + " ANGLE: " + angle);
                         collisionDistance = distanceHit;
-                        colliderHit = c;
+//                        colliderHit = c;
                     }
                 }
             }

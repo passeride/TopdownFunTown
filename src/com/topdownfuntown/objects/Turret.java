@@ -1,6 +1,5 @@
 package com.topdownfuntown.objects;
 
-import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.RayCast;
@@ -8,11 +7,8 @@ import com.bluebook.physics.RayCastHit;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
-import com.sun.javafx.geom.Line2D;
-import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -70,7 +66,8 @@ public class Turret extends Enemy {
             RayCastHit rch = raycasts.get(i).getHit();
             if(rch != null) {
                 if (rch.isHit) {
-                    if(rch.colliderHit.getTag() == "UnHittable"){
+                    System.out.println(rch.colliderHit.getTag());
+                    if(rch.colliderHit.getTag() == "UnHittable" || rch.colliderHit.getTag() == "Walk"){
                         player = rch.colliderHit.getGameObject();
                         playerSeen = true;
                         playerNotSeen = false;
@@ -108,6 +105,8 @@ public class Turret extends Enemy {
             r.addInteractionLayer("Block");
             r.addInteractionLayer("UnHittable");
             r.addInteractionLayer("Hittable");
+            r.addInteractionLayer("Walk");
+
             raycasts.add(r);
         }
     }

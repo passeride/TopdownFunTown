@@ -10,7 +10,7 @@ import javafx.scene.shape.Shape;
 import java.util.ArrayList;
 
 /**
- * This class is called from {@link CollisionThread} and handles every instance of {@link Collider}
+ * This class is called from {@link CollisionThread} and handles every instance of {@link BoxCollider}
  */
 public class HitDetectionHandler {
 
@@ -18,7 +18,7 @@ public class HitDetectionHandler {
 
     private static HitDetectionHandler singelton;
 
-    public double colliderQueryWidth = 400, colliderQueryHeight = 400;
+    public double colliderQueryWidth = 200, colliderQueryHeight = 200;
 
     ArrayList<Collider> colliders = new ArrayList<>();
     ArrayList<RayCast> raycasts = new ArrayList<>();
@@ -32,7 +32,7 @@ public class HitDetectionHandler {
 
     }
 
-    protected void updatePositions(){
+    public void updatePositions(){
         for(Collider collider : colliders){
             collider.getGameObject().setSize(collider.getGameObject().getScale());
             collider.updatePosition();
@@ -48,15 +48,38 @@ public class HitDetectionHandler {
         }
     }
 
+    public Collider isPositionCollided(Vector2 newPoss, Collider col){
+
+        Rectangle queryRect = new Rectangle(newPoss.getX(), newPoss.getY(), 200, 200);
+        ArrayList<GameObject> closeGameobjects = qtTree.query(queryRect);
+        ArrayList<Collider> queryCol = new ArrayList<>();
+        for (GameObject go : closeGameobjects) {
+            if (go.getCollider() != null)
+                queryCol.add(go.getCollider());
+        }
+        for (Collider dest : queryCol) {
+            if (col.getName() != dest.getName()) {
+                if (col.getInteractionLayer().contains(dest.getTag())) {
+
+                    if (col.instersects(dest)) {
+                        return dest;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * This will go over  all collision and raytracing looking for intersections
      */
-    protected void lookForCollision(){
+    public void lookForCollision(){
         synchronized (this) {
             if(useQuadTree) {
                 buildQuadTree();
                 for (Collider base : colliders) {
-                    Vector2 goLocPos = base.getGameObject().getTransform().getLocalPosition();
+                    Vector2 goLocPos = base.getGameObject().getTransform().getGlobalPosition();
                     ArrayList<GameObject> close = qtTree.query(
                             new Rectangle(goLocPos.getX() - colliderQueryWidth / 2, goLocPos.getY() - colliderQueryHeight / 2, colliderQueryWidth, colliderQueryHeight));
                     ArrayList<Collider> queryCol = new ArrayList<>();
@@ -65,14 +88,16 @@ public class HitDetectionHandler {
                             queryCol.add(go.getCollider());
                     }
 
-                    Rectangle cbBase = base.getRect();
+//                    Rectangle cbBase = base.getRect();
                     Boolean notCollided = true;
                     for (Collider dest : queryCol) {
                         if (base.getName() != dest.getName()) {
                             if (base.getInteractionLayer().contains(dest.getTag())) {
-                                Rectangle cbDest = dest.getRect();
-                                if (cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())) {
-                                    base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
+
+//                                Rectangle cbDest = dest.getRect();
+                                if (base.instersects(dest)) {
+                                    base.setIntersection((Path) Shape.intersect(base.getShape(), dest.getShape()));
+                                    base.setIntersectionCollider(dest);
                                     notCollided = false;
                                     if (base.listener != null)
                                         base.listener.onCollision(dest);
@@ -85,14 +110,15 @@ public class HitDetectionHandler {
                 }
             }else {
                 for (Collider base: colliders) {
-                    Rectangle cbBase = base.getRect();
+//                    Rectangle cbBase = base.getRect();
                     Boolean notCollided = true;
                     for (Collider dest : colliders) {
                         if (base.getName() != dest.getName()) {
                             if (base.getInteractionLayer().contains(dest.getTag())) {
-                                Rectangle cbDest = dest.getRect();
-                                if (cbBase.getBoundsInParent().intersects(cbDest.getBoundsInParent())) {
-                                    base.setIntersection((Path) Shape.intersect(cbBase, cbDest));
+//                                Rectangle cbDest = dest.getRect();
+                                if (base.instersects(dest)) {
+                                    base.setIntersection((Path) Shape.intersect(base.getShape(), dest.getShape()));
+                                    base.setIntersectionCollider(dest);
                                     notCollided = false;
                                     if (base.listener != null)
                                         base.listener.onCollision(dest);

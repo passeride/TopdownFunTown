@@ -2,6 +2,7 @@ package com.bluebook.engine;
 
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.CollisionThread;
+import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
@@ -52,7 +53,7 @@ public class GameEngine {
 
 
         updateThread = new UpdateThread(this, messageQueue);
-        collisionThread = new CollisionThread();
+//        collisionThread = new CollisionThread();
         startAnimationTimer();
 
     }
@@ -84,14 +85,14 @@ public class GameEngine {
 
     public void Pause(){
         isPaused = true;
-        stopCollisionThread();
+//        stopCollisionThread();
         stopUpdateThread();
     }
 
     public void unPause(){
         isPaused = false;
         startUpdateThread();
-        startCollisionThread();
+//        startCollisionThread();
     }
 
     public boolean isPaused(){
@@ -137,6 +138,9 @@ public class GameEngine {
 
             //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
 
+            HitDetectionHandler.getInstance().updatePositions();
+
+            HitDetectionHandler.getInstance().lookForCollision();
             GameApplication.getInstance().update(delta);
             int lengthOfArray = updateObjects.size();
             for (int i = 0; i < lengthOfArray; i++)

@@ -9,6 +9,6 @@ public interface OnCollisionListener {
 
     void onCollision(Collider other);
 
-    //void onCollisionExit(Collider other);
+    //void onCollisionExit(BoxCollider other);
 
 }

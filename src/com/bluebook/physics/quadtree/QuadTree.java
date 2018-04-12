@@ -1,15 +1,14 @@
 package com.bluebook.physics.quadtree;
 
 import com.bluebook.camera.OrtographicCamera;
+import com.bluebook.physics.BoxCollider;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,6 +81,7 @@ public class QuadTree {
                         gameObjecs.add(go);
                     } else {
                         subdevide();
+                        insert(go);
                     }
                 }
             }
@@ -135,9 +135,11 @@ public class QuadTree {
         for(GameObject go : gameObjecs){
             if(go.getCollider() == null)
                 continue;
-            Rectangle r = go.getCollider().getRect();
-            if(rect.intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight())){
-                ret.add(go);
+            if(go.getCollider() instanceof BoxCollider) {
+                Rectangle r = ((BoxCollider)go.getCollider()).getRect();
+                if (rect.intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight())) {
+                    ret.add(go);
+                }
             }
         }
 

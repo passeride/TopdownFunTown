@@ -3,44 +3,29 @@ package com.topdownfuntown.objects;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
-import com.bluebook.graphics.Animation;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.graphics.ConvexHull;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.*;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
-import com.sun.javafx.geom.Line2D;
 import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Shadow;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Polygon;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Player extends GameObject {
 
     AudioPlayer hitSound;
     protected Vector2 collisionDirection;
-    private double speed = 800.0; // Gotta go fast
+    private double speed = 30.0; // Gotta go fast
     private double baseSpeed = 300.0;
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
     private StarterWeapon currentWeapon;
     Topdownfuntown topdownfuntown;
-    private Collider walkCollider;
+    private CircleCollider walkCollider;
 
 
 
@@ -64,17 +49,20 @@ public class Player extends GameObject {
         hitSound.setSpital(this);
         currentWeapon = weapon;
 
-        collider = new Collider(this);
+        collider = new BoxCollider(this);
         collider.setName("Player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
 
         // WalkCollider
-        walkCollider = new Collider(this);
+        walkCollider = new CircleCollider(this, 40);
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
         walkCollider.addInteractionLayer("Block");
         walkCollider.setPadding(new Vector2(-20, -20));
+
+        collider = walkCollider;
+
 
         setUpRayCast();
         ((AnimationSprite)currentWeapon.getSprite()).setPlaying(false);
@@ -93,9 +81,9 @@ public class Player extends GameObject {
 
     @Override
     public void update(double delta) {
-        rb2.update(delta);
-        translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
+        translate(Vector2.ZERO);
     }
+
 
     @Override
     public void draw(GraphicsContext gc){
@@ -184,26 +172,20 @@ public class Player extends GameObject {
      */
     @Override
     public void translate(Vector2 moveVector) {
+        Vector2 newPoss = Vector2.add(getPosition(), moveVector);
+        Collider hit = HitDetectionHandler.getInstance().isPositionCollided(newPoss, walkCollider);
 
-//        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
-//        if(walkCollider.getIntersectionCenter() != null) {
-//            //newValue = Vector2.add(transform.getGlobalPosition(), Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
-//            rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(walkCollider.getIntersectionCenter(), getPosition())), 15));
-//        }
-//
-//
-//        double screenWidth = GameSettings.getInt("game_resolution_X");
-//        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
-//        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
-//        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
-//
-//        if (newValue.getX() <= screenWidth - boudMarginX
-//                && newValue.getX() > boudMarginX
-//                && newValue.getY() <= screenHeihgt - boudMarginY
-//                && newValue.getY() > boudMarginY) {
-//            transform.setLocalPosition(newValue);
-//        }
-        transform.setLocalPosition(Vector2.add(getPosition(), moveVector));
+        if(hit == null)
+//            rb2.setPosition(newPoss);
+            transform.setLocalPosition(newPoss);
+        else {
+            System.out.println("MOVING PLAYER");
+//            System.out.println("Collision is " + walkCollider.getIntersectionCollider() == null);
+//            rb2.addForce(Vector2.multiply(Vector2.subtract(walkCollider.getPosition(), getPosition()), 1000));
+            transform.setLocalPosition(Vector2.add(transform.getLocalPosition(),Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.1)));
+
+        }
+//        rb2.setPosition(transform.getGlobalPosition());
     }
 
     /**
@@ -236,7 +218,7 @@ public class Player extends GameObject {
     }
 
     public void shoot() {
-        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  300));
+        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  3000));
         currentWeapon.shoot();
     }
 

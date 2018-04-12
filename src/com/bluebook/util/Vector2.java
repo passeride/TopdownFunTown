@@ -104,6 +104,16 @@ public class Vector2 extends Point2D{
         return new Vector2(a.getX() * b.getX(), a.getY() * b.getY());
     }
 
+
+    public static Vector2 devide(Vector2 a, Vector2 b){
+        return new Vector2(a.getX() / b.getX(), a.getY() / b.getY());
+    }
+
+    public static Vector2 devide(Vector2 a, double b){
+        return new Vector2(a.getX() / b, a.getY() / b);
+
+    }
+
     /**
      * Returns the length of the vector
      * @return length of vector

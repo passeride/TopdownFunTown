@@ -1,8 +1,6 @@
 package com.topdownfuntown.objects;
 
-import com.bluebook.engine.GameApplication;
-import com.bluebook.engine.GameEngine;
-import com.bluebook.physics.Collider;
+import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.graphics.Sprite;
@@ -51,7 +49,7 @@ public class Projectile extends GameObject{
         super(position, direction, sprite);
         allProjectilse.add(this);
         this.startPosition = transform.getGlobalPosition();
-        this.setCollider(new Collider(this));
+        this.setCollider(new BoxCollider(this));
         collider.setName("Bullet");
         collider.setTag("DMG");
         startTime = System.currentTimeMillis();
@@ -163,8 +161,8 @@ public class Projectile extends GameObject{
     @Override
     public void setSize(Vector2 vec){
         super.setSize(vec);
-        if(collider != null)
-            collider.updateRect();
+        if(collider != null && collider instanceof BoxCollider)
+            ((BoxCollider)collider).updateRect();
     }
 
     @Override

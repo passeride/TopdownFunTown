@@ -1,11 +1,5 @@
 package com.bluebook.physics;
 
-import com.bluebook.engine.GameEngine;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.HitDetectionHandler;
-
-import java.util.concurrent.BlockingQueue;
-
 /**
  * This will check for collisions and notify
  */

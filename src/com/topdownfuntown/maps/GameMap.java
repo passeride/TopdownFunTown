@@ -3,6 +3,7 @@ package com.topdownfuntown.maps;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
@@ -53,7 +54,7 @@ public class GameMap extends GameObject {
         exit = new Door(new Vector2(GameSettings.getInt("game_resolution_X") - 128, GameSettings.getInt("game_resolution_Y") / 2), Vector2.LEFT);
         exit.getSprite().setSquareHeight(128);
         exit.getSprite().setSquareWidth(128);
-        Collider doorCollider = new Collider(exit);
+        Collider doorCollider = new BoxCollider(exit);
         exit.setCollider(doorCollider);
         doorCollider.addInteractionLayer("UnHittable");
         doorCollider.setOnCollisionListener(new OnCollisionListener() {

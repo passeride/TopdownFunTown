@@ -26,6 +26,7 @@ import java.util.Map;
 public abstract class GameApplication extends Application {
 
     private static GameApplication singelton;
+    public static final boolean START_MENU = false;
     protected Input input;
     protected GameEngine engine;
     private Stage stage;
@@ -55,13 +56,20 @@ public abstract class GameApplication extends Application {
         FXMLLoader fxml = new FXMLLoader();
         fxml.setLocation(new File("assets").toURL());
 
-        Parent rootMenu = fxml.load(getClass().getResource("../../bluebook/javafx/menu.fxml").openStream());
-        ControllerMenu controllerMenu = (ControllerMenu) fxml.getController();
+        Parent root;
+        if(START_MENU) {
+            root = fxml.load(getClass().getResource("../../bluebook/javafx/menu.fxml").openStream());
+        }else{
+            root = fxml.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        }
+//        ControllerMenu controllerMenu = (ControllerMenu) fxml.getController();
 
         primaryStage.setTitle("TOP DOWN FUN TOWN");
-        primaryStage.setScene(new Scene(rootMenu, 1920 , 1080));
+        primaryStage.setScene(new Scene(root, 1920 , 1080));
         primaryStage.show();
 
+        if(!START_MENU)
+            callGame(primaryStage);
 
     }
 

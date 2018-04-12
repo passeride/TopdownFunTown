@@ -2,6 +2,7 @@ package com.topdownfuntown.objects;
 
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
+import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
@@ -29,7 +30,7 @@ public abstract class Enemy extends GameObject {
     public Enemy(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
-        collider = new Collider(this);
+        collider = new BoxCollider(this);
 
         collider.setName("Enemy");
         collider.setTag("Hittable");
