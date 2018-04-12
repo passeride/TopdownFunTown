@@ -71,7 +71,7 @@ public class Player extends GameObject {
     @Override
     public void update(double delta) {
         rb2.update(delta);
-//        translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
+        //translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
     }
 
     @Override
