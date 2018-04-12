@@ -206,11 +206,11 @@ public class Topdownfuntown extends GameApplication {
             if(enemies[i] != null) {
                 if (!enemies[i].isAlive()) {
 
-                    enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
+                    enemies[i] = new AlienGreen(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
                     enemies[i].setTarget(player);
                 }
             }else{
-                enemies[i] = new GreenAlien(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
+                enemies[i] = new AlienGreen(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
                 enemies[i].setTarget(player);
             }
         }*/

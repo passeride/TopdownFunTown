@@ -58,10 +58,10 @@ public class MapLoader {
         ArrayList<Enemy> ret = new ArrayList<>();
         for(EnemyDOA e : edoa){
             switch(e.Type){
-                case "GreenAlien":
+                case "AlienGreen":
                     ret.add(new GreenAlien(new Vector2(e.x_pos, e.y_pos)));
                     break;
-                case "PurpleAlien":
+                case "AlienPurple":
                     ret.add(new PurpleAlien(new Vector2(e.x_pos, e.y_pos)));
                     break;
             }
