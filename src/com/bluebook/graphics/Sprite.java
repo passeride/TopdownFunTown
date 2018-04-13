@@ -81,7 +81,7 @@ public class Sprite {
     public void drawGUIProsentage(GraphicsContext gc, Vector2 position, Vector2 scale){
         Vector2 scaleVec = GameSettings.getScreenScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
-        scaledSquareWidth = scaleVec.getX() * scale.getY();
+        scaledSquareWidth = scaleVec.getX() * scale.getX();
         Vector2 pos = Vector2.multiply(position, new Vector2(GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
         gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
     }
@@ -111,7 +111,7 @@ public class Sprite {
     public void drawGUI(GraphicsContext gc, Vector2 position, Vector2 scale){
         Vector2 scaleVec = GameSettings.getScreenScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
-        scaledSquareWidth = scaleVec.getX() * scale.getY();
+        scaledSquareWidth = scaleVec.getX() * scale.getX();
         Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
         gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
     }
