@@ -104,6 +104,7 @@ public class Sprite {
 
     /**
      * Will draw a sprite not relative to world, but on screen
+     * It will draw from TOP LEFT Courner
      * @param gc
      * @param position Will be the pixelPosition of gameScreen (1920x1080)
      * @param scale is width relative to normal square size
@@ -112,12 +113,14 @@ public class Sprite {
         Vector2 scaleVec = GameSettings.getScreenScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
-        Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
-        gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+//        Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
+        Vector2 pos = position;
+        gc.drawImage(img, pos.getX(), pos.getY(), scaledSquareWidth, scaledSquareHeight);
     }
 
     /**
      * Will draw sprite on screen not relative to world
+     * It will draw from TOP LEFT Courner
      * @param gc
      * @param position Will be the pixelPosition of gameScreen (1920x1080)
      */
@@ -127,8 +130,9 @@ public class Sprite {
         Vector2 scaleVec = GameSettings.getScreenScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
-        Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
-        gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+//        Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
+        Vector2 pos = position;
+        gc.drawImage(img, pos.getX(), pos.getY(), scaledSquareWidth, scaledSquareHeight);
 
     }
 

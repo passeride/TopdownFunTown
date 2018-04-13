@@ -8,6 +8,7 @@ import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class HealthElement extends GameObject {
 
@@ -44,7 +45,7 @@ public class HealthElement extends GameObject {
         setPosition(new Vector2(-OrtographicCamera.main.getX() + 200, -OrtographicCamera.main.getY() + 200));
         setSprite(sprites[getSpriteNumber()]);
         Sprite sp = sprites[getSpriteNumber()];
-        sp.drawGUIProsentage(gc, new Vector2(0.2, 0.3), new Vector2(2, 4));
+        sp.drawGUI(gc, new Vector2(25, 25), new Vector2(2, 4));
 
     }
 
