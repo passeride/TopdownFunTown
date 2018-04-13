@@ -57,7 +57,7 @@ public class Projectile extends GameObject{
         squareHeightStart = 1;
         squareWithStart = 1;
 
-        // Adding colliders layers
+/*        // Adding colliders layers
         collider.addInteractionLayer("UnHittable");
         collider.addInteractionLayer("Hittable");
         collider.addInteractionLayer("Block");
@@ -73,7 +73,7 @@ public class Projectile extends GameObject{
             }
             destroy();
 
-        });
+        });*/
 
     }
 
@@ -130,24 +130,6 @@ public class Projectile extends GameObject{
         double boundMarginY = screenHeight * GameSettings.getDouble("map_movement_padding_Y");
 
         setPosition(Vector2.add(getPosition(), moveVector));
-//        if (newValue.getX() <= screenWidth - boundMarginX
-//                && newValue.getX() > boundMarginX
-//                && newValue.getY() <= screenHeight - boundMarginY
-//                && newValue.getY() > boundMarginY) {
-//            transform.setLocalPosition(newValue);
-//        } else {
-//            if (!isBouncy )
-//                destroy();
-//            else {
-//                if (newValue.getX() >= screenWidth - boundMarginX || newValue.getX() <= boundMarginX) {
-//                    getDirection().setX(-getDirection().getX());
-//                }
-//                if (newValue.getY() >= screenHeight - boundMarginY || newValue.getY() <= boundMarginY) {
-//                    getDirection().setY(-getDirection().getY());
-//                }
-//                transform.setLocalPosition(newValue);
-//            }
-//        }
     }
 
     private Vector2 SmoothSineWave(double deltaTime) {

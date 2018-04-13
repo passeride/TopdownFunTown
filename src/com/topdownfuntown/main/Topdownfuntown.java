@@ -23,9 +23,7 @@ import static com.topdownfuntown.stateHandler.StateHandling.saveProgression;
 public class Topdownfuntown extends GameApplication {
 
     private int score;
-    private int health;
     private int level;
-    private ScoreElement scoreObject;
     private HealthElement healthObject;
 
     private Player[] player = new Player[2];
@@ -58,11 +56,7 @@ public class Topdownfuntown extends GameApplication {
         tiles = new Tile();
 
         setScore(1000);
-        scoreObject = new ScoreElement(new Vector2(GameSettings.getInt("game_resolution_X") - 200, 200));
         healthObject = new HealthElement(new Vector2(100,  100));
-
-        health = GameSettings.getInt("player_health");
-
         currentGameMap = MapLoader.loadMapJson("TestMap");
 
         StarterWeapon w = new StarterWeapon(new Vector2(0,23), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
@@ -109,37 +103,15 @@ public class Topdownfuntown extends GameApplication {
             player[0].moveLeft(delta);
         }
 
-        if(input.isKeyDown(KeyCode.LEFT)){
-            cam.setX(cam.getX() + 10);
-        }
 
-        if(input.isKeyDown(KeyCode.RIGHT)){
-            cam.setX(cam.getX() - 10);
+        if(input.isKeyDown(KeyCode.DOWN)){
+            healthObject.setHp(healthObject.getHp() - 10);
         }
 
         if(input.isKeyDown(KeyCode.UP)){
-            cam.setY(cam.getY() - 10);
+            healthObject.setHp(healthObject.getHp() + 10);
         }
 
-        if(input.isKeyDown(KeyCode.DOWN)){
-            cam.setY(cam.getY() + 10);
-        }
-
-//        if(input.isKeyDown(KeyCode.DOWN)){
-//            player[1].moveDown(delta);
-//        }
-//
-//        if(input.isKeyDown(KeyCode.UP)){
-//            player[1].moveUp(delta);
-//        }
-//
-//        if(input.isKeyDown(KeyCode.RIGHT)){
-//            player[1].moveRight(delta);
-//        }
-//
-//        if(input.isKeyDown(KeyCode.LEFT)){
-//            player[1].moveLeft(delta);
-//        }
 
         if(input.isKeyPressed(KeyCode.L)){
             moveToNextRoom();
@@ -151,17 +123,7 @@ public class Topdownfuntown extends GameApplication {
 
         if(input.isKeyDown(KeyCode.SPACE)){
             player[0].activateGottaGoFast();
-            //player[1].activateGottaGoFast();
-            /* debug for saving file
-            try {
-                System.out.println(loadProgression(lagringsFil));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.println();
-            */
         }else{
-            //player[1].deactivateGottaGoFast();
             player[0].deactivateGottaGoFast();
         }
 
@@ -170,12 +132,6 @@ public class Topdownfuntown extends GameApplication {
             ((AnimationSprite)((GameObject)player[0].getCurrentWeapon()).getSprite()).setPlaying(true);
 
             player[0].shoot();
-            //player[1].shoot();
-            try {
-                //saveProgression(lagringsFil);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }else{
             ((AnimationSprite)((GameObject)player[0].getCurrentWeapon()).getSprite()).setPlaying(false);
 
@@ -185,35 +141,6 @@ public class Topdownfuntown extends GameApplication {
             player[0].lookAt(Vector2.subtract(input.getMousePosition(), new Vector2(OrtographicCamera.main.getX(), OrtographicCamera.main.getY())));
         else
             player[0].lookAt(input.getMousePosition());
-
-        //player[1].lookAt(input.getMousePosition());
-        scoreObject.setPosition(new Vector2(getScreenWidth() - 700,  100.0));
-        checkEnemies();
-    }
-
-    private void checkEnemies(){
-
-//        boolean levelComplete = true;
-//        for(int i = 0; i < enemies.length;  i++) {
-//            if(enemies[i] != null && enemies[i].isAlive()){
-//                levelComplete = false;
-//            }
-//        }
-//        if(levelComplete){
-//           // moveToNextRoom();
-//        }
-        /*for(int i = 0; i < enemies.length;  i++){
-            if(enemies[i] != null) {
-                if (!enemies[i].isAlive()) {
-
-                    enemies[i] = new AlienGreen(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
-                    enemies[i].setTarget(player);
-                }
-            }else{
-                enemies[i] = new AlienGreen(new Vector2(r.nextInt((int) getScreenWidth()), r.nextInt((int) getScreenHeight())));
-                enemies[i].setTarget(player);
-            }
-        }*/
     }
 
     public int getScore() {
@@ -225,25 +152,16 @@ public class Topdownfuntown extends GameApplication {
     }
 
     public int getHealth() {
-        return health;
+        return healthObject.getHp();
     }
 
     public void setHealth(int health) {
-        this.health = health;
-        healthObject.setHp(this.health);
+        healthObject.setHp(health);
     }
 
     public Player getPlayer() {
         return player[0];
     }
-
-    /*DUMMY FUNCTION
-    public void setLevelNumber(){
-        if(LevelLoading.loadLevel()){
-            level++;
-        }
-    }
-    */
 
     public static void main(String[] args){
         launch(args);

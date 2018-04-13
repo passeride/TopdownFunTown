@@ -71,6 +71,25 @@ public class Sprite {
         gc.drawImage(img, 0, 0, GameSettings.getInt("game_resolution_X"), GameSettings.getInt("game_resolution_Y"));
     }
 
+    public void drawGUI(GraphicsContext gc, Vector2 position, Vector2 scale){
+        Vector2 scaleVec = GameSettings.getScreenScale();
+        scaledSquareHeight = scaleVec.getY() * scale.getY();
+        scaledSquareWidth = scaleVec.getX() * scale.getY();
+        Vector2 pos = Vector2.multiply(position, new Vector2(GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
+        gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+    }
+
+    public void drawGUI(GraphicsContext gc, Vector2 position){
+        Vector2 scale = origin.getGlobalScale();
+
+        Vector2 scaleVec = GameSettings.getScreenScale();
+        scaledSquareHeight = scaleVec.getY() * scale.getY();
+        scaledSquareWidth = scaleVec.getX() * scale.getY();
+        Vector2 pos = Vector2.multiply(position, new Vector2(GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
+        gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+
+    }
+
     /**
      * Draws the image on given coordinates
      * @param gc
@@ -82,10 +101,10 @@ public class Sprite {
         scaledSquareWidth = squareWidth;
         scaledSquareHeight = squareHeight;
 
-        if(isRotated)
+        if (isRotated)
             gc = rotateGraphicsContext(gc, position);
 
-        if(origin != null) {
+        if (origin != null) {
 
             Vector2 pos = origin.getGlobalPosition();
             Vector2 scale = origin.getGlobalScale();
@@ -97,8 +116,8 @@ public class Sprite {
             scaledSquareWidth = scaleVec.getX() * scale.getY();
 
 
-            gc.drawImage(img, pos.getX()- (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
-        }else {
+            gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+        } else {
             gc.drawImage(img, position.getX() - (scaledSquareWidth / 2f), position.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
         }
 
@@ -151,4 +170,6 @@ public class Sprite {
     public void setSquareHeight(double squareHeight) {
         this.squareHeight = squareHeight;
     }
+
+
 }

@@ -2,11 +2,11 @@ package com.bluebook.physics.quadtree;
 
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.BoxCollider;
+import com.bluebook.physics.Collider;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class QuadTree {
 
-    public ArrayList<GameObject> gameObjecs = new ArrayList<>();
+    public ArrayList<Collider> colliders = new ArrayList<>();
     public QuadTree[] children = new QuadTree[4];
     public boolean isSubdevided = false;
     public Rectangle boundry;
@@ -66,22 +66,22 @@ public class QuadTree {
         this.capacity = capacity;
     }
 
-    public void insert(GameObject go){
+    public void insert(Collider col){
         synchronized (this) {
-            Vector2 goLocPos = go.getTransform().getLocalPosition();
+            Vector2 goLocPos = col.getGameObject().getTransform().getLocalPosition();
 
             if (boundry.intersects(goLocPos.getX(), goLocPos.getY(), 5, 5)) {
                 if (isSubdevided) {
-                    children[QuadChildren.NORTHWEST.value].insert(go);
-                    children[QuadChildren.NORTHEAST.value].insert(go);
-                    children[QuadChildren.SOUTHWEST.value].insert(go);
-                    children[QuadChildren.SOUTHEAST.value].insert(go);
+                    children[QuadChildren.NORTHWEST.value].insert(col);
+                    children[QuadChildren.NORTHEAST.value].insert(col);
+                    children[QuadChildren.SOUTHWEST.value].insert(col);
+                    children[QuadChildren.SOUTHEAST.value].insert(col);
                 } else {
-                    if (gameObjecs.size() + 1 <= capacity) {
-                        gameObjecs.add(go);
+                    if (colliders.size() + 1 <= capacity) {
+                        colliders.add(col);
                     } else {
                         subdevide();
-                        insert(go);
+                        insert(col);
                     }
                 }
             }
@@ -107,16 +107,16 @@ public class QuadTree {
         Rectangle seR = new Rectangle(boundry.getX() + halfWidth, boundry.getY() + halfHeight, halfWidth, halfHeight);
         children[QuadChildren.SOUTHEAST.value] = new QuadTree(seR, capacity);
 
-//        for(GameObject go : gameObjecs){
+//        for(GameObject go : colliders){
 //            for(int i = 0; i < children.length; i ++){
 //                children[i].insert(go);
 //            }
 //        }
-//        gameObjecs.clear();
+//        colliders.clear();
     }
 
-    public ArrayList<GameObject> query(Rectangle rect){
-        ArrayList<GameObject> ret = new ArrayList<>();
+    public ArrayList<Collider> query(Rectangle rect){
+        ArrayList<Collider> ret = new ArrayList<>();
         if(isSubdevided){
             if(children[QuadChildren.NORTHWEST.value].boundry.intersects(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight())){
                 ret.addAll(children[QuadChildren.NORTHWEST.value].query(rect));
@@ -132,13 +132,13 @@ public class QuadTree {
             }
         }
 
-        for(GameObject go : gameObjecs){
-            if(go.getCollider() == null)
+        for(Collider col : colliders){
+            if(col == null)
                 continue;
-            if(go.getCollider() instanceof BoxCollider) {
-                Rectangle r = ((BoxCollider)go.getCollider()).getRect();
+            if(col instanceof BoxCollider) {
+                Rectangle r = ((BoxCollider)col).getRect();
                 if (rect.intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight())) {
-                    ret.add(go);
+                    ret.add(col);
                 }
             }
         }
@@ -163,8 +163,8 @@ public class QuadTree {
                 gc.setLineWidth(3);
                 gc.setStroke(Color.BLACK);
                 //gc.setLineDashes(2, 7, 2, 8);
-                double x = boundry.getX();
-                double y = boundry.getY();
+                double x = boundry.getX() + OrtographicCamera.main.getX();
+                double y = boundry.getY() + OrtographicCamera.main.getY();
                 double w = boundry.getWidth();
                 double h = boundry.getHeight();
                 gc.strokeLine(x, y, x + w, y);
@@ -173,9 +173,9 @@ public class QuadTree {
                 gc.strokeLine(x + w, y, x + w, y + h);
 
                 gc.setFill(Color.RED);
-                for(GameObject go : gameObjecs){
+                for(Collider go : colliders){
 
-                    Vector2 goPoss = go.getTransform().getGlobalPosition();
+                    Vector2 goPoss = go.getGameObject().getTransform().getGlobalPosition();
                     gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
                 }
 

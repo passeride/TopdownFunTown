@@ -1,5 +1,6 @@
 package com.bluebook.physics;
 
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
@@ -41,9 +42,9 @@ public class HitDetectionHandler {
 
     protected void buildQuadTree(){
         synchronized (this) {
-            qtTree = new QuadTree(new Rectangle(0, 0, 1920, 1080), 2);
+            qtTree = new QuadTree(new Rectangle(-OrtographicCamera.main.getX(), -OrtographicCamera.main.getY(), 1920, 1080), 2);
             for (Collider c : colliders) {
-                qtTree.insert(c.getGameObject());
+                qtTree.insert(c);
             }
         }
     }
@@ -51,12 +52,7 @@ public class HitDetectionHandler {
     public Collider isPositionCollided(Vector2 newPoss, Collider col){
 
         Rectangle queryRect = new Rectangle(newPoss.getX(), newPoss.getY(), 200, 200);
-        ArrayList<GameObject> closeGameobjects = qtTree.query(queryRect);
-        ArrayList<Collider> queryCol = new ArrayList<>();
-        for (GameObject go : closeGameobjects) {
-            if (go.getCollider() != null)
-                queryCol.add(go.getCollider());
-        }
+        ArrayList<Collider> queryCol = qtTree.query(queryRect);
         for (Collider dest : queryCol) {
             if (col.getName() != dest.getName()) {
                 if (col.getInteractionLayer().contains(dest.getTag())) {
@@ -80,13 +76,9 @@ public class HitDetectionHandler {
                 buildQuadTree();
                 for (Collider base : colliders) {
                     Vector2 goLocPos = base.getGameObject().getTransform().getLocalPosition();
-                    ArrayList<GameObject> close = qtTree.query(
+                    ArrayList<Collider> queryCol = qtTree.query(
                             new Rectangle(goLocPos.getX() - colliderQueryWidth / 2, goLocPos.getY() - colliderQueryHeight / 2, colliderQueryWidth, colliderQueryHeight));
-                    ArrayList<Collider> queryCol = new ArrayList<>();
-                    for (GameObject go : close) {
-                        if (go.getCollider() != null)
-                            queryCol.add(go.getCollider());
-                    }
+
 
 //                    Rectangle cbBase = base.getRect();
                     Boolean notCollided = true;
@@ -105,8 +97,10 @@ public class HitDetectionHandler {
                             }
                         }
                     }
-                    if (notCollided)
+                    if (notCollided) {
                         base.setIntersection(null);
+                        base.setIntersectionCollider(null);
+                    }
                 }
             }else {
                 for (Collider base: colliders) {
@@ -159,7 +153,7 @@ public class HitDetectionHandler {
     protected void addCollider(Collider collider){
         synchronized (this) {
             colliderInBuffer.add(collider);
-            qtTree.insert(collider.getGameObject());
+            qtTree.insert(collider);
         }
     }
 

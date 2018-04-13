@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class will create a raycast to interact with {@link BoxCollider}
+ * This class will create a raycast to interact with {@link Collider}
  */
 public class RayCast {
 
     private Line2D ray;
-    private float max_distance = 2000;
+    private float max_distance = 200;
     private RayCastHit hit = null;
     private double angle;
     private GameObject source;
