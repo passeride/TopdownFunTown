@@ -4,21 +4,16 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.messageHandling.MessageHandler;
 import com.topdownfuntown.maps.GameMap;
 import com.topdownfuntown.maps.maploader.MapLoader;
 import com.topdownfuntown.objects.*;
-import javafx.scene.Camera;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import static com.topdownfuntown.stateHandler.StateHandling.saveProgression;
 
 public class Topdownfuntown extends GameApplication {
 
@@ -34,6 +29,7 @@ public class Topdownfuntown extends GameApplication {
     public boolean hasKey = false;
 
     OrtographicCamera cam;
+    MessageHandler msgH;
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
@@ -54,6 +50,8 @@ public class Topdownfuntown extends GameApplication {
 
 
         tiles = new Tile();
+
+        msgH = MessageHandler.getInstance();
 
         setScore(1000);
         healthObject = new HealthElement(new Vector2(100,  100));
@@ -101,6 +99,8 @@ public class Topdownfuntown extends GameApplication {
 
         if(input.isKeyDown(KeyCode.A)){
             player[0].moveLeft(delta);
+            msgH.writeMessage("Du trykket på knapp a.", new Sprite("items/crate"));
+
         }
 
 
