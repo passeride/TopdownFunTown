@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class MapLoader {
+public class ImageBuffering {
 
     private static HashMap<String, Image> images = new HashMap<>();
     private static HashMap<String, Image> bgImages = new HashMap<>();

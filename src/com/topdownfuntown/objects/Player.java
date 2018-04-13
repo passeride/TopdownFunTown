@@ -12,6 +12,9 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,7 @@ public class Player extends GameObject {
     private CircleCollider walkCollider;
 
 
+    public ArrayList<GameObject> close;
 
     public RigidBody2D rb2;
 
@@ -53,15 +57,19 @@ public class Player extends GameObject {
         collider.setName("Player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
+//        collider.addInteractionLayer("DMG");
+
 
         // WalkCollider
         walkCollider = new CircleCollider(this, 20);
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
         walkCollider.addInteractionLayer("Block");
+        walkCollider.addInteractionLayer("DMG");
+
         walkCollider.setPadding(new Vector2(-20, -20));
 
-        collider = walkCollider;
+//        collider = walkCollider;
 
 
         setUpRayCast();
@@ -82,6 +90,7 @@ public class Player extends GameObject {
     @Override
     public void update(double delta) {
         translate(Vector2.ZERO);
+//        close = HitDetectionHandler.getInstance().qtTree.query(new Rectangle(transform.getGlobalPosition().getX() - 200, transform.getGlobalPosition().getY() - 200, 400, 400));
     }
 
 
@@ -107,6 +116,11 @@ public class Player extends GameObject {
 //        gc.fillText("X:" + rb2.getLinearVelocity().getX() + "-Y:"+ rb2.getLinearVelocity().getY(), getPosition().getX(), getPosition().getY());
 
         super.draw(gc);
+
+//        gc.setFill(Color.GREEN);
+//        for(GameObject go : close){
+//            gc.fillArc(go.getTransform().getGlobalPosition().getX(), go.getTransform().getGlobalPosition().getY(), 20, 20, 0, 360, ArcType.CHORD);
+//        }
 
     }
 
@@ -165,26 +179,27 @@ public class Player extends GameObject {
         translate(Vector2.multiply(Vector2.RIGHT, speed * delta));
     }
 
+
+
     /**
-     * Override to create a 8 % margin for movement
+     *
      *
      * @param moveVector
      */
     @Override
     public void translate(Vector2 moveVector) {
         Vector2 newPoss = Vector2.add(getPosition(), moveVector);
-        Collider hit = HitDetectionHandler.getInstance().isPositionCollided(newPoss, walkCollider);
+//        Collider hit = HitDetectionHandler.getInstance().isPositionCollided(newPoss, walkCollider);
 
-        if(hit == null)
+//        if(hit == null)
 //            rb2.setPosition(newPoss);
             transform.setLocalPosition(newPoss);
-        else {
-            System.out.println("MOVING PLAYER");
-//            System.out.println("Collision is " + walkCollider.getIntersectionCollider() == null);
-//            rb2.addForce(Vector2.multiply(Vector2.subtract(walkCollider.getPosition(), getPosition()), 1000));
-            transform.setLocalPosition(Vector2.add(transform.getLocalPosition(),Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.1)));
+//        else {
+////            System.out.println("Collision is " + walkCollider.getIntersectionCollider() == null);
+////            rb2.addForce(Vector2.multiply(Vector2.subtract(walkCollider.getPosition(), getPosition()), 1000));
+//            transform.setLocalPosition(Vector2.add(transform.getLocalPosition(),Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.1)));
 
-        }
+//        }
 //        rb2.setPosition(transform.getGlobalPosition());
     }
 

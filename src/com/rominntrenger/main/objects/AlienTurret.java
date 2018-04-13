@@ -1,4 +1,4 @@
-package com.topdownfuntown.objects;
+package com.rominntrenger.main.objects;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
@@ -7,6 +7,10 @@ import com.bluebook.physics.RayCastHit;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.topdownfuntown.objects.Enemy;
+import com.topdownfuntown.objects.Explotion;
+import com.topdownfuntown.objects.Player;
+import com.topdownfuntown.objects.Projectile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
@@ -16,7 +20,7 @@ import javafx.scene.paint.Stop;
 
 import java.util.ArrayList;
 
-public class Turret extends Enemy {
+public class AlienTurret extends Enemy {
 
     private int rayCastResolution = 90;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
@@ -42,7 +46,7 @@ public class Turret extends Enemy {
      * @param position
      * @param direction
      */
-    public Turret(Vector2 position, Vector2 direction) {
+    public AlienTurret(Vector2 position, Vector2 direction) {
         super(position, direction, new Sprite("enemies/turret"));
         turretHead = new Sprite("enemies/turret_arm_r");
         collider.setTag("Turret");
@@ -66,6 +70,7 @@ public class Turret extends Enemy {
             RayCastHit rch = raycasts.get(i).getHit();
             if(rch != null) {
                 if (rch.isHit) {
+                    System.out.println(rch.colliderHit.getTag());
                     if(rch.colliderHit.getTag() == "UnHittable" || rch.colliderHit.getTag() == "Walk"){
                         player = rch.colliderHit.getGameObject();
                         playerSeen = true;
@@ -196,24 +201,24 @@ public class Turret extends Enemy {
         p.setSpeed(800);
         p.setSine(true);
 
-/*        // Adding colliders layers
+        // Adding colliders layers
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
         p.getCollider().addInteractionLayer("Block");
-        p.getCollider().addInteractionLayer("Walk");
 
+        p.setOnCollisionListener(new OnCollisionListener() {
+            @Override
+            public void onCollision(Collider other) {
+                if (other.getGameObject() instanceof Player) {
+                    Player pl = (Player) other.getGameObject();
+                    pl.hit();
 
-        p.setOnCollisionListener(other -> {
-            System.out.println(other.getTag());
-            if (other.getGameObject() instanceof Player) {
-                Player pl = (Player) other.getGameObject();
-                pl.hit();
+                }else if(other.getGameObject() instanceof Enemy){
+                    other.getGameObject().destroy();
+                }
+                p.destroy();
 
-            }else if(other.getGameObject() instanceof Enemy){
-                other.getGameObject().destroy();
             }
-            p.destroy();
-
-        });*/
+        });
     }
 }

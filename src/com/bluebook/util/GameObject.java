@@ -158,7 +158,7 @@ public abstract class GameObject {
     }
 
     public Collider getCollider() {
-        return collider;
+        return this.collider;
     }
 
     public void setCollider(Collider collider) {

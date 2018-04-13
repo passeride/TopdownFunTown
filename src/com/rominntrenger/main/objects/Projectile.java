@@ -1,4 +1,4 @@
-package com.topdownfuntown.objects;
+package com.rominntrenger.main.objects;
 
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.listeners.OnCollisionListener;
@@ -36,8 +36,6 @@ public class Projectile extends GameObject{
 
     private Vector2 startSize = size;
 
-
-
     /**
      * Constructor for GameObject given position rotation and sprite
      *
@@ -56,25 +54,6 @@ public class Projectile extends GameObject{
         startSize = new Vector2(1, 1);
         squareHeightStart = 1;
         squareWithStart = 1;
-
-        // Adding colliders layers
-        collider.addInteractionLayer("UnHittable");
-        collider.addInteractionLayer("Hittable");
-        collider.addInteractionLayer("Block");
-        collider.addInteractionLayer("Walk");
-        collider.setOnCollisionListener(other -> {
-            System.out.println(other.getTag());
-            if (other.getGameObject() instanceof Player) {
-                Player pl = (Player) other.getGameObject();
-                pl.hit();
-
-            }else if(other.getGameObject() instanceof Enemy){
-                other.getGameObject().destroy();
-            }
-            destroy();
-
-        });
-
     }
 
     public static void clearAllProjectiles(){
@@ -130,24 +109,6 @@ public class Projectile extends GameObject{
         double boundMarginY = screenHeight * GameSettings.getDouble("map_movement_padding_Y");
 
         setPosition(Vector2.add(getPosition(), moveVector));
-//        if (newValue.getX() <= screenWidth - boundMarginX
-//                && newValue.getX() > boundMarginX
-//                && newValue.getY() <= screenHeight - boundMarginY
-//                && newValue.getY() > boundMarginY) {
-//            transform.setLocalPosition(newValue);
-//        } else {
-//            if (!isBouncy )
-//                destroy();
-//            else {
-//                if (newValue.getX() >= screenWidth - boundMarginX || newValue.getX() <= boundMarginX) {
-//                    getDirection().setX(-getDirection().getX());
-//                }
-//                if (newValue.getY() >= screenHeight - boundMarginY || newValue.getY() <= boundMarginY) {
-//                    getDirection().setY(-getDirection().getY());
-//                }
-//                transform.setLocalPosition(newValue);
-//            }
-//        }
     }
 
     private Vector2 SmoothSineWave(double deltaTime) {

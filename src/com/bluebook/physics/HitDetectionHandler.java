@@ -74,12 +74,12 @@ public class HitDetectionHandler {
     /**
      * This will go over  all collision and raytracing looking for intersections
      */
-    public void lookForCollision(){
+    protected void lookForCollision(){
         synchronized (this) {
             if(useQuadTree) {
                 buildQuadTree();
                 for (Collider base : colliders) {
-                    Vector2 goLocPos = base.getGameObject().getTransform().getGlobalPosition();
+                    Vector2 goLocPos = base.getGameObject().getTransform().getLocalPosition();
                     ArrayList<GameObject> close = qtTree.query(
                             new Rectangle(goLocPos.getX() - colliderQueryWidth / 2, goLocPos.getY() - colliderQueryHeight / 2, colliderQueryWidth, colliderQueryHeight));
                     ArrayList<Collider> queryCol = new ArrayList<>();
