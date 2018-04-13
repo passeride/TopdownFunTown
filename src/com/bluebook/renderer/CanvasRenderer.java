@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class CanvasRenderer {
 
+    public static final boolean useGraphicsRenderer = false;
     private ArrayList<GameObject> drawables = new ArrayList<>();
     private RenderLayer[] layers = new RenderLayer[RenderLayer.RenderLayerName.values().length];
     private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
@@ -128,8 +129,12 @@ public class CanvasRenderer {
 
 
             clearCanvas(gc);
+            GraphicsRenderer gr = new GraphicsRenderer(gc);
             for(int i = 0; i < layers.length;  i++){
-                layers[i].drawAll(gc);
+                if(useGraphicsRenderer)
+                layers[i].drawAll(gr);
+                else
+                    layers[i].drawAll(gc);
             }
 
             if (GameEngine.DEBUG) {

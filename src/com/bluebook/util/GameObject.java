@@ -5,6 +5,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.renderer.CanvasRenderer;
+import com.bluebook.renderer.GraphicsRenderer;
 import com.bluebook.renderer.RenderLayer;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -60,6 +61,11 @@ public abstract class GameObject {
             sprite.draw(gc, transform.getGlobalPosition(), transform.getGlobalRotation());
         // legge til spillerID for å følge spiller
         //camera.follow();
+    }
+
+    public void draw(GraphicsRenderer gr){
+        if(sprite != null)
+            sprite.draw(gr);
     }
 
     /**

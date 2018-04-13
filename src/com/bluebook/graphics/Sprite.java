@@ -1,6 +1,7 @@
 package com.bluebook.graphics;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.renderer.GraphicsRenderer;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Transform;
 import com.bluebook.util.Vector2;
@@ -61,6 +62,52 @@ public class Sprite {
     public void draw(GraphicsContext gc, Vector2 position, Vector2 angle){
         rotate(angle);
         draw(gc, position);
+    }
+
+    public void draw(GraphicsRenderer gr){
+        if(origin != null){
+            gr.drawImage(origin.getGlobalPosition(), origin.getGlobalRotation().getAngleInDegrees(), img);
+        }else {
+//            if (!isRotated)
+//                gr.drawImage(origin.getGlobalPosition(), img);
+//            else
+//                gr.drawImage(origin.getGlobalPosition(), rotateAngle, img);
+        }
+    }
+
+    public void draw(GraphicsRenderer gc, Vector2 position, Vector2 angle){
+        rotate(angle);
+        draw(gc, position);
+    }
+
+    public void draw(GraphicsRenderer gc, Vector2 position){
+        gc.save();
+
+        scaledSquareWidth = squareWidth;
+        scaledSquareHeight = squareHeight;
+
+        if(isRotated)
+            gc.rotate(position, rotateAngle);
+
+        if(origin != null) {
+
+            Vector2 pos = origin.getGlobalPosition();
+            Vector2 scale = origin.getGlobalScale();
+            rotate(origin.getGlobalRotation());
+            gc.rotate(position, rotateAngle);
+
+
+            Vector2 scaleVec = GameSettings.getScreenScale();
+            scaledSquareHeight = scaleVec.getY() * scale.getY();
+            scaledSquareWidth = scaleVec.getX() * scale.getY();
+
+
+            gc.drawImage(img, pos.getX()- (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+        }else {
+            gc.drawImage(img, position.getX() - (scaledSquareWidth / 2f), position.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
+        }
+
+        gc.restore();
     }
 
     /**

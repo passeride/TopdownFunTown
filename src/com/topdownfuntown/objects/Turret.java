@@ -5,6 +5,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.RayCast;
 import com.bluebook.physics.RayCastHit;
 import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.renderer.GraphicsRenderer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
@@ -148,6 +149,43 @@ public class Turret extends Enemy {
             timesChanged = (int) (timeTest / osscilation);
             updateRayCast();
         }
+    }
+
+    @Override
+    public void draw(GraphicsRenderer gr){
+
+        double[][] polygon = getPolygon();
+
+        gr.save();
+
+        //gc.applyEffect(new ColorAdjust(0, 0, -0.8, 0));
+
+        if(playerSeen) {
+            gr.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+                    CycleMethod.NO_CYCLE,
+                    new Stop(0.0, new Color(1, 0, 0, 0.3)),
+                    new Stop(1.0, Color.TRANSPARENT)));
+        }else if(enemySeen){
+            gr.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+                    CycleMethod.NO_CYCLE,
+                    new Stop(0.0, new Color(0.5, 0.5, 1, 0.6)),
+                    new Stop(1.0, Color.TRANSPARENT)));
+        }else{
+            gr.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+                    CycleMethod.NO_CYCLE,
+                    new Stop(0.0, new Color(0.5, 1, 0.5, 0.6)),
+                    new Stop(1.0, Color.TRANSPARENT)));
+        }
+        gr.setGlobalBlendMode(BlendMode.OVERLAY);
+
+        gr.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+
+        gr.restore();
+
+        sprite.draw(gr);
+        sprite.rotate(Vector2.ZERO);
+        turretHead.rotate(getDirection());
+        turretHead.draw(gr, getPosition());
     }
 
     @Override

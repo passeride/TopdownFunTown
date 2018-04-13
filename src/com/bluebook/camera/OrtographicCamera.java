@@ -18,11 +18,23 @@ public class OrtographicCamera {
     public static OrtographicCamera main;
 
 
+    public static Vector2 getOffset(){
+        if(main == null){
+            return Vector2.ZERO;
+        }else{
+            return new Vector2(main.x, main.y);
+        }
+    }
+
     public OrtographicCamera(){
         OrtographicCamera.main = this;
         width = GameSettings.getDouble("game_resolution_X");
         height = GameSettings.getDouble("game_resolution_Y");
 
+    }
+
+    public Vector2 addCameraOffset(Vector2 pos){
+        return Vector2.subtract(pos, OrtographicCamera.getOffset());
     }
 
 
