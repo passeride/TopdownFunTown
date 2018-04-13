@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A QuadTree is used to query a 2D plane for elements within a given area
+ * This is used to improve hitdetection from a n^2 problem to a Log(n) problem.
+ *
+ * This was implemented in hopes to put the HitDetection on the main thread, but this prooved dificult and was not needed.
+ * So the
+ */
 public class QuadTree {
 
     public ArrayList<Collider> colliders = new ArrayList<>();

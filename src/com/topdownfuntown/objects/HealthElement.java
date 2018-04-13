@@ -1,17 +1,13 @@
 package com.topdownfuntown.objects;
 
 import com.bluebook.camera.OrtographicCamera;
-import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.graphics.SpriteLoader;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class HealthElement extends GameObject {
 
@@ -48,7 +44,7 @@ public class HealthElement extends GameObject {
         setPosition(new Vector2(-OrtographicCamera.main.getX() + 200, -OrtographicCamera.main.getY() + 200));
         setSprite(sprites[getSpriteNumber()]);
         Sprite sp = sprites[getSpriteNumber()];
-        sp.drawGUI(gc, new Vector2(0.2, 0.3), new Vector2(2, 4));
+        sp.drawGUIProsentage(gc, new Vector2(0.2, 0.3), new Vector2(2, 4));
 
     }
 
