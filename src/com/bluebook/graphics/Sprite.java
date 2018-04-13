@@ -71,6 +71,12 @@ public class Sprite {
         gc.drawImage(img, 0, 0, GameSettings.getInt("game_resolution_X"), GameSettings.getInt("game_resolution_Y"));
     }
 
+    /**
+     * Will draw a sprite not relative to world, but on screen
+     * @param gc
+     * @param position is a prosentage of the screen
+     * @param scale is width relative to normal square size
+     */
     public void drawGUI(GraphicsContext gc, Vector2 position, Vector2 scale){
         Vector2 scaleVec = GameSettings.getScreenScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
@@ -79,6 +85,11 @@ public class Sprite {
         gc.drawImage(img, pos.getX() - (scaledSquareWidth / 2f), pos.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
     }
 
+    /**
+     * Will draw sprite on screen not relative to world
+     * @param gc
+     * @param position Will be the prosentage of screen
+     */
     public void drawGUI(GraphicsContext gc, Vector2 position){
         Vector2 scale = origin.getGlobalScale();
 
