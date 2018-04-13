@@ -16,6 +16,7 @@ public enum ID {
     KeyG,
     KeyP,
     KeyR,
+    KeyShip,
     Barrel,
     Crate,
     Corpse,

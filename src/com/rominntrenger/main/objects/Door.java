@@ -6,7 +6,7 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 
 public class Door extends GameObject {
-
+    private int doorID;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -15,8 +15,9 @@ public class Door extends GameObject {
      * @param direction
      * @param sprite
      */
-    public Door(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Door(Vector2 position, Vector2 direction, Sprite sprite, int ID) {
         super(position, direction, sprite);
+        this.doorID = ID;
         this.setRenderLayer(RenderLayer.RenderLayerName.LOW_BLOCKS);
     }
 
@@ -34,5 +35,13 @@ public class Door extends GameObject {
     @Override
     public Sprite getSprite() {
         return super.getSprite();
+    }
+
+    public void setDoorID(int doorID) {
+        this.doorID = doorID;
+    }
+
+    public int getDoorID() {
+        return doorID;
     }
 }
