@@ -80,6 +80,9 @@ public class LevelImageLoader {
                     case ("336666"):
                         gameMap[x][y] = ID.Ship;
                     break;
+                    case ("336600"):
+                        gameMap[x][y] = ID.KeyShip;
+                    break;
                     case ("335555"):
                         gameMap[x][y] = ID.Table;
                     break;
