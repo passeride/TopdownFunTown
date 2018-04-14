@@ -61,54 +61,59 @@ public class MapCreator extends GameObject {
 
                     //KEYS AND DOORS
                     case Key:
-                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"));
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"), 0);
                     break;
 
                     case KeyY:
-                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"));
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"),1);
                     break;
 
                     case KeyB:
-                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"));
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"),2);
                     break;
 
                     case KeyG:
-                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"));
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"),3);
                     break;
 
                     case KeyP:
-                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"));
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"),4);
                     break;
 
                     case KeyR:
-                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"));
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"),5);
+                    break;
+
+                    case KeyShip:
+                        grid[i][j] = new Key(vector,Vector2.ZERO,new Sprite("./items/key_gold00"),6);
                     break;
 
                     case Door:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),0);
                     break;
                     case DoorY:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),1);
                     break;
                     case DoorB:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),2);
                     break;
                     case DoorG:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),3);
                     break;
                     case DoorP:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),4);
                     break;
                     case DoorR:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),5);
                     break;
                     case Ship:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"));
+                        new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),6);
+                        grid[i][j] = new Ship(vector, Vector2.ZERO, new Sprite("../bg/ship"));
                     break;
 
                     // BOXES AND SUCH
                     case StasisBox:
-                        grid[i][j] = new StasisBox(vector,Vector2.ZERO, new Sprite("../bg/stasisBoxRed"));
+                        grid[i][j] = new StasisBox(vector,Vector2.ZERO, new Sprite("./items/stasisBoxRed"));
                     break;
                     case Crate:
                         grid[i][j] = new Crate(vector, Vector2.ZERO, new Sprite("./items/crate_02"));
@@ -137,6 +142,7 @@ public class MapCreator extends GameObject {
                         grid[i][j] = new AlienTurret(vector,Vector2.ZERO);
                     break;
                     case AlienExplode:
+                        grid[i][j] = new AlienExplode(vector);
                     break;
 
                     default:

@@ -7,7 +7,7 @@ import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Key extends Item {
-    private Door door;
+    private int keyID;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -16,14 +16,16 @@ public class Key extends Item {
      * @param direction
      * @param sprite
      */
-    public Key(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Key(Vector2 position, Vector2 direction, Sprite sprite, int ID) {
         super(position, direction, sprite);
+        this.keyID = ID;
+
         setSize(new Vector2(1,1));
         setRenderLayer(RenderLayer.RenderLayerName.TILES);
         collider = new BoxCollider(this);
     }
 
-    public Key(Vector2 position, Vector2 direction, Sprite sprite, Door door) {
+/*    public Key(Vector2 position, Vector2 direction, Sprite sprite, Door door) {
         super(position, direction, sprite);
         setSize(new Vector2(1,1));
 
@@ -38,7 +40,7 @@ public class Key extends Item {
 
     public Door getDoor() {
         return door;
-    }
+    } */
 
     @Override
     public void draw(GraphicsContext gc) {

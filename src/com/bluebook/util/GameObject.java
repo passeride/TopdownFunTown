@@ -141,6 +141,8 @@ public abstract class GameObject {
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
+        this.sprite.setOrigin(transform);
+        this.size = new Vector2(sprite.getSquareWidth(),  sprite.getSquareHeight());
     }
 
     public Vector2 getScale() {

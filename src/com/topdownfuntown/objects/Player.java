@@ -29,14 +29,7 @@ public class Player extends GameObject {
     private StarterWeapon currentWeapon;
     Topdownfuntown topdownfuntown;
     private CircleCollider walkCollider;
-
-
-    public ArrayList<GameObject> close;
-
     public RigidBody2D rb2;
-
-    private int rayCastResolution = 0;
-    private ArrayList<RayCast> raycasts = new ArrayList<>();
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -48,6 +41,7 @@ public class Player extends GameObject {
     public Player(Vector2 position, Vector2 direction, Sprite sprite, StarterWeapon weapon) {
         super(position, direction, sprite);
         setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
+
         topdownfuntown = (Topdownfuntown) GameApplication.getInstance();
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
@@ -57,98 +51,26 @@ public class Player extends GameObject {
         collider.setName("Player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
-//        collider.addInteractionLayer("DMG");
-
 
         // WalkCollider
-        walkCollider = new CircleCollider(this, 40);
+        walkCollider = new CircleCollider(this, 30 * getScaledSize().getX());
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
         walkCollider.addInteractionLayer("Block");
-        walkCollider.addInteractionLayer("DMG");
 
         walkCollider.setPadding(new Vector2(-20, -20));
 
-//        collider = walkCollider;
-
-
-        setUpRayCast();
         ((AnimationSprite)currentWeapon.getSprite()).setPlaying(false);
 
         currentWeapon.getTransform().setParent(transform);
 
         rb2 = new RigidBody2D(this);
-    }
 
-    private void setUpRayCast(){
-        for(int i = 0; i < rayCastResolution; i++){
-            double dir = (Math.PI * 2) * ((double) i / rayCastResolution);
-            raycasts.add(new RayCast(dir, this));
-        }
     }
 
     @Override
     public void update(double delta) {
-        translate(Vector2.ZERO);
-//        close = HitDetectionHandler.getInstance().qtTree.query(new Rectangle(transform.getGlobalPosition().getX() - 200, transform.getGlobalPosition().getY() - 200, 400, 400));
-    }
-
-
-    @Override
-    public void draw(GraphicsContext gc){
-
-        double[][] polygon = getPolygon();
-
-        gc.save();
-
-        //gc.applyEffect(new ColorAdjust(0, 0, -0.3, 0));
-
-//        gc.setFill( new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-//                CycleMethod.NO_CYCLE,
-//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
-//                new Stop(1.0, Color.TRANSPARENT)));
-//        gc.setGlobalBlendMode(BlendMode.OVERLAY);
-//        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
-        //gc.setFill(Color.GREEN);
-        //gc.strokeLine(getPosition().getX(), getPosition().getY(), getPosition().getX() + rb2.getLinearVelocity().getX(), getPosition().getY() + rb2.getLinearVelocity().getY());
-
-        gc.restore();
-//        gc.fillText("X:" + rb2.getLinearVelocity().getX() + "-Y:"+ rb2.getLinearVelocity().getY(), getPosition().getX(), getPosition().getY());
-
-        super.draw(gc);
-
-//        gc.setFill(Color.GREEN);
-//        for(GameObject go : close){
-//            gc.fillArc(go.getTransform().getGlobalPosition().getX(), go.getTransform().getGlobalPosition().getY(), 20, 20, 0, 360, ArcType.CHORD);
-//        }
-
-    }
-
-    /**
-     * Goes over {@link #raycasts} and returns a double array with positions first array is X cooridnates
-     * second is Y coordinates
-     * @return [x/y][position]
-     */
-    private double[][] getPolygon(){
-        double[][] ret = new double[2][];
-        double[] xs = new double[raycasts.size()];
-        double[] ys = new double[raycasts.size()];
-
-        for(int i = 0; i < raycasts.size(); i++){
-            RayCastHit rch = raycasts.get(i).getHit();
-            if(rch != null) {
-                if (rch.isHit) {
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                } else {
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                }
-            }
-        }
-        ret[0] = xs;
-        ret[1] = ys;
-        return ret;
+        translate(Vector2.ZERO); // This is to update in case of intersection
     }
 
     /**
@@ -189,18 +111,18 @@ public class Player extends GameObject {
     @Override
     public void translate(Vector2 moveVector) {
         Vector2 newPoss = Vector2.add(getPosition(), moveVector);
-//        Collider hit = HitDetectionHandler.getInstance().isPositionCollided(newPoss, walkCollider);
 
-//        if(hit == null)
-//            rb2.setPosition(newPoss);
+        Collider hit = walkCollider.getIntersectionCollider();
+
+        if(hit == null)
             transform.setLocalPosition(newPoss);
-//        else {
-////            System.out.println("Collision is " + walkCollider.getIntersectionCollider() == null);
-////            rb2.addForce(Vector2.multiply(Vector2.subtract(walkCollider.getPosition(), getPosition()), 1000));
-//            transform.setLocalPosition(Vector2.add(transform.getLocalPosition(),Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.1)));
+        else {
+            transform.setLocalPosition(
+                    Vector2.add(
+                            transform.getLocalPosition(),
+                            Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.5)));
 
-//        }
-//        rb2.setPosition(transform.getGlobalPosition());
+        }
     }
 
     /**

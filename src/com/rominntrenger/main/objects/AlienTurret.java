@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class AlienTurret extends Enemy {
 
-    private int rayCastResolution = 90;
+    private int rayCastResolution = 0;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
     private Sprite turretHead;
 

@@ -14,12 +14,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.shape.ArcType;
 
 import java.util.ArrayList;
 
 public class Turret extends Enemy {
 
-    private int rayCastResolution = 90;
+
+
+    private int rayCastResolution = 180;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
     private Sprite turretHead;
 
@@ -215,7 +218,22 @@ public class Turret extends Enemy {
         }
         gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
+        gc.beginPath();
+
+        double radius = 2000;
+        Vector2 pos = getTransform().getGlobalPosition();
+        gc.arc(pos.getX() - radius, pos.getY() - radius, radius * 2, radius * 2, 0, 360);
+//        gc.fillArc(pos.getX() - radius, pos.getY() - radius, radius * 2, radius * 2, 0, 360, ArcType.CHORD);
+
+        gc.clip();
+
+
         gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+        //gc.clip();
+
+        gc.closePath();
+
+
 
         gc.restore();
 
@@ -234,7 +252,7 @@ public class Turret extends Enemy {
         p.setSpeed(800);
         p.setSine(true);
 
-/*        // Adding colliders layers
+        // Adding colliders layers
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
         p.getCollider().addInteractionLayer("Block");
@@ -251,7 +269,6 @@ public class Turret extends Enemy {
                 other.getGameObject().destroy();
             }
             p.destroy();
-
-        });*/
+        });
     }
 }
