@@ -7,6 +7,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.RomInntrenger;
 
 import java.util.Random;
 
@@ -24,6 +25,8 @@ public class AlienGreen extends Enemy {
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         // setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
+        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+
     }
 
     public void update(double delta) {
@@ -45,9 +48,9 @@ public class AlienGreen extends Enemy {
         p.setSine(true);
 
         // Adding colliders layers
-        //p.getCollider().addInteractionLayer("UnHittable");
-        //p.getCollider().addInteractionLayer("Block");
-        /*
+        p.getCollider().addInteractionLayer("UnHittable");
+        p.getCollider().addInteractionLayer("Block");
+
         p.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
@@ -60,6 +63,6 @@ public class AlienGreen extends Enemy {
                 p.destroy();
 
             }
-        }); */
+        });
     }
 }

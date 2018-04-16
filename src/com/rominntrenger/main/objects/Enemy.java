@@ -37,9 +37,12 @@ public abstract class Enemy extends GameObject {
         collider.attachToGameObject(this);
         collider.addInteractionLayer("UnHittable");
         collider.addInteractionLayer("Block");
+        collider.addInteractionLayer("Walk");
+
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
+
                 if (other.getGameObject() instanceof Player) {
                     Player p = (Player) other.getGameObject();
                     p.hit();

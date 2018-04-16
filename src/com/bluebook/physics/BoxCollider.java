@@ -1,8 +1,6 @@
 package com.bluebook.physics;
 
 import com.bluebook.camera.OrtographicCamera;
-import com.bluebook.physics.listeners.OnCollisionListener;
-import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
@@ -12,9 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
-import org.w3c.dom.css.Rect;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +48,7 @@ public class BoxCollider extends Collider {
 
     protected void updatePosition(){
         if(gameObject != null){
-            Vector2 scaleVec = GameSettings.getScreenScale();
+            Vector2 scaleVec = GameSettings.getSquareScale();
             double xSize = scaleVec.getX() * gameObject.getScale().getX() + padding.getX();
             double ySize = scaleVec.getY() * gameObject.getScale().getY() + padding.getY();
             rect.setX(gameObject.getPosition().getX() - xSize / 2.0);
@@ -203,6 +199,11 @@ public class BoxCollider extends Collider {
                 intersectionCenter = null;
             }
         }
+    }
+
+    @Override
+    public Rectangle getBoudningBox() {
+        return rect;
     }
 
     @Override

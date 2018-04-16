@@ -7,6 +7,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.RomInntrenger;
 import com.topdownfuntown.main.Topdownfuntown;
 import com.topdownfuntown.objects.Enemy;
 import com.topdownfuntown.objects.Player;
@@ -30,6 +31,8 @@ public class AlienPurple extends Enemy {
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         //setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
+        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+
     }
 
 

@@ -25,9 +25,11 @@ public class MessageHandler extends GameObject{
     private String printMessage;
     private long start;
     private long duration = 5;
+    private int margin = 20;
+    private int width = 1920, height = 500;
     private Font font;
-    private int resolutionX = GameSettings.getInt("game_resolution_X");
-    private int resolutionY = GameSettings.getInt("game_resolution_Y");
+    private int resolutionX;
+    private int resolutionY;
 
     private MessageHandler(){
         super(Vector2.ZERO, Vector2.ZERO, new Sprite(""));
@@ -38,6 +40,9 @@ public class MessageHandler extends GameObject{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        resolutionX = GameSettings.getInt("game_resolution_X");
+        resolutionY = GameSettings.getInt("game_resolution_Y");
     }
 
     private static MessageHandler instance;
@@ -62,15 +67,18 @@ public class MessageHandler extends GameObject{
     public void draw(GraphicsContext gc) {
         super.draw(gc);
         if(isActive){
-
             //fills the box
             gc.setFill(Color.rgb(13,13,13,0.8));
-            gc.fillRect(0, 800, resolutionX, resolutionY);
+//            gc.fillRect( + scaledMarginX, resY + scaledHeight / 2 - scaledMarginY / 2, resX - scaledMarginX * 3, scaledHeight);
+            gc.fillRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
+
 
             //border for box
             gc.setStroke(Color.rgb(217, 217, 217));
             gc.setLineWidth(5);
-            gc.strokeRect(10, 810, resolutionX, (resolutionY/4)-5);
+            gc.strokeRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
+
+//            gc.strokeRect(margin, resolutionY - 500, resolutionX / 2 - margin - 50, (resolutionY/4)-5);
 
             //sets font smoothing and font type
             gc.setFill(Color.WHITE);
@@ -80,13 +88,13 @@ public class MessageHandler extends GameObject{
 
             if(sprite != null){
                 //TODO: Draw sprite
-                sprite.drawGUI(gc, new Vector2(15,815));
+                sprite.drawGUI(gc, new Vector2(margin / 2 + 15,resolutionY - (height + margin - 25) / 2), (height - 50 ) / 2, (height - 50) / 2);
                 //displays text
-                gc.fillText(printMessage,45 + GameSettings.getScreenScale().getX(),870);
+                gc.fillText(printMessage,margin / 2 + height / 2 + 50,resolutionY - (height - 150) / 2);
 
             }else{
                 //displays text
-                gc.fillText(printMessage,35,870);
+                gc.fillText(printMessage,margin / 2 + 50,resolutionY - (height - 150) / 2);
 
             }
 
@@ -96,6 +104,7 @@ public class MessageHandler extends GameObject{
     }
 
     public void writeMessage(String s, Sprite sprite){
+
         this.sprite = sprite;
         sprite.setOrigin(transform);
         writeMessage(s);
@@ -112,7 +121,7 @@ public class MessageHandler extends GameObject{
         //attempt at typing effect for text
         final Animation animation = new Transition() {
             {
-                setCycleDuration(Duration.millis(1500));
+                setCycleDuration(Duration.millis(duration / 2 * 1000));
             }
             @Override
             protected void interpolate(double frac) {

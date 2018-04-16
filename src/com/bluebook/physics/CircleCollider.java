@@ -94,6 +94,11 @@ public class CircleCollider extends Collider{
     }
 
     @Override
+    public Rectangle getBoudningBox() {
+        return new Rectangle(position.getX() - radius / 2, position.getY() - radius / 2, radius, radius);
+    }
+
+    @Override
     public boolean instersects(Collider other) {
         if(other instanceof CircleCollider){
             CircleCollider otherCircle = (CircleCollider)  other;

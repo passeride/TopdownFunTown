@@ -260,7 +260,6 @@ public class Turret extends Enemy {
 
 
         p.setOnCollisionListener(other -> {
-            System.out.println(other.getTag());
             if (other.getGameObject() instanceof Player) {
                 Player pl = (Player) other.getGameObject();
                 pl.hit();

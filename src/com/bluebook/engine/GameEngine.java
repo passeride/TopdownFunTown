@@ -38,8 +38,10 @@ public class GameEngine {
     public static GameEngine singelton;
 
     public double FPS = 0.0;
+    public double collision_FPS = 0.0;
+    public double update_FPS = 0.0;
 
-    Canvas canvas;
+    public Canvas canvas;
     Player p;
     OrtographicCamera camera;
 

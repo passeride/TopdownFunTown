@@ -1,6 +1,7 @@
 package com.rominntrenger.main.maploader;
 
 import com.bluebook.audio.AudioPlayer;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
@@ -48,7 +49,7 @@ public class MapCreator extends GameObject {
                 tempID = currentLevel[i][j];
 
                 vector = new Vector2(i,j);
-                vector = Vector2.multiply(vector, GameSettings.getScreenScale());
+                vector = Vector2.multiply(vector, GameSettings.getSquareScale());
                 new Tile(vector, Vector2.ZERO, new Sprite("../bg/tile_01_00"));
                 switch (tempID) {
 
@@ -57,6 +58,7 @@ public class MapCreator extends GameObject {
                     break;
 
                     case SpawnPlayer:
+                        grid[i][j] = new Player(vector, Vector2.ZERO, new AnimationSprite("/friendlies/character",4));
                     break;
 
                     //KEYS AND DOORS

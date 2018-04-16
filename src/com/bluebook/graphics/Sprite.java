@@ -1,11 +1,9 @@
 package com.bluebook.graphics;
 
-import com.bluebook.engine.GameApplication;
 import com.bluebook.renderer.GraphicsRenderer;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Transform;
 import com.bluebook.util.Vector2;
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -98,7 +96,7 @@ public class Sprite {
             gc.rotate(position, rotateAngle);
 
 
-            Vector2 scaleVec = GameSettings.getScreenScale();
+            Vector2 scaleVec = GameSettings.getSquareScale();
             scaledSquareHeight = scaleVec.getY() * scale.getY();
             scaledSquareWidth = scaleVec.getX() * scale.getY();
 
@@ -126,7 +124,7 @@ public class Sprite {
      * @param scale is width relative to normal square size
      */
     public void drawGUIProsentage(GraphicsContext gc, Vector2 position, Vector2 scale){
-        Vector2 scaleVec = GameSettings.getScreenScale();
+        Vector2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
         Vector2 pos = Vector2.multiply(position, new Vector2(GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
@@ -141,7 +139,7 @@ public class Sprite {
     public void drawGUIProsentage(GraphicsContext gc, Vector2 position){
         Vector2 scale = origin.getGlobalScale();
 
-        Vector2 scaleVec = GameSettings.getScreenScale();
+        Vector2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
         Vector2 pos = Vector2.multiply(position, new Vector2(GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
@@ -157,10 +155,10 @@ public class Sprite {
      * @param scale is width relative to normal square size
      */
     public void drawGUI(GraphicsContext gc, Vector2 position, Vector2 scale){
-        Vector2 scaleVec = GameSettings.getScreenScale();
+        Vector2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
-//        Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
+//        Vector2 pos = Vector2.multiply(position, GameSettings.getSquareScale());
         Vector2 pos = position;
         gc.drawImage(img, pos.getX(), pos.getY(), scaledSquareWidth, scaledSquareHeight);
     }
@@ -174,13 +172,18 @@ public class Sprite {
     public void drawGUI(GraphicsContext gc, Vector2 position){
         Vector2 scale = origin.getGlobalScale();
 
-        Vector2 scaleVec = GameSettings.getScreenScale();
+        Vector2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
-//        Vector2 pos = Vector2.multiply(position, GameSettings.getScreenScale());
+//        Vector2 pos = Vector2.multiply(position, GameSettings.getSquareScale());
         Vector2 pos = position;
         gc.drawImage(img, pos.getX(), pos.getY(), scaledSquareWidth, scaledSquareHeight);
 
+    }
+
+    public void drawGUI(GraphicsContext gc, Vector2 position, int WIDTH, int HEIGHT){
+        Vector2 pos = position;
+        gc.drawImage(img, pos.getX(), pos.getY(), WIDTH, HEIGHT);
     }
 
     /**
@@ -204,7 +207,7 @@ public class Sprite {
             rotate(origin.getGlobalRotation());
             gc = rotateGraphicsContext(gc, pos);
 
-            Vector2 scaleVec = GameSettings.getScreenScale();
+            Vector2 scaleVec = GameSettings.getSquareScale();
             scaledSquareHeight = scaleVec.getY() * scale.getY();
             scaledSquareWidth = scaleVec.getX() * scale.getX();
 

@@ -1,5 +1,6 @@
 package com.bluebook.javafx;
 
+import com.bluebook.util.GameSettings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +19,8 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GameSettings.SCREEN_HEIGHT = (int)canvas.getHeight();
+        GameSettings.SCREEN_WIDTH = (int)canvas.getWidth();
         new GameEngine(canvas);
     }
 

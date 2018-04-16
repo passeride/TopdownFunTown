@@ -70,7 +70,6 @@ public class Player extends GameObject {
 
     @Override
     public void update(double delta) {
-        translate(Vector2.ZERO); // This is to update in case of intersection
     }
 
     /**

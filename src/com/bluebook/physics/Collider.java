@@ -60,6 +60,8 @@ public abstract class Collider {
         return ret;
     }
 
+    public abstract Rectangle getBoudningBox();
+
     public Vector2 getClosestPointOfIntersection(){
         Vector2 ret = new Vector2(0, 0);
         double maxDist = Double.MAX_VALUE;

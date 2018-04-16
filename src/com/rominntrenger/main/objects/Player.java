@@ -1,6 +1,7 @@
 package com.rominntrenger.main.objects;
 
 import com.bluebook.audio.AudioPlayer;
+import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.AnimationSprite;
@@ -9,6 +10,7 @@ import com.bluebook.physics.*;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.RomInntrenger;
 import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -22,7 +24,6 @@ public class Player extends GameObject {
     private double baseSpeed = 300.0;
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
-    Topdownfuntown topdownfuntown;
     private Collider walkCollider;
 
     public RigidBody2D rb2;
@@ -39,8 +40,11 @@ public class Player extends GameObject {
      */
     public Player(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
-        topdownfuntown = (Topdownfuntown) GameApplication.getInstance();
+
+
+        ((RomInntrenger)GameApplication.getInstance()).player = this;
+
+        setRenderLayer(RenderLayer.RenderLayerName.GUI);
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
 
@@ -59,6 +63,9 @@ public class Player extends GameObject {
         setUpRayCast();
 
         rb2 = new RigidBody2D(this);
+
+        OrtographicCamera.main.follow(this);
+
     }
 
     private void setUpRayCast(){
@@ -70,60 +77,7 @@ public class Player extends GameObject {
 
     @Override
     public void update(double delta) {
-        rb2.update(delta);
-        //translate(Vector2.multiply(rb2.getLinearVelocity(), delta));
-    }
-
-    @Override
-    public void draw(GraphicsContext gc){
-
-        double[][] polygon = getPolygon();
-
-        gc.save();
-
-        //gc.applyEffect(new ColorAdjust(0, 0, -0.3, 0));
-
-//        gc.setFill( new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-//                CycleMethod.NO_CYCLE,
-//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
-//                new Stop(1.0, Color.TRANSPARENT)));
-//        gc.setGlobalBlendMode(BlendMode.OVERLAY);
-//        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
-        //gc.setFill(Color.GREEN);
-        //gc.strokeLine(getPosition().getX(), getPosition().getY(), getPosition().getX() + rb2.getLinearVelocity().getX(), getPosition().getY() + rb2.getLinearVelocity().getY());
-
-        gc.restore();
-//        gc.fillText("X:" + rb2.getLinearVelocity().getX() + "-Y:"+ rb2.getLinearVelocity().getY(), getPosition().getX(), getPosition().getY());
-
-        super.draw(gc);
-
-    }
-
-    /**
-     * Goes over {@link #raycasts} and returns a double array with positions first array is X cooridnates
-     * second is Y coordinates
-     * @return [x/y][position]
-     */
-    private double[][] getPolygon(){
-        double[][] ret = new double[2][];
-        double[] xs = new double[raycasts.size()];
-        double[] ys = new double[raycasts.size()];
-
-        for(int i = 0; i < raycasts.size(); i++){
-            RayCastHit rch = raycasts.get(i).getHit();
-            if(rch != null) {
-                if (rch.isHit) {
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                } else {
-                    xs[i] = rch.ray.x2;
-                    ys[i] = rch.ray.y2;
-                }
-            }
-        }
-        ret[0] = xs;
-        ret[1] = ys;
-        return ret;
+        translate(Vector2.ZERO); // This is to update in case of intersection
     }
 
     /**
@@ -161,38 +115,31 @@ public class Player extends GameObject {
      */
     @Override
     public void translate(Vector2 moveVector) {
+        Vector2 newPoss = Vector2.add(getPosition(), moveVector);
 
-//        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
-//        if(walkCollider.getIntersectionCenter() != null) {
-//            //newValue = Vector2.add(transform.getGlobalPosition(), Vector2.subtract(walkCollider.getIntersectionCenter().getNormalizedVector(), moveVector));
-//            rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(walkCollider.getIntersectionCenter(), getPosition())), 15));
-//        }
-//
-//
-//        double screenWidth = GameSettings.getInt("game_resolution_X");
-//        double screenHeihgt = GameSettings.getInt("game_resolution_Y");
-//        double boudMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
-//        double boudMarginY = screenHeihgt * GameSettings.getDouble("map_movement_padding_Y");
-//
-//        if (newValue.getX() <= screenWidth - boudMarginX
-//                && newValue.getX() > boudMarginX
-//                && newValue.getY() <= screenHeihgt - boudMarginY
-//                && newValue.getY() > boudMarginY) {
-//            transform.setLocalPosition(newValue);
-//        }
-        transform.setLocalPosition(Vector2.add(getPosition(), moveVector));
+        Collider hit = walkCollider.getIntersectionCollider();
+
+        if(hit == null)
+            transform.setLocalPosition(newPoss);
+        else {
+            transform.setLocalPosition(
+                    Vector2.add(
+                            transform.getLocalPosition(),
+                            Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.5)));
+
+        }
     }
 
     /**
      * Used when player is hit to subtract health and check for death
      */
     public void hit() {
-        int hp = topdownfuntown.getHealth();
-        topdownfuntown.setHealth(--hp);
-        if (hp <= 0) {
-            die();
-            destroy();
-        }
+//        int hp = topdownfuntown.getHealth();
+//        topdownfuntown.setHealth(--hp);
+//        if (hp <= 0) {
+//            die();
+//            destroy();
+//        }
         hitSound.playOnce();
     }
 

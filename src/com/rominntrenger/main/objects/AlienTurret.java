@@ -70,7 +70,6 @@ public class AlienTurret extends Enemy {
             RayCastHit rch = raycasts.get(i).getHit();
             if(rch != null) {
                 if (rch.isHit) {
-                    System.out.println(rch.colliderHit.getTag());
                     if(rch.colliderHit.getTag() == "UnHittable" || rch.colliderHit.getTag() == "Walk"){
                         player = rch.colliderHit.getGameObject();
                         playerSeen = true;

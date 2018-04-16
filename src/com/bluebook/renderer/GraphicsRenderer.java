@@ -46,7 +46,7 @@ public class GraphicsRenderer {
     }
 
     private void setScaleSquare(){
-        Vector2 scaleVec = GameSettings.getScreenScale();
+        Vector2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY();
         scaledSquareWidth = scaleVec.getX();
     }

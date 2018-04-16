@@ -17,6 +17,10 @@ public class UpdateThread implements Runnable {
     private volatile boolean running = true;
     private long prevTick = 0;
 
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0;
+    private boolean arrayFilled = false;
+
     /**
      * Used to create the UpdateThread
      * Will each tick call {@link GameEngine#update(double delta)}
@@ -37,6 +41,20 @@ public class UpdateThread implements Runnable {
             long timeElapsed = System.currentTimeMillis() - prevTick;
             engine.update((double)timeElapsed / 1000);
             prevTick = System.currentTimeMillis();
+
+            // Finding FSP for debugging
+            long now = System.nanoTime();
+            long oldFrameTime = frameTimes[frameTimeIndex] ;
+            frameTimes[frameTimeIndex] = now ;
+            frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+            if (frameTimeIndex == 0) {
+                arrayFilled = true ;
+            }
+            if (arrayFilled) {
+                long elapsedNanos = now - oldFrameTime ;
+                long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
+                GameEngine.getInstance().update_FPS = 1_000_000_000.0 / elapsedNanosPerFrame ;
+            }
 
             try {
                 Thread.sleep(sleepTime);

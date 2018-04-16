@@ -27,8 +27,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class HelloWorld {
 
     private static final int WIDTH = 800, HEIGHT = 600;
+
+    public int xOfsett  = 0;
     // The window handle
     private long window;
+    // This prevents our window from crashing later on.
+    private GLFWKeyCallback keyCallback;
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -39,6 +43,7 @@ public class HelloWorld {
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
+        keyCallback.free();
 
         // Terminate GLFW and free the error callback
         glfwTerminate();
@@ -97,6 +102,8 @@ public class HelloWorld {
         // Make the window visible
         glfwShowWindow(window);
 
+        // Sets our keycallback to equal our newly created Input class()
+        glfwSetKeyCallback(window, keyCallback = new KeyboardHandler());
 
 
     }
@@ -150,6 +157,11 @@ public class HelloWorld {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while ( !glfwWindowShouldClose(window) ) {
+
+            if (KeyboardHandler.isKeyDown(GLFW_KEY_SPACE)) {
+                xOfsett += 10;
+            }
+
             glClear(GL_COLOR_BUFFER_BIT);
 
             //Enable blending so the green background can be seen through the texture
@@ -157,7 +169,7 @@ public class HelloWorld {
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
             glPushMatrix();
-            glTranslatef(200, 100, 0);
+            glTranslatef(xOfsett, 0, 0);
             glBindTexture(GL_TEXTURE_2D, textureID);
             glBegin(GL_QUADS);
             {
@@ -165,15 +177,18 @@ public class HelloWorld {
                 glVertex2f(0, 0);
 
                 glTexCoord2f(1, 0);
-                glVertex2f(128, 0);
+                glVertex2f(WIDTH, 0);
 
                 glTexCoord2f(1, 1);
-                glVertex2f(128, 128);
+                glVertex2f(WIDTH, HEIGHT);
 
                 glTexCoord2f(0, 1);
-                glVertex2f(0, 128);
+                glVertex2f(0, HEIGHT);
             }
             glEnd();
+            glPopMatrix();
+
+            glPushMatrix();
             glTranslatef(100, 50, 0);
             glBindTexture(GL_TEXTURE_2D, textureID2);
             glBegin(GL_QUADS);

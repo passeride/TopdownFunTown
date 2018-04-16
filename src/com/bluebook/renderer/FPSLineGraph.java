@@ -1,6 +1,7 @@
 package com.bluebook.renderer;
 
 import com.bluebook.engine.GameEngine;
+import com.bluebook.physics.HitDetectionHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,7 +17,7 @@ public class FPSLineGraph {
     private ArrayList<Double> fpsArray = new ArrayList<>();
     private int arrayCounter = 0;
 
-    double width = 600, height = 150, X = 0, Y = 0;
+    double width = 600, height = 150, X = 20, Y = 0;
 
     double max_value = 100, min_value = 10;
 
@@ -57,8 +58,16 @@ public class FPSLineGraph {
 
         gc.setFont(new Font(fontSize));
         double FPS = GameEngine.getInstance().FPS;
-        gc.setFill(FPS > 60 ? Color.BLACK : Color.RED);
-        gc.fillText("FPS: "  + GameEngine.getInstance().FPS, X, Y + height);
+//        gc.setFill(FPS > 60 ? Color.BLACK : Color.RED);
+        gc.setFill(new Color(0.6, 0.6, 0.6, 0.6));
+        gc.fillRect(X, Y + height / 2, 400, height);
+        gc.setFill(Color.BLACK);
+        gc.fillText("Draw_FPS: "  + GameEngine.getInstance().FPS, X, Y + height);
+        gc.fillText("Col_FPS: "  + GameEngine.getInstance().collision_FPS, X, Y + height + 20);
+        gc.fillText("    Col_num:" + HitDetectionHandler.getInstance().colliders.size(), X, Y + height + 40);
+        gc.fillText("    Ray_num:" + HitDetectionHandler.getInstance().raycasts.size(), X, Y + height + 60);
+        gc.fillText("Update_FPS: "  + GameEngine.getInstance().update_FPS, X, Y + height + 80);
+
     }
 
     public double getAverage(){

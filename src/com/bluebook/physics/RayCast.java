@@ -67,9 +67,7 @@ public class RayCast {
                             ray.x1 + (float)Math.cos(angle) * collisionDistance,
                             ray.y1 + (float)Math.sin(angle) * collisionDistance,
                             l.x1, l.y1, l.x2, l.y2);
-                    //System.out.println("Testing collision on angle :  " + angle + " got distance " + distanceHit);
                     if (distanceHit > 0 && distanceHit < collisionDistance) {
-                        //System.out.println("COllision found " + c.getName() + " DISTANCE " + distanceHit + " ANGLE: " + angle);
                         collisionDistance = distanceHit;
                         colliderHit = c;
                     }

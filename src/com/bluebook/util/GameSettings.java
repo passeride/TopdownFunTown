@@ -1,5 +1,7 @@
 package com.bluebook.util;
 
+import com.bluebook.engine.GameEngine;
+
 import java.util.Map;
 
 /**
@@ -7,6 +9,8 @@ import java.util.Map;
  *
  */
 public class GameSettings {
+
+    public static int SCREEN_WIDTH, SCREEN_HEIGHT;
 
     private static Map<String, String> loadedSettings;
 
@@ -31,6 +35,17 @@ public class GameSettings {
     }
 
     public static Vector2 getScreenScale(){
+        int resolutionX = GameSettings.getInt("game_resolution_X");
+        int resolutionY = GameSettings.getInt("game_resolution_Y");
+
+        System.out.println("GAME ENGINE WIDTH :" + GameEngine.getInstance().canvas.getWidth());
+
+        double x =GameEngine.getInstance().canvas.getHeight() / resolutionX;
+        double y = GameEngine.getInstance().canvas.getWidth() / resolutionY;
+        return new Vector2(1, 1);
+    }
+
+    public static Vector2 getSquareScale(){
         int resolutionX = GameSettings.getInt("game_resolution_X");
         double deadZoneX = GameSettings.getDouble("map_movement_padding_X") * 2;
         int gridX = GameSettings.getInt("grid_X");

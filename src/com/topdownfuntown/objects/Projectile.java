@@ -57,23 +57,6 @@ public class Projectile extends GameObject{
         squareHeightStart = 1;
         squareWithStart = 1;
 
-/*        // Adding colliders layers
-        collider.addInteractionLayer("UnHittable");
-        collider.addInteractionLayer("Hittable");
-        collider.addInteractionLayer("Block");
-        collider.addInteractionLayer("Walk");
-        collider.setOnCollisionListener(other -> {
-            System.out.println(other.getTag());
-            if (other.getGameObject() instanceof Player) {
-                Player pl = (Player) other.getGameObject();
-                pl.hit();
-
-            }else if(other.getGameObject() instanceof Enemy){
-                other.getGameObject().destroy();
-            }
-            destroy();
-
-        });*/
 
     }
 
