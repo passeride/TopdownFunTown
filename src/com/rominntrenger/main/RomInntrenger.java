@@ -1,5 +1,6 @@
 package com.rominntrenger.main;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
@@ -24,6 +25,8 @@ public class RomInntrenger extends GameApplication {
     public HealthElement healthElement;
     public Weapon currentWeapon;
 
+    public AudioPlayer bgMusic;
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -36,6 +39,10 @@ public class RomInntrenger extends GameApplication {
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vector2(0, 0));
+
+        bgMusic = new AudioPlayer("./assets/audio/RowYourBoat.wav");
+        bgMusic.playLoop();
+
 
         player.setCurrentWeapon(currentWeapon);
     }
