@@ -2,9 +2,11 @@ package com.rominntrenger.main;
 
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
+import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.gui.HealthElement;
 import com.rominntrenger.main.gui.Inventory;
+import com.rominntrenger.main.gui.InventoryItem;
 import com.rominntrenger.main.maploader.ImageBuffering;
 import com.rominntrenger.main.maploader.MapCreator;
 import com.rominntrenger.main.objects.player.Player;
@@ -35,22 +37,10 @@ public class RomInntrenger extends GameApplication {
     @Override
     public void update(double delta) {
         cam.update();
-/*        if(input.isKeyPressed(KeyCode.W)){
-            cam.setY(cam.getY() + camSpeed);
-        }
-
-        if(input.isKeyPressed(KeyCode.S)){
-            cam.setY(cam.getY() - camSpeed);
-            inventory.addItem(new Sprite("./items/bench"));
-        }
-
-        if(input.isKeyDown(KeyCode.A)){
-            cam.setX(cam.getX() + camSpeed);
-        }
-
-        if(input.isKeyDown(KeyCode.D)){
-            cam.setX(cam.getX() - camSpeed);
-        }*/
+/*
+        if(input.isKeyPressed(KeyCode.U)){
+            inventory.addItem(new InventoryItem(new Sprite("./items/key_gold00"), 1));
+        } */
 
         if(input.isKeyDown(KeyCode.S)){
             player.moveDown(delta);
