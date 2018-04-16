@@ -142,15 +142,11 @@ public class HitDetectionHandler {
     }
 
     protected void addCollider(Collider collider){
-        synchronized (this) {
             colliderInBuffer.add(collider);
-        }
     }
 
     protected void removeCollider(Collider collider){
-        synchronized (this) {
             colliderOutBuffer.add(collider);
-        }
     }
 
 

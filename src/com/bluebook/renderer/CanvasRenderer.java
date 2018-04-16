@@ -132,6 +132,8 @@ public class CanvasRenderer {
 
 
             clearCanvas(gc);
+
+
             gc.setFill(bgColor);
             gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             GraphicsRenderer gr = new GraphicsRenderer(gc);

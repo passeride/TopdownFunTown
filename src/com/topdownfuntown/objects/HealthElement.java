@@ -42,10 +42,9 @@ public class HealthElement extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        setPosition(new Vector2(-OrtographicCamera.main.getX() + 200, -OrtographicCamera.main.getY() + 200));
-        setSprite(sprites[getSpriteNumber()]);
+//        setSprite(sprites[getSpriteNumber()]);
         Sprite sp = sprites[getSpriteNumber()];
-        sp.drawGUI(gc, new Vector2(25, 25), new Vector2(2, 4));
+        sp.drawGUI(gc, new Vector2(25, 25), 400, 45);
 
     }
 

@@ -26,9 +26,8 @@ public class Wall extends Item {
 
     @Override
     public void destroy() {
-        super.destroy();
         new Explotion(getPosition());
-
+        super.destroy();
     }
 
     @Override
