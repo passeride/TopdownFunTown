@@ -153,6 +153,16 @@ public class MapCreator extends GameObject {
                         grid[i][j] = new AlienExplode(vector);
                     break;
 
+                    //WEAPONS
+
+                    case PickupWeaponR:
+                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponR"), 0);
+                    break;
+
+                    case PickupWeaponY:
+                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponY"), 1);
+                    break;
+
                     default:
                         //grid[i][j] = new Tile(vector, Vector2.ZERO, new Sprite("../bg/tile"));
                     break;
