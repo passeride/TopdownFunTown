@@ -65,8 +65,11 @@ public class FPSLineGraph {
         gc.fillText("Draw_FPS: "  + GameEngine.getInstance().FPS, X, Y + height);
         gc.fillText("Col_FPS: "  + GameEngine.getInstance().collision_FPS, X, Y + height + 20);
         gc.fillText("    Col_num:" + HitDetectionHandler.getInstance().colliders.size(), X, Y + height + 40);
-        gc.fillText("    Ray_num:" + HitDetectionHandler.getInstance().raycasts.size(), X, Y + height + 60);
-        gc.fillText("Update_FPS: "  + GameEngine.getInstance().update_FPS, X, Y + height + 80);
+        gc.fillText("Raycast:" + GameEngine.getInstance().raycast_FPS, X, Y + height + 60);
+
+        gc.fillText("    Ray_num:" + HitDetectionHandler.getInstance().raycasts.size(), X, Y + height + 80);
+
+        gc.fillText("Update_FPS: "  + GameEngine.getInstance().update_FPS, X, Y + height + 100);
 
     }
 

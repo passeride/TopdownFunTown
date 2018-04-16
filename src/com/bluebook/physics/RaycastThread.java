@@ -2,10 +2,8 @@ package com.bluebook.physics;
 
 import com.bluebook.engine.GameEngine;
 
-/**
- * This will check for collisions and notify
- */
-public class CollisionThread implements Runnable{
+public class RaycastThread implements Runnable{
+
 
     private HitDetectionHandler hitDet;
     private float frameRate = 60f;
@@ -16,7 +14,7 @@ public class CollisionThread implements Runnable{
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
 
-    public CollisionThread(){
+    public RaycastThread(){
         hitDet = HitDetectionHandler.getInstance();
     }
 
@@ -27,8 +25,8 @@ public class CollisionThread implements Runnable{
 
             long timeElapsed = System.currentTimeMillis() - prevTick;
             long startTime = System.currentTimeMillis();
-            hitDet.updatePositions();
-            hitDet.lookForCollision();
+            System.out.println("Raycasting");
+            hitDet.doRaycasts();
             prevTick = System.currentTimeMillis();
             long processTime = prevTick - startTime;
             long newSleepTime = sleepTime - processTime;
@@ -44,11 +42,8 @@ public class CollisionThread implements Runnable{
             if (arrayFilled) {
                 long elapsedNanos = now - oldFrameTime ;
                 long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
-                GameEngine.getInstance().collision_FPS = 1_000_000_000.0 / elapsedNanosPerFrame ;
+                GameEngine.getInstance().raycast_FPS = 1_000_000_000.0 / elapsedNanosPerFrame ;
             }
-
-
-
             try {
                 Thread.sleep(newSleepTime > 0 ?  newSleepTime : 0);
 

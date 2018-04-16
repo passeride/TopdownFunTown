@@ -2,6 +2,7 @@ package com.bluebook.physics;
 
 import com.bluebook.util.GameObject;
 import com.sun.javafx.geom.Line2D;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,18 +59,24 @@ public class RayCast {
         updatePosition();
         float collisionDistance = max_distance;
         Collider colliderHit = null;
-        for(Collider c : HitDetectionHandler.getInstance().colliders){
-            if(interactionLayer.contains(c.getTag())) {
-                Line2D[] box = c.getLines();
-                for (Line2D l : box) {
-                    //float distanceHit = getRayCast(ray, l);
-                    float distanceHit = getRayCast(ray.x1, ray.y1,
-                            ray.x1 + (float)Math.cos(angle) * collisionDistance,
-                            ray.y1 + (float)Math.sin(angle) * collisionDistance,
-                            l.x1, l.y1, l.x2, l.y2);
-                    if (distanceHit > 0 && distanceHit < collisionDistance) {
-                        collisionDistance = distanceHit;
-                        colliderHit = c;
+
+        Collider[] colls = new Collider[HitDetectionHandler.getInstance().raycast_colliders.size()];
+        colls = HitDetectionHandler.getInstance().raycast_colliders.toArray(colls);
+
+        for (Collider c : colls) {
+            if(c != null) {
+                if (interactionLayer.contains(c.getTag())) {
+                    Line2D[] box = c.getLines();
+                    for (Line2D l : box) {
+                        //float distanceHit = getRayCast(ray, l);
+                        float distanceHit = getRayCast(ray.x1, ray.y1,
+                                ray.x1 + (float) Math.cos(angle) * collisionDistance,
+                                ray.y1 + (float) Math.sin(angle) * collisionDistance,
+                                l.x1, l.y1, l.x2, l.y2);
+                        if (distanceHit > 0 && distanceHit < collisionDistance) {
+                            collisionDistance = distanceHit;
+                            colliderHit = c;
+                        }
                     }
                 }
             }

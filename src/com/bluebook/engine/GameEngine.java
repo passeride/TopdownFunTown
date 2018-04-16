@@ -3,6 +3,7 @@ package com.bluebook.engine;
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.CollisionThread;
 import com.bluebook.physics.HitDetectionHandler;
+import com.bluebook.physics.RaycastThread;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
@@ -21,6 +22,7 @@ public class GameEngine {
 
     private UpdateThread updateThread;
     private CollisionThread collisionThread;
+    private RaycastThread raycastThread;
     private final BlockingQueue<String> messageQueue = new ArrayBlockingQueue<>(1);
 
     public ArrayList<GameObject> updateObjects = new ArrayList<>();
@@ -40,6 +42,7 @@ public class GameEngine {
     public double FPS = 0.0;
     public double collision_FPS = 0.0;
     public double update_FPS = 0.0;
+    public double raycast_FPS = 0.0;
 
     public Canvas canvas;
     Player p;
@@ -58,6 +61,7 @@ public class GameEngine {
 
         updateThread = new UpdateThread(this, messageQueue);
         collisionThread = new CollisionThread();
+        raycastThread = new RaycastThread();
         startAnimationTimer();
 
     }
@@ -91,12 +95,14 @@ public class GameEngine {
         isPaused = true;
         stopCollisionThread();
         stopUpdateThread();
+        stopRaycastThread();
     }
 
     public void unPause(){
         isPaused = false;
         startUpdateThread();
         startCollisionThread();
+        startRaycastThread();
     }
 
     public boolean isPaused(){
@@ -152,6 +158,24 @@ public class GameEngine {
                     updateObjects.get(i).update(delta);
         }
         //CanvasRenderer.getInstance().drawAll();
+    }
+
+
+    /**
+     * Will start the update thread that runs concurrently to process logic
+     */
+    public void startRaycastThread(){
+        Thread t = new Thread(raycastThread);
+        t.setDaemon(true);
+        t.start();
+    }
+
+    /**
+     * Will terminate logic thread
+     */
+    public void stopRaycastThread(){
+        if(raycastThread.isRunning())
+            raycastThread.terminate();
     }
 
     /**

@@ -8,7 +8,7 @@ public class OrtographicCamera {
 
 
 
-    private static double x = 0, y = 0, dampening = 0.03;
+    private static double x = 0, y = 0, dampening = 0.1;
     private double size = 300d;
     private GameObject gameobject;
     private double deadzoneX, deadzoneY;
