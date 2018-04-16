@@ -18,7 +18,7 @@ public class Explotion extends GameObject {
     public Explotion(Vector2 position) {
         super(position, Vector2.UP, new AnimationSprite("effects/explotion", 11));
         setSize(new Vector2(5, 5));
-        setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
+        setRenderLayer(RenderLayer.RenderLayerName.PROJECTILE);
         Player p = ((RomInntrenger) GameApplication.getInstance()).player;
         p.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), p.getPosition())), 10000.0));
         ((AnimationSprite)sprite).setOnAnimationFinnishedListener(new OnAnimationFinishedListener() {
