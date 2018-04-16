@@ -40,7 +40,7 @@ public class Player extends GameObject {
 
         ((RomInntrenger)GameApplication.getInstance()).player = this;
 
-        setRenderLayer(RenderLayer.RenderLayerName.GUI);
+        setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
 
@@ -155,7 +155,7 @@ public class Player extends GameObject {
         if(currentWeapon != null){
             currentWeapon.shoot();
         }
-        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  3000));
+        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  30000));
     }
 
     public Weapon getCurrentWeapon() {

@@ -13,11 +13,11 @@ public class RigidBody2D extends Component {
     public Vector2 avgAcceleration = new Vector2(0, 0);
     public Vector2 velocity = new Vector2(0,0);
     public Vector2 position = new Vector2(0,0);
-    public double friction = .99;
+    public double friction = .1;
     public GameObject gameObject;
 
 //    //TODO: Replace with FALLOFF CURVE
-    private double velocityThreshold = 0-.01;
+    private double velocityThreshold = 10;
 //    GameObject go;
 
     public RigidBody2D(GameObject go){
@@ -32,11 +32,7 @@ public class RigidBody2D extends Component {
      * @param delta deltaTime
      */
     public void update(double delta){
-        if((Math.abs(velocity.getX()) < velocityThreshold || Math.abs(velocity.getY()) < velocityThreshold)) {
-            velocity = Vector2.ZERO;
-            acceleration = Vector2.ZERO;
-            avgAcceleration = Vector2.ZERO;
-        }
+
 //            linearVelocity = Vector2.multiply(linearVelocity, new Vector2(1 - linearDrag.getX() * delta, 1 - linearDrag.getY() * delta));
 //        }else{
 //            linearVelocity = Vector2.ZERO;
@@ -46,7 +42,7 @@ public class RigidBody2D extends Component {
         if(VelocityVerlet){
             // Velocity Verlet
             velocity = Vector2.add(velocity, Vector2.multiply(avgAcceleration, delta));
-            velocity = Vector2.multiply(velocity, 1 - friction * delta);
+            velocity = Vector2.multiply(velocity, 1 - friction);
 
             Vector2 last_acceleration = acceleration;
             double px = position.getX();
@@ -57,6 +53,11 @@ public class RigidBody2D extends Component {
 
             avgAcceleration = Vector2.ZERO;
             acceleration = Vector2.ZERO;
+
+            System.out.println("VEL.x: " + velocity.getX() + " Y: " + velocity.getY());
+            if((Math.abs(velocity.getX()) < velocityThreshold || Math.abs(velocity.getY()) < velocityThreshold)) {
+                velocity = Vector2.ZERO;
+            }
 
         }else {
 
