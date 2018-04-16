@@ -1,9 +1,11 @@
 package com.bluebook.physics;
 
 import com.bluebook.camera.OrtographicCamera;
+import com.bluebook.engine.GameApplication;
 import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.RomInntrenger;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
  */
 public class HitDetectionHandler {
 
-    public boolean useQuadTree = false;
+    public boolean useQuadTree = true;
 
     private static HitDetectionHandler singelton;
     private boolean working = false;
@@ -28,7 +30,7 @@ public class HitDetectionHandler {
     // And out buffers needed for thread safe operation
     ArrayList<Collider> colliderInBuffer = new ArrayList<>();
     ArrayList<Collider> colliderOutBuffer = new ArrayList<>();
-    public QuadTree qtTree = new QuadTree(new Rectangle(0, 0, 1920, 1080), 1);
+    public QuadTree qtTree = new QuadTree(new Rectangle(0, 0, 1920 * 10, 1080 * 10), 1);
 
     private HitDetectionHandler(){
 
@@ -43,29 +45,11 @@ public class HitDetectionHandler {
 
     protected void buildQuadTree(){
         synchronized (this) {
-            qtTree = new QuadTree(new Rectangle(0, 0, 1920 * 40, 1080 * 40), 2);
+            qtTree = new QuadTree(new Rectangle(-1920 * 20 , -1080 * 20, 1920 * 40, 1080 * 40), 2);
             for (Collider c : colliders) {
                 qtTree.insert(c);
             }
         }
-    }
-
-    public Collider isPositionCollided(Vector2 newPoss, Collider col){
-
-        Rectangle queryRect = new Rectangle(newPoss.getX(), newPoss.getY(), colliderQueryWidth, colliderQueryWidth);
-        ArrayList<Collider> queryCol = qtTree.query(queryRect);
-        for (Collider dest : queryCol) {
-            if (col.getName() != dest.getName()) {
-                if (col.getInteractionLayer().contains(dest.getTag())) {
-
-                    if (col.instersects(dest)) {
-                        return dest;
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -77,18 +61,10 @@ public class HitDetectionHandler {
                 buildQuadTree();
                 for (Collider base : colliders) {
                     ArrayList<Collider> queryCol = qtTree.query(base);
-//                    Vector2 goLocPos = base.getGameObject().getTransform().getGlobalPosition();
-//                    ArrayList<Collider> queryCol = qtTree.query(
-//                            new Rectangle(goLocPos.getX() - colliderQueryWidth / 2, goLocPos.getY() - colliderQueryHeight / 2, colliderQueryWidth, colliderQueryHeight));
-
-
-//                    Rectangle cbBase = base.getRect();
                     Boolean notCollided = true;
                     for (Collider dest : queryCol) {
                         if (base.getName() != dest.getName()) {
                             if (base.getInteractionLayer().contains(dest.getTag())) {
-
-//                                Rectangle cbDest = dest.getRect();
                                 if (base.instersects(dest)) {
                                     base.setIntersection((Path) Shape.intersect(base.getShape(), dest.getShape()));
                                     base.setIntersectionCollider(dest);
@@ -157,7 +133,6 @@ public class HitDetectionHandler {
     protected void addCollider(Collider collider){
         synchronized (this) {
             colliderInBuffer.add(collider);
-            qtTree.insert(collider);
         }
     }
 

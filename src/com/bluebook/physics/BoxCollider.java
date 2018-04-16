@@ -20,7 +20,7 @@ import java.util.List;
 public class BoxCollider extends Collider {
 
 
-    private Rectangle rect;
+    private Rectangle rect = new Rectangle();
 
 
     /**
@@ -43,6 +43,8 @@ public class BoxCollider extends Collider {
             double xSize = Math.min(gameObject.getScaledSize().getX() + padding.getX(), 0.4);
             double ySize = Math.min(gameObject.getScaledSize().getY() + padding.getY(), 0.4);
             rect = new Rectangle(gameObject.getPosition().getX() - xSize, gameObject.getPosition().getY() - ySize * 2.0, xSize, ySize);
+            position = new Vector2(rect.getX(), rect.getY());
+
         }
     }
 
@@ -56,6 +58,7 @@ public class BoxCollider extends Collider {
             rect.setWidth(xSize);
             rect.setHeight(ySize);
             rect.setRotate(gameObject.getDirection().getAngleInDegrees());
+            position = new Vector2(rect.getX(), rect.getY());
         }
     }
 

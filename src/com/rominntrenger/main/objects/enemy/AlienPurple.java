@@ -1,4 +1,4 @@
-package com.rominntrenger.main.objects;
+package com.rominntrenger.main.objects.enemy;
 
 
 import com.bluebook.engine.GameApplication;
@@ -8,10 +8,8 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
-import com.topdownfuntown.main.Topdownfuntown;
-import com.topdownfuntown.objects.Enemy;
-import com.topdownfuntown.objects.Player;
-import com.topdownfuntown.objects.Projectile;
+import com.rominntrenger.main.objects.player.Player;
+import com.rominntrenger.main.objects.Projectile;
 
 import java.util.Random;
 
@@ -75,8 +73,8 @@ public class AlienPurple extends Enemy {
             public void onCollision(Collider other) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
-                    pl.hit();
-                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())), 300.0));
+                    pl.hit(bullet_dmg);
+//                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())), 300.0));
 
                 }
                 p.destroy();

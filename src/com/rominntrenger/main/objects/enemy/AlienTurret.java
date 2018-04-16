@@ -1,4 +1,4 @@
-package com.rominntrenger.main.objects;
+package com.rominntrenger.main.objects.enemy;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;

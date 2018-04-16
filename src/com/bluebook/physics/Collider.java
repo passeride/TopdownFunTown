@@ -21,6 +21,8 @@ public abstract class Collider {
 
     protected List<String> interactionLayer = new ArrayList<>();
 
+    protected Vector2 position = Vector2.ZERO;
+
     protected Path intersection;
     protected Vector2 intersectionCenter;
     protected Vector2 padding = Vector2.ZERO;
@@ -33,7 +35,14 @@ public abstract class Collider {
         this.gameObject = go;
         CanvasRenderer.getInstance().addCollider(this);
         HitDetectionHandler.getInstance().addCollider(this);
+    }
 
+    /**
+     * Alternate constructor used for testing without gameobject
+     */
+    protected Collider(){
+//        CanvasRenderer.getInstance().addCollider(this);
+//        HitDetectionHandler.getInstance().addCollider(this);
     }
 
     protected abstract void updatePosition();
@@ -178,5 +187,13 @@ public abstract class Collider {
 
     public void setIntersectionCollider(Collider intersectionCollider) {
         this.intersectionCollider = intersectionCollider;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 }

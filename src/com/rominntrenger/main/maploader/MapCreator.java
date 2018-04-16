@@ -8,6 +8,12 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.objects.*;
+import com.rominntrenger.main.objects.enemy.AlienExplode;
+import com.rominntrenger.main.objects.enemy.AlienGreen;
+import com.rominntrenger.main.objects.enemy.AlienPurple;
+import com.rominntrenger.main.objects.enemy.AlienTurret;
+import com.rominntrenger.main.objects.player.Player;
+import com.rominntrenger.main.objects.blocks.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.image.BufferedImage;

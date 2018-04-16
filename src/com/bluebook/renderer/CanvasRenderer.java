@@ -7,6 +7,7 @@ import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.GameObject;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,8 @@ public class CanvasRenderer {
     private ArrayList<GameObject> drawables = new ArrayList<>();
     private RenderLayer[] layers = new RenderLayer[RenderLayer.RenderLayerName.values().length];
     private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
+
+    public Color bgColor = Color.BLACK;
 
     private static CanvasRenderer singelton;
 
@@ -129,6 +132,8 @@ public class CanvasRenderer {
 
 
             clearCanvas(gc);
+            gc.setFill(bgColor);
+            gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             GraphicsRenderer gr = new GraphicsRenderer(gc);
             for(int i = 0; i < layers.length;  i++){
                 if(useGraphicsRenderer)

@@ -1,4 +1,4 @@
-package com.rominntrenger.main.objects;
+package com.rominntrenger.main.objects.blocks;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;

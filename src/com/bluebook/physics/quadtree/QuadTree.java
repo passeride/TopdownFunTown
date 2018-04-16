@@ -1,17 +1,13 @@
 package com.bluebook.physics.quadtree;
 
 import com.bluebook.camera.OrtographicCamera;
-import com.bluebook.physics.BoxCollider;
-import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
-import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
-import com.rominntrenger.main.objects.Player;
+import com.rominntrenger.main.objects.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +25,7 @@ public class QuadTree {
     public static final boolean useGlobalPosition = true;
 
     public ArrayList<Collider> colliders = new ArrayList<>();
+    public ArrayList<Collider> outOfBounds = new ArrayList<>();
     public QuadTree[] children = new QuadTree[4];
     public boolean isSubdevided = false;
     public Rectangle boundry;
@@ -82,15 +79,9 @@ public class QuadTree {
 
     public void insert(Collider col){
         synchronized (this) {
-            Vector2 goLocPos;
+            Vector2 goLocPos = col.getPosition();
 
-            if(useGlobalPosition){
-                goLocPos = col.getGameObject().getTransform().getGlobalPosition();
-            } else{
-                goLocPos = col.getGameObject().getTransform().getLocalPosition();
-            }
-
-            if (boundry.intersects(goLocPos.getX(), goLocPos.getY(), 5, 5)) {
+            if (boundry.intersects(goLocPos.getX(), goLocPos.getY(), 6, 6)) {
                 if (isSubdevided) {
                     children[QuadChildren.NORTHWEST.value].insert(col);
                     children[QuadChildren.NORTHEAST.value].insert(col);
@@ -99,6 +90,7 @@ public class QuadTree {
                 } else {
                     if (colliders.size() + 1 <= capacity) {
                         colliders.add(col);
+//                        System.out.println("Inside QUADTREE: " + col.getTag() + " X : " + col.getPosition().getX() + " Y: " + col.getPosition().getY() + " DID NOT INTERSECT WITH  X: " + boundry.getX() + " Y: " + boundry.getY() + " W: " + boundry.getWidth() + " H: " + boundry.getHeight());
                     } else {
                         subdevide();
                         insert(col);
@@ -126,59 +118,34 @@ public class QuadTree {
         // SOUTHEAST
         Rectangle seR = new Rectangle(boundry.getX() + halfWidth, boundry.getY() + halfHeight, halfWidth, halfHeight);
         children[QuadChildren.SOUTHEAST.value] = new QuadTree(seR, capacity);
-
-//        for(GameObject go : colliders){
-//            for(int i = 0; i < children.length; i ++){
-//                children[i].insert(go);
-//            }
-//        }
-//        colliders.clear();
     }
 
     public ArrayList<Collider> query(Collider col){
-        Vector2 pos;
-        if(useGlobalPosition){
-            pos = col.getGameObject().getTransform().getGlobalPosition();
-        } else{
-            pos = col.getGameObject().getTransform().getLocalPosition();
-        }
+        Vector2 pos = col.getPosition();
         return query(new Rectangle(pos.getX() - colliderQueryWidth / 4, pos.getY() - colliderQueryHeight / 4, colliderQueryWidth, colliderQueryHeight));
-    }
-
-    public boolean intersects(Rectangle rect1, Rectangle rect2){
-        double X1LEFT = rect1.getX();
-        double X1RIGHT = rect1.getX() + rect1.getWidth();
-        double Y1TOP = rect1.getY();
-        double Y1BOTTOM = rect1.getY() + rect1.getHeight();
-
-        double X2LEFT = rect2.getX();
-        double X2RIGHT = rect2.getX() + rect2.getWidth();
-        double Y2TOP = rect2.getY();
-        double Y2BOTTOM = rect2.getY() + rect2.getHeight();
-
-        return X1LEFT < X2RIGHT && X1RIGHT > X2LEFT && Y1TOP > Y2BOTTOM && Y1BOTTOM < Y2TOP;
     }
 
     public ArrayList<Collider> query(Rectangle rect){
         ArrayList<Collider> ret = new ArrayList<>();
         if(isSubdevided){
-            if(children[QuadChildren.NORTHWEST.value].boundry.intersects(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight())){
+            if(children[QuadChildren.NORTHWEST.value].boundry.getBoundsInParent().intersects(rect.getBoundsInParent())){
                 ret.addAll(children[QuadChildren.NORTHWEST.value].query(rect));
             }
-            if(children[QuadChildren.NORTHEAST.value].boundry.intersects(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight())){
+            if(children[QuadChildren.NORTHEAST.value].boundry.getBoundsInParent().intersects(rect.getBoundsInParent())){
                 ret.addAll(children[QuadChildren.NORTHEAST.value].query(rect));
             }
-            if(children[QuadChildren.SOUTHWEST.value].boundry.intersects(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight())){
+            if(children[QuadChildren.SOUTHWEST.value].boundry.getBoundsInParent().intersects(rect.getBoundsInParent())){
                 ret.addAll(children[QuadChildren.SOUTHWEST.value].query(rect));
             }
-            if(children[QuadChildren.SOUTHWEST.value].boundry.intersects(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight())){
-                ret.addAll(children[QuadChildren.SOUTHWEST.value].query(rect));
+            if(children[QuadChildren.SOUTHEAST.value].boundry.getBoundsInParent().intersects(rect.getBoundsInParent())){
+                ret.addAll(children[QuadChildren.SOUTHEAST.value].query(rect));
             }
         }
 
         for(Collider col : colliders){
             if(col == null)
                 continue;
+
 
             Rectangle r = col.getBoudningBox();
             if (rect.intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight())) {
@@ -204,18 +171,22 @@ public class QuadTree {
                         children[QuadChildren.SOUTHEAST.value].draw(gc);
                 }
 
+
+
                 if (OrtographicCamera.main != null) {
                     gc.setLineWidth(3);
                     gc.setStroke(Color.BLACK);
                     //gc.setLineDashes(2, 7, 2, 8);
-                    double x = boundry.getX();
-                    double y = boundry.getY();
+                    Vector2 camOff = OrtographicCamera.getOffset();
+                    double x = boundry.getX() + camOff.getX();
+                    double y = boundry.getY() + camOff.getY();
                     double w = boundry.getWidth();
                     double h = boundry.getHeight();
                     gc.strokeLine(x, y, x + w, y);
                     gc.strokeLine(x, y, x, y + h);
                     gc.strokeLine(x, y + h, x + w, y + h);
                     gc.strokeLine(x + w, y, x + w, y + h);
+                    gc.setFill(Color.WHITE);
 
                     gc.setFill(Color.RED);
                     for (Collider go : colliders) {
@@ -228,24 +199,11 @@ public class QuadTree {
                         }
                         gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
 
-                        if(go.getGameObject() instanceof Player){
+                        if(go.getGameObject() instanceof Player) {
                             gc.setStroke(Color.PURPLE);
                             gc.strokeRect(goPoss.getX() - colliderQueryWidth / 2, goPoss.getY() - colliderQueryHeight / 2, colliderQueryWidth, colliderQueryWidth);
-                            ArrayList<Collider> cols = query(go);
-                            gc.setFill(Color.GREEN);
-                            for(Collider col : cols){
-                                Vector2 playerColliderPoss;
-                                if(useGlobalPosition){
-                                    playerColliderPoss = go.getGameObject().getTransform().getGlobalPosition();
-                                }else{
-                                    playerColliderPoss = go.getGameObject().getTransform().getLocalPosition();
-                                }
-                                gc.fillRect(playerColliderPoss.getX() - 5, playerColliderPoss.getY() - 5, 10, 10);
-                            }
                         }
                     }
-
-
                 }
             }
         }

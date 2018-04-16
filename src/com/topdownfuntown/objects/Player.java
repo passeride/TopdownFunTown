@@ -48,7 +48,7 @@ public class Player extends GameObject {
         currentWeapon = weapon;
 
         collider = new BoxCollider(this);
-        collider.setName("Player");
+        collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
 

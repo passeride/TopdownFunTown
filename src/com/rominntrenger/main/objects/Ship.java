@@ -1,9 +1,9 @@
 package com.rominntrenger.main.objects;
 
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.BoxCollider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.objects.blocks.Item;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Ship extends Item {

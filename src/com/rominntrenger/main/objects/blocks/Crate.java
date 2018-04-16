@@ -1,4 +1,4 @@
-package com.rominntrenger.main.objects;
+package com.rominntrenger.main.objects.blocks;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
@@ -6,7 +6,7 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Tile extends Item {
+public class Crate extends Item {
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -15,10 +15,11 @@ public class Tile extends Item {
      * @param direction
      * @param sprite
      */
-    public Tile(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Crate(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
         setSize(new Vector2(1,1));
-        this.setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
+        setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
+        collider = new BoxCollider(this);
     }
 
     @Override

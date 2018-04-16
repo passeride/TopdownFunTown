@@ -32,7 +32,7 @@ public abstract class Enemy extends GameObject {
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
         collider = new BoxCollider(this);
 
-        collider.setName("Enemy");
+        collider.setName("enemy");
         collider.setTag("Hittable");
         collider.attachToGameObject(this);
         collider.addInteractionLayer("UnHittable");

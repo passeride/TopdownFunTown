@@ -1,20 +1,15 @@
-package com.rominntrenger.main.objects;
+package com.rominntrenger.main.objects.player;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
-import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.*;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
-import com.topdownfuntown.main.Topdownfuntown;
-import javafx.scene.canvas.GraphicsContext;
-
-import java.util.ArrayList;
 
 public class Player extends GameObject {
 
@@ -28,8 +23,7 @@ public class Player extends GameObject {
 
     public RigidBody2D rb2;
 
-    private int rayCastResolution = 0;
-    private ArrayList<RayCast> raycasts = new ArrayList<>();
+    private RomInntrenger romInntrenger;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -49,7 +43,7 @@ public class Player extends GameObject {
         hitSound.setSpital(this);
 
         collider = new BoxCollider(this);
-        collider.setName("Player");
+        collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
 
@@ -60,23 +54,17 @@ public class Player extends GameObject {
         walkCollider.addInteractionLayer("Block");
         walkCollider.setPadding(new Vector2(-20, -20));
 
-        setUpRayCast();
-
         rb2 = new RigidBody2D(this);
 
         OrtographicCamera.main.follow(this);
 
-    }
+        romInntrenger = ((RomInntrenger)GameApplication.getInstance());
 
-    private void setUpRayCast(){
-        for(int i = 0; i < rayCastResolution; i++){
-            double dir = (Math.PI * 2) * ((double) i / rayCastResolution);
-            raycasts.add(new RayCast(dir, this));
-        }
     }
 
     @Override
     public void update(double delta) {
+        translate(Vector2.multiply(rb2.velocity, delta));
         translate(Vector2.ZERO); // This is to update in case of intersection
     }
 
@@ -133,13 +121,14 @@ public class Player extends GameObject {
     /**
      * Used when player is hit to subtract health and check for death
      */
-    public void hit() {
-//        int hp = topdownfuntown.getHealth();
-//        topdownfuntown.setHealth(--hp);
-//        if (hp <= 0) {
-//            die();
-//            destroy();
-//        }
+    public void hit(int dmg) {
+        int hp = romInntrenger.healthElement.getHp();
+        hp -= dmg;
+        romInntrenger.healthElement.setHp(hp);
+        if (hp <= 0) {
+            die();
+            destroy();
+        }
         hitSound.playOnce();
     }
 

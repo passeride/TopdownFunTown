@@ -14,13 +14,24 @@ import java.util.List;
 public class CircleCollider extends Collider{
 
     private double radius;
-    private Vector2 position;
     private int lineResolution = 12;
 
     public CircleCollider(GameObject go, double radius){
         super(go);
         this.radius = radius;
-        position = go.getPosition();
+        this.position = go.getPosition();
+    }
+
+    /**
+     * Alternate collider, mostly used during testing
+     * @param position
+     * @param radius
+     */
+    public CircleCollider(Vector2 position, double radius){
+        super();
+        this.position = position;
+        this.radius = radius;
+
     }
 
     @Override
@@ -95,7 +106,7 @@ public class CircleCollider extends Collider{
 
     @Override
     public Rectangle getBoudningBox() {
-        return new Rectangle(position.getX() - radius / 2, position.getY() - radius / 2, radius, radius);
+        return new Rectangle(position.getX() - radius, position.getY() - radius, radius, radius);
     }
 
     @Override

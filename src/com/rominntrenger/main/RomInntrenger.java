@@ -2,12 +2,12 @@ package com.rominntrenger.main;
 
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.engine.GameApplication;
-import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.gui.HealthElement;
 import com.rominntrenger.main.gui.Inventory;
 import com.rominntrenger.main.maploader.ImageBuffering;
 import com.rominntrenger.main.maploader.MapCreator;
-import com.rominntrenger.main.objects.Player;
+import com.rominntrenger.main.objects.player.Player;
 import javafx.scene.input.KeyCode;
 
 import java.awt.image.BufferedImage;
@@ -17,6 +17,7 @@ public class RomInntrenger extends GameApplication {
     Inventory inventory;
     double camSpeed = 15;
     public Player player;
+    public HealthElement healthElement;
 
     @Override
     protected void onLoad() {
@@ -28,7 +29,7 @@ public class RomInntrenger extends GameApplication {
         MapCreator level = new MapCreator("../bg/backgroundGradient_01", thisMap);
         level.createLevel();
         inventory = new Inventory(6);
-
+        healthElement = new HealthElement(new Vector2(0, 0));
     }
 
     @Override

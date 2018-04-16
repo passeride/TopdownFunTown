@@ -31,7 +31,7 @@ public class Inventory extends GameObject {
     @Override
     public void draw(GraphicsContext gc) {
         // background.drawGUI(gc, new Vector2(0.1 + ( 0.06 * itemNum / 2), 0.1), new Vector2(itemNum * 2.8, 1.5));
-        background.drawGUI(gc, new Vector2(10,20), new Vector2(inventorySpace * 2.8, 1.5));
+        background.drawGUI(gc, new Vector2(10,100), new Vector2(inventorySpace * 2.8, 1.5));
         if(hasItem) {
             for(int i = 0; i < inventoryContents.length; i++) {
                 if(inventoryContents[i] != null) {
