@@ -33,10 +33,12 @@ public class AudioPlayer {
         if(spital){
             if(clip.isControlSupported(FloatControl.Type.PAN)) {
                 FloatControl balance = (FloatControl) clip.getControl(FloatControl.Type.PAN);
-                balance.setValue((float)(source.getProcentageXPosition() * 1.5 - .75));
+                float pan = (float)(Math.max(0, Math.min( 1, source.getProcentageXPosition() * 1.5 - .75)));
+                balance.setValue(pan);
             }else if(clip.isControlSupported(FloatControl.Type.BALANCE)){
                 FloatControl balance = (FloatControl) clip.getControl(FloatControl.Type.BALANCE);
-                balance.setValue((float)(source.getProcentageXPosition() * 1.5 - .75));
+                float pan = (float)(Math.max(0, Math.min( 1, source.getProcentageXPosition() * 1.5 - .75)));
+                balance.setValue(pan);
             }else{
                 System.out.println("NO PAN OR BALANCE SUPPORTED channels: " + clip.getFormat().getChannels());
             }

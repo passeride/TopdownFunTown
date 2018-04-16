@@ -25,6 +25,7 @@ public class HitDetectionHandler {
     public double colliderQueryWidth = 500, colliderQueryHeight = 500;
 
     public ArrayList<Collider> colliders = new ArrayList<>();
+    public ArrayList<Collider> raycast_colliders = new ArrayList<>();
     public ArrayList<RayCast> raycasts = new ArrayList<>();
 
     // And out buffers needed for thread safe operation
@@ -104,12 +105,20 @@ public class HitDetectionHandler {
                     }
                 }
             }
-            // Raycasting
+
+            moveBuffer();
+        }
+    }
+
+
+    public void doRaycasts(){
+        // Raycasting
+        System.out.println("RAYCASTING1");
+         System.out.println("RAYCASTING");
             for (RayCast r : raycasts) {
                 r.Cast();
             }
-            moveBuffer();
-        }
+
     }
 
     public void moveBuffer(){
@@ -122,6 +131,8 @@ public class HitDetectionHandler {
                 colliders.remove(c);
         }
         colliderOutBuffer.clear();
+
+        raycast_colliders.addAll(colliders);
     }
 
     public static HitDetectionHandler getInstance(){

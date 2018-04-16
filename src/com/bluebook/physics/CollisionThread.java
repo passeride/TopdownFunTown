@@ -8,7 +8,7 @@ import com.bluebook.engine.GameEngine;
 public class CollisionThread implements Runnable{
 
     private HitDetectionHandler hitDet;
-    private float frameRate = 120f;
+    private float frameRate = 60f;
     private long sleepTime =  (long)((1f / frameRate) * 1000f) ;
     private volatile boolean running = true;
     private long prevTick = 0;
