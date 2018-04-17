@@ -44,7 +44,7 @@ public class Player extends GameObject {
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
 
-        collider = new BoxCollider(this);
+        collider = new CircleCollider(this, 30);
         collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
@@ -137,6 +137,7 @@ public class Player extends GameObject {
     }
 
     private void die() {
+        currentWeapon.destroy();
         GameEngine.getInstance().Pause();
         destroy();
     }

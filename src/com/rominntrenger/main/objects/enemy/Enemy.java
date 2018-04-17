@@ -86,6 +86,7 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void destroy() {
+        walkCollider.destroy();
         super.destroy();
 //        if(isKeyHolder)
 //            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;

@@ -10,6 +10,7 @@ import com.rominntrenger.main.gui.HealthElement;
 import com.rominntrenger.main.gui.Inventory;
 import com.rominntrenger.main.maploader.ImageBuffering;
 import com.rominntrenger.main.maploader.MapCreator;
+import com.rominntrenger.main.messageHandling.MessageHandler;
 import com.rominntrenger.main.objects.player.Player;
 import com.rominntrenger.main.objects.player.StarterWeapon;
 import com.rominntrenger.main.objects.player.Weapon;
@@ -27,6 +28,8 @@ public class RomInntrenger extends GameApplication {
 
     public AudioPlayer bgMusic;
 
+    MessageHandler msh;
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -40,20 +43,18 @@ public class RomInntrenger extends GameApplication {
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vector2(0, 0));
 
-        bgMusic = new AudioPlayer("./assets/audio/RowYourBoat.wav");
+        bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         bgMusic.playLoop();
 
 
         player.setCurrentWeapon(currentWeapon);
+
+        msh = MessageHandler.getInstance();
     }
 
     @Override
     public void update(double delta) {
         cam.update();
-/*
-        if(input.isKeyPressed(KeyCode.U)){
-            inventory.addItem(new InventoryItem(new Sprite("./items/key_gold00"), 1));
-        } */
 
         if(input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input.isKeyDown(KeyCode.A) || input.isKeyDown(KeyCode.D)){
             ((AnimationSprite)player.getSprite()).setPlaying(true);

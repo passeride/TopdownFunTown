@@ -29,14 +29,15 @@ public class AlienPurple extends Enemy {
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         //setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
-        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
-
+        speed = 100;
     }
 
 
     @Override
     public void update(double delta) {
         super.update(delta);
+        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+
         if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
             shoot();
@@ -63,6 +64,21 @@ public class AlienPurple extends Enemy {
         p2.setSpeed(800);
         p2.setSine(true);
 
+        // Adding colliders layers
+        p2.getCollider().addInteractionLayer("UnHittable");
+        p2.getCollider().addInteractionLayer("Block");
+
+        p2.setOnCollisionListener(new OnCollisionListener() {
+            @Override
+            public void onCollision(Collider other) {
+                if (other.getGameObject() instanceof Player) {
+                    Player pl = (Player) other.getGameObject();
+                    pl.hit(bullet_dmg);
+                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())), 3000.0));
+                }
+                p2.destroy();
+            }
+        });
 
         // Adding colliders layers
         p.getCollider().addInteractionLayer("UnHittable");
@@ -74,11 +90,9 @@ public class AlienPurple extends Enemy {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);
-//                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())), 300.0));
-
+                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())), 3000.0));
                 }
                 p.destroy();
-
             }
         });
     }

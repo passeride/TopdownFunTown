@@ -33,12 +33,6 @@ public class RigidBody2D extends Component {
      */
     public void update(double delta){
 
-//            linearVelocity = Vector2.multiply(linearVelocity, new Vector2(1 - linearDrag.getX() * delta, 1 - linearDrag.getY() * delta));
-//        }else{
-//            linearVelocity = Vector2.ZERO;
-//        }
-//        angularVelocity = Vector2.multiply(angularVelocity, new Vector2( 1 - angularDrag.getX() * delta, 1 - angularDrag.getY() * delta));
-
         if(VelocityVerlet){
             // Velocity Verlet
             velocity = Vector2.add(velocity, Vector2.multiply(avgAcceleration, delta));
@@ -54,7 +48,6 @@ public class RigidBody2D extends Component {
             avgAcceleration = Vector2.ZERO;
             acceleration = Vector2.ZERO;
 
-            System.out.println("VEL.x: " + velocity.getX() + " Y: " + velocity.getY());
             if((Math.abs(velocity.getX()) < velocityThreshold || Math.abs(velocity.getY()) < velocityThreshold)) {
                 velocity = Vector2.ZERO;
             }
