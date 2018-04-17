@@ -4,6 +4,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.objects.Explotion;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Wall extends Item {
@@ -21,6 +22,12 @@ public class Wall extends Item {
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
         collider.setTag("Block");
+    }
+
+    @Override
+    public void destroy() {
+        new Explotion(getPosition());
+        super.destroy();
     }
 
     @Override

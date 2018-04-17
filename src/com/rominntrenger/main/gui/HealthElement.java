@@ -48,7 +48,7 @@ public class HealthElement extends GameObject {
         setPosition(new Vector2(-OrtographicCamera.main.getX() + 200, -OrtographicCamera.main.getY() + 200));
         setSprite(sprites[getSpriteNumber()]);
         Sprite sp = sprites[getSpriteNumber()];
-        sp.drawGUI(gc, new Vector2(25, 25), new Vector2(3, 6));
+        sp.drawGUI(gc, new Vector2(25, 45), 600, 250);
 
         if(GameEngine.DEBUG) {
             gc.setFill(Color.BLACK);

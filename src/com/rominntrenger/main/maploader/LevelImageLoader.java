@@ -103,6 +103,13 @@ public class LevelImageLoader {
                     case ("EECCCC"):
                         gameMap[x][y] = ID.AlienTurret;
                     break;
+                    case("666EEE"):
+                        gameMap[x][y] = ID.PickupWeaponR;
+                    break;
+                    case("666000"):
+                        gameMap[x][y] = ID.PickupWeaponY;
+                    break;
+
                     default:
                         gameMap[x][y] = ID.Empty;
                     break;

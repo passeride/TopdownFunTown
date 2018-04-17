@@ -17,7 +17,7 @@ public class Table extends Item {
      */
     public Table(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        setSize(new Vector2(1,1));
+        setSize(new Vector2(1.5,2));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
     }

@@ -1,6 +1,6 @@
 {
-  "grid_X": 32,
-  "grid_Y": 18,
+  "grid_X": 16,
+  "grid_Y": 9,
   "game_resolution_X":1920,
   "game_resolution_Y":1080,
   "fullscreen":false,

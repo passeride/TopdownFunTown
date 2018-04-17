@@ -20,6 +20,8 @@ public class Player extends GameObject {
     private double speedBoostSpeed = 1000.0;
     private boolean speedBost = false;
     private Collider walkCollider;
+    private Weapon currentWeapon;
+
 
     public RigidBody2D rb2;
 
@@ -38,7 +40,7 @@ public class Player extends GameObject {
 
         ((RomInntrenger)GameApplication.getInstance()).player = this;
 
-        setRenderLayer(RenderLayer.RenderLayerName.GUI);
+        setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
         hitSound.setSpital(this);
 
@@ -64,6 +66,8 @@ public class Player extends GameObject {
 
     @Override
     public void update(double delta) {
+        rb2.update(delta);
+
         translate(Vector2.multiply(rb2.velocity, delta));
         translate(Vector2.ZERO); // This is to update in case of intersection
     }
@@ -148,7 +152,19 @@ public class Player extends GameObject {
     }
 
     public void shoot() {
-        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  300));
+        if(currentWeapon != null){
+            currentWeapon.shoot();
+        }
+        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  30000));
     }
 
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    public void setCurrentWeapon(Weapon currentWeapon) {
+
+        this.currentWeapon = currentWeapon;
+        this.currentWeapon.getTransform().setParent(transform);
+    }
 }

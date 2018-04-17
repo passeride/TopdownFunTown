@@ -8,6 +8,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.GraphicsRenderer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.objects.Explotion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
@@ -126,8 +127,8 @@ public class Turret extends Enemy {
 
     @Override
     public void destroy() {
-        super.destroy();
         new Explotion(getPosition());
+        super.destroy();
     }
 
     @Override
