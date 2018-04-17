@@ -1,23 +1,19 @@
 package com.rominntrenger.main.objects.enemy;
 
 
-import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vector2;
-import com.rominntrenger.main.RomInntrenger;
-import com.rominntrenger.main.objects.player.Player;
 import com.rominntrenger.main.objects.Projectile;
+import com.rominntrenger.main.objects.player.Player;
 
 import java.util.Random;
 
 public class AlienGreen extends Enemy {
     private double shootInterval = 1.8;
     private long prevShot = 0;
-
-
 
     /*
     public AlienGreen(Vector2 position, Vector2 direction, Sprite sprite) {
@@ -34,7 +30,11 @@ public class AlienGreen extends Enemy {
 
     public void update(double delta) {
         super.update(delta);
-        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+        AlienGreen.super.nextBehaviour();
+
+        //setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+
+
 
         if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
@@ -68,4 +68,10 @@ public class AlienGreen extends Enemy {
             }
         });
     }
+
+    public void wander(Vector2 position){
+        double x = position.getX();
+        double y = position.getY();
+    }
+
 }

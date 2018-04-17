@@ -131,8 +131,8 @@ public class AlienTurret extends Enemy {
     }
 
     @Override
-    public void update(double detla) {
-        super.update(detla);
+    public void update(double delta) {
+        super.update(delta);
         if(playerSeen) {
             setDirection(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
             shoot();
@@ -140,7 +140,7 @@ public class AlienTurret extends Enemy {
             setDirection(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), enemy.getPosition()) + 90));
             shoot();
         }else{
-            timeTest += detla;
+            timeTest += delta;
             progress = (timeTest % osscilation) / osscilation;
             if (timesChanged < (int) (timeTest / osscilation))
                 angleGrowing = !angleGrowing;

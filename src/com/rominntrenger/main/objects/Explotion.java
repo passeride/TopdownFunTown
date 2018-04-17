@@ -30,7 +30,7 @@ public class Explotion extends GameObject {
     }
 
     @Override
-    public void update(double detla) {
-        super.update(detla);
+    public void update(double delta) {
+        super.update(delta);
     }
 }

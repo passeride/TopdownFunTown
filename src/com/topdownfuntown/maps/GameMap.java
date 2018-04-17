@@ -16,9 +16,9 @@ import com.topdownfuntown.objects.Enemy;
 import com.topdownfuntown.objects.Obstacle;
 import com.topdownfuntown.objects.Player;
 import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Creating GameMap/Area with player, enemy and obstacle array lists.
@@ -110,8 +110,8 @@ public class GameMap extends GameObject {
     }
 
     @Override
-    public void update(double detla) {
-        super.update(detla);
+    public void update(double delta) {
+        super.update(delta);
     }
 
     public String getName() {

@@ -8,20 +8,20 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.objects.FSM.Behaviour;
+import com.rominntrenger.main.objects.FSM.Wander;
 import com.rominntrenger.main.objects.player.Player;
 
 public abstract class Enemy extends GameObject {
-
-
     double speed = 300;
     GameObject target;
     double angularDampening = 0.05;
     int bullet_dmg = 10;
-
+    Behaviour behaviour;
+    public double delta;
     private Collider walkCollider;
 
     public boolean isKeyHolder = false;
-
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -61,10 +61,23 @@ public abstract class Enemy extends GameObject {
         walkCollider.addInteractionLayer("Block");
         walkCollider.setPadding(new Vector2(-20, -20));
 
+        this.behaviour = new Wander();
+    }
+
+    public void setBehaviour(Behaviour behaviour){
+        this.behaviour = behaviour;
+    }
+
+    public void nextBehaviour() {
+        this.behaviour.nextBehaviour(this);
     }
 
     public void setTarget(GameObject target) {
         this.target = target;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 
     @Override
@@ -93,13 +106,16 @@ public abstract class Enemy extends GameObject {
     }
 
     @Override
-    public void update(double detla) {
+    public void update(double delta) {
         if (target != null) {
-            translate(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * detla));
+            translate(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
             setDirection(Vector2.add(getDirection(), Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), angularDampening)));
             getDirection().normalize();
         }
+        this.delta = delta;
     }
 
-
+    public double getDelta() {
+        return delta;
+    }
 }
