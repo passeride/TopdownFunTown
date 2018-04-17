@@ -10,6 +10,10 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.objects.player.Player;
 
 public class Explotion extends GameObject {
+
+    public double distance = 500;
+    public int dmg = 40;
+
     /**
      * Constructor for GameObject given position rotation and sprite
      *
@@ -20,7 +24,19 @@ public class Explotion extends GameObject {
         setSize(new Vector2(5, 5));
         setRenderLayer(RenderLayer.RenderLayerName.PROJECTILE);
         Player p = ((RomInntrenger) GameApplication.getInstance()).player;
-        p.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), p.getPosition())), 10000.0));
+        p.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), p.getPosition())), 400000.0));
+
+        double distance2Player = p.getPosition().distance(getPosition());
+
+        double dmgMultiplier = distance2Player / distance;
+        int dmg2Player = (int)(dmg * dmgMultiplier);
+        System.out.println(distance2Player  + " : " + dmgMultiplier);
+
+        if(distance2Player < distance){
+            p.hit(dmg2Player);
+        }
+
+
         ((AnimationSprite)sprite).setOnAnimationFinnishedListener(new OnAnimationFinishedListener() {
             @Override
             public void AnimationFinnished() {
