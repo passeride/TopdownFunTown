@@ -31,7 +31,7 @@ public class PickupWeapon extends Item implements Describable {
      */
     public PickupWeapon(Vector2 position, Vector2 direction, Sprite sprite, int id) {
         super(position, direction, sprite);
-        setSize(new Vector2(1,1));
+        setSize(new Vector2(0.7,0.7));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
         this.weaponID = id;
@@ -62,5 +62,6 @@ public class PickupWeapon extends Item implements Describable {
         p.setCurrentWeapon(w);
         ((RomInntrenger)GameApplication.getInstance()).currentWeapon = w;
         destroy();
+        collider.destroy();
     }
 }

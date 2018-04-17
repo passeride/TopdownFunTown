@@ -25,7 +25,7 @@ public class Player extends GameObject {
     private boolean speedBost = false;
     private Collider walkCollider;
     private Weapon currentWeapon;
-
+    private int playerKey = 9;
 
     public RigidBody2D rb2;
 
@@ -190,5 +190,13 @@ public class Player extends GameObject {
 
         this.currentWeapon = currentWeapon;
         this.currentWeapon.getTransform().setParent(transform);
+    }
+
+    public int getPlayerKey() {
+        return playerKey;
+    }
+
+    public void setPlayerKey(int playerKey) {
+        this.playerKey = playerKey;
     }
 }

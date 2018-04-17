@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 
 public class RomInntrenger extends GameApplication {
     OrtographicCamera cam;
-    Inventory inventory;
+    public Inventory inventory;
     double camSpeed = 15;
     public Player player;
     public HealthElement healthElement;
@@ -33,11 +33,11 @@ public class RomInntrenger extends GameApplication {
     @Override
     protected void onLoad() {
         super.onLoad();
-        currentWeapon = new StarterWeapon(new Vector2(0,40), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
+        currentWeapon = new StarterWeapon(new Vector2(0,23), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
         cam = new OrtographicCamera();
         ImageBuffering loader = new ImageBuffering();
         BufferedImage thisMap;
-        thisMap = loader.loadImage("sandBox",32,32);
+        thisMap = loader.loadImage("startMap",64,64);
         MapCreator level = new MapCreator("../bg/backgroundGradient_01", thisMap);
         level.createLevel();
         inventory = new Inventory(6);
@@ -73,7 +73,6 @@ public class RomInntrenger extends GameApplication {
         if(input.isKeyDown(KeyCode.D)){
             player.moveRight(delta);
 //            msgH.writeMessage("Du trykket på knapp d.\n Fuck yeah, u hit dat shit boi\n oh shit! dat boi");
-
         }
 
         if(input.isKeyDown(KeyCode.A)){
