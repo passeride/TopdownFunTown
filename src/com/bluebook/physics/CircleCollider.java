@@ -22,17 +22,6 @@ public class CircleCollider extends Collider{
         this.position = go.getPosition();
     }
 
-    /**
-     * Alternate collider, mostly used during testing
-     * @param position
-     * @param radius
-     */
-    public CircleCollider(Vector2 position, double radius){
-        super();
-        this.position = position;
-        this.radius = radius;
-
-    }
 
     @Override
     protected void updatePosition() {

@@ -8,6 +8,9 @@ import com.bluebook.util.Vector2;
 import com.rominntrenger.main.objects.Projectile;
 import com.rominntrenger.main.objects.enemy.Enemy;
 
+/**
+ * Weapon class is used for weapons that the Player can equip and shoot with
+ */
 public abstract class Weapon extends GameObject {
     public Vector2 offset;
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
@@ -15,7 +18,7 @@ public abstract class Weapon extends GameObject {
     protected String projectilePath = "/projectiles/projectile_gold_00";
 
     /**
-     * Constructor for GameObject given position rotation and sprite
+     * Constructor for Weapon
      *
      * @param position
      * @param direction
@@ -41,13 +44,16 @@ public abstract class Weapon extends GameObject {
     }
 
 
+    /**
+     * Shoot will shoot a projectile constructed in this class at the direction the player is faced
+     */
     public void shoot(){
         audioPlayer.setSpital(this);
         audioPlayer.playOnce();
         // score -= 50;
         Vector2 angle = Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
 
-        Vector2 spawnPosition = transform.getParent().getLocalPosition();
+        Vector2 spawnPosition = transform.getWorldPosition();
 
         Projectile p = new Projectile(spawnPosition,
                 Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
@@ -56,7 +62,6 @@ public abstract class Weapon extends GameObject {
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {
-            //System.out.println("HIT:  "  + other.getName() + "  :  " + other.getTag());
             if(other.getGameObject() instanceof Player) {
                 Player player = (Player) other.getGameObject();
                 player.hit(10);
