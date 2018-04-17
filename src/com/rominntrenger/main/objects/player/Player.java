@@ -155,11 +155,12 @@ public class Player extends GameObject {
         GameEngine.getInstance().Pause();
 
         // This is for fun, to mess with Hilde's old computer
+        /*
         try {
             Runtime.getRuntime().exec("eject");
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         destroy();
     }
