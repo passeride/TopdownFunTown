@@ -4,6 +4,10 @@ import com.bluebook.util.Component;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 
+/**
+ * RigidBody2D is used to add som simple rudementary physics to objects
+ * usding {@link RigidBody2D#VelocityVerlet} will switch between two different physics models, but True has been most kind to uss
+ */
 public class RigidBody2D extends Component {
 
     public static final boolean VelocityVerlet = true;
@@ -61,6 +65,10 @@ public class RigidBody2D extends Component {
         }
     }
 
+    /**
+     * Will push objects in direction of force
+     * @param force Vector of direction to be pushed
+     */
     public void addForce(Vector2 force){
 //        linearVelocity = Vector2.add(linearVelocity, force);
         if(VelocityVerlet) {

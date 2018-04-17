@@ -45,6 +45,17 @@ public class Transform extends Component{
                 return position;
     }
 
+    private Vector2 getPositionOffsettWithoutCamera(){
+        if(parent != null)
+            return Vector2.add(
+                    Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
+                            Vector2.ZERO,
+                            parent.getLocalRotation().getAngleInDegrees()),
+                    parent.getPositionOffsettWithoutCamera());
+        else
+            return position;
+    }
+
     private Vector2 getRotationOffsett(){
         if(parent != null)
             return Vector2.add(rotation, parent.getRotationOffsett());
@@ -57,6 +68,10 @@ public class Transform extends Component{
             return Vector2.multiply(scale, parent.getScaleoffsett());
         else
             return scale;
+    }
+
+    public Vector2 getWorldPosition(){
+        return getPositionOffsettWithoutCamera();
     }
 
     public Vector2 getGlobalPosition(){

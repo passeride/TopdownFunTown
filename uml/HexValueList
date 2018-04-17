@@ -31,3 +31,7 @@ AlienExplode -> EE6666
 AlienTurret -> EECCCC
 
 SpawnPlayer -> 440000
+
+StarterWeapon -> 666FFF
+Red Weapon -> 666EEE
+Yellow Weapon -> 666000

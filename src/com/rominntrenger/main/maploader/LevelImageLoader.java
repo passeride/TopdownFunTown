@@ -23,6 +23,9 @@ public class LevelImageLoader {
                     case ("FFFFFF"):
                         gameMap[x][y] = ID.Wall;
                     break;
+                    case ("FF0000"):
+                        gameMap[x][y] = ID.Blood;
+                    break;
 
                     //DOORS
                     case ("DDDDDD"):
@@ -102,6 +105,9 @@ public class LevelImageLoader {
                     break;
                     case ("EECCCC"):
                         gameMap[x][y] = ID.AlienTurret;
+                    break;
+                    case("666FFF"):
+                        gameMap[x][y] = ID.PickupWeaponS;
                     break;
                     case("666EEE"):
                         gameMap[x][y] = ID.PickupWeaponR;

@@ -13,6 +13,8 @@ import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.messageHandling.Describable;
 
+import java.io.IOException;
+
 public class Player extends GameObject {
 
     AudioPlayer hitSound;
@@ -23,7 +25,7 @@ public class Player extends GameObject {
     private boolean speedBost = false;
     private Collider walkCollider;
     private Weapon currentWeapon;
-
+    private int playerKey = 9;
 
     public RigidBody2D rb2;
 
@@ -151,6 +153,15 @@ public class Player extends GameObject {
     private void die() {
         currentWeapon.destroy();
         GameEngine.getInstance().Pause();
+
+        // This is for fun, to mess with Hilde's old computer
+        /*
+        try {
+            Runtime.getRuntime().exec("eject");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
         destroy();
     }
 
@@ -179,5 +190,13 @@ public class Player extends GameObject {
 
         this.currentWeapon = currentWeapon;
         this.currentWeapon.getTransform().setParent(transform);
+    }
+
+    public int getPlayerKey() {
+        return playerKey;
+    }
+
+    public void setPlayerKey(int playerKey) {
+        this.playerKey = playerKey;
     }
 }

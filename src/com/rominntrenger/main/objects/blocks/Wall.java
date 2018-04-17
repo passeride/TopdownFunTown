@@ -23,14 +23,4 @@ public class Wall extends Item {
         collider = new BoxCollider(this);
         collider.setTag("Block");
     }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
-
-    @Override
-    public void draw(GraphicsContext gc) {
-        super.draw(gc);
-    }
 }

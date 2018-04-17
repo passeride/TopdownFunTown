@@ -56,11 +56,15 @@ public class MapCreator extends GameObject {
 
                 vector = new Vector2(i,j);
                 vector = Vector2.multiply(vector, GameSettings.getSquareScale());
-                new Tile(vector, Vector2.ZERO, new Sprite("../bg/tile_01_00"));
+                new Tile(vector, Vector2.ZERO, new Sprite("../bg/tilebg02"));
                 switch (tempID) {
 
                     case Wall:
                         grid[i][j] = new Wall(vector,Vector2.ZERO,new Sprite("../bg/wall"));
+                    break;
+
+                    case Blood:
+                        grid[i][j] = new Blood(vector);
                     break;
 
                     case SpawnPlayer:
@@ -98,6 +102,7 @@ public class MapCreator extends GameObject {
 
                     case Door:
                         grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),0);
+                       System.out.println("The door ID is 0 this is where it constructs");
                     break;
                     case DoorY:
                         grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),1);
@@ -107,6 +112,7 @@ public class MapCreator extends GameObject {
                     break;
                     case DoorG:
                         grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),3);
+                        // System.out.println("This door is also made");
                     break;
                     case DoorP:
                         grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"),4);
@@ -154,13 +160,17 @@ public class MapCreator extends GameObject {
                     break;
 
                     //WEAPONS
+                    case PickupWeaponS:
+                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponR_03"), 0);
+                        //TODO: Fix sprite so it is the starter weapon
+                    break;
 
                     case PickupWeaponR:
-                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponR"), 0);
+                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponR_03"), 1);
                     break;
 
                     case PickupWeaponY:
-                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponY"), 1);
+                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponY"), 2);
                     break;
 
                     default:

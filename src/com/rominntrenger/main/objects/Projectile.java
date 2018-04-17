@@ -1,6 +1,7 @@
 package com.rominntrenger.main.objects;
 
 import com.bluebook.physics.BoxCollider;
+import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
@@ -48,7 +49,7 @@ public class Projectile extends GameObject{
         super(position, direction, sprite);
         allProjectilse.add(this);
         this.startPosition = transform.getGlobalPosition();
-        this.setCollider(new BoxCollider(this));
+        this.setCollider(new CircleCollider(this, 30));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider.setName("Bullet");
         collider.setTag("DMG");
