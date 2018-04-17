@@ -22,11 +22,13 @@ public class AlienExplode extends Enemy {
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
        // setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
-        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+        speed = 500;
     }
 
     public void update(double delta) {
         super.update(delta);
+        setTarget(((RomInntrenger)GameApplication.getInstance()).player);
+
        /*  if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
             shoot();

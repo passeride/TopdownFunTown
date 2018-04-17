@@ -6,11 +6,13 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.objects.Projectile;
+import com.rominntrenger.main.objects.enemy.Enemy;
 
 public abstract class Weapon extends GameObject {
     public Vector2 offset;
-    private AudioPlayer audioPlayer = new AudioPlayer(testFil1);
+    protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "./assets/audio/scifi002.wav";
+    protected String projectilePath = "/projectiles/projectile_gold_00";
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -49,7 +51,7 @@ public abstract class Weapon extends GameObject {
 
         Projectile p = new Projectile(spawnPosition,
                 Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
-                new Sprite("/projectiles/projectile_gold_00"));
+                new Sprite(projectilePath));
         p.setSpeed(800);
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
@@ -61,11 +63,11 @@ public abstract class Weapon extends GameObject {
                 if (GameEngine.DEBUG)
                     System.out.println("Bullet Hit " + other.getName());
                 player.destroy();
-            }else{
-                // score += (int)(0.2 * p.getLengthTraveled());
+            }else if(other.getGameObject() instanceof Enemy){
                 other.getGameObject().destroy();
-                p.destroy();
             }
+            p.destroy();
+
         });
 
     }
