@@ -37,7 +37,7 @@ public class RomInntrenger extends GameApplication {
         cam = new OrtographicCamera();
         ImageBuffering loader = new ImageBuffering();
         BufferedImage thisMap;
-        thisMap = loader.loadImage("mapStart04",32,32);
+        thisMap = loader.loadImage("mapStart01",32,32);
         MapCreator level = new MapCreator("../bg/backgroundGradient_01", thisMap);
         level.createLevel();
         inventory = new Inventory(6);

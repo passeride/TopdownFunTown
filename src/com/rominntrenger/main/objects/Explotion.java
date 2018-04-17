@@ -1,5 +1,6 @@
 package com.rominntrenger.main.objects;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
@@ -12,7 +13,7 @@ import com.rominntrenger.main.objects.player.Player;
 public class Explotion extends GameObject {
 
     public double distance = 500;
-    public int dmg = 40;
+    public int dmg = 4;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -28,13 +29,16 @@ public class Explotion extends GameObject {
 
         double distance2Player = p.getPosition().distance(getPosition());
 
-        double dmgMultiplier = distance2Player / distance;
+        double dmgMultiplier = 1 - (distance2Player / distance);
         int dmg2Player = (int)(dmg * dmgMultiplier);
         System.out.println(distance2Player  + " : " + dmgMultiplier);
 
         if(distance2Player < distance){
             p.hit(dmg2Player);
         }
+
+        AudioPlayer clip = new AudioPlayer("./assets/audio/PaalBoom.wav");
+        clip.playOnce();
 
 
         ((AnimationSprite)sprite).setOnAnimationFinnishedListener(new OnAnimationFinishedListener() {
