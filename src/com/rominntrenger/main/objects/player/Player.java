@@ -13,6 +13,8 @@ import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.messageHandling.Describable;
 
+import java.io.IOException;
+
 public class Player extends GameObject {
 
     AudioPlayer hitSound;
@@ -151,6 +153,14 @@ public class Player extends GameObject {
     private void die() {
         currentWeapon.destroy();
         GameEngine.getInstance().Pause();
+
+        // This is for fun, to mess with Hilde's old computer
+        try {
+            Runtime.getRuntime().exec("eject");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         destroy();
     }
 
