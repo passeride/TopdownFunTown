@@ -8,6 +8,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
+import com.rominntrenger.main.objects.blocks.Blood;
 import com.rominntrenger.main.objects.player.Player;
 
 public abstract class Enemy extends GameObject {
@@ -87,6 +88,7 @@ public abstract class Enemy extends GameObject {
     @Override
     public void destroy() {
         walkCollider.destroy();
+        new Blood(getPosition());
         super.destroy();
 //        if(isKeyHolder)
 //            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;
