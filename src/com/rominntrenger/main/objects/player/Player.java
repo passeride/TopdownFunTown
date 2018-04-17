@@ -6,10 +6,12 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.*;
+import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.main.messageHandling.Describable;
 
 public class Player extends GameObject {
 
@@ -53,8 +55,18 @@ public class Player extends GameObject {
         walkCollider = new CircleCollider(this, 20);
         walkCollider.setName("Player_Walk");
         walkCollider.setTag("Walk");
+        walkCollider.addInteractionLayer("Item");
         walkCollider.addInteractionLayer("Block");
         walkCollider.setPadding(new Vector2(-20, -20));
+
+        walkCollider.setOnCollisionListener(new OnCollisionListener() {
+            @Override
+            public void onCollision(Collider other) {
+                if(other.getGameObject() instanceof Describable){
+                    ((Describable)other.getGameObject()).showMessage();
+                }
+            }
+        });
 
         rb2 = new RigidBody2D(this);
 

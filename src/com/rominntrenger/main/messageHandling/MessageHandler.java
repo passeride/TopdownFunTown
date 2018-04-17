@@ -69,7 +69,6 @@ public class MessageHandler extends GameObject{
         if(isActive){
             //fills the box
             gc.setFill(Color.rgb(13,13,13,0.8));
-//            gc.fillRect( + scaledMarginX, resY + scaledHeight / 2 - scaledMarginY / 2, resX - scaledMarginX * 3, scaledHeight);
             gc.fillRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
 
 
@@ -77,8 +76,6 @@ public class MessageHandler extends GameObject{
             gc.setStroke(Color.rgb(217, 217, 217));
             gc.setLineWidth(5);
             gc.strokeRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
-
-//            gc.strokeRect(margin, resolutionY - 500, resolutionX / 2 - margin - 50, (resolutionY/4)-5);
 
             //sets font smoothing and font type
             gc.setFill(Color.WHITE);
@@ -103,6 +100,11 @@ public class MessageHandler extends GameObject{
 
     }
 
+    /**
+     * This function will write a message to the screen  and also display a sprite
+     * @param s Message to be displayed
+     * @param sprite Sprite to display
+     */
     public void writeMessage(String s, Sprite sprite){
 
         this.sprite = sprite;
