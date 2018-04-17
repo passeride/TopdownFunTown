@@ -113,25 +113,28 @@ public class HitDetectionHandler {
 
     public void doRaycasts(){
         // Raycasting
-        System.out.println("RAYCASTING1");
-         System.out.println("RAYCASTING");
-            for (RayCast r : raycasts) {
-                r.Cast();
-            }
+//        System.out.println("RAYCASTING1");
+//         System.out.println("RAYCASTING");
+//            for (RayCast r : raycasts) {
+//                r.Cast();
+//            }
 
     }
 
     public void moveBuffer(){
-        colliders.addAll(colliderInBuffer);
-        colliderInBuffer.clear();
-
-        // Remove
-        for(Collider c : colliderOutBuffer){
-            if(colliders.contains(c))
-                colliders.remove(c);
+        synchronized (colliderInBuffer) {
+            colliders.addAll(colliderInBuffer);
+            colliderInBuffer.clear();
         }
-        colliderOutBuffer.clear();
+        synchronized (colliderOutBuffer) {
+            // Remove
+            for (Collider c : colliderOutBuffer) {
+                if (colliders.contains(c))
+                    colliders.remove(c);
+            }
+            colliderOutBuffer.clear();
 
+        }
         raycast_colliders.addAll(colliders);
     }
 
@@ -142,11 +145,15 @@ public class HitDetectionHandler {
     }
 
     protected void addCollider(Collider collider){
+        synchronized (colliderInBuffer) {
             colliderInBuffer.add(collider);
+        }
     }
 
     protected void removeCollider(Collider collider){
+        synchronized (colliderOutBuffer) {
             colliderOutBuffer.add(collider);
+        }
     }
 
 

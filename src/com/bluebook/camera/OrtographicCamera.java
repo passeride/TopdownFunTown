@@ -4,6 +4,7 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 
+
 public class OrtographicCamera {
 
 
@@ -11,7 +12,7 @@ public class OrtographicCamera {
     private static double x = 0, y = 0, dampening = 0.1;
     private double size = 300d;
     private GameObject gameobject;
-    private double deadzoneX, deadzoneY;
+    private double deadzoneX = 0.5, deadzoneY = 0.5;
 
     public double width, height;
 
@@ -41,14 +42,12 @@ public class OrtographicCamera {
     //må fikse id før vi kan se hvordan vi ordner offsets.
     public void follow(GameObject target){
         gameobject = target;
-//        x = gameobject.getPosition().getX();
-//        y = gameobject.getPosition().getY();
     }
 
     public void update(){
         if(gameobject != null){
-            deadzoneX = width * 0.3d;
-            deadzoneY = height * 0.3d;
+            double deadzoneX = width * this.deadzoneX;
+            double deadzoneY = height * this.deadzoneY;
 
             Vector2 playPoss = gameobject.getTransform().getLocalPosition();
             if(playPoss.getX() >= -x + width - deadzoneX){

@@ -27,7 +27,7 @@ public class QuadTree {
     private boolean isSubdevided = false;
     private Rectangle boundry;
     private int capacity = 0;
-    private double colliderQueryWidth = 500, colliderQueryHeight = 500;
+    private double colliderQueryWidth = 200, colliderQueryHeight = 200;
 
     /**
      * Simple enum used to specify the 4 subquads of a quad

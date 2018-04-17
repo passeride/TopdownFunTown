@@ -61,7 +61,6 @@ public class GameEngine {
 
         updateThread = new UpdateThread(this, messageQueue);
         collisionThread = new CollisionThread();
-        raycastThread = new RaycastThread();
         startAnimationTimer();
 
     }
@@ -95,14 +94,12 @@ public class GameEngine {
         isPaused = true;
         stopCollisionThread();
         stopUpdateThread();
-        stopRaycastThread();
     }
 
     public void unPause(){
         isPaused = false;
         startUpdateThread();
         startCollisionThread();
-        startRaycastThread();
     }
 
     public boolean isPaused(){
