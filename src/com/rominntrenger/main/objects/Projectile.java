@@ -12,6 +12,10 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
+/**
+ * Projectile is a used by Enemy and Player to shoot stuff
+ * It has multiple paramter to change speed and Possibly add a sine wave pattern to it
+ */
 public class Projectile extends GameObject{
 
     private double speed = 800.0;
@@ -39,7 +43,7 @@ public class Projectile extends GameObject{
     private Vector2 startSize = size;
 
     /**
-     * Constructor for GameObject given position rotation and sprite
+     * Constructor for Projectile given position rotation and sprite
      *
      * @param position
      * @param direction
@@ -97,20 +101,9 @@ public class Projectile extends GameObject{
         return point1 + alpha * (point2 - point1);
     }
 
-    /**
-     * Override to create a 8 % margin for movement
-     *
-     * @param moveVector
-     */
+
     @Override
     public void translate(Vector2 moveVector) {
-        Vector2 newValue = Vector2.add(transform.getGlobalPosition(), moveVector);
-
-        double screenWidth = GameSettings.getInt("game_resolution_X");
-        double screenHeight = GameSettings.getInt("game_resolution_Y");
-        double boundMarginX = screenWidth * GameSettings.getDouble("map_movement_padding_X");
-        double boundMarginY = screenHeight * GameSettings.getDouble("map_movement_padding_Y");
-
         setPosition(Vector2.add(getPosition(), moveVector));
     }
 
