@@ -68,7 +68,7 @@ public class RomInntrenger extends GameApplication {
 
         if(input.isKeyDown(KeyCode.A)){
             player.moveLeft(delta);
-//            msgH.writeMessage("Du trykket på knapp a.\n Fuck yeah, u hit dat shit boi\n oh shit! dat boi", new Sprite("items/crate"));
+//           msgH.writeMessage("Du trykket på knapp a.\n Fuck yeah, u hit dat shit boi\n oh shit! dat boi", new Sprite("items/crate"));
 
         }
 
