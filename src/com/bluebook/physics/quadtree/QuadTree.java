@@ -22,16 +22,20 @@ import java.util.Map;
  */
 public class QuadTree {
 
-    public static final boolean useGlobalPosition = true;
+    private ArrayList<Collider> colliders = new ArrayList<>();
+    private QuadTree[] children = new QuadTree[4];
+    private boolean isSubdevided = false;
+    private Rectangle boundry;
+    private int capacity = 0;
+    private double colliderQueryWidth = 500, colliderQueryHeight = 500;
 
-    public ArrayList<Collider> colliders = new ArrayList<>();
-    public ArrayList<Collider> outOfBounds = new ArrayList<>();
-    public QuadTree[] children = new QuadTree[4];
-    public boolean isSubdevided = false;
-    public Rectangle boundry;
-    public int capacity = 0;
-    public double colliderQueryWidth = 500, colliderQueryHeight = 500;
-
+    /**
+     * Simple enum used to specify the 4 subquads of a quad
+     * NORTHWEST
+     * NORTHEAST
+     * SOUTHWEST
+     * SOUTHEAST
+     */
     public enum QuadChildren{
         NORTHWEST(0), NORTHEAST(1), SOUTHWEST(2), SOUTHEAST(3);
         private static Map<Integer, QuadChildren> map = new HashMap<>();
@@ -71,12 +75,20 @@ public class QuadTree {
         }
     }
 
-
+    /**
+     * Will create a node in QuadTree with given boundry and capacity
+     * @param boundry the {@link Rectangle} that it holds elements from
+     * @param capacity
+     */
     public QuadTree(Rectangle boundry, int capacity){
         this.boundry = boundry;
         this.capacity = capacity;
     }
 
+    /**
+     * Insert an {@link Collider} into the quadtree to be recieve it when querying
+     * @param col {@link Collider} to be inserted into the {@link QuadTree}
+     */
     public void insert(Collider col){
         synchronized (this) {
             Vector2 goLocPos = col.getPosition();
@@ -100,6 +112,9 @@ public class QuadTree {
         }
     }
 
+    /**
+     * Subdevides the quadtree into 4 rectangles
+     */
     void subdevide(){
         isSubdevided = true;
 
@@ -120,11 +135,21 @@ public class QuadTree {
         children[QuadChildren.SOUTHEAST.value] = new QuadTree(seR, capacity);
     }
 
+    /**
+     * Query all objects with a predefined size from {@link Collider}'s center
+     * @param col center of query
+     * @return List of {@link Collider}'s within a predefined distance from {@param col}
+     */
     public ArrayList<Collider> query(Collider col){
         Vector2 pos = col.getPosition();
         return query(new Rectangle(pos.getX() - colliderQueryWidth / 4, pos.getY() - colliderQueryHeight / 4, colliderQueryWidth, colliderQueryHeight));
     }
 
+    /**
+     * Query a specific area of the {@link QuadTree}
+     * @param rect The area to query
+     * @return List of {@link Collider}'s within queried area
+     */
     public ArrayList<Collider> query(Rectangle rect){
         ArrayList<Collider> ret = new ArrayList<>();
         if(isSubdevided){
@@ -157,6 +182,11 @@ public class QuadTree {
         return ret;
     }
 
+    /**
+     * If debug is on, this will draw the quadmap.
+     * Used for debugging physics and collision
+     * @param gc
+     */
     public void draw(GraphicsContext gc){
         synchronized (this) {
             if (HitDetectionHandler.getInstance().useQuadTree) {
@@ -191,12 +221,8 @@ public class QuadTree {
                     gc.setFill(Color.RED);
                     for (Collider go : colliders) {
 
-                        Vector2 goPoss;
-                        if(useGlobalPosition){
-                           goPoss = go.getGameObject().getTransform().getGlobalPosition();
-                        }else{
-                            goPoss = go.getGameObject().getTransform().getLocalPosition();
-                        }
+                        Vector2 goPoss = go.getPosition();
+
                         gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
 
                         if(go.getGameObject() instanceof Player) {

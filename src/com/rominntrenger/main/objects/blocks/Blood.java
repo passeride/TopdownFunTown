@@ -5,10 +5,13 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 
+/**
+ *  Simple decal effect
+ */
 public class Blood extends GameObject {
     /**
-     * Constructor for GameObject given position rotation and sprite
-     *
+     * Blood will create a blood decal on position given, with random rotation.
+     *  Used when enemies dies
      * @param position
      */
     public Blood(Vector2 position) {

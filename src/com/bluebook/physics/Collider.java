@@ -31,24 +31,24 @@ public abstract class Collider {
     protected GameObject gameObject;
     protected OnCollisionListener listener;
 
+    /**
+     * Constructor for Collider
+     * @param go {@link GameObject} collider is Attached to
+     */
     public Collider(GameObject go){
         this.gameObject = go;
         CanvasRenderer.getInstance().addCollider(this);
         HitDetectionHandler.getInstance().addCollider(this);
     }
 
-    /**
-     * Alternate constructor used for testing without gameobject
-     */
-    protected Collider(){
-//        CanvasRenderer.getInstance().addCollider(this);
-//        HitDetectionHandler.getInstance().addCollider(this);
-    }
-
     protected abstract void updatePosition();
 
     protected abstract void updateCenterPoint();
 
+    /**
+     * If {@link com.bluebook.engine.GameEngine#DEBUG} is true this will draw the collider for debugging
+     * @param gc
+     */
     public abstract void debugDraw(GraphicsContext gc);
 
     abstract void setIntersection(Path intersection);
@@ -181,10 +181,19 @@ public abstract class Collider {
         interactionLayer.add(tagName);
     }
 
+    /**
+     * If there was a collision on last {@link CollisionThread} update, the collided collider will be retrivable here.
+     * If this returns null, no collision has occured.
+     * @return
+     */
     public Collider getIntersectionCollider() {
         return intersectionCollider;
     }
 
+    /**
+     * Used to set the collided collider
+     * @param intersectionCollider
+     */
     public void setIntersectionCollider(Collider intersectionCollider) {
         this.intersectionCollider = intersectionCollider;
     }

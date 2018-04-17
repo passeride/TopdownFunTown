@@ -3,9 +3,12 @@ package com.rominntrenger.main.objects.player;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vector2;
 
+/**
+ * This is the default weapon the player starts with
+ */
 public class StarterWeapon extends Weapon {
     /**
-     * Constructor for GameObject given position rotation and sprite
+     * Constructor for StarterWeapon given position rotation and sprite
      *
      * @param position
      * @param direction
