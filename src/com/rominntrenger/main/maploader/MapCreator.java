@@ -48,12 +48,12 @@ public class MapCreator extends GameObject {
         Vector2 offset = OrtographicCamera.getOffset();
         Vector2 squareSize = GameSettings.getSquareScale();
         Vector2 screen = GameSettings.getScreen();
-        int xNum = (int)(Math.abs(offset.getX()) / squareSize.getX()); // Squares to not draw (Left of camera)
-        int yNum = (int)(Math.abs(offset.getY()) / squareSize.getY());
+        int xNum = (int)(-offset.getX() / squareSize.getX()); // Squares to not draw (Left of camera)
+        int yNum = (int)(-offset.getY() / squareSize.getY());
         int squaresScreenX = (int)(screen.getX() / squareSize.getX()); // Square to draw across camera
         int squaresScreenY = (int)(screen.getY() / squareSize.getY());
         for(int i = xNum - 1; i < xNum + squaresScreenX + 10; i ++){
-            for(int j = yNum - 1; j < yNum + squaresScreenY + 10; j++){
+            for(int j = yNum - 4; j < yNum + squaresScreenY + 10; j++){
                 gc.drawImage(sprite.getImg(), squareSize.getX() * i + offset.getX() + squareSize.getX() / 2, squareSize.getY() * j + offset.getY() + squareSize.getY() / 2, squareSize.getX(), squareSize.getY());
             }
         }
