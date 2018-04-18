@@ -82,9 +82,9 @@ public abstract class GameObject {
 
     /**
      * Used for objects that need to get the update tick, they can override this function
-     * @param detla
+     * @param delta
      */
-    public void update(double detla){
+    public void update(double delta){
 
     }
 
