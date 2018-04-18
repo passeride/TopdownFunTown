@@ -83,6 +83,9 @@ public class AnimationSprite extends Sprite{
 
     public void setPlaying(boolean playing) {
         this.playing = playing;
+        if(!playing){
+            this.img = animation[0];
+        }
     }
 
     public void setOnAnimationFinnishedListener(OnAnimationFinishedListener listener){
