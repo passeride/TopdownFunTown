@@ -28,6 +28,18 @@ public class Inventory extends GameObject {
         background = new Sprite("../bg/inventoryBG");
         background.setOrigin(transform);
 
+        /*
+        //fills the box
+        gc.setFill(Color.rgb(13,13,13,0.8));
+        gc.fillRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
+
+
+        //border for box
+        gc.setStroke(Color.rgb(217, 217, 217));
+        gc.setLineWidth(5);
+        gc.strokeRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
+        */
+
         inventoryContents = new InventoryItem[inventorySpots];
         //addItem(item);
         inventorySpace = inventorySpots;
