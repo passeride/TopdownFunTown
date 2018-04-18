@@ -46,7 +46,6 @@ public class RomInntrenger extends GameApplication {
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         bgMusic.playLoop();
 
-
         player.setCurrentWeapon(currentWeapon);
 
         msh = MessageHandler.getInstance();

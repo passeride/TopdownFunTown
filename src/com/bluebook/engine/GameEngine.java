@@ -55,7 +55,6 @@ public class GameEngine {
 
         this.canvas = canvas;
 
-
         updateThread = new UpdateThread(this, messageQueue);
         collisionThread = new CollisionThread();
         startAnimationTimer();

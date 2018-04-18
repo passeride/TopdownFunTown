@@ -161,7 +161,7 @@ public class MapCreator extends GameObject {
 
                     //WEAPONS
                     case PickupWeaponS:
-                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponR_03"), 0);
+                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO, new Sprite("./items/weaponS"), 0);
                         //TODO: Fix sprite so it is the starter weapon
                     break;
 
