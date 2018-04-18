@@ -27,6 +27,7 @@ public class Inventory extends GameObject {
         setRenderLayer(RenderLayer.RenderLayerName.GUI);
         background = new Sprite("../bg/inventoryBG");
         background.setOrigin(transform);
+        allwaysOnScreen = true;
 
         /*
         //fills the box

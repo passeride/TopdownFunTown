@@ -25,6 +25,8 @@ public class InventoryItem extends GameObject {
         super(Vector2.ZERO, Vector2.ZERO, null);
         this.itemSprite = sprite;
         this.keyValue = keyValue;
+        allwaysOnScreen = true;
+
     }
 
     @Override

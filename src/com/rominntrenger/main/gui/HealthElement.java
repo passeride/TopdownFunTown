@@ -26,6 +26,7 @@ public class HealthElement extends GameObject {
      */
     public HealthElement(Vector2 position) {
         super(new Vector2(0, 0), Vector2.ZERO, null);
+        allwaysOnScreen = true;
         hp = GameSettings.getInt("player_health");
         maxHp = hp;
         setRenderLayer(RenderLayer.RenderLayerName.GUI);
