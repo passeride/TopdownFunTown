@@ -6,7 +6,8 @@ import java.lang.reflect.Method;
 public class FSM {
     public enum States{wander,dodge,escape,shootPlayer,chargePlayer}
     private States activeState;
-    Method method = obj.getClass().getMethod("methodName" + activeState);
+    // TODO: Pål, fix this error \|/
+    //Method method = obj.getClass().getMethod("methodName" + activeState);
     public FSM(){
     }
 
@@ -17,7 +18,7 @@ public class FSM {
     public void update(){
         if(activeState != null){
             //call the state stored in activeState
-            method.invoke();
+//            method.invoke(); // TODO: This is also failed
 
         }else{
             activeState = States.wander;

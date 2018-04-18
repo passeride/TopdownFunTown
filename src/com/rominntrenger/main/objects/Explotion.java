@@ -1,5 +1,6 @@
 package com.rominntrenger.main.objects;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
@@ -51,6 +52,8 @@ public class Explotion extends GameObject {
     @Override
     public void update(double delta) {
         super.update(delta);
+    }
+
     void playAudio(){
 
         AudioPlayer clip = new AudioPlayer("./assets/audio/PaalBoom.wav");
