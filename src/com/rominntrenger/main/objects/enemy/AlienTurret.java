@@ -7,10 +7,9 @@ import com.bluebook.physics.RayCastHit;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
-import com.topdownfuntown.objects.Enemy;
-import com.topdownfuntown.objects.Explotion;
-import com.topdownfuntown.objects.Player;
-import com.topdownfuntown.objects.Projectile;
+import com.rominntrenger.main.objects.Explotion;
+import com.rominntrenger.main.objects.Projectile;
+import com.rominntrenger.main.objects.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
@@ -210,7 +209,7 @@ public class AlienTurret extends Enemy {
             public void onCollision(Collider other) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
-                    pl.hit();
+                    pl.hit(10);
 
                 }else if(other.getGameObject() instanceof Enemy){
                     other.getGameObject().destroy();

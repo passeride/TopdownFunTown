@@ -32,8 +32,8 @@ public class MapCreator extends GameObject {
     private AudioPlayer soundTrack;
     private ID tempID;
 
-    public MapCreator(String spritePath, BufferedImage map) {
-        super(Vector2.ZERO,Vector2.ZERO,new Sprite(spritePath));
+    public MapCreator(BufferedImage map) {
+        super(Vector2.ZERO,Vector2.ZERO,null);
         this.newMap = map;
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }

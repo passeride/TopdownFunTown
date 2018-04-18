@@ -2,12 +2,10 @@ package com.bluebook.engine;
 
 import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.CollisionThread;
-import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.physics.RaycastThread;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
-import com.topdownfuntown.objects.Player;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 
@@ -45,7 +43,6 @@ public class GameEngine {
     public double raycast_FPS = 0.0;
 
     public Canvas canvas;
-    Player p;
     OrtographicCamera camera;
 
     /**

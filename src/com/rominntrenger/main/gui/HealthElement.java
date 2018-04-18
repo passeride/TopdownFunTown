@@ -8,14 +8,12 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
-import com.topdownfuntown.main.Topdownfuntown;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class HealthElement extends GameObject {
 
-    Topdownfuntown topdownfuntown;
     private int hp, maxHp;
 
     int numberOfSpriteElements = 16;

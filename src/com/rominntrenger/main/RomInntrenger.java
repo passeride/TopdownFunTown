@@ -33,12 +33,12 @@ public class RomInntrenger extends GameApplication {
     @Override
     protected void onLoad() {
         super.onLoad();
-        currentWeapon = new StarterWeapon(new Vector2(0,23), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
+        currentWeapon = new StarterWeapon(new Vector2(0,50), Vector2.ZERO, new AnimationSprite("/friendlies/arms",2), Vector2.ZERO);
         cam = new OrtographicCamera();
         ImageBuffering loader = new ImageBuffering();
         BufferedImage thisMap;
         thisMap = loader.loadImage("startMap",64,64);
-        MapCreator level = new MapCreator("../bg/backgroundGradient_01", thisMap);
+        MapCreator level = new MapCreator(thisMap);
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vector2(0, 0));
