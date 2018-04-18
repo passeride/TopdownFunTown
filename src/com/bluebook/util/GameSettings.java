@@ -58,4 +58,10 @@ public class GameSettings {
 
         return new Vector2(x, y);
     }
+
+    public static Vector2 getScreen(){
+        int resolutionX = GameSettings.getInt("game_resolution_X");
+        int resolutionY = GameSettings.getInt("game_resolution_Y");
+        return new Vector2(resolutionX, resolutionY);
+    }
 }

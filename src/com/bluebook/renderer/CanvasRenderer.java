@@ -7,8 +7,14 @@ import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.GameObject;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**

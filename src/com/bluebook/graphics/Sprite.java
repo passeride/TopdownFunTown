@@ -267,5 +267,7 @@ public class Sprite {
         this.squareHeight = squareHeight;
     }
 
-
+    public Image getImg() {
+        return img;
+    }
 }
