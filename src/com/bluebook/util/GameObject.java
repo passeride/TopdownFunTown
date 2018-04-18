@@ -16,6 +16,8 @@ public abstract class GameObject {
     protected Vector2 size;
     protected Vector2 scaledSize;
 
+    protected boolean allwaysOnScreen = false;
+
     protected Transform transform;
 
     protected Sprite sprite;
@@ -66,6 +68,16 @@ public abstract class GameObject {
     public void draw(GraphicsRenderer gr){
         if(sprite != null)
             sprite.draw(gr);
+    }
+
+    public boolean isOnScreen(){
+        if(allwaysOnScreen)
+            return true;
+
+        Vector2 screen = GameSettings.getScreen();
+        Vector2 position = transform.getGlobalPosition();
+        return (position.getX() < screen.getX() + 128 && position.getX() >  -128 && position.getY() < screen.getY() + 128 && position.getY() > -128);
+
     }
 
     /**

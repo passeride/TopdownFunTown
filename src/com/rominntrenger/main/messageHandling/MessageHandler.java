@@ -33,6 +33,7 @@ public class MessageHandler extends GameObject{
 
     private MessageHandler(){
         super(Vector2.ZERO, Vector2.ZERO, new Sprite(""));
+        allwaysOnScreen = true;
         this.setRenderLayer(RenderLayer.RenderLayerName.GUI);
         File file = new File("assets/fonts/Pixel-Miners.otf");
         try {

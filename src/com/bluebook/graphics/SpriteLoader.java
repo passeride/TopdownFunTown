@@ -7,6 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+/**
+ * Will help Sprite to load images
+ * Will also use caching of images to avoid to many reads
+ */
 public class SpriteLoader {
 
     private static HashMap<String, Image> images = new HashMap<>();

@@ -35,6 +35,7 @@ public class MapCreator extends GameObject {
 
     public MapCreator(BufferedImage map) {
         super(Vector2.ZERO,Vector2.ZERO,new Sprite("../bg/tilebg02"));
+        allwaysOnScreen = true;
         this.newMap = map;
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }
@@ -70,7 +71,6 @@ public class MapCreator extends GameObject {
 
                 vector = new Vector2(i,j);
                 vector = Vector2.multiply(vector, GameSettings.getSquareScale());
-//                new Tile(vector, Vector2.ZERO, new Sprite("../bg/tilebg02"));
                 switch (tempID) {
 
                     case Wall:
