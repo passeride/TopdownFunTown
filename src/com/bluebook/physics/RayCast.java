@@ -5,6 +5,8 @@ import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * This class will create a raycast to interact with {@link Collider}
@@ -52,6 +54,12 @@ public class RayCast {
                 + (float) Math.sin(angle) * max_distance);
     }
 
+    public void destroy(){
+        HitDetectionHandler.getInstance().raycasts.remove(this);
+
+    }
+
+
     public void Cast(CopyOnWriteArrayList<Line2D> lines) {
         updatePosition();
         float collisionDistance = max_distance;
@@ -64,23 +72,23 @@ public class RayCast {
 //            if (c != null) {
 //                if (interactionLayer.contains(c.getTag())) {
 //                    Line2D[] box = c.getLines();
-                    for (Line2D l : lines) {
-                        //float distanceHit = getRayCast(ray, l);
-                        float distanceHit = getRayCast(ray.x1, ray.y1,
-                            ray.x1 + (float) Math.cos(angle) * collisionDistance,
-                            ray.y1 + (float) Math.sin(angle) * collisionDistance,
-                            l.x1, l.y1, l.x2, l.y2);
-                        if (distanceHit > 0 && distanceHit < collisionDistance) {
-                            collisionDistance = distanceHit;
-//                            colliderHit = c;
-                        }
-                    }
+        for (Line2D l : lines) {
+            //float distanceHit = getRayCast(ray, l);
+            float distanceHit = getRayCast(ray.x1, ray.y1,
+                ray.x1 + (float) Math.cos(angle) * collisionDistance,
+                ray.y1 + (float) Math.sin(angle) * collisionDistance,
+                l.x1, l.y1, l.x2, l.y2);
+//            if (distanceHit > 0 && distanceHit < collisionDistance) {
+                collisionDistance = distanceHit;
+////                            colliderHit = c;
+//            }
+        }
 //                }
 //            }
 //        }
         RayCastHit ret = new RayCastHit();
         ret.colliderHit = colliderHit;
-        ret.isHit = colliderHit != null;
+        ret.isHit = true;
         ret.ray = new Line2D(ray.x1, ray.y1, ray.x1 + (float) (Math.cos(angle) * collisionDistance),
             ray.y1 + (float) (Math.sin(angle) * collisionDistance));
         ret.originalRay = this.ray;

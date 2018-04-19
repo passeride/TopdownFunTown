@@ -20,7 +20,7 @@ import javafx.scene.paint.Stop;
 
 public class AlienTurret extends Enemy {
 
-    private int rayCastResolution = 0;
+    private int rayCastResolution = 90;
     private ArrayList<RayCast> raycasts = new ArrayList<>();
     private Sprite turretHead;
 
@@ -48,6 +48,10 @@ public class AlienTurret extends Enemy {
         setUpRayCast();
     }
 
+    void debugDrawRays(GraphicsContext gc){
+//        gc.setStroke(Color.);
+    }
+
     /**
      * Goes over {@link #raycasts} and returns a double array with positions first array is X
      * cooridnates second is Y coordinates
@@ -66,17 +70,18 @@ public class AlienTurret extends Enemy {
             RayCastHit rch = raycasts.get(i).getHit();
             if (rch != null) {
                 if (rch.isHit) {
-                    if (rch.colliderHit.getTag() == "UnHittable"
-                        || rch.colliderHit.getTag() == "Walk") {
-                        player = rch.colliderHit.getGameObject();
-                        playerSeen = true;
-                        playerNotSeen = false;
-                    } else if (rch.colliderHit.getTag() == "Hittable") {
-                        enemy = rch.colliderHit.getGameObject();
-                        enemySeen = true;
-                        enemyNotSeen = false;
-                    }
+//                    if (rch.colliderHit.getTag() == "UnHittable"
+//                        || rch.colliderHit.getTag() == "Walk") {
+//                        player = rch.colliderHit.getGameObject();
+//                        playerSeen = true;
+//                        playerNotSeen = false;
+//                    } else if (rch.colliderHit.getTag() == "Hittable") {
+//                        enemy = rch.colliderHit.getGameObject();
+//                        enemySeen = true;
+//                        enemyNotSeen = false;
+//                    }
                 }
+                System.out.println(rch.ray.x2);
                 xs[i] = rch.ray.x2;
                 ys[i] = rch.ray.y2;
             }
@@ -127,6 +132,9 @@ public class AlienTurret extends Enemy {
     @Override
     public void destroy() {
         super.destroy();
+        for(RayCast r : raycasts){
+            r.destroy();
+        }
         new Explotion(getPosition());
     }
 

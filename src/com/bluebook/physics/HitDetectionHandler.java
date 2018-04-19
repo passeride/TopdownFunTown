@@ -4,10 +4,12 @@ import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -135,33 +137,49 @@ public class HitDetectionHandler {
         }
     }
 
+    public static int counter = 0;
 
     private void doRaycasts() {
         CopyOnWriteArrayList<Line2D> cowLines = new CopyOnWriteArrayList<>();
         cowLines.addAll(lines);
 
-        ExecutorService executor = Executors.newFixedThreadPool(raycasts.size());
+        ExecutorService executor = Executors.newFixedThreadPool(10);
 
         List<Future<RayCastHit>> list = new ArrayList<>();
 
-        for(int i = 0; i < raycasts.size(); i++){
-            Future<RayCastHit> future = executor.submit(new Callable<RayCastHit>() {
-                @Override
-                public RayCastHit call() throws Exception {
+        counter = 0;
+//        System.out.println(raycasts.size());
 
-                    int id = (int)Thread.currentThread().getId();
+        for(int i = 0; i < raycasts.size(); i++){
+            Future<RayCastHit> future = executor.submit(() -> {
+
+                int id = counter++;
+                if(id < raycasts.size()) {
                     raycasts.get(id).Cast(cowLines);
 
-
                     return raycasts.get(id).getHit();
+                }else{
+                    return null;
                 }
             });
+            list.add(future);
 
         }
 
-        for (RayCast r : raycasts) {
-            r.Cast(cowLines);
+        for(Future<RayCastHit> fut : list){
+            try {
+                RayCastHit rch = fut.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
+
+        executor.shutdown();
+//        for (RayCast r : raycasts) {
+//            r.Cast(cowLines);
+//        }
     }
 
     private void moveBuffer() {
