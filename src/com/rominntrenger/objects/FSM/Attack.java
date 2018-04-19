@@ -1,6 +1,7 @@
 package com.rominntrenger.objects.FSM;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.enemy.Enemy;
@@ -25,7 +26,7 @@ public class Attack implements Behaviour {
             enemy.translate(Vec2.multiply(enemy.getDirection().getNormalizedVector(),speed * delta));
 
         }
-        if(distance2Player >= 750){
+        if(distance2Player >= GameSettings.getDouble("Alien_attack_distance")){
             behaviourContext.setBehaviour(new Wander());
         }
 

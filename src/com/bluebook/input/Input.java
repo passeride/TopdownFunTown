@@ -5,6 +5,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import java.util.ArrayList;
+import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +22,8 @@ public class Input {
     private ArrayList<KeyCode> input_once;
     private boolean mouseButton0 = false;
     private boolean mouseButton1 = false;
+    private boolean mouseButtonDown0 = false;
+    private boolean mouseButtonDown1 = false;
     private double mouse_X = 0.0, mouse_y = 0.0;
 
     public Input(Stage stage) {
@@ -52,6 +55,12 @@ public class Input {
         } else {
             return false;
         }
+    }
+
+
+
+    public boolean isMouseButton0(){
+        return mouseButtonDown0;
     }
 
     /**
@@ -110,37 +119,38 @@ public class Input {
             keyReleased(event);
         });
 
-        stage.addEventHandler(MouseEvent.MOUSE_MOVED,
-            event -> setMousePosition(event.getX(), event.getY()));
-
-        stage.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
-            if (GameEngine.DEBUG) {
-                System.out.println("MOUSE PRESSED " + event.getButton());
-            }
-            if (event.isPrimaryButtonDown()) {
-                setMouseButton0State(true);
-            } else if (event.isSecondaryButtonDown()) {
-                setMouseButton1State(true);
-            }
-        });
-
-        stage.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
-            if (GameEngine.DEBUG) {
-                System.out.println("MOUSE Released " + event.getButton());
-            }
-            if (event.isPrimaryButtonDown()) {
-                setMouseButton0State(false);
-            } else if (event.isSecondaryButtonDown()) {
-                setMouseButton1State(false);
+        stage.addEventHandler(MouseEvent.ANY, event -> {
+            setMousePosition(event.getX(), event.getY());
+            if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
+                if (GameEngine.DEBUG) {
+                    System.out.println("MOUSE PRESSED " + event.getButton());
+                }
+                if (event.isPrimaryButtonDown()) {
+                    setMouseButton0State(true);
+                } else if (event.isSecondaryButtonDown()) {
+                    setMouseButton1State(true);
+                }
+            }else if(event.getEventType() == MouseEvent.MOUSE_RELEASED){
+                if (GameEngine.DEBUG) {
+                    System.out.println("MOUSE Released " + event.getButton());
+                }
+                if (!event.isPrimaryButtonDown()) {
+                    setMouseButton0State(false);
+                } else if (!event.isSecondaryButtonDown()) {
+                    setMouseButton1State(false);
+                }
             }
         });
+
     }
 
     private void setMouseButton0State(boolean state) {
+        mouseButtonDown0 = state;
         mouseButton0 = state;
     }
 
     private void setMouseButton1State(boolean state) {
+        mouseButtonDown0 = state;
         mouseButton1 = state;
     }
 

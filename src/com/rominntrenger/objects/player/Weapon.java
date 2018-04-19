@@ -14,6 +14,7 @@ import com.rominntrenger.objects.enemy.Enemy;
 public abstract class Weapon extends GameObject {
 
     public Vec2 offset;
+    double speed = 800;
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "./assets/audio/scifi002.wav";
     protected String projectilePath = "/projectiles/projectile_gold_00";
@@ -23,8 +24,8 @@ public abstract class Weapon extends GameObject {
      *
      * @param offset is the offset compared to the player.
      */
-    public Weapon(Vec2 position, Vec2 direction, Sprite sprite, Vec2 offset) {
-        super(position, direction, sprite);
+    public Weapon(Vec2 direction, Sprite sprite, Vec2 offset) {
+        super(new Vec2(0, 23), direction, sprite);
         this.offset = offset;
     }
 
@@ -58,7 +59,7 @@ public abstract class Weapon extends GameObject {
             Vec2
                 .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
             new Sprite(projectilePath));
-        p.setSpeed(800);
+        p.setSpeed(speed);
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {

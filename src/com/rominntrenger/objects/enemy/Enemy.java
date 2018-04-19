@@ -43,7 +43,6 @@ public abstract class Enemy extends GameObject {
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-
                 if (other.getGameObject() instanceof Player) {
                     Player p = (Player) other.getGameObject();
                     p.hit(bullet_dmg);
@@ -53,11 +52,11 @@ public abstract class Enemy extends GameObject {
         });
 
         // WalkCollider
-        walkCollider = new CircleCollider(this, 20);
-        walkCollider.setName("Enemy_Walk");
-        walkCollider.setTag("Enemy_Walk");
-        walkCollider.addInteractionLayer("Block");
-        walkCollider.setPadding(new Vec2(-20, -20));
+//        walkCollider = new CircleCollider(this, 20);
+//        walkCollider.setName("Enemy_Walk");
+//        walkCollider.setTag("Enemy_Walk");
+//        walkCollider.addInteractionLayer("Block");
+//        walkCollider.setPadding(new Vec2(-20, -20));
 
         this.behaviour = new Wander();
     }
@@ -85,7 +84,7 @@ public abstract class Enemy extends GameObject {
     public void translate(Vec2 moveVector) {
         Vec2 newPoss = Vec2.add(getPosition(), moveVector);
 
-        Collider hit = walkCollider.getIntersectionCollider();
+        Collider hit = collider.getIntersectionCollider();
 
         if (hit == null) {
             transform.setLocalPosition(newPoss);
@@ -102,7 +101,7 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void destroy() {
-        walkCollider.destroy();
+//        walkCollider.destroy();
         new Blood(getPosition());
         super.destroy();
 //        if(isKeyHolder)

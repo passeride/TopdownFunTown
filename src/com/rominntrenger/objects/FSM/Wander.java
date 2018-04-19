@@ -1,6 +1,7 @@
 package com.rominntrenger.objects.FSM;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.enemy.Enemy;
@@ -27,7 +28,7 @@ public class Wander implements Behaviour {
         behaviourContext.translate(Vec2.multiply(behaviourContext.getDirection(), speed * delta));
         Player player = ((RomInntrenger) GameApplication.getInstance()).player;
         double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
-        if (distance2Player <= 750) {
+        if (distance2Player <= GameSettings.getDouble("Alien_attack_distance")) {
             behaviourContext.setBehaviour(new Attack());
         }
 

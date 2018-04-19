@@ -30,7 +30,7 @@ public class RomInntrenger extends GameApplication {
     @Override
     protected void onLoad() {
         super.onLoad();
-        currentWeapon = new StarterWeapon(new Vec2(0, 40), Vec2.ZERO,
+        currentWeapon = new StarterWeapon(Vec2.ZERO,
             new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         cam = new OrthographicCamera();
 
@@ -68,13 +68,10 @@ public class RomInntrenger extends GameApplication {
 
         if (input.isKeyDown(KeyCode.D)) {
             player.moveRight(delta);
-//            msgH.writeMessage("Du trykket på knapp d.\n Fuck yeah, u hit dat shit boi\n oh shit! dat boi");
         }
 
         if (input.isKeyDown(KeyCode.A)) {
             player.moveLeft(delta);
-//           msgH.writeMessage("Du trykket på knapp a.\n Fuck yeah, u hit dat shit boi\n oh shit! dat boi", new Sprite("items/crate"));
-
         }
 
         if (input.isMouseButton0Pressed()) {
