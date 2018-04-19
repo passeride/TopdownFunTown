@@ -87,6 +87,11 @@ public class RigidBody2D {
             // Euler's Method
             acceleration = Vec2.add(acceleration, Vec2.devide(force, mass));
         }
+
+        // Set max
+        acceleration.setX(Math.min(100,Math.min(0,acceleration.getX())));
+        acceleration.setY(Math.min(100,Math.min(0,acceleration.getY())));
+
     }
 
 

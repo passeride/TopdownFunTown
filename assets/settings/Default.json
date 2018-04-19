@@ -1,10 +1,10 @@
 {
   "window_title":"RomInntrengere v0.1",
-  "start_menu":false,
+  "start_menu":true,
   "fullscreen":true,
 
-  "grid_X": 16,
-  "grid_Y": 9,
+  "grid_X": 32,
+  "grid_Y": 18,
   "game_resolution_X":1920,
   "game_resolution_Y":1080,
 
@@ -21,6 +21,7 @@
 
   "RedRifle_projectile_speed":400,
 
+  "Alien_attack_distance": 500,
 
   "player_health":100
 }

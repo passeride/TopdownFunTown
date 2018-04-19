@@ -6,13 +6,14 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
 import java.util.Random;
 
 public class AlienGreen extends Enemy {
 
-    private double shootInterval = 1.8;
+    private double shootInterval = 0.001;
     private long prevShot = 0;
 
     /*
@@ -32,7 +33,7 @@ public class AlienGreen extends Enemy {
         super.update(delta);
         AlienGreen.super.nextBehaviour();
 
-        if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
+        if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
             shoot();
         }
@@ -41,6 +42,8 @@ public class AlienGreen extends Enemy {
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("/projectiles/projectile_enemy_00"));
+        p.getCollider().addInteractionLayer("UnHittable");
+        p.getCollider().addInteractionLayer("Block");
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
         p.setPeriod(1.2f);
@@ -49,22 +52,17 @@ public class AlienGreen extends Enemy {
         p.setSpeed(1600);
         p.setSine(true);
 
-        // Adding colliders layers
-        p.getCollider().addInteractionLayer("UnHittable");
-        p.getCollider().addInteractionLayer("Block");
 
-        p.setOnCollisionListener(new OnCollisionListener() {
-            @Override
-            public void onCollision(Collider other) {
-                if (other.getGameObject() instanceof Player) {
-                    Player pl = (Player) other.getGameObject();
-                    pl.hit(bullet_dmg);
-                    pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-                        Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
-                        3000.0));
-                }
-                p.destroy();
+
+        p.setOnCollisionListener(other -> {
+            if (other.getGameObject() instanceof Player) {
+                Player pl = (Player) other.getGameObject();
+                pl.hit(bullet_dmg);
+                pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
+                    Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
+                    3000.0));
             }
+            p.destroy();
         });
     }
 

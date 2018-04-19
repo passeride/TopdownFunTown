@@ -13,7 +13,7 @@ public class StarterWeapon extends Weapon {
      *
      * @param offset is the offset compared to the player.
      */
-    public StarterWeapon(Vec2 position, Vec2 direction, Sprite sprite, Vec2 offset) {
-        super(position, direction, sprite, offset);
+    public StarterWeapon(Vec2 direction, Sprite sprite, Vec2 offset) {
+        super(direction, sprite, offset);
     }
 }
