@@ -3,7 +3,7 @@ package com.bluebook.physics.quadtree;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.objects.player.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,7 +79,7 @@ public class QuadTree {
      */
     public void insert(Collider col) {
         synchronized (this) {
-            Vector2 goLocPos = col.getPosition();
+            Vec2 goLocPos = col.getPosition();
 
             if (boundary.intersects(goLocPos.getX(), goLocPos.getY(), 6, 6)) {
                 if (isSubdivided) {
@@ -132,7 +132,7 @@ public class QuadTree {
      * @return List of {@link Collider}'s within a predefined distance from {@param col}
      */
     public ArrayList<Collider> query(Collider col) {
-        Vector2 pos = col.getPosition();
+        Vec2 pos = col.getPosition();
         return query(
             new Rectangle(pos.getX() - colliderQueryWidth / 4, pos.getY() - colliderQueryHeight / 4,
                 colliderQueryWidth, colliderQueryHeight));
@@ -205,7 +205,7 @@ public class QuadTree {
                     gc.setLineWidth(3);
                     gc.setStroke(Color.BLACK);
                     //gc.setLineDashes(2, 7, 2, 8);
-                    Vector2 camOff = OrthographicCamera.getOffset();
+                    Vec2 camOff = OrthographicCamera.getOffset();
                     double x = boundary.getX() + camOff.getX();
                     double y = boundary.getY() + camOff.getY();
                     double w = boundary.getWidth();
@@ -219,7 +219,7 @@ public class QuadTree {
                     gc.setFill(Color.RED);
                     for (Collider go : colliders) {
 
-                        Vector2 goPoss = go.getPosition();
+                        Vec2 goPoss = go.getPosition();
 
                         gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
 

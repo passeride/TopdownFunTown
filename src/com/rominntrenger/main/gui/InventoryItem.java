@@ -2,7 +2,7 @@ package com.rominntrenger.main.gui;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 
 public class InventoryItem extends GameObject {
 
@@ -16,13 +16,13 @@ public class InventoryItem extends GameObject {
      * @param direction
      * @param sprite
      */
-/*    public InventoryItem(Vector2 position, Vector2 direction, Sprite sprite) {
+/*    public InventoryItem(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
     }
  */
 
     public InventoryItem(Sprite sprite, int keyValue) {
-        super(Vector2.ZERO, Vector2.ZERO, null);
+        super(Vec2.ZERO, Vec2.ZERO, null);
         this.itemSprite = sprite;
         this.keyValue = keyValue;
         allwaysOnScreen = true;

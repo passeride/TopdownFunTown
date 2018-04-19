@@ -2,7 +2,7 @@ package com.bluebook.physics;
 
 import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import java.util.ArrayList;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
@@ -58,7 +58,7 @@ public class HitDetectionHandler {
 
     private void buildQuadTree() {
         synchronized (this) {
-            Vector2 screen = GameSettings.getScreen();
+            Vec2 screen = GameSettings.getScreen();
             qtTree = new QuadTree(new Rectangle(-screen.getX() * 20, -screen.getY() * 20, screen.getX() * 40, screen.getY() * 40), 2); // Creating oversized quadtree
             for (Collider c : colliders) {
                 qtTree.insert(c);

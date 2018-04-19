@@ -2,7 +2,7 @@ package com.bluebook.graphics;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -54,7 +54,7 @@ public class AnimationSprite extends Sprite {
     }
 
     @Override
-    public void draw(GraphicsContext gc, Vector2 position) {
+    public void draw(GraphicsContext gc, Vec2 position) {
         if (playing) {
             double t = 0;
             if (!GameEngine.getInstance().isPaused()) {
@@ -75,8 +75,8 @@ public class AnimationSprite extends Sprite {
     }
 
     @Override
-    public void draw(GraphicsContext gc, Vector2 position, Vector2 angle) {
-        rotate(Vector2.Vector2FromAngleInDegrees(angle.getAngleInDegrees() + 90));
+    public void draw(GraphicsContext gc, Vec2 position, Vec2 angle) {
+        rotate(Vec2.Vector2FromAngleInDegrees(angle.getAngleInDegrees() + 90));
         draw(gc, position);
     }
 

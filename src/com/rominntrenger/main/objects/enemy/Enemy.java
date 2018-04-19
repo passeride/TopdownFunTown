@@ -7,7 +7,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.objects.FSM.Behaviour;
 import com.rominntrenger.main.objects.FSM.Wander;
 import com.rominntrenger.main.objects.blocks.Blood;
@@ -28,7 +28,7 @@ public abstract class Enemy extends GameObject {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Enemy(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
         collider = new BoxCollider(this);
@@ -57,7 +57,7 @@ public abstract class Enemy extends GameObject {
         walkCollider.setName("Enemy_Walk");
         walkCollider.setTag("Enemy_Walk");
         walkCollider.addInteractionLayer("Block");
-        walkCollider.setPadding(new Vector2(-20, -20));
+        walkCollider.setPadding(new Vec2(-20, -20));
 
         this.behaviour = new Wander();
     }
@@ -79,8 +79,8 @@ public abstract class Enemy extends GameObject {
     }
 
     @Override
-    public void translate(Vector2 moveVector) {
-        Vector2 newPoss = Vector2.add(getPosition(), moveVector);
+    public void translate(Vec2 moveVector) {
+        Vec2 newPoss = Vec2.add(getPosition(), moveVector);
 
         Collider hit = walkCollider.getIntersectionCollider();
 
@@ -88,9 +88,9 @@ public abstract class Enemy extends GameObject {
             transform.setLocalPosition(newPoss);
         } else {
             transform.setLocalPosition(
-                Vector2.add(
+                Vec2.add(
                     transform.getLocalPosition(),
-                    Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(),
+                    Vec2.multiply(Vec2.subtract(getTransform().getGlobalPosition(),
                         hit.getGameObject().getTransform().getGlobalPosition())
                         .getNormalizedVector(), 0.5)));
 
@@ -109,12 +109,12 @@ public abstract class Enemy extends GameObject {
     @Override
     public void update(double delta) {
         if (target != null) {
-            translate(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(
-                Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
+            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
+                Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
                 speed * delta));
-            setDirection(Vector2.add(getDirection(), Vector2.multiply(Vector2
+            setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2
                     .Vector2FromAngleInDegrees(
-                        Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
+                        Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
                 angularDampening)));
             getDirection().normalize();
         }

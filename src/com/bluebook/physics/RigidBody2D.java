@@ -1,24 +1,23 @@
 package com.bluebook.physics;
 
-import com.bluebook.util.Component;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 
 /**
  * RigidBody2D is used to add som simple rudementary physics to objects usding {@link
  * RigidBody2D#VelocityVerlet} will switch between two different physics models, but True has been
  * most kind to uss
  */
-public class RigidBody2D extends Component {
+public class RigidBody2D {
 
     private static boolean VelocityVerlet = true;
 
     private double mass = 1.0;
-    private Vector2 acceleration = new Vector2(0, 0);
-    private Vector2 avgAcceleration = new Vector2(0, 0);
-    private Vector2 velocity = new Vector2(0, 0);
-    private Vector2 position;
+    private Vec2 acceleration = new Vec2(0, 0);
+    private Vec2 avgAcceleration = new Vec2(0, 0);
+    private Vec2 velocity = new Vec2(0, 0);
+    private Vec2 position;
     private double friction = .1;
     private GameObject gameObject;
 
@@ -42,29 +41,29 @@ public class RigidBody2D extends Component {
 
         if (VelocityVerlet) {
             // Velocity Verlet
-            velocity = Vector2.add(velocity, Vector2.multiply(avgAcceleration, delta));
-            velocity = Vector2.multiply(velocity, 1 - friction);
+            velocity = Vec2.add(velocity, Vec2.multiply(avgAcceleration, delta));
+            velocity = Vec2.multiply(velocity, 1 - friction);
 
-            Vector2 last_acceleration = acceleration;
+            Vec2 last_acceleration = acceleration;
             double px = position.getX();
             double py = position.getY();
             px += velocity.getX() * delta + (0.5 * last_acceleration.getX() * Math.pow(delta, 2));
             py += velocity.getY() * delta + (0.5 * last_acceleration.getY() * Math.pow(delta, 2));
-            position = new Vector2(px, py);
+            position = new Vec2(px, py);
 
-            avgAcceleration = Vector2.ZERO;
-            acceleration = Vector2.ZERO;
+            avgAcceleration = Vec2.ZERO;
+            acceleration = Vec2.ZERO;
 
             if ((Math.abs(velocity.getX()) < velocityThreshold
                 || Math.abs(velocity.getY()) < velocityThreshold)) {
-                velocity = Vector2.ZERO;
+                velocity = Vec2.ZERO;
             }
 
         } else {
 
             //Euler's method
-            velocity = Vector2.add(velocity, Vector2.multiply(acceleration, delta));
-            position = Vector2.add(position, Vector2.multiply(velocity, delta));
+            velocity = Vec2.add(velocity, Vec2.multiply(acceleration, delta));
+            position = Vec2.add(position, Vec2.multiply(velocity, delta));
 
         }
     }
@@ -74,18 +73,18 @@ public class RigidBody2D extends Component {
      *
      * @param force Vector of direction to be pushed
      */
-    public void addForce(Vector2 force) {
-//        linearVelocity = Vector2.add(linearVelocity, force);
+    public void addForce(Vec2 force) {
+//        linearVelocity = Vec2.add(linearVelocity, force);
         if (VelocityVerlet) {
             //  Velocity Verlet
-            Vector2 lastAcceleration = acceleration;
-            Vector2 newAcceleration = Vector2.add(acceleration, Vector2.devide(force, mass));
-            avgAcceleration = Vector2.devide(Vector2.add(lastAcceleration, newAcceleration), 2);
+            Vec2 lastAcceleration = acceleration;
+            Vec2 newAcceleration = Vec2.add(acceleration, Vec2.devide(force, mass));
+            avgAcceleration = Vec2.devide(Vec2.add(lastAcceleration, newAcceleration), 2);
             acceleration = newAcceleration;
         } else {
 
             // Euler's Method
-            acceleration = Vector2.add(acceleration, Vector2.devide(force, mass));
+            acceleration = Vec2.add(acceleration, Vec2.devide(force, mass));
         }
     }
 
@@ -102,35 +101,35 @@ public class RigidBody2D extends Component {
         this.mass = mass;
     }
 
-    public Vector2 getAcceleration() {
+    public Vec2 getAcceleration() {
         return acceleration;
     }
 
-    public void setAcceleration(Vector2 acceleration) {
+    public void setAcceleration(Vec2 acceleration) {
         this.acceleration = acceleration;
     }
 
-    public Vector2 getAvgAcceleration() {
+    public Vec2 getAvgAcceleration() {
         return avgAcceleration;
     }
 
-    public void setAvgAcceleration(Vector2 avgAcceleration) {
+    public void setAvgAcceleration(Vec2 avgAcceleration) {
         this.avgAcceleration = avgAcceleration;
     }
 
-    public Vector2 getVelocity() {
+    public Vec2 getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Vector2 velocity) {
+    public void setVelocity(Vec2 velocity) {
         this.velocity = velocity;
     }
 
-    public Vector2 getPosition() {
+    public Vec2 getPosition() {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
+    public void setPosition(Vec2 position) {
         this.position = position;
     }
 

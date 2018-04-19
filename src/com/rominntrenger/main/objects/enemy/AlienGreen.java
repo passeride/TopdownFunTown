@@ -5,7 +5,7 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.objects.Projectile;
 import com.rominntrenger.main.objects.player.Player;
 import java.util.Random;
@@ -16,12 +16,12 @@ public class AlienGreen extends Enemy {
     private long prevShot = 0;
 
     /*
-    public AlienGreen(Vector2 position, Vector2 direction, Sprite sprite) {
+    public AlienGreen(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
     } */
 
-    public AlienGreen(Vector2 position) {
-        super(position, Vector2.ZERO, new AnimationSprite("/enemies/enemyGreen", 3));
+    public AlienGreen(Vec2 position) {
+        super(position, Vec2.ZERO, new AnimationSprite("/enemies/enemyGreen", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         // setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
@@ -61,8 +61,8 @@ public class AlienGreen extends Enemy {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);
-                    pl.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(
-                        Vector2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
+                    pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
+                        Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
                         3000.0));
                 }
                 p.destroy();
@@ -70,7 +70,7 @@ public class AlienGreen extends Enemy {
         });
     }
 
-    public void wander(Vector2 position) {
+    public void wander(Vec2 position) {
         double x = position.getX();
         double y = position.getY();
     }

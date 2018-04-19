@@ -1,7 +1,7 @@
 package com.rominntrenger.main.objects.FSM;
 
 import com.bluebook.engine.GameApplication;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.objects.enemy.Enemy;
 import com.rominntrenger.main.objects.player.Player;
@@ -17,9 +17,9 @@ public class Wander implements Behaviour {
         speed = enemy.getSpeed();
         delta = enemy.getDelta();
         if (behaviourContext != null) {
-            Vector2 direction = Vector2.Vector2FromAngleInDegrees(Math.random() * 360);
+            Vec2 direction = Vec2.Vector2FromAngleInDegrees(Math.random() * 360);
             enemy.setDirection(direction);
-            enemy.translate(Vector2.multiply(direction, speed * delta));
+            enemy.translate(Vec2.multiply(direction, speed * delta));
             //make sure enemy is pointing to something
         }
         Player player = ((RomInntrenger) GameApplication.getInstance()).player;

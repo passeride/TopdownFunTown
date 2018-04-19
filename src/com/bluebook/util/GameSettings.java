@@ -1,6 +1,5 @@
 package com.bluebook.util;
 
-import com.bluebook.engine.GameEngine;
 import com.bluebook.util.Exceptions.SettingNotFoundException;
 import java.util.Map;
 
@@ -88,11 +87,11 @@ public class GameSettings {
     }
 
     /**
-     * Will return a {@link Vector2} containing the Width (X) and Height (Y) of 1 square on the canvas
+     * Will return a {@link Vec2} containing the Width (X) and Height (Y) of 1 square on the canvas
      * The number of squares is specified in the settings file under "grid_X"/"grid_y"
      * @return
      */
-    public static Vector2 getSquareScale() {
+    public static Vec2 getSquareScale() {
         int resolutionX = GameSettings.getInt("game_resolution_X");
         int gridX = GameSettings.getInt("grid_X");
         double x = resolutionX / gridX;
@@ -101,16 +100,16 @@ public class GameSettings {
         int gridY = GameSettings.getInt("grid_Y");
         double y = resolutionY / gridY;
 
-        return new Vector2(x, y);
+        return new Vec2(x, y);
     }
 
     /**
-     * Will return a {@link Vector2} where X is width of canvas and Y is height of canvas
+     * Will return a {@link Vec2} where X is width of canvas and Y is height of canvas
      * @return
      */
-    public static Vector2 getScreen() {
+    public static Vec2 getScreen() {
         int resolutionX = GameSettings.getInt("game_resolution_X");
         int resolutionY = GameSettings.getInt("game_resolution_Y");
-        return new Vector2(resolutionX, resolutionY);
+        return new Vec2(resolutionX, resolutionY);
     }
 }

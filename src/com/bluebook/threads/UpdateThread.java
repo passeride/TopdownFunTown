@@ -8,12 +8,10 @@ import java.util.concurrent.BlockingQueue;
  */
 public class UpdateThread implements Runnable {
 
-    private BlockingQueue<String> messageQueue;
     private GameEngine engine;
     private float frameRate = 60f;
     private long sleepTime = (long) ((1f / frameRate) * 1000f);
     private volatile boolean running = true;
-    private long prevTick = 0;
 
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
@@ -22,15 +20,14 @@ public class UpdateThread implements Runnable {
     /**
      * Used to create the UpdateThread Will each tick call {@link GameEngine#update(double delta)}
      */
-    public UpdateThread(GameEngine engine, BlockingQueue<String> messageQueue) {
+    public UpdateThread(GameEngine engine) {
         this.engine = engine;
-        this.messageQueue = messageQueue;
     }
 
     @Override
     public void run() {
         running = true;
-        prevTick = System.currentTimeMillis();
+        long prevTick = System.currentTimeMillis();
         while (running) {
 
             long timeElapsed = System.currentTimeMillis() - prevTick;

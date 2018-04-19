@@ -4,7 +4,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,7 +31,7 @@ public class MessageHandler extends GameObject {
     private int resolutionY;
 
     private MessageHandler() {
-        super(Vector2.ZERO, Vector2.ZERO, new Sprite(""));
+        super(Vec2.ZERO, Vec2.ZERO, new Sprite(""));
         allwaysOnScreen = true;
         this.setRenderLayer(RenderLayer.RenderLayerName.GUI);
         File file = new File("assets/fonts/Pixel-Miners.otf");
@@ -86,7 +86,7 @@ public class MessageHandler extends GameObject {
             if (sprite != null) {
                 //TODO: Draw sprite
                 sprite.drawGUI(gc,
-                    new Vector2(margin / 2 + 15, resolutionY - (height + margin - 25) / 2),
+                    new Vec2(margin / 2 + 15, resolutionY - (height + margin - 25) / 2),
                     (height - 50) / 2, (height - 50) / 2);
                 //displays text
                 gc.fillText(printMessage, margin / 2 + height / 2 + 50,

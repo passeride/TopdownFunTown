@@ -6,7 +6,7 @@ import com.bluebook.physics.RayCast;
 import com.bluebook.physics.RayCastHit;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.objects.Explotion;
 import com.rominntrenger.main.objects.Projectile;
 import com.rominntrenger.main.objects.player.Player;
@@ -41,7 +41,7 @@ public class AlienTurret extends Enemy {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public AlienTurret(Vector2 position, Vector2 direction) {
+    public AlienTurret(Vec2 position, Vec2 direction) {
         super(position, direction, new Sprite("enemies/turret"));
         turretHead = new Sprite("enemies/turret_arm_r");
         collider.setTag("Turret");
@@ -81,7 +81,7 @@ public class AlienTurret extends Enemy {
                 ys[i] = rch.ray.y2;
             }
         }
-        Vector2 pos = transform.getGlobalPosition();
+        Vec2 pos = transform.getGlobalPosition();
         xs[xs.length - 1] = pos.getX();
         ys[ys.length - 1] = pos.getY();
         ret[0] = xs;
@@ -134,12 +134,12 @@ public class AlienTurret extends Enemy {
     public void update(double delta) {
         super.update(delta);
         if (playerSeen) {
-            setDirection(Vector2.Vector2FromAngleInDegrees(
-                Vector2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
+            setDirection(Vec2.Vector2FromAngleInDegrees(
+                Vec2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
             shoot();
         } else if (enemySeen) {
-            setDirection(Vector2.Vector2FromAngleInDegrees(
-                Vector2.getAngleBetweenInDegrees(getPosition(), enemy.getPosition()) + 90));
+            setDirection(Vec2.Vector2FromAngleInDegrees(
+                Vec2.getAngleBetweenInDegrees(getPosition(), enemy.getPosition()) + 90));
             shoot();
         } else {
             timeTest += delta;
@@ -150,7 +150,7 @@ public class AlienTurret extends Enemy {
             if (!angleGrowing) {
                 progress = 1 - progress;
             }
-            setDirection(Vector2.Vector2FromAngleInDegrees(Math.sin(progress) * 90));
+            setDirection(Vec2.Vector2FromAngleInDegrees(Math.sin(progress) * 90));
 
             timesChanged = (int) (timeTest / osscilation);
             updateRayCast();
@@ -189,16 +189,16 @@ public class AlienTurret extends Enemy {
         gc.restore();
 
         sprite.draw(gc, getPosition());
-        sprite.rotate(Vector2.ZERO);
+        sprite.rotate(Vec2.ZERO);
         turretHead.rotate(getDirection());
         turretHead.draw(gc, transform.getGlobalPosition());
     }
 
     public void shoot() {
-        Projectile p = new Projectile(Vector2
-            .rotateVectorAroundPoint(Vector2.add(getPosition(), new Vector2(0, 80)), getPosition(),
+        Projectile p = new Projectile(Vec2
+            .rotateVectorAroundPoint(Vec2.add(getPosition(), new Vec2(0, 80)), getPosition(),
                 getDirection().getAngleInDegrees()),
-            Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90),
+            Vec2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90),
             new Sprite("/projectiles/projectile_c_00"));
 
         p.setPeriod(.2f);

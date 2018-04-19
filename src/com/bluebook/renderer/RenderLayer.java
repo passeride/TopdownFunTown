@@ -13,8 +13,6 @@ public class RenderLayer {
 
     private ArrayList<GameObject> drawables = new ArrayList<>();
 
-    private RenderLayerName layer;
-
     /**
      * Used by {@link RenderLayer} to signify what the layers name is
      */
@@ -67,18 +65,12 @@ public class RenderLayer {
 
     }
 
-    public RenderLayer(RenderLayerName layer) {
-        this.layer = layer;
-    }
-
     protected void drawAll(GraphicsContext gc) {
         synchronized (this) {
             int drawablesSize = drawables.size();
             GameObject[] gameObjects = new GameObject[drawablesSize];
             gameObjects = drawables.toArray(gameObjects);
             for (int i = 0; i < drawablesSize; i++) {
-//                GameObject go = drawables.get(i);
-
                 GameObject go = gameObjects[i];
                 if (go != null && go.isOnScreen()) {
                     go.draw(gc);

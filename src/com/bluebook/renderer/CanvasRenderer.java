@@ -30,7 +30,7 @@ public class CanvasRenderer {
 
     private CanvasRenderer() {
         for (int i = 0; i < layers.length; i++) {
-            layers[i] = new RenderLayer(RenderLayer.RenderLayerName.get(i));
+            layers[i] = new RenderLayer();
         }
         flg = new FPSLineGraph();
 

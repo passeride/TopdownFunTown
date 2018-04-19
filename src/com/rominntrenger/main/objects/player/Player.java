@@ -11,14 +11,14 @@ import com.bluebook.physics.RigidBody2D;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.messageHandling.Describable;
 
 public class Player extends GameObject {
 
     AudioPlayer hitSound;
-    protected Vector2 collisionDirection;
+    protected Vec2 collisionDirection;
     private double speed = 800.0; // Gotta go fast
     private double baseSpeed = 300.0;
     private double speedBoostSpeed = 1000.0;
@@ -34,7 +34,7 @@ public class Player extends GameObject {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Player(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Player(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
 
         ((RomInntrenger) GameApplication.getInstance()).player = this;
@@ -54,7 +54,7 @@ public class Player extends GameObject {
         walkCollider.setTag("Walk");
         walkCollider.addInteractionLayer("Item");
         walkCollider.addInteractionLayer("Block");
-        walkCollider.setPadding(new Vector2(-20, -20));
+        walkCollider.setPadding(new Vec2(-20, -20));
 
         walkCollider.setOnCollisionListener(new OnCollisionListener() {
             @Override
@@ -77,44 +77,44 @@ public class Player extends GameObject {
     public void update(double delta) {
         rb2.update(delta);
 
-        translate(Vector2.multiply(rb2.getVelocity(), delta));
-        translate(Vector2.ZERO); // This is to update in case of intersection
+        translate(Vec2.multiply(rb2.getVelocity(), delta));
+        translate(Vec2.ZERO); // This is to update in case of intersection
     }
 
     /**
      * Will move the player object NORTH/UP by {@link Player#speed}
      */
     public void moveUp(double delta) {
-        translate(Vector2.multiply(Vector2.UP, speed * delta));
+        translate(Vec2.multiply(Vec2.UP, speed * delta));
     }
 
     /**
      * Will move the player object SOUTH/DOWN by {@link Player#speed}
      */
     public void moveDown(double delta) {
-        translate(Vector2.multiply(Vector2.DOWN, speed * delta));
+        translate(Vec2.multiply(Vec2.DOWN, speed * delta));
     }
 
     /**
      * Will move the player object WEST/LEFT by {@link Player#speed}
      */
     public void moveLeft(double delta) {
-        translate(Vector2.multiply(Vector2.LEFT, speed * delta));
+        translate(Vec2.multiply(Vec2.LEFT, speed * delta));
     }
 
     /**
      * Will move the player object EAST/RIGHT by {@link Player#speed}
      */
     public void moveRight(double delta) {
-        translate(Vector2.multiply(Vector2.RIGHT, speed * delta));
+        translate(Vec2.multiply(Vec2.RIGHT, speed * delta));
     }
 
     /**
      * Override to create a 8 % margin for movement
      */
     @Override
-    public void translate(Vector2 moveVector) {
-        Vector2 newPoss = Vector2.add(getPosition(), moveVector);
+    public void translate(Vec2 moveVector) {
+        Vec2 newPoss = Vec2.add(getPosition(), moveVector);
 
         Collider hit = walkCollider.getIntersectionCollider();
 
@@ -122,9 +122,9 @@ public class Player extends GameObject {
             transform.setLocalPosition(newPoss);
         } else {
             transform.setLocalPosition(
-                Vector2.add(
+                Vec2.add(
                     transform.getLocalPosition(),
-                    Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(),
+                    Vec2.multiply(Vec2.subtract(getTransform().getGlobalPosition(),
                         hit.getGameObject().getTransform().getGlobalPosition())
                         .getNormalizedVector(), 0.5)));
 
@@ -174,7 +174,7 @@ public class Player extends GameObject {
         if (currentWeapon != null) {
             currentWeapon.shoot();
         }
-        rb2.addForce(Vector2.multiply(Vector2
+        rb2.addForce(Vec2.multiply(Vec2
                 .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),
             30000));
     }

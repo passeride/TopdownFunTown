@@ -4,7 +4,7 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.renderer.RenderLayer;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.gui.Inventory;
 import com.rominntrenger.main.gui.InventoryItem;
@@ -21,11 +21,11 @@ public class Key extends Item implements Describable {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Key(Vector2 position, Vector2 direction, Sprite sprite, int ID) {
+    public Key(Vec2 position, Vec2 direction, Sprite sprite, int ID) {
         super(position, direction, sprite);
         this.keyID = ID;
 
-        setSize(new Vector2(0.5, 0.5));
+        setSize(new Vec2(0.5, 0.5));
         setRenderLayer(RenderLayer.RenderLayerName.TILES);
         collider = new BoxCollider(this);
         collider.setTag("Item");

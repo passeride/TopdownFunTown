@@ -3,7 +3,7 @@ package com.bluebook.physics;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
 import java.util.List;
 import javafx.geometry.Bounds;
@@ -112,12 +112,12 @@ public class CircleCollider extends Collider {
             return position.distance(otherCircle.position) < radius + otherCircle.radius;
         } else if (other instanceof BoxCollider) {
             BoxCollider box = (BoxCollider) other;
-            Vector2 circleCenter = getPosition();
-            Vector2 boxCenter = new Vector2(box.getRect().getX() + box.getRect().getWidth() / 2,
+            Vec2 circleCenter = getPosition();
+            Vec2 boxCenter = new Vec2(box.getRect().getX() + box.getRect().getWidth() / 2,
                 box.getRect().getY() + box.getRect().getHeight() / 2);
-            Vector2 hitVector = Vector2.subtract(boxCenter, circleCenter).getNormalizedVector();
-            hitVector = Vector2.multiply(hitVector, getRadius());
-            hitVector = Vector2.add(circleCenter, hitVector);
+            Vec2 hitVector = Vec2.subtract(boxCenter, circleCenter).getNormalizedVector();
+            hitVector = Vec2.multiply(hitVector, getRadius());
+            hitVector = Vec2.add(circleCenter, hitVector);
             return (box.getRect().getBoundsInParent().intersects(
                 new Rectangle(hitVector.getX(), hitVector.getY(), 2, 2).getBoundsInParent()));
         } else {
@@ -128,12 +128,12 @@ public class CircleCollider extends Collider {
     @Override
     Line2D[] getLines() {
 
-        Vector2 pos = gameObject.getTransform().getGlobalPosition();
+        Vec2 pos = gameObject.getTransform().getGlobalPosition();
 
-        Vector2[] circlePoints = new Vector2[lineResolution];
+        Vec2[] circlePoints = new Vec2[lineResolution];
         for (int i = 0; i < circlePoints.length; i++) {
-            circlePoints[i] = Vector2
-                .rotateVectorAroundPoint(Vector2.add(pos, new Vector2(0, radius)), pos,
+            circlePoints[i] = Vec2
+                .rotateVectorAroundPoint(Vec2.add(pos, new Vec2(0, radius)), pos,
                     (360 / lineResolution) * i);
         }
 
@@ -141,13 +141,13 @@ public class CircleCollider extends Collider {
 
         for (int i = 0; i < ret.length; i++) {
             if (i != ret.length) {
-                Vector2 start = circlePoints[i];
-                Vector2 dest = circlePoints[i + 1];
+                Vec2 start = circlePoints[i];
+                Vec2 dest = circlePoints[i + 1];
                 ret[i] = new Line2D((float) start.getX(), (float) start.getY(), (float) dest.getX(),
                     (float) dest.getY());
             } else {
-                Vector2 start = circlePoints[i];
-                Vector2 dest = circlePoints[0];
+                Vec2 start = circlePoints[i];
+                Vec2 dest = circlePoints[0];
                 ret[i] = new Line2D((float) start.getX(), (float) start.getY(), (float) dest.getX(),
                     (float) dest.getY());
             }
@@ -171,11 +171,11 @@ public class CircleCollider extends Collider {
         this.radius = radius;
     }
 
-    public Vector2 getPosition() {
+    public Vec2 getPosition() {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
+    public void setPosition(Vec2 position) {
         this.position = position;
     }
 }

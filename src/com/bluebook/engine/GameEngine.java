@@ -17,7 +17,6 @@ public class GameEngine {
 
     private UpdateThread updateThread;
     private CollisionThread collisionThread;
-    private BlockingQueue<String> messageQueue = new ArrayBlockingQueue<>(1);
 
     private ArrayList<GameObject> updateObjects = new ArrayList<>();
 
@@ -59,7 +58,7 @@ public class GameEngine {
 
         this.canvas = canvas;
 
-        updateThread = new UpdateThread(this, messageQueue);
+        updateThread = new UpdateThread(this);
         collisionThread = new CollisionThread();
         startAnimationTimer();
 

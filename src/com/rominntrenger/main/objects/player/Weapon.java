@@ -4,7 +4,7 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.objects.Projectile;
 import com.rominntrenger.main.objects.enemy.Enemy;
 
@@ -13,7 +13,7 @@ import com.rominntrenger.main.objects.enemy.Enemy;
  */
 public abstract class Weapon extends GameObject {
 
-    public Vector2 offset;
+    public Vec2 offset;
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "./assets/audio/scifi002.wav";
     protected String projectilePath = "/projectiles/projectile_gold_00";
@@ -23,22 +23,22 @@ public abstract class Weapon extends GameObject {
      *
      * @param offset is the offset compared to the player.
      */
-    public Weapon(Vector2 position, Vector2 direction, Sprite sprite, Vector2 offset) {
+    public Weapon(Vec2 position, Vec2 direction, Sprite sprite, Vec2 offset) {
         super(position, direction, sprite);
         this.offset = offset;
     }
 
-    public Vector2 getOffset() {
+    public Vec2 getOffset() {
         return offset;
     }
 
-    public void setOffset(Vector2 offset) {
+    public void setOffset(Vec2 offset) {
         this.offset = offset;
     }
 
     @Override
-    public void setDirection(Vector2 direction) {
-        super.setDirection(Vector2.Vector2FromAngleInDegrees(direction.getAngleInDegrees() + 90));
+    public void setDirection(Vec2 direction) {
+        super.setDirection(Vec2.Vector2FromAngleInDegrees(direction.getAngleInDegrees() + 90));
     }
 
 
@@ -49,13 +49,13 @@ public abstract class Weapon extends GameObject {
         audioPlayer.setSpatial(this);
         audioPlayer.playOnce();
         // score -= 50;
-        Vector2 angle = Vector2
+        Vec2 angle = Vec2
             .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
 
-        Vector2 spawnPosition = transform.getWorldPosition();
+        Vec2 spawnPosition = transform.getWorldPosition();
 
         Projectile p = new Projectile(spawnPosition,
-            Vector2
+            Vec2
                 .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
             new Sprite(projectilePath));
         p.setSpeed(800);

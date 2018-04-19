@@ -2,7 +2,7 @@ package com.rominntrenger.main.objects.player;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 
 public class RedRifle extends Weapon {
 
@@ -11,7 +11,7 @@ public class RedRifle extends Weapon {
      *
      * @param offset is the offset compared to the player.
      */
-    public RedRifle(Vector2 position, Vector2 direction, Sprite sprite, Vector2 offset) {
+    public RedRifle(Vec2 position, Vec2 direction, Sprite sprite, Vec2 offset) {
         super(position, direction, sprite, offset);
         audioPlayer = new AudioPlayer("./assets/audio/lukasPew.wav");
         projectilePath = "/projectiles/projectile_g_02";

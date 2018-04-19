@@ -3,7 +3,7 @@ package com.rominntrenger.main.objects.blocks;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.renderer.RenderLayer;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Barrel extends Item {
@@ -11,9 +11,9 @@ public class Barrel extends Item {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Barrel(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Barrel(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        setSize(new Vector2(1, 1));
+        setSize(new Vec2(1, 1));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
     }

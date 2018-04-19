@@ -3,7 +3,7 @@ package com.bluebook.physics;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ public abstract class Collider {
     String tag;
     List<String> interactionLayer = new ArrayList<>();
 
-    Vector2 position = Vector2.ZERO;
+    Vec2 position = Vec2.ZERO;
 
     Path intersection;
-    Vector2 intersectionCenter;
-    Vector2 padding = Vector2.ZERO;
+    Vec2 intersectionCenter;
+    Vec2 padding = Vec2.ZERO;
     Collider intersectionCollider;
 
     GameObject gameObject;
@@ -57,13 +57,13 @@ public abstract class Collider {
 
     abstract void setIntersection(Path intersection);
 
-    public Vector2 getFurthestPointOfIntersection() {
-        Vector2 ret = new Vector2(0, 0);
+    public Vec2 getFurthestPointOfIntersection() {
+        Vec2 ret = new Vec2(0, 0);
         double minDist = 0;
 
         for (PathElement pe : intersection.getElements()) {
             if (pe instanceof MoveTo) {
-                Vector2 pathPosition = new Vector2(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
+                Vec2 pathPosition = new Vec2(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
                 if (gameObject.getPosition().distance(pathPosition) > minDist) {
                     ret = pathPosition;
                 }
@@ -75,13 +75,13 @@ public abstract class Collider {
 
     public abstract Rectangle getBoudningBox();
 
-    public Vector2 getClosestPointOfIntersection() {
-        Vector2 ret = new Vector2(0, 0);
+    public Vec2 getClosestPointOfIntersection() {
+        Vec2 ret = new Vec2(0, 0);
         double maxDist = Double.MAX_VALUE;
 
         for (PathElement pe : intersection.getElements()) {
             if (pe instanceof MoveTo) {
-                Vector2 pathPosition = new Vector2(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
+                Vec2 pathPosition = new Vec2(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
                 if (gameObject.getPosition().distance(pathPosition) < maxDist) {
                     ret = pathPosition;
                 }
@@ -147,19 +147,19 @@ public abstract class Collider {
     }
 
 
-    public Vector2 getIntersectionCenter() {
+    public Vec2 getIntersectionCenter() {
         return intersectionCenter;
     }
 
-    public void setIntersectionCenter(Vector2 intersectionCenter) {
+    public void setIntersectionCenter(Vec2 intersectionCenter) {
         this.intersectionCenter = intersectionCenter;
     }
 
-    public Vector2 getPadding() {
+    public Vec2 getPadding() {
         return padding;
     }
 
-    public void setPadding(Vector2 padding) {
+    public void setPadding(Vec2 padding) {
         this.padding = padding;
     }
 
@@ -199,11 +199,11 @@ public abstract class Collider {
         this.intersectionCollider = intersectionCollider;
     }
 
-    public Vector2 getPosition() {
+    public Vec2 getPosition() {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
+    public void setPosition(Vec2 position) {
         this.position = position;
     }
 }

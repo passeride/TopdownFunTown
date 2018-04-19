@@ -3,7 +3,7 @@ package com.bluebook.input;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -179,8 +179,8 @@ public class Input {
     /**
      * This will return the position of the mouse on screen
      */
-    public Vector2 getMousePosition() {
-        return new Vector2(mouse_X, mouse_y);
+    public Vec2 getMousePosition() {
+        return new Vec2(mouse_X, mouse_y);
     }
 
     private void keyPressed(KeyEvent event) {

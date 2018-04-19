@@ -4,7 +4,7 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.gui.HealthElement;
 import com.rominntrenger.main.gui.Inventory;
 import com.rominntrenger.main.maploader.ImageBuffering;
@@ -32,8 +32,8 @@ public class RomInntrenger extends GameApplication {
     @Override
     protected void onLoad() {
         super.onLoad();
-        currentWeapon = new StarterWeapon(new Vector2(0, 40), Vector2.ZERO,
-            new AnimationSprite("/friendlies/arms", 2), Vector2.ZERO);
+        currentWeapon = new StarterWeapon(new Vec2(0, 40), Vec2.ZERO,
+            new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         cam = new OrthographicCamera();
         ImageBuffering loader = new ImageBuffering();
         BufferedImage thisMap;
@@ -41,7 +41,7 @@ public class RomInntrenger extends GameApplication {
         MapCreator level = new MapCreator(thisMap);
         level.createLevel();
         inventory = new Inventory(6);
-        healthElement = new HealthElement(new Vector2(0, 0));
+        healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         bgMusic.playLoop();
@@ -93,8 +93,8 @@ public class RomInntrenger extends GameApplication {
 
         // Lookat
         if (OrthographicCamera.main != null) {
-            player.lookAt(Vector2.subtract(input.getMousePosition(),
-                new Vector2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY())));
+            player.lookAt(Vec2.subtract(input.getMousePosition(),
+                new Vec2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY())));
         } else {
             player.lookAt(input.getMousePosition());
         }

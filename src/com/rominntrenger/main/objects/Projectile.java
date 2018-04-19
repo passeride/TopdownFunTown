@@ -6,7 +6,7 @@ import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -30,7 +30,7 @@ public class Projectile extends GameObject {
 
     private static ArrayList<Projectile> allProjectilse = new ArrayList<>();
 
-    private Vector2 startPosition;
+    private Vec2 startPosition;
     boolean isSine = false;
     boolean isBouncy = true;
     boolean isTimeDecay = true;
@@ -38,12 +38,12 @@ public class Projectile extends GameObject {
     double squareWithStart;
     double squareHeightStart;
 
-    private Vector2 startSize = size;
+    private Vec2 startSize = size;
 
     /**
      * Constructor for Projectile given position rotation and sprite
      */
-    public Projectile(Vector2 position, Vector2 direction, Sprite sprite) {
+    public Projectile(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         allProjectilse.add(this);
         this.startPosition = transform.getGlobalPosition();
@@ -52,7 +52,7 @@ public class Projectile extends GameObject {
         collider.setName("Bullet");
         collider.setTag("DMG");
         startTime = System.currentTimeMillis();
-        startSize = new Vector2(1, 1);
+        startSize = new Vec2(1, 1);
         squareHeightStart = 1;
         squareWithStart = 1;
     }
@@ -71,12 +71,12 @@ public class Projectile extends GameObject {
     @Override
     public void update(double delta) {
         if (isSine) {
-            translate(Vector2.add(Vector2
-                    .rotateVectorAroundPoint(SmoothSineWave(delta), Vector2.ZERO,
+            translate(Vec2.add(Vec2
+                    .rotateVectorAroundPoint(SmoothSineWave(delta), Vec2.ZERO,
                         getDirection().getAngleInDegrees()),
-                Vector2.multiply(getDirection(), speed * delta)));
+                Vec2.multiply(getDirection(), speed * delta)));
         } else {
-            translate(Vector2.multiply(getDirection(), speed * delta));
+            translate(Vec2.multiply(getDirection(), speed * delta));
         }
 
         if (isTimeDecay) {
@@ -87,7 +87,7 @@ public class Projectile extends GameObject {
 
             if (elapseProgress > 0.1) {
                 elapseProgress = elapseProgress / 2 + 0.5;
-                transform.setLocalScale(Vector2.multiply(startSize, elapseProgress));
+                transform.setLocalScale(Vec2.multiply(startSize, elapseProgress));
             } else {
                 destroy();
             }
@@ -100,11 +100,11 @@ public class Projectile extends GameObject {
 
 
     @Override
-    public void translate(Vector2 moveVector) {
-        setPosition(Vector2.add(getPosition(), moveVector));
+    public void translate(Vec2 moveVector) {
+        setPosition(Vec2.add(getPosition(), moveVector));
     }
 
-    private Vector2 SmoothSineWave(double deltaTime) {
+    private Vec2 SmoothSineWave(double deltaTime) {
         // y(t) = A * sin(ωt + θ) [Basic Sine Wave Equation]
         // [A = amplitude | ω = AngularFrequency ((2*PI)f) | f = 1/T | T = [period (s)] | θ = phase | t = elapsedTime]
         // Public/Serialized Variables: amplitude, period, phase
@@ -124,7 +124,7 @@ public class Projectile extends GameObject {
         // Plug in all calculated variables into the complete Sine wave equation.
         float y = (amplitude * (float) Math.sin(omegaProduct + phase));
         //
-        return new Vector2(0, y);
+        return new Vec2(0, y);
     }
 
     public double getLengthTraveled() {
@@ -132,7 +132,7 @@ public class Projectile extends GameObject {
     }
 
     @Override
-    public void setSize(Vector2 vec) {
+    public void setSize(Vec2 vec) {
         super.setSize(vec);
         if (collider != null && collider instanceof BoxCollider) {
             ((BoxCollider) collider).updateRect();

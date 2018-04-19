@@ -2,7 +2,7 @@ package com.bluebook.camera;
 
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 
 /**
  * OrthographicCamera is an object containing X and Y coordinates, that we use to translate/displace all objects drawn on screen to create the effect of a camera
@@ -20,11 +20,11 @@ public class OrthographicCamera {
     public static OrthographicCamera main;
 
 
-    public static Vector2 getOffset() {
+    public static Vec2 getOffset() {
         if (main == null) {
-            return Vector2.ZERO;
+            return Vec2.ZERO;
         } else {
-            return new Vector2(x, y);
+            return new Vec2(x, y);
         }
     }
 
@@ -52,7 +52,7 @@ public class OrthographicCamera {
             double deadzoneX = width * this.deadZoneX;
             double deadzoneY = height * this.deadZoneY;
 
-            Vector2 playPoss = gameobject.getTransform().getLocalPosition();
+            Vec2 playPoss = gameobject.getTransform().getLocalPosition();
             if (playPoss.getX() >= -x + width - deadzoneX) {
                 double movePosX = -playPoss.getX() - x + width - deadzoneX;
                 OrthographicCamera.x = OrthographicCamera.x + movePosX * dampening;

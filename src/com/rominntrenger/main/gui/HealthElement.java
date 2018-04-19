@@ -6,7 +6,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,13 +21,13 @@ public class HealthElement extends GameObject {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public HealthElement(Vector2 position) {
-        super(new Vector2(0, 0), Vector2.ZERO, null);
+    public HealthElement(Vec2 position) {
+        super(new Vec2(0, 0), Vec2.ZERO, null);
         allwaysOnScreen = true;
         hp = GameSettings.getInt("player_health");
         maxHp = hp;
         setRenderLayer(RenderLayer.RenderLayerName.GUI);
-        setSize(new Vector2(3, 3));
+        setSize(new Vec2(3, 3));
 
         for (int i = 1; i < numberOfSpriteElements; i++) {
             sprites[i] = new Sprite("health/health" + (numberOfSpriteElements - i));
@@ -41,11 +41,11 @@ public class HealthElement extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        setPosition(new Vector2(-OrthographicCamera.main.getX() + 200,
+        setPosition(new Vec2(-OrthographicCamera.main.getX() + 200,
             -OrthographicCamera.main.getY() + 200));
         setSprite(sprites[getSpriteNumber()]);
         Sprite sp = sprites[getSpriteNumber()];
-        sp.drawGUI(gc, new Vector2(25, 45), 600, 250);
+        sp.drawGUI(gc, new Vec2(25, 45), 600, 250);
 
         if (GameEngine.DEBUG) {
             gc.setFill(Color.BLACK);

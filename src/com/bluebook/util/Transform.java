@@ -7,50 +7,50 @@ import java.util.ArrayList;
  * Transform keeps the position, rotation,  scale and hierarcical position of the object into
  * consideration
  */
-public class Transform extends Component {
+public class Transform {
 
-    protected Vector2 position;
-    protected Vector2 rotation;
-    protected Vector2 scale;
-    protected Vector2 position_offsett;
-    protected Vector2 rotation_offsett;
-    protected Vector2 scale_offsett;
-    protected Transform parent;
-    protected ArrayList<Transform> children = new ArrayList<>();
+    private Vec2 position;
+    private Vec2 rotation;
+    private Vec2 scale;
+    private Vec2 position_offset;
+    private Vec2 rotation_offset;
+    private Vec2 scale_offset;
+    private Transform parent;
+    private ArrayList<Transform> children = new ArrayList<>();
 
     /**
      * Creating base constructor for root level transforms
      */
     public Transform() {
-        position = Vector2.ZERO;
-        rotation = Vector2.ZERO;
-        scale = new Vector2(1, 1);
+        position = Vec2.ZERO;
+        rotation = Vec2.ZERO;
+        scale = new Vec2(1, 1);
     }
 
-    public void translate(Vector2 moveVector) {
-        position = Vector2.add(position, moveVector);
+    public void translate(Vec2 moveVector) {
+        position = Vec2.add(position, moveVector);
     }
 
-    private Vector2 getPositionOffsett() {
+    private Vec2 getPositionOffsett() {
         if (parent != null) {
-            return Vector2.add(
-                Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
-                    Vector2.ZERO,
+            return Vec2.add(
+                Vec2.rotateVectorAroundPoint(Vec2.multiply(position, parent.scale),
+                    Vec2.ZERO,
                     parent.getLocalRotation().getAngleInDegrees()),
                 parent.getPositionOffsett());
         } else if (OrthographicCamera.main != null) {
-            return Vector2.add(position,
-                new Vector2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY()));
+            return Vec2.add(position,
+                new Vec2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY()));
         } else {
             return position;
         }
     }
 
-    private Vector2 getPositionOffsettWithoutCamera() {
+    private Vec2 getPositionOffsettWithoutCamera() {
         if (parent != null) {
-            return Vector2.add(
-                Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
-                    Vector2.ZERO,
+            return Vec2.add(
+                Vec2.rotateVectorAroundPoint(Vec2.multiply(position, parent.scale),
+                    Vec2.ZERO,
                     parent.getLocalRotation().getAngleInDegrees()),
                 parent.getPositionOffsettWithoutCamera());
         } else {
@@ -58,59 +58,59 @@ public class Transform extends Component {
         }
     }
 
-    private Vector2 getRotationOffsett() {
+    private Vec2 getRotationOffsett() {
         if (parent != null) {
-            return Vector2.add(rotation, parent.getRotationOffsett());
+            return Vec2.add(rotation, parent.getRotationOffsett());
         } else {
             return rotation;
         }
     }
 
-    private Vector2 getScaleoffsett() {
+    private Vec2 getScaleoffsett() {
         if (parent != null) {
-            return Vector2.multiply(scale, parent.getScaleoffsett());
+            return Vec2.multiply(scale, parent.getScaleoffsett());
         } else {
             return scale;
         }
     }
 
-    public Vector2 getWorldPosition() {
+    public Vec2 getWorldPosition() {
         return getPositionOffsettWithoutCamera();
     }
 
-    public Vector2 getGlobalPosition() {
+    public Vec2 getGlobalPosition() {
         return getPositionOffsett();
     }
 
-    public Vector2 getGlobalScale() {
+    public Vec2 getGlobalScale() {
         return getScaleoffsett();
     }
 
-    public Vector2 getGlobalRotation() {
+    public Vec2 getGlobalRotation() {
         return getRotationOffsett();
     }
 
-    public Vector2 getLocalPosition() {
+    public Vec2 getLocalPosition() {
         return position;
     }
 
-    public void setLocalPosition(Vector2 position) {
+    public void setLocalPosition(Vec2 position) {
         this.position = position;
     }
 
-    public Vector2 getLocalRotation() {
+    public Vec2 getLocalRotation() {
         return rotation;
     }
 
-    public void setLocalRotation(Vector2 rotation) {
+    public void setLocalRotation(Vec2 rotation) {
         this.rotation = rotation;
     }
 
-    public Vector2 getLocalScale() {
+    public Vec2 getLocalScale() {
         return scale;
     }
 
-    public void setLocalScale(Vector2 scale) {
+    public void setLocalScale(Vec2 scale) {
         this.scale = scale;
     }
 
@@ -118,28 +118,28 @@ public class Transform extends Component {
         return parent;
     }
 
-    public Vector2 getPosition_offsett() {
-        return position_offsett;
+    public Vec2 getPosition_offset() {
+        return position_offset;
     }
 
-    public void setPosition_offsett(Vector2 position_offsett) {
-        this.position_offsett = position_offsett;
+    public void setPosition_offset(Vec2 position_offset) {
+        this.position_offset = position_offset;
     }
 
-    public Vector2 getRotation_offsett() {
-        return rotation_offsett;
+    public Vec2 getRotation_offset() {
+        return rotation_offset;
     }
 
-    public void setRotation_offsett(Vector2 rotation_offsett) {
-        this.rotation_offsett = rotation_offsett;
+    public void setRotation_offset(Vec2 rotation_offset) {
+        this.rotation_offset = rotation_offset;
     }
 
-    public Vector2 getScale_offsett() {
-        return scale_offsett;
+    public Vec2 getScale_offset() {
+        return scale_offset;
     }
 
-    public void setScale_offsett(Vector2 scale_offsett) {
-        this.scale_offsett = scale_offsett;
+    public void setScale_offset(Vec2 scale_offset) {
+        this.scale_offset = scale_offset;
     }
 
     public void setParent(Transform parent) {

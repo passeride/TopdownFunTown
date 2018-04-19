@@ -3,7 +3,7 @@ package com.rominntrenger.main.gui;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Inventory extends GameObject {
@@ -23,7 +23,7 @@ public class Inventory extends GameObject {
     private int itemHeight = 64;
 
     public Inventory(int inventorySpots) {
-        super(new Vector2(20, 30), Vector2.ZERO, null);
+        super(new Vec2(20, 30), Vec2.ZERO, null);
         setRenderLayer(RenderLayer.RenderLayerName.GUI);
         background = new Sprite("../bg/inventoryBG");
         background.setOrigin(transform);
@@ -50,13 +50,13 @@ public class Inventory extends GameObject {
     @Override
     public void draw(GraphicsContext gc) {
         bgWidth = 70 + inventorySpace * 100;
-        background.drawGUI(gc, new Vector2(x, y), bgWidth, bgHeight);
+        background.drawGUI(gc, new Vec2(x, y), bgWidth, bgHeight);
 
         if (hasItem) {
             for (int i = 0; i < inventoryContents.length; i++) {
                 if (inventoryContents[i] != null) {
                     inventoryContents[i].getSprite().drawGUI(gc,
-                        new Vector2(x + (100 * i) + 50, y + (bgHeight / 2 - itemHeight / 2)),
+                        new Vec2(x + (100 * i) + 50, y + (bgHeight / 2 - itemHeight / 2)),
                         itemWidth, itemHeight);
                 }
             }

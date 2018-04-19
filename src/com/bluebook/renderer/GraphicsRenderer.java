@@ -2,7 +2,7 @@ package com.bluebook.renderer;
 
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -12,11 +12,14 @@ import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.ArcType;
 import javafx.scene.transform.Rotate;
 
+/**
+ * GraphicsRendere is an attemt to create a wrapper for {@link GraphicsContext} to add functionality and also possibly create a alternative OpenGL renderer
+ */
 public class GraphicsRenderer {
 
     public GraphicsContext gc;
 
-    protected double scaledSquareHeight, scaledSquareWidth;
+    private double scaledSquareHeight, scaledSquareWidth;
 
     public void save() {
         gc.save();
@@ -46,7 +49,7 @@ public class GraphicsRenderer {
     }
 
     private void setScaleSquare() {
-        Vector2 scaleVec = GameSettings.getSquareScale();
+        Vec2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY();
         scaledSquareWidth = scaleVec.getX();
     }
@@ -59,7 +62,7 @@ public class GraphicsRenderer {
         gc.setStroke(color);
     }
 
-    public void drawCircle(Vector2 position, double radius) {
+    public void drawCircle(Vec2 position, double radius) {
         double xOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getX();
         double yOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getY();
 
@@ -67,7 +70,7 @@ public class GraphicsRenderer {
             radius * 2, 0, 360, ArcType.CHORD);
     }
 
-    public void strokeCircle(Vector2 position, double radius) {
+    public void strokeCircle(Vec2 position, double radius) {
         double xOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getX();
         double yOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getY();
 
@@ -75,7 +78,7 @@ public class GraphicsRenderer {
             radius * 2, 0, 360, ArcType.CHORD);
     }
 
-    public void drawBox(Vector2 position, double width, double height) {
+    public void drawBox(Vec2 position, double width, double height) {
         double xOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getX();
         double yOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getY();
 
@@ -86,7 +89,7 @@ public class GraphicsRenderer {
             height);
     }
 
-    public void strokeBox(Vector2 position, double width, double height) {
+    public void strokeBox(Vec2 position, double width, double height) {
         double xOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getX();
         double yOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getY();
 
@@ -99,10 +102,10 @@ public class GraphicsRenderer {
 
 
     public void strokeBox(double x, double y, double width, double height) {
-        strokeBox(new Vector2(x, y), width, height);
+        strokeBox(new Vec2(x, y), width, height);
     }
 
-    public void strokeLine(Vector2 start, Vector2 dest) {
+    public void strokeLine(Vec2 start, Vec2 dest) {
         double xOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getX();
         double yOff = OrthographicCamera.main == null ? 0 : OrthographicCamera.main.getY();
 
@@ -117,7 +120,7 @@ public class GraphicsRenderer {
         gc.strokeLine(line.x1 + xOff, line.y1 + yOff, line.x2 + xOff, line.y2 + yOff);
     }
 
-    private void renderImage(Vector2 position, Image img) {
+    private void renderImage(Vec2 position, Image img) {
         gc.drawImage(img, position.getX() - (scaledSquareWidth / 2f),
             position.getY() - (scaledSquareHeight / 2f), scaledSquareWidth, scaledSquareHeight);
     }
@@ -126,11 +129,11 @@ public class GraphicsRenderer {
         gc.drawImage(img, x, y, width, height);
     }
 
-    public void drawImage(Vector2 position, Image img) {
+    public void drawImage(Vec2 position, Image img) {
         renderImage(position, img);
     }
 
-    public void drawImage(Vector2 position, double rotation, Image img) {
+    public void drawImage(Vec2 position, double rotation, Image img) {
         gc.save();
 
         gc = rotateGraphicsContext(gc, position, rotation);
@@ -138,22 +141,22 @@ public class GraphicsRenderer {
         gc.restore();
     }
 
-    public void rotate(Vector2 position, double angle) {
+    public void rotate(Vec2 position, double angle) {
         gc = rotateGraphicsContext(gc, position, angle);
     }
 
-    protected GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vector2 position,
+    protected GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vec2 position,
         double rotateAngle) {
         Rotate r = new Rotate(rotateAngle, position.getX(), position.getY());
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
         return gc;
     }
 
-    private Vector2 addCameraOffset(Vector2 pos) {
-        return Vector2.subtract(pos, OrthographicCamera.getOffset());
+    private Vec2 addCameraOffset(Vec2 pos) {
+        return Vec2.subtract(pos, OrthographicCamera.getOffset());
     }
 
-    private Vector2 getPixelPosition(Vector2 pos) {
-        return Vector2.multiply(pos, new Vector2(scaledSquareWidth, scaledSquareHeight));
+    private Vec2 getPixelPosition(Vec2 pos) {
+        return Vec2.multiply(pos, new Vec2(scaledSquareWidth, scaledSquareHeight));
     }
 }

@@ -6,7 +6,7 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.objects.player.Player;
 
@@ -25,10 +25,10 @@ public class Explotion extends GameObject {
      * Explotion will spawn a Explotion on the position given with a random rotation This will push
      * back and hurt player if close
      */
-    public Explotion(Vector2 position) {
-        super(position, Vector2.Vector2FromAngleInDegrees(Math.random() * 360),
+    public Explotion(Vec2 position) {
+        super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
             new AnimationSprite("effects/explotion", 11));
-        setSize(new Vector2(5, 5));
+        setSize(new Vec2(5, 5));
         setRenderLayer(RenderLayer.RenderLayerName.PROJECTILE);
         player = ((RomInntrenger) GameApplication.getInstance()).player;
 
@@ -74,8 +74,8 @@ public class Explotion extends GameObject {
         double distance2Player = player.getPosition().distance(getPosition());
         double forceMultiplier = 1 - (distance2Player / distance);
 
-        player.rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(
-            Vector2.getAngleBetweenInDegrees(getPosition(), player.getPosition())),
+        player.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
+            Vec2.getAngleBetweenInDegrees(getPosition(), player.getPosition())),
             force * forceMultiplier));
 
     }

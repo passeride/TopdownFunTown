@@ -7,7 +7,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.messageHandling.Describable;
 import com.rominntrenger.main.messageHandling.MessageHandler;
@@ -21,7 +21,7 @@ public class Door extends GameObject implements Describable {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Door(Vector2 position, Vector2 direction, Sprite sprite, int ID) {
+    public Door(Vec2 position, Vec2 direction, Sprite sprite, int ID) {
         super(position, direction, sprite);
         this.doorID = ID;
         this.setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);

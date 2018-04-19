@@ -7,7 +7,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.rominntrenger.main.objects.Door;
 import com.rominntrenger.main.objects.Key;
 import com.rominntrenger.main.objects.Ship;
@@ -37,14 +37,14 @@ public class MapCreator extends GameObject {
     GameObject[][] grid;
     BufferedImage newMap;
     GraphicsContext gc;
-    Vector2 vector;
+    Vec2 vector;
 
     private String name = "Space Adventures in Space";
     private AudioPlayer soundTrack;
     private ID tempID;
 
     public MapCreator(BufferedImage map) {
-        super(Vector2.ZERO, Vector2.ZERO, new Sprite("../bg/tilebg02"));
+        super(Vec2.ZERO, Vec2.ZERO, new Sprite("../bg/tilebg02"));
         allwaysOnScreen = true;
         this.newMap = map;
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
@@ -55,9 +55,9 @@ public class MapCreator extends GameObject {
         // Will draw groundtiles only where camera sees
         // To avoid some tearing issues
 
-        Vector2 offset = OrthographicCamera.getOffset();
-        Vector2 squareSize = GameSettings.getSquareScale();
-        Vector2 screen = GameSettings.getScreen();
+        Vec2 offset = OrthographicCamera.getOffset();
+        Vec2 squareSize = GameSettings.getSquareScale();
+        Vec2 screen = GameSettings.getScreen();
         int xNum = (int) (-offset.getX() / squareSize
             .getX()); // Squares to not draw (Left of camera)
         int yNum = (int) (-offset.getY() / squareSize.getY());
@@ -84,12 +84,12 @@ public class MapCreator extends GameObject {
 
                 tempID = currentLevel[i][j];
 
-                vector = new Vector2(i, j);
-                vector = Vector2.multiply(vector, GameSettings.getSquareScale());
+                vector = new Vec2(i, j);
+                vector = Vec2.multiply(vector, GameSettings.getSquareScale());
                 switch (tempID) {
 
                     case Wall:
-                        grid[i][j] = new Wall(vector, Vector2.ZERO, new Sprite("../bg/wall"));
+                        grid[i][j] = new Wall(vector, Vec2.ZERO, new Sprite("../bg/wall"));
                         break;
 
                     case Blood:
@@ -97,92 +97,92 @@ public class MapCreator extends GameObject {
                         break;
 
                     case SpawnPlayer:
-                        grid[i][j] = new Player(vector, Vector2.ZERO,
+                        grid[i][j] = new Player(vector, Vec2.ZERO,
                             new AnimationSprite("/friendlies/character", 4));
                         break;
 
                     //KEYS AND DOORS
                     case Key:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             0);
                         break;
 
                     case KeyY:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             1);
                         break;
 
                     case KeyB:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             2);
                         break;
 
                     case KeyG:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             3);
                         break;
 
                     case KeyP:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             4);
                         break;
 
                     case KeyR:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             5);
                         break;
 
                     case KeyShip:
-                        grid[i][j] = new Key(vector, Vector2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             6);
                         break;
 
                     case Door:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 0);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 0);
                         System.out.println("The door ID is 0 this is where it constructs");
                         break;
                     case DoorY:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 1);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 1);
                         break;
                     case DoorB:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 2);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 2);
                         break;
                     case DoorG:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 3);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 3);
                         // System.out.println("This door is also made");
                         break;
                     case DoorP:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 4);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 4);
                         break;
                     case DoorR:
-                        grid[i][j] = new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 5);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 5);
                         break;
                     case Ship:
-                        new Door(vector, Vector2.ZERO, new Sprite("../bg/doorG"), 6);
-                        grid[i][j] = new Ship(vector, Vector2.ZERO, new Sprite("../bg/ship"));
+                        new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 6);
+                        grid[i][j] = new Ship(vector, Vec2.ZERO, new Sprite("../bg/ship"));
                         break;
 
                     // BOXES AND SUCH
                     case StasisBox:
-                        grid[i][j] = new StasisBox(vector, Vector2.ZERO,
+                        grid[i][j] = new StasisBox(vector, Vec2.ZERO,
                             new Sprite("./items/stasisBoxRed"));
                         break;
                     case Crate:
-                        grid[i][j] = new Crate(vector, Vector2.ZERO,
+                        grid[i][j] = new Crate(vector, Vec2.ZERO,
                             new Sprite("./items/crate_02"));
                         break;
                     case Bench:
-                        grid[i][j] = new Bench(vector, Vector2.ZERO, new Sprite("./items/bench"));
+                        grid[i][j] = new Bench(vector, Vec2.ZERO, new Sprite("./items/bench"));
                         break;
                     case Table:
-                        grid[i][j] = new Table(vector, Vector2.ZERO, new Sprite("./items/table"));
+                        grid[i][j] = new Table(vector, Vec2.ZERO, new Sprite("./items/table"));
                         break;
                     case Corpse:
-                        grid[i][j] = new Corpse(vector, Vector2.ZERO,
+                        grid[i][j] = new Corpse(vector, Vec2.ZERO,
                             new Sprite("./items/corpse_00"));
                         break;
                     case Barrel:
-                        grid[i][j] = new Barrel(vector, Vector2.ZERO,
+                        grid[i][j] = new Barrel(vector, Vec2.ZERO,
                             new Sprite("./items/barrel_blue"));
                         break;
 
@@ -194,7 +194,7 @@ public class MapCreator extends GameObject {
                         grid[i][j] = new AlienPurple(vector);
                         break;
                     case AlienTurret:
-                        grid[i][j] = new AlienTurret(vector, Vector2.ZERO);
+                        grid[i][j] = new AlienTurret(vector, Vec2.ZERO);
                         break;
                     case AlienExplode:
                         grid[i][j] = new AlienExplode(vector);
@@ -202,23 +202,23 @@ public class MapCreator extends GameObject {
 
                     //WEAPONS
                     case PickupWeaponS:
-                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO,
+                        grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
                             new Sprite("./items/weaponS"), 0);
                         //TODO: Fix sprite so it is the starter weapon
                         break;
 
                     case PickupWeaponR:
-                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO,
+                        grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
                             new Sprite("./items/weaponR_03"), 1);
                         break;
 
                     case PickupWeaponY:
-                        grid[i][j] = new PickupWeapon(vector, Vector2.ZERO,
+                        grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
                             new Sprite("./items/weaponY"), 2);
                         break;
 
                     default:
-                        //grid[i][j] = new Tile(vector, Vector2.ZERO, new Sprite("../bg/tile"));
+                        //grid[i][j] = new Tile(vector, Vec2.ZERO, new Sprite("../bg/tile"));
                         break;
                 }
 

@@ -3,7 +3,7 @@ package com.bluebook.physics;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
-import com.bluebook.util.Vector2;
+import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
 import java.util.List;
 import javafx.geometry.Bounds;
@@ -47,14 +47,14 @@ public class BoxCollider extends Collider {
             double ySize = Math.min(gameObject.getScaledSize().getY() + padding.getY(), 0.4);
             rect = new Rectangle(gameObject.getPosition().getX() - xSize,
                 gameObject.getPosition().getY() - ySize * 2.0, xSize, ySize);
-            position = new Vector2(rect.getX(), rect.getY());
+            position = new Vec2(rect.getX(), rect.getY());
 
         }
     }
 
     protected void updatePosition() {
         if (gameObject != null) {
-            Vector2 scaleVec = GameSettings.getSquareScale();
+            Vec2 scaleVec = GameSettings.getSquareScale();
             double xSize = scaleVec.getX() * gameObject.getScale().getX() + padding.getX();
             double ySize = scaleVec.getY() * gameObject.getScale().getY() + padding.getY();
             rect.setX(gameObject.getPosition().getX() - xSize / 2.0);
@@ -62,7 +62,7 @@ public class BoxCollider extends Collider {
             rect.setWidth(xSize);
             rect.setHeight(ySize);
             rect.setRotate(gameObject.getDirection().getAngleInDegrees());
-            position = new Vector2(rect.getX(), rect.getY());
+            position = new Vec2(rect.getX(), rect.getY());
         }
     }
 
@@ -71,7 +71,7 @@ public class BoxCollider extends Collider {
         double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
         double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
 
-        intersectionCenter = new Vector2(centerX, centerY);
+        intersectionCenter = new Vec2(centerX, centerY);
     }
 
     /**
@@ -138,20 +138,20 @@ public class BoxCollider extends Collider {
             double yOff = OrthographicCamera.main.getY();
             Line2D[] ret = new Line2D[4];
             // rect
-            Vector2 rotationPoint = new Vector2(rect.getX() + xOff + rect.getWidth() / 2,
+            Vec2 rotationPoint = new Vec2(rect.getX() + xOff + rect.getWidth() / 2,
                 rect.getY() + yOff + rect.getHeight() / 2);
             double angle = rect.getRotate();
-            Vector2 topLeft = Vector2
-                .rotateVectorAroundPoint(new Vector2(rect.getX() + xOff, rect.getY() + yOff),
+            Vec2 topLeft = Vec2
+                .rotateVectorAroundPoint(new Vec2(rect.getX() + xOff, rect.getY() + yOff),
                     rotationPoint, angle);
-            Vector2 bottomLeft = Vector2.rotateVectorAroundPoint(
-                new Vector2(rect.getX() + xOff, rect.getY() + yOff + rect.getHeight()),
+            Vec2 bottomLeft = Vec2.rotateVectorAroundPoint(
+                new Vec2(rect.getX() + xOff, rect.getY() + yOff + rect.getHeight()),
                 rotationPoint, angle);
-            Vector2 topRight = Vector2.rotateVectorAroundPoint(
-                new Vector2(rect.getX() + xOff + rect.getWidth(), rect.getY() + yOff),
+            Vec2 topRight = Vec2.rotateVectorAroundPoint(
+                new Vec2(rect.getX() + xOff + rect.getWidth(), rect.getY() + yOff),
                 rotationPoint, angle);
-            Vector2 bottomRight = Vector2.rotateVectorAroundPoint(
-                new Vector2(rect.getX() + xOff + rect.getWidth(),
+            Vec2 bottomRight = Vec2.rotateVectorAroundPoint(
+                new Vec2(rect.getX() + xOff + rect.getWidth(),
                     rect.getY() + yOff + rect.getHeight()), rotationPoint, angle);
 
             ret[0] = new Line2D((float) topLeft.getX(), (float) topLeft.getY(),
@@ -167,20 +167,20 @@ public class BoxCollider extends Collider {
         } else {
             Line2D[] ret = new Line2D[4];
             // rect
-            Vector2 rotationPoint = new Vector2(rect.getX() + rect.getWidth() / 2,
+            Vec2 rotationPoint = new Vec2(rect.getX() + rect.getWidth() / 2,
                 rect.getY() + rect.getHeight() / 2);
             double angle = rect.getRotate();
-            Vector2 topLeft = Vector2
-                .rotateVectorAroundPoint(new Vector2(rect.getX(), rect.getY()), rotationPoint,
+            Vec2 topLeft = Vec2
+                .rotateVectorAroundPoint(new Vec2(rect.getX(), rect.getY()), rotationPoint,
                     angle);
-            Vector2 bottomLeft = Vector2
-                .rotateVectorAroundPoint(new Vector2(rect.getX(), rect.getY() + rect.getHeight()),
+            Vec2 bottomLeft = Vec2
+                .rotateVectorAroundPoint(new Vec2(rect.getX(), rect.getY() + rect.getHeight()),
                     rotationPoint, angle);
-            Vector2 topRight = Vector2
-                .rotateVectorAroundPoint(new Vector2(rect.getX() + rect.getWidth(), rect.getY()),
+            Vec2 topRight = Vec2
+                .rotateVectorAroundPoint(new Vec2(rect.getX() + rect.getWidth(), rect.getY()),
                     rotationPoint, angle);
-            Vector2 bottomRight = Vector2.rotateVectorAroundPoint(
-                new Vector2(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight()),
+            Vec2 bottomRight = Vec2.rotateVectorAroundPoint(
+                new Vec2(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight()),
                 rotationPoint, angle);
 
             ret[0] = new Line2D((float) topLeft.getX(), (float) topLeft.getY(),
@@ -243,12 +243,12 @@ public class BoxCollider extends Collider {
                 .intersects(((BoxCollider) other).rect.getBoundsInParent()));
         } else if (other instanceof CircleCollider) {
             CircleCollider circle = (CircleCollider) other;
-            Vector2 circleCenter = circle.getPosition();
-            Vector2 boxCenter = new Vector2(getRect().getX() + getRect().getWidth() / 2,
+            Vec2 circleCenter = circle.getPosition();
+            Vec2 boxCenter = new Vec2(getRect().getX() + getRect().getWidth() / 2,
                 getRect().getY() + getRect().getHeight() / 2);
-            Vector2 hitVector = Vector2.subtract(boxCenter, circleCenter).getNormalizedVector();
-            hitVector = Vector2.multiply(hitVector, circle.getRadius());
-            hitVector = Vector2.add(circleCenter, hitVector);
+            Vec2 hitVector = Vec2.subtract(boxCenter, circleCenter).getNormalizedVector();
+            hitVector = Vec2.multiply(hitVector, circle.getRadius());
+            hitVector = Vec2.add(circleCenter, hitVector);
             return (getRect().getBoundsInParent().intersects(
                 new Rectangle(hitVector.getX(), hitVector.getY(), 2, 2).getBoundsInParent()));
         } else {
