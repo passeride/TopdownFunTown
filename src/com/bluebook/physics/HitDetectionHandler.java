@@ -76,7 +76,7 @@ public class HitDetectionHandler {
         Boolean notCollided = true;
 
         for (Collider dest : otherColliders) {
-            if (base.getName() != dest.getName() &&
+            if ( base.getGameObject() != dest.getGameObject() &&
                 base.getInteractionLayer().contains(dest.getTag()) &&
                 base.instersects(dest)) { // Check not duplicate, interactionlayer and intersection
 
@@ -147,7 +147,7 @@ public class HitDetectionHandler {
 
     /**
      * Will add collider into temporary buffer to be added during next cycle
-     * @param collider
+     * @param collider {@link Collider}  to be added
      */
     protected void addCollider(Collider collider) {
         synchronized (colliderInBuffer) {
@@ -157,7 +157,7 @@ public class HitDetectionHandler {
 
     /**
      * Will remove collider from hitdetection during next cycle
-     * @param collider
+     * @param collider {@link Collider} to be removed
      */
     protected void removeCollider(Collider collider) {
         synchronized (colliderOutBuffer) {

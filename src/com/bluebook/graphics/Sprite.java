@@ -49,7 +49,7 @@ public class Sprite {
         this.origin = origin;
     }
 
-    protected Sprite() {
+    Sprite() {
 
     }
 
@@ -73,7 +73,7 @@ public class Sprite {
         draw(gc, position);
     }
 
-    public void draw(GraphicsRenderer gc, Vec2 position) {
+    private void draw(GraphicsRenderer gc, Vec2 position) {
         gc.save();
 
         scaledSquareWidth = squareWidth;
@@ -158,9 +158,7 @@ public class Sprite {
         Vec2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
-//        Vec2 pos = Vec2.multiply(position, GameSettings.getSquareScale());
-        Vec2 pos = position;
-        gc.drawImage(img, pos.getX(), pos.getY(), scaledSquareWidth, scaledSquareHeight);
+        gc.drawImage(img, position.getX(), position.getY(), scaledSquareWidth, scaledSquareHeight);
     }
 
     /**
@@ -174,15 +172,13 @@ public class Sprite {
         Vec2 scaleVec = GameSettings.getSquareScale();
         scaledSquareHeight = scaleVec.getY() * scale.getY();
         scaledSquareWidth = scaleVec.getX() * scale.getX();
-//        Vec2 pos = Vec2.multiply(position, GameSettings.getSquareScale());
-        Vec2 pos = position;
-        gc.drawImage(img, pos.getX(), pos.getY(), scaledSquareWidth, scaledSquareHeight);
+
+        gc.drawImage(img, position.getX(), position.getY(), scaledSquareWidth, scaledSquareHeight);
 
     }
 
     public void drawGUI(GraphicsContext gc, Vec2 position, int WIDTH, int HEIGHT) {
-        Vec2 pos = position;
-        gc.drawImage(img, pos.getX(), pos.getY(), WIDTH, HEIGHT);
+        gc.drawImage(img, position.getX(), position.getY(), WIDTH, HEIGHT);
     }
 
     /**
@@ -219,7 +215,7 @@ public class Sprite {
         gc.restore();
     }
 
-    protected GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vec2 position) {
+    private GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vec2 position) {
         Rotate r = new Rotate(rotateAngle, position.getX(), position.getY());
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
         return gc;

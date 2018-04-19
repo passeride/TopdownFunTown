@@ -2,8 +2,6 @@ package com.bluebook.javafx;
 
 import com.bluebook.input.Input;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,27 +32,13 @@ public class Main extends Application {
     }
 
     private void setHeightListener(Stage primaryStage, Controller controller) {
-        primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-                Number newValue) {
-                controller.setCanvasHeight((double) newValue);
-            }
-
-        });
+        primaryStage.heightProperty().addListener(
+            (observable, oldValue, newValue) -> controller.setCanvasHeight((double) newValue));
     }
 
     private void setWidthListener(Stage primaryStage, Controller controller) {
-        primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-                Number newValue) {
-                controller.setCanvasWidth((double) newValue);
-            }
-
-        });
+        primaryStage.widthProperty().addListener(
+            (observable, oldValue, newValue) -> controller.setCanvasWidth((double) newValue));
     }
 
     public static void main(String[] args) {

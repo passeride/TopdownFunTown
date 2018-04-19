@@ -68,7 +68,7 @@ public class CanvasRenderer {
      * @param in Object to be drawn
      * @param layer RenderLayer to be used
      */
-    public void addGameObject(GameObject in, RenderLayer.RenderLayerName layer) {
+    private void addGameObject(GameObject in, RenderLayer.RenderLayerName layer) {
         synchronized (this) {
             layers[layer.getValue()].addGameObject(in);
         }
@@ -108,8 +108,8 @@ public class CanvasRenderer {
      */
     public void removeGameObject(GameObject go) {
         synchronized (this) {
-            for (int i = 0; i < layers.length; i++) {
-                layers[i].removeGameObject(go);
+            for (RenderLayer layer : layers) {
+                layer.removeGameObject(go);
             }
         }
     }
@@ -139,11 +139,11 @@ public class CanvasRenderer {
             gc.setFill(bgColor);
             gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             GraphicsRenderer gr = new GraphicsRenderer(gc);
-            for (int i = 0; i < layers.length; i++) {
+            for (RenderLayer layer : layers) {
                 if (useGraphicsRenderer) {
-                    layers[i].drawAll(gr);
+                    layer.drawAll(gr);
                 } else {
-                    layers[i].drawAll(gc);
+                    layer.drawAll(gc);
                 }
             }
 

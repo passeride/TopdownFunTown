@@ -50,26 +50,25 @@ public class ControllerMenu implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        Stage stage = gameApplication.getStage();
-        gameApplication.callGame(stage);
-    }
-
-    @FXML
-    private void gaaTilOptions(ActionEvent event) {
-        FXMLLoader fxml = new FXMLLoader();
-        Parent root = null;
         try {
-            root = fxml.load(getClass().getResource("options.fxml").openStream());
+            Stage stage = gameApplication.getStage();
+            gameApplication.callGame(stage);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void goToOptions(ActionEvent event) throws IOException {
+        FXMLLoader fxml = new FXMLLoader();
+        Parent root = fxml.load(getClass().getResource("options.fxml").openStream());
         Stage stageOptions = gameApplication.getStage();
         stageOptions.setScene(new Scene(root));
         stageOptions.show();
     }
 
     @FXML
-    private void skruAvSpill(ActionEvent event) {
+    private void turnOffGame(ActionEvent event) {
         Stage stage = (Stage) button1.getScene().getWindow();
         stage.close();
     }

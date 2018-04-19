@@ -24,7 +24,7 @@ public abstract class GameObject {
 
     protected Sprite sprite;
 
-    protected boolean isAlive = true;
+    boolean isAlive = true;
 
     protected Collider collider;
 
