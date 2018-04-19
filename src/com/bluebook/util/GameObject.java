@@ -144,7 +144,7 @@ public abstract class GameObject {
     }
 
     public void setDirection(Vec2 direction) {
-        transform.setLocalRotation(direction);
+        transform.setLocalRotation(direction.getNormalizedVector());
     }
 
     public Sprite getSprite() {

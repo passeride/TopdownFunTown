@@ -184,7 +184,8 @@ public class Player extends GameObject {
     }
 
     public void setCurrentWeapon(Weapon currentWeapon) {
-
+        if(this.currentWeapon != null)
+        this.currentWeapon.destroy();
         this.currentWeapon = currentWeapon;
         this.currentWeapon.getTransform().setParent(transform);
     }

@@ -3,6 +3,7 @@ package com.rominntrenger.objects;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.CircleCollider;
+import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
@@ -46,15 +47,24 @@ public class Projectile extends GameObject {
     public Projectile(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         allProjectilse.add(this);
-        this.startPosition = transform.getGlobalPosition();
-        this.setCollider(new CircleCollider(this, 30));
+        startPosition = transform.getGlobalPosition();
+        setCollider(new CircleCollider(this, 30));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
+
+
         collider.setName("Bullet");
         collider.setTag("DMG");
+
         startTime = System.currentTimeMillis();
         startSize = new Vec2(1, 1);
         squareHeightStart = 1;
         squareWithStart = 1;
+    }
+
+    @Override
+    public void destroy() {
+        allProjectilse.remove(this);
+        super.destroy();
     }
 
     public static void clearAllProjectiles() {

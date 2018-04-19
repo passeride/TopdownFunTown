@@ -39,7 +39,6 @@ public class Door extends GameObject implements Describable {
                     if(playerKeyID != null) {
                         for (int i = 0; i < playerKeyID.length; i++) {
                             playerID = playerKeyID[i];
-                            System.out.println("Player Key is: " + playerID);
                             if (playerID == ID) {
                                 destroy();
                                 collider.destroy();
