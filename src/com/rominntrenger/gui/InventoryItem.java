@@ -9,6 +9,11 @@ public class InventoryItem extends GameObject {
     Sprite itemSprite;
     int keyValue;
 
+    /**
+     * Constructor which adds a Key to the inventory. Adds sprite and the key's ID number
+     * @param sprite
+     * @param keyValue
+     */
     public InventoryItem(Sprite sprite, int keyValue) {
         super(Vec2.ZERO, Vec2.ZERO, null);
         this.itemSprite = sprite;

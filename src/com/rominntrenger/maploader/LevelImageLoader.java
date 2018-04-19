@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 public class LevelImageLoader {
 
+    /**
+     * Creates and returns a multidimentional array consisting of IDs
+     * based on the Hex values from a BufferedImage (converted from RGB).
+     * @param image
+     * @return
+     */
     public static ID[][] loadLevel(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
@@ -127,6 +133,11 @@ public class LevelImageLoader {
         return gameMap;
     }
 
+    /**
+     * Returns a Hex Value String from a given RGB value.
+     * @param value
+     * @return
+     */
     public static String toHex(int value) {
         String hexColor = String.format("%06X", (0xFFFFFF & value));
         return hexColor;

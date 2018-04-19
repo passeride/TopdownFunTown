@@ -22,6 +22,10 @@ public class Inventory extends GameObject {
     private int itemWidth = 64;
     private int itemHeight = 64;
 
+    /**
+     * Constructor for Inventory which creates an Inventory, sets the number of spaces in the inventory.
+     * @param inventorySpots
+     */
     public Inventory(int inventorySpots) {
         super(new Vec2(20, 30), Vec2.ZERO, null);
         setRenderLayer(RenderLayer.RenderLayerName.GUI);
@@ -64,6 +68,10 @@ public class Inventory extends GameObject {
         }
     }
 
+    /**
+     * Adds an item to the inventory
+     * @param item
+     */
     public void addItem(InventoryItem item) {
         System.out.println("Start InventorNyum:" + itemNum);
         if (itemNum < inventorySpace) {
@@ -74,6 +82,10 @@ public class Inventory extends GameObject {
         }
     }
 
+    /**
+     * Returns the items in the inventory.
+     * @return
+     */
     public int[] getItems() {
         for (int i = 0; i < inventorySpace; i++) {
             if(inventoryContents[i] != null) {

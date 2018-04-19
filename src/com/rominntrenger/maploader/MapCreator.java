@@ -76,6 +76,10 @@ public class MapCreator extends GameObject {
         }
     }
 
+    /**
+     * Creates objects based on the IDs given in the {@link LevelImageLoader}
+     * Also adds it to a new GameObject array.
+     */
     public void createLevel() {
         currentLevel = LevelImageLoader.loadLevel(newMap);
         int x = currentLevel.length;

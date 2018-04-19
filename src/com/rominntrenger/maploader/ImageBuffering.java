@@ -14,6 +14,11 @@ public class ImageBuffering {
 
     private BufferedImage image; // = new BufferedImage(188, 188, BufferedImage.TYPE_INT_RGB);
 
+    /**
+     * Returns a BufferedImage from a given image file.
+     * @param name
+     * @return
+     */
     public BufferedImage loadImage(String name) {
         image = null;
         File f = new File("./assets/maps/" + name + ".png");

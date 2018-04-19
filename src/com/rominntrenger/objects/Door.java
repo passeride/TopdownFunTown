@@ -31,6 +31,9 @@ public class Door extends GameObject implements Describable {
 
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
+            /**
+             * Checks if the Player has the right key in their Inventory. 
+             */
             public void onCollision(Collider other) {
                 if (other.getGameObject() instanceof Player) {
                     int[] playerKeyID = ((RomInntrenger) GameApplication.getInstance()).inventory

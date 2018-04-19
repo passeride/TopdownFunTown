@@ -15,7 +15,7 @@ public class StasisBox extends Item {
         super(position, direction, sprite);
         setSize(new Vec2(1.7, 1.7));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
-        collider = new CircleCollider(this, 90);
+        collider = new CircleCollider(this, 40);
         collider.setTag("Block");
     }
 
