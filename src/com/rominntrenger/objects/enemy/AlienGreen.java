@@ -32,8 +32,6 @@ public class AlienGreen extends Enemy {
         super.update(delta);
         AlienGreen.super.nextBehaviour();
 
-        //setTarget(((RomInntrenger)GameApplication.getInstance()).player);
-
         if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
             shoot();
