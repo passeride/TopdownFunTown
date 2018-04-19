@@ -49,7 +49,12 @@ public class AlienTurret extends Enemy {
     }
 
     void debugDrawRays(GraphicsContext gc){
-//        gc.setStroke(Color.);
+        gc.setStroke(Color.CYAN);
+        for(RayCast r : raycasts){
+            RayCastHit rch = r.getHit();
+            if(rch !=  null)
+                gc.strokeLine(r.getRay().x1, r.getRay().y1, r.getRay().x2, r.getHit().ray.y2);
+        }
     }
 
     /**
@@ -81,7 +86,7 @@ public class AlienTurret extends Enemy {
 //                        enemyNotSeen = false;
 //                    }
                 }
-                System.out.println(rch.ray.x2);
+//                System.out.println(rch.ray.x2);
                 xs[i] = rch.ray.x2;
                 ys[i] = rch.ray.y2;
             }
@@ -124,6 +129,8 @@ public class AlienTurret extends Enemy {
                 getDirection().getAngleInRadians() + (Math.PI * 1.25) + ((Math.PI / 2) * ((double) i
                     / rayCastResolution));
             RayCast r = raycasts.get(i);
+            r.updatePosition();
+
             r.setAngle(dir);
 
         }
@@ -141,6 +148,8 @@ public class AlienTurret extends Enemy {
     @Override
     public void update(double delta) {
         super.update(delta);
+        updateRayCast();
+
         if (playerSeen) {
             setDirection(Vec2.Vector2FromAngleInDegrees(
                 Vec2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
@@ -161,7 +170,6 @@ public class AlienTurret extends Enemy {
             setDirection(Vec2.Vector2FromAngleInDegrees(Math.sin(progress) * 90));
 
             timesChanged = (int) (timeTest / osscilation);
-            updateRayCast();
         }
     }
 
@@ -200,6 +208,8 @@ public class AlienTurret extends Enemy {
         sprite.rotate(Vec2.ZERO);
         turretHead.rotate(getDirection());
         turretHead.draw(gc, transform.getGlobalPosition());
+
+        debugDrawRays(gc);
     }
 
     public void shoot() {
