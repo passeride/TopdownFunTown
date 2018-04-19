@@ -44,10 +44,11 @@ public class MapCreator extends GameObject {
     private AudioPlayer soundTrack;
     private ID tempID;
 
-    public MapCreator(BufferedImage map) {
+    public MapCreator(String path) {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite("../bg/tilebg02"));
         allwaysOnScreen = true;
-        this.newMap = map;
+        ImageBuffering loader = new ImageBuffering();
+        this.newMap = loader.loadImage("startMap");
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }
 

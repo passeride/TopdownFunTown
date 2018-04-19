@@ -35,10 +35,8 @@ public class RomInntrenger extends GameApplication {
         currentWeapon = new StarterWeapon(new Vec2(0, 40), Vec2.ZERO,
             new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         cam = new OrthographicCamera();
-        ImageBuffering loader = new ImageBuffering();
-        BufferedImage thisMap;
-        thisMap = loader.loadImage("startMap");
-        MapCreator level = new MapCreator(thisMap);
+
+        MapCreator level = new MapCreator("startMap");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
