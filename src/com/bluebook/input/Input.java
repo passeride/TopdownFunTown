@@ -5,7 +5,6 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import java.util.ArrayList;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -85,71 +84,54 @@ public class Input {
     }
 
     private void setEventHandlers(Stage stage) {
-        stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
-            @Override
-            public void handle(KeyEvent event) {
-                if (GameEngine.DEBUG) {
-                    System.out.println("KEY PRESSED " + event.getCode());
-                }
-                keyPressed(event);
-                if (event.getCode() == KeyCode.F1) {
-                    GameEngine.DEBUG = !GameEngine.DEBUG;
-                }
-                // Freeze stuff
-                if (event.getCode() == KeyCode.F2) {
-                    GameEngine engine = GameEngine.getInstance();
-                    if (engine.isPaused()) {
-                        engine.resumeGame();
-                    } else {
-                        engine.pauseGame();
-                    }
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (GameEngine.DEBUG) {
+                System.out.println("KEY PRESSED " + event.getCode());
+            }
+            keyPressed(event);
+            if (event.getCode() == KeyCode.F1) {
+                GameEngine.DEBUG = !GameEngine.DEBUG;
+            }
+            // Freeze stuff
+            if (event.getCode() == KeyCode.F2) {
+                GameEngine engine = GameEngine.getInstance();
+                if (engine.isPaused()) {
+                    engine.resumeGame();
+                } else {
+                    engine.pauseGame();
                 }
             }
         });
 
-        stage.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (GameEngine.DEBUG) {
-                    System.out.println("KEY RELEASED " + event.getCode());
-                }
-                keyReleased(event);
+        stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            if (GameEngine.DEBUG) {
+                System.out.println("KEY RELEASED " + event.getCode());
+            }
+            keyReleased(event);
+        });
+
+        stage.addEventHandler(MouseEvent.MOUSE_MOVED,
+            event -> setMousePosition(event.getX(), event.getY()));
+
+        stage.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            if (GameEngine.DEBUG) {
+                System.out.println("MOUSE PRESSED " + event.getButton());
+            }
+            if (event.isPrimaryButtonDown()) {
+                setMouseButton0State(true);
+            } else if (event.isSecondaryButtonDown()) {
+                setMouseButton1State(true);
             }
         });
 
-        stage.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setMousePosition(event.getX(), event.getY());
+        stage.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
+            if (GameEngine.DEBUG) {
+                System.out.println("MOUSE Released " + event.getButton());
             }
-        });
-
-        stage.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (GameEngine.DEBUG) {
-                    System.out.println("MOUSE PRESSED " + event.getButton());
-                }
-                if (event.isPrimaryButtonDown()) {
-                    setMouseButton0State(true);
-                } else if (event.isSecondaryButtonDown()) {
-                    setMouseButton1State(true);
-                }
-            }
-        });
-
-        stage.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (GameEngine.DEBUG) {
-                    System.out.println("MOUSE Released " + event.getButton());
-                }
-                if (event.isPrimaryButtonDown()) {
-                    setMouseButton0State(false);
-                } else if (event.isSecondaryButtonDown()) {
-                    setMouseButton1State(false);
-                }
+            if (event.isPrimaryButtonDown()) {
+                setMouseButton0State(false);
+            } else if (event.isSecondaryButtonDown()) {
+                setMouseButton1State(false);
             }
         });
     }

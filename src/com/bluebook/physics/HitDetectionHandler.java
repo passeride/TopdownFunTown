@@ -3,7 +3,16 @@ package com.bluebook.physics;
 import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
+import com.sun.javafx.geom.Line2D;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -28,6 +37,8 @@ public class HitDetectionHandler {
     public ArrayList<Collider> colliders = new ArrayList<>();
     public ArrayList<Collider> raycast_colliders = new ArrayList<>();
     public ArrayList<RayCast> raycasts = new ArrayList<>();
+
+    public ArrayList<Line2D> lines = new ArrayList<>();
 
     // And out buffers needed for thread safe operation
     private ArrayList<Collider> colliderInBuffer = new ArrayList<>();
@@ -76,7 +87,7 @@ public class HitDetectionHandler {
         Boolean notCollided = true;
 
         for (Collider dest : otherColliders) {
-            if (base.getName() != dest.getName() &&
+            if ( base.getGameObject() != dest.getGameObject() &&
                 base.getInteractionLayer().contains(dest.getTag()) &&
                 base.instersects(dest)) { // Check not duplicate, interactionlayer and intersection
 
@@ -111,6 +122,12 @@ public class HitDetectionHandler {
 
             for(Collider base : colliders){
                 checkCollision(base);
+
+                if(DO_RAYCAST) {
+                    Line2D[] baseLines = base.getLines();
+                    for(Line2D l : baseLines)
+                        lines.add(l);
+                }
             }
 
             if(DO_RAYCAST)
@@ -120,11 +137,49 @@ public class HitDetectionHandler {
         }
     }
 
+    public static int counter = 0;
 
     private void doRaycasts() {
-        for (RayCast r : raycasts) {
-            r.Cast();
+        CopyOnWriteArrayList<Line2D> cowLines = new CopyOnWriteArrayList<>();
+        cowLines.addAll(lines);
+
+        ExecutorService executor = Executors.newFixedThreadPool(1000);
+
+        List<Future<RayCastHit>> list = new ArrayList<>();
+
+        counter = 0;
+//        System.out.println(raycasts.size());
+
+        for(int i = 0; i < raycasts.size(); i++){
+            Future<RayCastHit> future = executor.submit(() -> {
+
+                int id = counter++;
+                if(id < raycasts.size()) {
+                    raycasts.get(id).Cast(cowLines);
+
+                    return raycasts.get(id).getHit();
+                }else{
+                    return null;
+                }
+            });
+            list.add(future);
+
         }
+
+        for(Future<RayCastHit> fut : list){
+            try {
+                RayCastHit rch = fut.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        executor.shutdownNow();
+//        for (RayCast r : raycasts) {
+//            r.Cast(cowLines);
+//        }
     }
 
     private void moveBuffer() {
@@ -147,7 +202,7 @@ public class HitDetectionHandler {
 
     /**
      * Will add collider into temporary buffer to be added during next cycle
-     * @param collider
+     * @param collider {@link Collider}  to be added
      */
     protected void addCollider(Collider collider) {
         synchronized (colliderInBuffer) {
@@ -157,7 +212,7 @@ public class HitDetectionHandler {
 
     /**
      * Will remove collider from hitdetection during next cycle
-     * @param collider
+     * @param collider {@link Collider} to be removed
      */
     protected void removeCollider(Collider collider) {
         synchronized (colliderOutBuffer) {

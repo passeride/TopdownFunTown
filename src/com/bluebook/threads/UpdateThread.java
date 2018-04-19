@@ -1,7 +1,6 @@
 package com.bluebook.threads;
 
 import com.bluebook.engine.GameEngine;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * A thread to handle logic for each tick

@@ -31,16 +31,12 @@ public class AudioLoader {
             try {
 
                 File f = new File(path);
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURL());
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioIn);
 
                 audioClips.put(path, clip);
-            } catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (LineUnavailableException e) {
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 e.printStackTrace();
             }
         }

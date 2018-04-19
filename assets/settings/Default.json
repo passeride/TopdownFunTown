@@ -16,9 +16,11 @@
   "Physics_use_raycast": false,
   "Physics_circle_line_resolution": 5,
   "Physics_rigidbody2d_VelocityVerlet": true,
+  "Physics_rigidbody2d_friction":0.1,
+  "Physics_rigidbody2d_velocity_threshhold":10.0,
 
-  "player_health":100,
-  "player_shoot_cost":40,
-  "player_initial_score":1500,
-  "player_hit_distance_multiplier": 0.5
+  "RedRifle_projectile_speed":400,
+
+
+  "player_health":100
 }

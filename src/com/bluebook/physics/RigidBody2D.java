@@ -18,17 +18,18 @@ public class RigidBody2D {
     private Vec2 avgAcceleration = new Vec2(0, 0);
     private Vec2 velocity = new Vec2(0, 0);
     private Vec2 position;
-    private double friction = .1;
+    private double friction;
     private GameObject gameObject;
 
     //    //TODO: Replace with FALLOFF CURVE
-    private double velocityThreshold = 10;
+    private double velocityThreshold;
 
     public RigidBody2D(GameObject go) {
         this.gameObject = go;
         position = this.gameObject.getTransform().getGlobalPosition();
         VelocityVerlet = GameSettings.getBoolean("Physics_rigidbody2d_VelocityVerlet");
-
+        friction = GameSettings.getDouble("Physics_rigidbody2d_friction");
+        velocityThreshold = GameSettings.getDouble("Physics_rigidbody2d_velocity_threshhold");
     }
 
     /**

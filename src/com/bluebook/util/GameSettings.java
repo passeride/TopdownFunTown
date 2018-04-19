@@ -89,7 +89,7 @@ public class GameSettings {
     /**
      * Will return a {@link Vec2} containing the Width (X) and Height (Y) of 1 square on the canvas
      * The number of squares is specified in the settings file under "grid_X"/"grid_y"
-     * @return
+     * @return a {@link Vec2} with the squares width and height in pixels
      */
     public static Vec2 getSquareScale() {
         int resolutionX = GameSettings.getInt("game_resolution_X");
@@ -105,7 +105,7 @@ public class GameSettings {
 
     /**
      * Will return a {@link Vec2} where X is width of canvas and Y is height of canvas
-     * @return
+     * @return A {@link Vec2} with the screens width and height
      */
     public static Vec2 getScreen() {
         int resolutionX = GameSettings.getInt("game_resolution_X");

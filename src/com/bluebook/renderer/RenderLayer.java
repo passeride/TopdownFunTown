@@ -26,7 +26,7 @@ public class RenderLayer {
         PROJECTILE(6),
         GUI(7);
 
-        private static Map<Integer, RenderLayerName> map = new HashMap<Integer, RenderLayerName>();
+        private static Map<Integer, RenderLayerName> map = new HashMap<>();
 
         static {
             for (RenderLayerName rLN : RenderLayerName.values()) {
@@ -82,8 +82,7 @@ public class RenderLayer {
 
     protected void drawAll(GraphicsRenderer gr) {
         int drawablesSize = drawables.size();
-        for (int i = 0; i < drawablesSize; i++) {
-            GameObject go = drawables.get(i);
+        for (GameObject go : drawables) {
             if (go != null) {
                 go.draw(gr);
             }

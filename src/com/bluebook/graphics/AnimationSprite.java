@@ -13,12 +13,11 @@ public class AnimationSprite extends Sprite {
 
     private Image[] animation;
     private double length;
-    private int frameNum;
-    long startNanoTime;
+    private long startNanoTime;
 
-    OnAnimationFinishedListener doneListener;
+    private OnAnimationFinishedListener doneListener;
 
-    boolean playing = true;
+    private boolean playing = true;
 
     // TODO: Add play once function
     boolean playOnce = false;
@@ -31,8 +30,7 @@ public class AnimationSprite extends Sprite {
      */
     public AnimationSprite(String name, int frames) {
         super();
-        this.frameNum = frames;
-        this.animation = SpriteLoader.loadAnimationImage(name, frameNum);
+        this.animation = SpriteLoader.loadAnimationImage(name, frames);
         img = animation[0];
         length = 0.10;
         startNanoTime = System.nanoTime();

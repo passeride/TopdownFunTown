@@ -4,7 +4,7 @@ import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.main.objects.player.Player;
+import com.rominntrenger.objects.player.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -185,7 +185,7 @@ public class QuadTree {
      */
     public void draw(GraphicsContext gc) {
         synchronized (this) {
-            if (HitDetectionHandler.getInstance().USE_QUADTREE) {
+            if (HitDetectionHandler.USE_QUADTREE) {
                 if (isSubdivided) {
                     if (children[QuadChildren.NORTHWEST.value] != null) {
                         children[QuadChildren.NORTHWEST.value].draw(gc);

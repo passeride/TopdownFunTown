@@ -5,14 +5,14 @@ import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.main.gui.HealthElement;
-import com.rominntrenger.main.gui.Inventory;
-import com.rominntrenger.main.maploader.ImageBuffering;
-import com.rominntrenger.main.maploader.MapCreator;
-import com.rominntrenger.main.messageHandling.MessageHandler;
-import com.rominntrenger.main.objects.player.Player;
-import com.rominntrenger.main.objects.player.StarterWeapon;
-import com.rominntrenger.main.objects.player.Weapon;
+import com.rominntrenger.gui.HealthElement;
+import com.rominntrenger.gui.Inventory;
+import com.rominntrenger.maploader.ImageBuffering;
+import com.rominntrenger.maploader.MapCreator;
+import com.rominntrenger.messageHandling.MessageHandler;
+import com.rominntrenger.objects.player.Player;
+import com.rominntrenger.objects.player.StarterWeapon;
+import com.rominntrenger.objects.player.Weapon;
 import java.awt.image.BufferedImage;
 import javafx.scene.input.KeyCode;
 
@@ -35,10 +35,8 @@ public class RomInntrenger extends GameApplication {
         currentWeapon = new StarterWeapon(new Vec2(0, 40), Vec2.ZERO,
             new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         cam = new OrthographicCamera();
-        ImageBuffering loader = new ImageBuffering();
-        BufferedImage thisMap;
-        thisMap = loader.loadImage("startMap", 64, 64);
-        MapCreator level = new MapCreator(thisMap);
+
+        MapCreator level = new MapCreator("startMap");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));

@@ -54,14 +54,9 @@ public class ControllerOptions {
     }
 
     @FXML
-    private void returnToMenu(ActionEvent event) {
+    private void returnToMenu(ActionEvent event) throws IOException{
         FXMLLoader fxml = new FXMLLoader();
-        Parent root = null;
-        try {
-            root = fxml.load(getClass().getResource("menu.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Parent root = fxml.load(getClass().getResource("menu.fxml").openStream());
         Stage stageOptions = gameApplication.getStage();
         stageOptions.setScene(new Scene(root));
         stageOptions.show();

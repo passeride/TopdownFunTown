@@ -42,9 +42,8 @@ class SpriteLoader {
      */
     public static Image[] loadAnimationImage(String name, int frameNumber) {
         if (!animationImages.containsKey(name)) {
-            int frameInputNum = frameNumber;
-            Image[] imageArray = new Image[frameInputNum];
-            for (int i = 0; i < frameInputNum; i++) {
+            Image[] imageArray = new Image[frameNumber];
+            for (int i = 0; i < frameNumber; i++) {
                 File f = new File("./assets/sprite/" + name + "_" + i + ".png");
                 try {
                     imageArray[i] = new Image(new FileInputStream(f));

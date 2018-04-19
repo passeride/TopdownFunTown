@@ -5,8 +5,6 @@ import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
 import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 
@@ -45,7 +43,7 @@ public class GameEngine {
      */
     public double update_FPS = 0.0;
 
-    public Canvas canvas;
+    private Canvas canvas;
 
     /**
      * Constructor for GameEngine
@@ -136,9 +134,9 @@ public class GameEngine {
             GameApplication.getInstance().update(delta);
             GameObject[] updateGameObjects = new GameObject[updateObjects.size()];
             updateObjects.toArray(updateGameObjects);
-            for (int i = 0; i < updateGameObjects.length; i++) {
-                if (updateGameObjects[i] != null && updateGameObjects[i].isAlive()) {
-                    updateGameObjects[i].update(delta);
+            for (GameObject updateGameObject : updateGameObjects) {
+                if (updateGameObject != null && updateGameObject.isAlive()) {
+                    updateGameObject.update(delta);
                 }
             }
         }
@@ -156,7 +154,7 @@ public class GameEngine {
     /**
      * Will terminate logic thread
      */
-    public void stopUpdateThread() {
+    private void stopUpdateThread() {
         if (updateThread.isRunning()) {
             updateThread.terminate();
         }
@@ -168,7 +166,7 @@ public class GameEngine {
         t.start();
     }
 
-    public void stopCollisionThread() {
+    private void stopCollisionThread() {
         if (collisionThread.isRunning()) {
             collisionThread.terminate();
         }

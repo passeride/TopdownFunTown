@@ -14,8 +14,6 @@ import java.util.Map;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,12 +28,12 @@ public abstract class GameApplication extends Application {
     private static final String SETTINGS_PATH = "./assets/settings/Default.json";
 
     private static GameApplication singleton;
-    boolean START_MENU = false;
+    private boolean START_MENU = false;
     protected Input input;
-    protected GameEngine engine;
+    private GameEngine engine;
     private Stage stage;
-    public static DoubleProperty X_scale = new SimpleDoubleProperty();
-    public static DoubleProperty Y_scale = new SimpleDoubleProperty();
+    private static DoubleProperty X_scale = new SimpleDoubleProperty();
+    private static DoubleProperty Y_scale = new SimpleDoubleProperty();
 
     public GameApplication() {
         singleton = this;
@@ -59,13 +57,11 @@ public abstract class GameApplication extends Application {
 
         loadFXML(primaryStage);
 
-
     }
 
-
-    void loadFXML(Stage primaryStage) throws IOException {
+    private void loadFXML(Stage primaryStage) throws IOException {
         FXMLLoader fxml = new FXMLLoader();
-        fxml.setLocation(new File("assets").toURL());
+        fxml.setLocation(new File("assets").toURI().toURL());
 
         Parent root;
         if (START_MENU) {
@@ -96,7 +92,7 @@ public abstract class GameApplication extends Application {
     /**
      * Used to read ./assets/settings/Default.json that contains required settings
      */
-    protected void loadSettings() {
+    private void loadSettings() {
         Type type = new TypeToken<Map<String, String>>() {
         }.getType();
         Gson gson = new Gson();
@@ -121,28 +117,16 @@ public abstract class GameApplication extends Application {
     }
 
     private void setHeightListener(Stage primaryStage, Controller controller) {
-        primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-                Number newValue) {
-                Y_scale.set((double) newValue / GameSettings.getInt("game_resolution_Y"));
-                //controller.setCanvasHeight((double)newValue);
-            }
-
+        primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
+            Y_scale.set((double) newValue / GameSettings.getInt("game_resolution_Y"));
+            //controller.setCanvasHeight((double)newValue);
         });
     }
 
     private void setWidthListener(Stage primaryStage, Controller controller) {
-        primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-                Number newValue) {
-                X_scale.set((double) newValue / GameSettings.getInt("game_resolution_X"));
-                //controller.setCanvasWidth((double) newValue);
-            }
-
+        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
+            X_scale.set((double) newValue / GameSettings.getInt("game_resolution_X"));
+            //controller.setCanvasWidth((double) newValue);
         });
     }
 
@@ -175,18 +159,14 @@ public abstract class GameApplication extends Application {
 
     /**
      * Will start the game, used from Menu to start Game FXML
-     * @param primaryStage
+     * @param primaryStage primary stage of the application
      */
-    public void callGame(Stage primaryStage) {
+    public void callGame(Stage primaryStage) throws IOException{
         FXMLLoader fxmlGame = new FXMLLoader();
 
-        Parent root = null;
-        try {
-            root = fxmlGame
+        Parent root = fxmlGame
                 .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         Controller controller = fxmlGame.getController();
 
         setWidthListener(primaryStage, controller);

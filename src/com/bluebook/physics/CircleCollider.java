@@ -55,8 +55,8 @@ public class CircleCollider extends Collider {
                 radius * 2, radius * 2, 0, 360, ArcType.CHORD);
             gc.setStroke(Color.TEAL);
             Line2D[] lines = getLines();
-            for (int i = 0; i < lines.length; i++) {
-                gc.strokeLine(lines[i].x1, lines[i].y1, lines[i].x2, lines[i].y2);
+            for (Line2D line : lines) {
+                gc.strokeLine(line.x1, line.y1, line.x2, line.y2);
             }
 
             if (intersection != null) {
@@ -140,7 +140,7 @@ public class CircleCollider extends Collider {
         Line2D[] ret = new Line2D[lineResolution - 1];
 
         for (int i = 0; i < ret.length; i++) {
-            if (i != ret.length) {
+            if (i != ret.length - 1) {
                 Vec2 start = circlePoints[i];
                 Vec2 dest = circlePoints[i + 1];
                 ret[i] = new Line2D((float) start.getX(), (float) start.getY(), (float) dest.getX(),
