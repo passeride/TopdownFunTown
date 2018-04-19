@@ -62,6 +62,9 @@ public abstract class Enemy extends GameObject {
         this.behaviour = new Wander();
     }
 
+    /** Sets the current behaviour to input.
+     * @param behaviour
+     */
     public void setBehaviour(Behaviour behaviour) {
         this.behaviour = behaviour;
     }
@@ -108,20 +111,28 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void update(double delta) {
-        if (target != null) {
-            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-                Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
-                speed * delta));
-            setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2
-                    .Vector2FromAngleInDegrees(
-                        Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
-                angularDampening)));
-            getDirection().normalize();
-        }
+//        if (target != null) {
+//            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
+//                Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
+//                speed * delta));
+//            setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2
+//                    .Vector2FromAngleInDegrees(
+//                        Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
+//                angularDampening)));
+//            getDirection().normalize();
+//        }
         this.delta = delta;
     }
 
     public double getDelta() {
         return delta;
+    }
+
+    public GameObject getTarget() {
+        return target;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }
