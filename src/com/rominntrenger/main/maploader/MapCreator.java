@@ -25,6 +25,9 @@ import com.rominntrenger.main.objects.enemy.AlienGreen;
 import com.rominntrenger.main.objects.enemy.AlienPurple;
 import com.rominntrenger.main.objects.enemy.AlienTurret;
 import com.rominntrenger.main.objects.player.Player;
+import com.rominntrenger.main.objects.blocks.*;
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.image.BufferedImage;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -138,25 +141,35 @@ public class MapCreator extends GameObject {
                         break;
 
                     case Door:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 0);
-                        System.out.println("The door ID is 0 this is where it constructs");
-                        break;
+                        if(currentLevel[i-1][j] == ID.Wall) {
+                            System.out.println("The wall is to my North");
+                        } else if(currentLevel[i+1][j] == ID.Wall) {
+                            System.out.println("The wall is to my South");
+                        } else if(currentLevel[i][j-1] == ID.Wall) {
+                            System.out.println("The wall is to my West");
+                        } else if(currentLevel[i][j-1] == ID.Wall) {
+                            System.out.println("The wall is to my East");
+                        }
+
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"),0);
+                       System.out.println("The door ID is 0 this is where it constructs");
+                    break;
                     case DoorY:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 1);
-                        break;
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorY"),1);
+                    break;
                     case DoorB:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 2);
-                        break;
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorB"),2);
+                    break;
                     case DoorG:
                         grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 3);
                         // System.out.println("This door is also made");
                         break;
                     case DoorP:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 4);
-                        break;
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorP"),4);
+                    break;
                     case DoorR:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 5);
-                        break;
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorR"),5);
+                    break;
                     case Ship:
                         new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 6);
                         grid[i][j] = new Ship(vector, Vec2.ZERO, new Sprite("../bg/ship"));
