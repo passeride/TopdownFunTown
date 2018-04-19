@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,7 +48,7 @@ public class ControllerMenu implements Initializable {
 
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void handleButtonAction() {
         try {
             Stage stage = gameApplication.getStage();
             gameApplication.callGame(stage);
@@ -59,7 +58,7 @@ public class ControllerMenu implements Initializable {
     }
 
     @FXML
-    private void goToOptions(ActionEvent event) throws IOException {
+    private void goToOptions() throws IOException {
         FXMLLoader fxml = new FXMLLoader();
         Parent root = fxml.load(getClass().getResource("options.fxml").openStream());
         Stage stageOptions = gameApplication.getStage();
@@ -68,7 +67,7 @@ public class ControllerMenu implements Initializable {
     }
 
     @FXML
-    private void turnOffGame(ActionEvent event) {
+    private void turnOffGame() {
         Stage stage = (Stage) button1.getScene().getWindow();
         stage.close();
     }

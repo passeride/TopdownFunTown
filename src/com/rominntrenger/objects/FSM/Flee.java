@@ -6,12 +6,11 @@ public class Flee implements Behaviour {
 
     @Override
     public void nextBehaviour(Enemy behaviourContext) {
-        Enemy enemy = behaviourContext;
         double speed;
         double delta;
 
-        speed = enemy.getSpeed();
-        delta = enemy.getDelta();
+        speed = behaviourContext.getSpeed();
+        delta = behaviourContext.getDelta();
 
         behaviourContext.setBehaviour(new Wander());
     }
