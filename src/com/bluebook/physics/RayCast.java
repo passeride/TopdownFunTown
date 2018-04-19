@@ -4,6 +4,7 @@ import com.bluebook.util.GameObject;
 import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class will create a raycast to interact with {@link Collider}
@@ -51,19 +52,19 @@ public class RayCast {
                 + (float) Math.sin(angle) * max_distance);
     }
 
-    public void Cast() {
+    public void Cast(CopyOnWriteArrayList<Line2D> lines) {
         updatePosition();
         float collisionDistance = max_distance;
         Collider colliderHit = null;
 
-        Collider[] colls = new Collider[HitDetectionHandler.getInstance().raycast_colliders.size()];
-        colls = HitDetectionHandler.getInstance().raycast_colliders.toArray(colls);
-
-        for (Collider c : colls) {
-            if (c != null) {
-                if (interactionLayer.contains(c.getTag())) {
-                    Line2D[] box = c.getLines();
-                    for (Line2D l : box) {
+//        Collider[] colls = new Collider[HitDetectionHandler.getInstance().raycast_colliders.size()];
+//        colls = HitDetectionHandler.getInstance().raycast_colliders.toArray(colls);
+//
+//        for (Collider c : colls) {
+//            if (c != null) {
+//                if (interactionLayer.contains(c.getTag())) {
+//                    Line2D[] box = c.getLines();
+                    for (Line2D l : lines) {
                         //float distanceHit = getRayCast(ray, l);
                         float distanceHit = getRayCast(ray.x1, ray.y1,
                             ray.x1 + (float) Math.cos(angle) * collisionDistance,
@@ -71,12 +72,12 @@ public class RayCast {
                             l.x1, l.y1, l.x2, l.y2);
                         if (distanceHit > 0 && distanceHit < collisionDistance) {
                             collisionDistance = distanceHit;
-                            colliderHit = c;
+//                            colliderHit = c;
                         }
                     }
-                }
-            }
-        }
+//                }
+//            }
+//        }
         RayCastHit ret = new RayCastHit();
         ret.colliderHit = colliderHit;
         ret.isHit = colliderHit != null;

@@ -48,7 +48,7 @@ public class MapCreator extends GameObject {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite("../bg/tilebg02"));
         allwaysOnScreen = true;
         ImageBuffering loader = new ImageBuffering();
-        this.newMap = loader.loadImage("startMap");
+        this.newMap = loader.loadImage(path);
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }
 

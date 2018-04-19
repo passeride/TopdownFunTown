@@ -3,7 +3,14 @@ package com.bluebook.physics;
 import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
+import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -28,6 +35,8 @@ public class HitDetectionHandler {
     public ArrayList<Collider> colliders = new ArrayList<>();
     public ArrayList<Collider> raycast_colliders = new ArrayList<>();
     public ArrayList<RayCast> raycasts = new ArrayList<>();
+
+    public ArrayList<Line2D> lines = new ArrayList<>();
 
     // And out buffers needed for thread safe operation
     private ArrayList<Collider> colliderInBuffer = new ArrayList<>();
@@ -111,6 +120,12 @@ public class HitDetectionHandler {
 
             for(Collider base : colliders){
                 checkCollision(base);
+
+                if(DO_RAYCAST) {
+                    Line2D[] baseLines = base.getLines();
+                    for(Line2D l : baseLines)
+                        lines.add(l);
+                }
             }
 
             if(DO_RAYCAST)
@@ -122,8 +137,30 @@ public class HitDetectionHandler {
 
 
     private void doRaycasts() {
+        CopyOnWriteArrayList<Line2D> cowLines = new CopyOnWriteArrayList<>();
+        cowLines.addAll(lines);
+
+        ExecutorService executor = Executors.newFixedThreadPool(raycasts.size());
+
+        List<Future<RayCastHit>> list = new ArrayList<>();
+
+        for(int i = 0; i < raycasts.size(); i++){
+            Future<RayCastHit> future = executor.submit(new Callable<RayCastHit>() {
+                @Override
+                public RayCastHit call() throws Exception {
+
+                    int id = (int)Thread.currentThread().getId();
+                    raycasts.get(id).Cast(cowLines);
+
+
+                    return raycasts.get(id).getHit();
+                }
+            });
+
+        }
+
         for (RayCast r : raycasts) {
-            r.Cast();
+            r.Cast(cowLines);
         }
     }
 
