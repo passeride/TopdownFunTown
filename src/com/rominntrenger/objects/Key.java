@@ -47,4 +47,5 @@ public class Key extends Item implements Describable {
         destroy();
         collider.destroy();
     }
+
 }

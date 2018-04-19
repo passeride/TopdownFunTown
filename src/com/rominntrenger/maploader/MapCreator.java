@@ -106,37 +106,37 @@ public class MapCreator extends GameObject {
                     //KEYS AND DOORS
                     case Key:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            0);
+                            1);
                         break;
 
                     case KeyY:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            1);
+                            2);
                         break;
 
                     case KeyB:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            2);
+                            3);
                         break;
 
                     case KeyG:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            3);
+                            4);
                         break;
 
                     case KeyP:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            4);
+                            5);
                         break;
 
                     case KeyR:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            5);
+                            6);
                         break;
 
                     case KeyShip:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
-                            6);
+                            7);
                         break;
 
                     case Door:
@@ -150,27 +150,27 @@ public class MapCreator extends GameObject {
                             System.out.println("The wall is to my East");
                         }
 
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"),0);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"),1);
                        System.out.println("The door ID is 0 this is where it constructs");
                     break;
                     case DoorY:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorY"),1);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorY"),2);
                     break;
                     case DoorB:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorB"),2);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorB"),3);
                     break;
                     case DoorG:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 3);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 4);
                         // System.out.println("This door is also made");
                         break;
                     case DoorP:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorP"),4);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorP"),5);
                     break;
                     case DoorR:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorR"),5);
+                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorR"),6);
                     break;
                     case Ship:
-                        new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 6);
+                        new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 7);
                         grid[i][j] = new Ship(vector, Vec2.ZERO, new Sprite("../bg/ship"));
                         break;
 

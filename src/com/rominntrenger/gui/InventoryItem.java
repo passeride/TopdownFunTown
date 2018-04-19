@@ -21,4 +21,8 @@ public class InventoryItem extends GameObject {
     public Sprite getSprite() {
         return itemSprite;
     }
+
+    public int getKeyValue() {
+        return keyValue;
+    }
 }

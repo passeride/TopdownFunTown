@@ -8,8 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Inventory extends GameObject {
 
-    // Sprite[] inventoryContents;
     InventoryItem[] inventoryContents;
+    int[] playerKeyValues;
     Boolean hasItem = false;
     private double spacing = 20;
     private Sprite background;
@@ -42,6 +42,7 @@ public class Inventory extends GameObject {
         */
 
         inventoryContents = new InventoryItem[inventorySpots];
+        playerKeyValues = new int[inventorySpots];
         //addItem(item);
         inventorySpace = inventorySpots;
         hasItem = true;
@@ -71,6 +72,15 @@ public class Inventory extends GameObject {
 
             System.out.println("Inventory Number is:" + itemNum);
         }
+    }
+
+    public int[] getItems() {
+        for (int i = 0; i < inventorySpace; i++) {
+            if(inventoryContents[i] != null) {
+                playerKeyValues[i] = inventoryContents[i].getKeyValue();
+            }
+        }
+        return playerKeyValues;
     }
 
     public void removeItem(int ID) {
