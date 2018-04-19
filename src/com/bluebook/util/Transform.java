@@ -1,13 +1,13 @@
 package com.bluebook.util;
 
-import com.bluebook.camera.OrtographicCamera;
-
+import com.bluebook.camera.OrthographicCamera;
 import java.util.ArrayList;
 
 /**
- * Transform keeps the position, rotation,  scale and hierarcical position of the object into consideration
+ * Transform keeps the position, rotation,  scale and hierarcical position of the object into
+ * consideration
  */
-public class Transform extends Component{
+public class Transform extends Component {
 
     protected Vector2 position;
     protected Vector2 rotation;
@@ -21,68 +21,72 @@ public class Transform extends Component{
     /**
      * Creating base constructor for root level transforms
      */
-    public Transform(){
+    public Transform() {
         position = Vector2.ZERO;
         rotation = Vector2.ZERO;
         scale = new Vector2(1, 1);
     }
 
-    public void translate(Vector2 moveVector){
+    public void translate(Vector2 moveVector) {
         position = Vector2.add(position, moveVector);
     }
 
-    private Vector2 getPositionOffsett(){
-        if(parent != null)
+    private Vector2 getPositionOffsett() {
+        if (parent != null) {
             return Vector2.add(
-                    Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
+                Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
                     Vector2.ZERO,
                     parent.getLocalRotation().getAngleInDegrees()),
-                    parent.getPositionOffsett());
-        else
-            if(OrtographicCamera.main != null)
-                return Vector2.add(position, new Vector2(OrtographicCamera.main.getX(), OrtographicCamera.main.getY()));
-            else
-                return position;
-    }
-
-    private Vector2 getPositionOffsettWithoutCamera(){
-        if(parent != null)
-            return Vector2.add(
-                    Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
-                            Vector2.ZERO,
-                            parent.getLocalRotation().getAngleInDegrees()),
-                    parent.getPositionOffsettWithoutCamera());
-        else
+                parent.getPositionOffsett());
+        } else if (OrthographicCamera.main != null) {
+            return Vector2.add(position,
+                new Vector2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY()));
+        } else {
             return position;
+        }
     }
 
-    private Vector2 getRotationOffsett(){
-        if(parent != null)
+    private Vector2 getPositionOffsettWithoutCamera() {
+        if (parent != null) {
+            return Vector2.add(
+                Vector2.rotateVectorAroundPoint(Vector2.multiply(position, parent.scale),
+                    Vector2.ZERO,
+                    parent.getLocalRotation().getAngleInDegrees()),
+                parent.getPositionOffsettWithoutCamera());
+        } else {
+            return position;
+        }
+    }
+
+    private Vector2 getRotationOffsett() {
+        if (parent != null) {
             return Vector2.add(rotation, parent.getRotationOffsett());
-        else
+        } else {
             return rotation;
+        }
     }
 
-    private Vector2 getScaleoffsett(){
-        if(parent != null)
+    private Vector2 getScaleoffsett() {
+        if (parent != null) {
             return Vector2.multiply(scale, parent.getScaleoffsett());
-        else
+        } else {
             return scale;
+        }
     }
 
-    public Vector2 getWorldPosition(){
+    public Vector2 getWorldPosition() {
         return getPositionOffsettWithoutCamera();
     }
 
-    public Vector2 getGlobalPosition(){
+    public Vector2 getGlobalPosition() {
         return getPositionOffsett();
     }
 
-    public Vector2 getGlobalScale(){
+    public Vector2 getGlobalScale() {
         return getScaleoffsett();
     }
 
-    public Vector2 getGlobalRotation(){
+    public Vector2 getGlobalRotation() {
         return getRotationOffsett();
     }
 
@@ -140,20 +144,22 @@ public class Transform extends Component{
 
     public void setParent(Transform parent) {
         // Un assign from previous parent
-        if(this.parent != null)
-                this.parent.removeChild(this);
+        if (this.parent != null) {
+            this.parent.removeChild(this);
+        }
         // Assign as child in new parent
         this.parent = parent;
         parent.addChild(this);
     }
 
-    private void addChild(Transform child){
+    private void addChild(Transform child) {
         children.add(child);
     }
 
-    private void removeChild(Transform child){
-        if(children.contains(child))
+    private void removeChild(Transform child) {
+        if (children.contains(child)) {
             children.remove(child);
+        }
     }
 
 }

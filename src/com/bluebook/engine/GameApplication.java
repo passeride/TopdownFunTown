@@ -2,11 +2,15 @@ package com.bluebook.engine;
 
 import com.bluebook.input.Input;
 import com.bluebook.javafx.Controller;
-import com.bluebook.javafx.ControllerMenu;
 import com.bluebook.renderer.FPSLineGraph;
 import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -17,79 +21,92 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.util.Map;
-
+/**
+ * The GameApplication class is used to create the foundation of any BlueBook game
+ * This will call the JavaFX code to start a frame, also start engine with all it's corresponding parts
+ */
 public abstract class GameApplication extends Application {
 
-    private static GameApplication singelton;
-    public static final boolean START_MENU = false;
+    private static final String SETTINGS_PATH = "./assets/settings/Default.json";
+
+    private static GameApplication singleton;
+    boolean START_MENU = false;
     protected Input input;
     protected GameEngine engine;
     private Stage stage;
     public static DoubleProperty X_scale = new SimpleDoubleProperty();
     public static DoubleProperty Y_scale = new SimpleDoubleProperty();
-    public Map<String, String> loadedSettings;
 
-    public GameApplication(){
-        singelton = this;
+    public GameApplication() {
+        singleton = this;
     }
 
     /**
      * Singelton getter
-     * @return
      */
     public static GameApplication getInstance() {
-        return singelton;
+        return singleton;
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         loadSettings();
 
+        START_MENU = GameSettings.getBoolean("start_menu");
+
         this.stage = primaryStage;
 
+        loadFXML(primaryStage);
+
+
+    }
+
+
+    void loadFXML(Stage primaryStage) throws IOException {
         FXMLLoader fxml = new FXMLLoader();
         fxml.setLocation(new File("assets").toURL());
 
         Parent root;
-        if(START_MENU) {
-            root = fxml.load(getClass().getResource("../../bluebook/javafx/menu.fxml").openStream());
-        }else{
-            root = fxml.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        if (START_MENU) {
+            root = fxml
+                .load(getClass().getResource("../../bluebook/javafx/menu.fxml").openStream());
+        } else {
+            root = fxml
+                .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
         }
-//        ControllerMenu controllerMenu = (ControllerMenu) fxml.getController();
 
-        primaryStage.setTitle("TOP DOWN FUN TOWN");
-        primaryStage.setScene(new Scene(root, 1920 , 1080));
+        primaryStage.setTitle(GameSettings.getString("window_title"));
+        primaryStage.setScene(new Scene(root, GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
         primaryStage.show();
 
-        if(!START_MENU)
+        if (!START_MENU) {
             callGame(primaryStage);
+        }
+    }
+
+    /**
+     * This will be called after FXML is set up, should be a good starting point for loading
+     * resources
+     */
+    protected void onLoad() {
 
     }
 
     /**
-     * This will be called after FXML is set up, should be a good starting point for loading resources
+     * Used to read ./assets/settings/Default.json that contains required settings
      */
-    protected void onLoad(){
-
-    }
-
-    protected void loadSettings(){
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
+    protected void loadSettings() {
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
         Gson gson = new Gson();
         GameSettings.setLoadedSettings(gson.fromJson(readSettingsFile(), type));
     }
 
-    private String readSettingsFile(){
-        File f = new File("./assets/settings/Default.json");
+    private String readSettingsFile() {
+        File f = new File(SETTINGS_PATH);
         String s = "";
-        if(f.exists()) {
+        if (f.exists()) {
             try {
                 s = new String(Files.readAllBytes(f.toPath()));
             } catch (IOException e) {
@@ -99,15 +116,16 @@ public abstract class GameApplication extends Application {
         return s;
     }
 
-    private void setStageKeyListener(Stage primaryStage){
+    private void setStageKeyListener(Stage primaryStage) {
         new Input(primaryStage);
     }
 
-    private void setHeightListener(Stage primaryStage, Controller controller){
+    private void setHeightListener(Stage primaryStage, Controller controller) {
         primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
 
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+                Number newValue) {
                 Y_scale.set((double) newValue / GameSettings.getInt("game_resolution_Y"));
                 //controller.setCanvasHeight((double)newValue);
             }
@@ -115,45 +133,33 @@ public abstract class GameApplication extends Application {
         });
     }
 
-    private void setWidthListener(Stage primaryStage, Controller controller){
+    private void setWidthListener(Stage primaryStage, Controller controller) {
         primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
 
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                X_scale.set((double) newValue/ GameSettings.getInt("game_resolution_X"));
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+                Number newValue) {
+                X_scale.set((double) newValue / GameSettings.getInt("game_resolution_X"));
                 //controller.setCanvasWidth((double) newValue);
             }
 
         });
     }
 
-    public double getSceneX(){
-        return stage.getX();
-    }
-
-    public double getSceneY(){
-        return stage.getY();
-    }
-
-
-    public double getScreenWidth(){
+    public double getScreenWidth() {
         return stage.getWidth();
     }
 
-    public double getScreenHeight(){
+    public double getScreenHeight() {
         return stage.getHeight();
     }
 
     /**
      * This function will be called every tick, should be used for logic
+     *
      * @param delta seconds since last frame update
      */
     public abstract void update(double delta);
-
-
-    public void setWindowTitle(String s){
-
-    }
 
     public Stage getStage() {
         return stage;
@@ -162,21 +168,26 @@ public abstract class GameApplication extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        if(FPSLineGraph.main != null)
-        System.out.println("Average FPS: " + FPSLineGraph.main.getAverage());
+        if (FPSLineGraph.main != null) {
+            System.out.println("Average draw_FPS: " + FPSLineGraph.main.getAverage());
+        }
     }
 
-    public void callGame(Stage primaryStage){
+    /**
+     * Will start the game, used from Menu to start Game FXML
+     * @param primaryStage
+     */
+    public void callGame(Stage primaryStage) {
         FXMLLoader fxmlGame = new FXMLLoader();
-
 
         Parent root = null;
         try {
-            root = fxmlGame.load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+            root = fxmlGame
+                .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Controller controller = (Controller) fxmlGame.getController();
+        Controller controller = fxmlGame.getController();
 
         setWidthListener(primaryStage, controller);
         setHeightListener(primaryStage, controller);
@@ -189,20 +200,14 @@ public abstract class GameApplication extends Application {
 
         primaryStage.setHeight(900);
 
-
-        if(GameSettings.getBoolean("fullscreen")){
+        if (GameSettings.getBoolean("fullscreen")) {
             primaryStage.setFullScreen(true);
-        }else{
-            // Sets aspect ratio
-            //primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(2));
-            //primaryStage.minHeightProperty().bind(scene.widthProperty().divide(2));
         }
 
         setStageKeyListener(primaryStage);
 
         engine = GameEngine.getInstance();
         input = Input.getInstance();
-
 
         X_scale.set(GameSettings.getInt("game_resolution_X") / getScreenWidth());
         //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));

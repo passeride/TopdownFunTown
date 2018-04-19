@@ -5,37 +5,41 @@ import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Line2D;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
- * The Collider class will be the superclass for different types of colliders, mainly {@link CircleCollider}  and {@link BoxCollider}
+ * The Collider class will be the superclass for different types of colliders, mainly {@link
+ * CircleCollider}  and {@link BoxCollider}
  */
 public abstract class Collider {
 
-    protected String name;
-    protected String tag;
+    String name;
+    String tag;
+    List<String> interactionLayer = new ArrayList<>();
 
-    protected List<String> interactionLayer = new ArrayList<>();
+    Vector2 position = Vector2.ZERO;
 
-    protected Vector2 position = Vector2.ZERO;
+    Path intersection;
+    Vector2 intersectionCenter;
+    Vector2 padding = Vector2.ZERO;
+    Collider intersectionCollider;
 
-    protected Path intersection;
-    protected Vector2 intersectionCenter;
-    protected Vector2 padding = Vector2.ZERO;
-    protected Collider intersectionCollider;
-
-    protected GameObject gameObject;
-    protected OnCollisionListener listener;
+    GameObject gameObject;
+    OnCollisionListener listener;
 
     /**
      * Constructor for Collider
+     *
      * @param go {@link GameObject} collider is Attached to
      */
-    public Collider(GameObject go){
+    public Collider(GameObject go) {
         this.gameObject = go;
         CanvasRenderer.getInstance().addCollider(this);
         HitDetectionHandler.getInstance().addCollider(this);
@@ -46,21 +50,21 @@ public abstract class Collider {
     protected abstract void updateCenterPoint();
 
     /**
-     * If {@link com.bluebook.engine.GameEngine#DEBUG} is true this will draw the collider for debugging
-     * @param gc
+     * If {@link com.bluebook.engine.GameEngine#DEBUG} is true this will draw the collider for
+     * debugging
      */
     public abstract void debugDraw(GraphicsContext gc);
 
     abstract void setIntersection(Path intersection);
 
-    public Vector2 getFurthestPointOfIntersection(){
+    public Vector2 getFurthestPointOfIntersection() {
         Vector2 ret = new Vector2(0, 0);
         double minDist = 0;
 
-        for(PathElement pe : intersection.getElements()){
-            if(pe instanceof MoveTo){
+        for (PathElement pe : intersection.getElements()) {
+            if (pe instanceof MoveTo) {
                 Vector2 pathPosition = new Vector2(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
-                if(gameObject.getPosition().distance(pathPosition) > minDist){
+                if (gameObject.getPosition().distance(pathPosition) > minDist) {
                     ret = pathPosition;
                 }
             }
@@ -71,14 +75,14 @@ public abstract class Collider {
 
     public abstract Rectangle getBoudningBox();
 
-    public Vector2 getClosestPointOfIntersection(){
+    public Vector2 getClosestPointOfIntersection() {
         Vector2 ret = new Vector2(0, 0);
         double maxDist = Double.MAX_VALUE;
 
-        for(PathElement pe : intersection.getElements()){
-            if(pe instanceof MoveTo){
+        for (PathElement pe : intersection.getElements()) {
+            if (pe instanceof MoveTo) {
                 Vector2 pathPosition = new Vector2(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
-                if(gameObject.getPosition().distance(pathPosition) < maxDist){
+                if (gameObject.getPosition().distance(pathPosition) < maxDist) {
                     ret = pathPosition;
                 }
             }
@@ -91,22 +95,22 @@ public abstract class Collider {
 
     abstract Line2D[] getLines();
 
-    public void destroy(){
+    public void destroy() {
         CanvasRenderer.getInstance().removeCollider(this);
         HitDetectionHandler.getInstance().removeCollider(this);
     }
 
     public abstract Shape getShape();
 
-    public boolean isAttached(){
+    public boolean isAttached() {
         return gameObject != null;
     }
 
-    public void attachToGameObject(GameObject go){
+    public void attachToGameObject(GameObject go) {
         this.gameObject = go;
     }
 
-    public void dettactchGameObject(){
+    public void dettactchGameObject() {
         this.gameObject = null;
     }
 
@@ -126,7 +130,7 @@ public abstract class Collider {
         this.tag = tag;
     }
 
-    public void setOnCollisionListener(OnCollisionListener listener){
+    public void setOnCollisionListener(OnCollisionListener listener) {
         this.listener = listener;
     }
 
@@ -159,32 +163,30 @@ public abstract class Collider {
         this.padding = padding;
     }
 
-    public List<String> getInteractionLayer(){
+    public List<String> getInteractionLayer() {
         return this.interactionLayer;
     }
 
     /**
      * This will remove an interactcionLayer
-     * @param tagName
      */
-    public void removeInteractcionLayer(String tagName){
-        if(interactionLayer.contains(tagName)){
+    public void removeInteractcionLayer(String tagName) {
+        if (interactionLayer.contains(tagName)) {
             interactionLayer.remove(tagName);
         }
     }
 
     /**
-     * Will add a string corresponding to a TAG, and interactions between this collider and colliders with this tag will be marked
-     * @param tagName
+     * Will add a string corresponding to a TAG, and interactions between this collider and colliders
+     * with this tag will be marked
      */
     public void addInteractionLayer(String tagName) {
         interactionLayer.add(tagName);
     }
 
     /**
-     * If there was a collision on last {@link CollisionThread} update, the collided collider will be retrivable here.
-     * If this returns null, no collision has occured.
-     * @return
+     * If there was a collision on last {@link CollisionThread} update, the collided collider will be
+     * retrivable here. If this returns null, no collision has occured.
      */
     public Collider getIntersectionCollider() {
         return intersectionCollider;
@@ -192,7 +194,6 @@ public abstract class Collider {
 
     /**
      * Used to set the collided collider
-     * @param intersectionCollider
      */
     public void setIntersectionCollider(Collider intersectionCollider) {
         this.intersectionCollider = intersectionCollider;

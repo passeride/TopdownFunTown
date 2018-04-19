@@ -1,12 +1,10 @@
 package com.bluebook.renderer;
 
-import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameObject;
-import javafx.scene.canvas.GraphicsContext;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  * This is used by {@link CanvasRenderer} to create layers for sprites to be drawn
@@ -20,7 +18,7 @@ public class RenderLayer {
     /**
      * Used by {@link RenderLayer} to signify what the layers name is
      */
-    public enum RenderLayerName{
+    public enum RenderLayerName {
         BACKGROUND(0),
         TILES(1),
         ENEMIES(2),
@@ -42,23 +40,24 @@ public class RenderLayer {
             return map.get(renderLayerNameValue);
         }
 
-        public static String[] names = {"BACKGROUND", "ENEMIES", "LOW_BLOCKS", "PLAYER", "HIGH_BLOCKS", "PROJECTILE", "GUI"};
+        public static String[] names = {"BACKGROUND", "ENEMIES", "LOW_BLOCKS", "PLAYER",
+            "HIGH_BLOCKS", "PROJECTILE", "GUI"};
 
-        public static RenderLayerName get(int i){
+        public static RenderLayerName get(int i) {
             return valueOf(i);
         }
 
-        public static int getTotal(){
+        public static int getTotal() {
             return names.length;
         }
 
         private int value;
 
-        private RenderLayerName(int value) {
+        RenderLayerName(int value) {
             this.value = value;
         }
 
-        public String getName(){
+        public String getName() {
             return names[value];
         }
 
@@ -68,11 +67,11 @@ public class RenderLayer {
 
     }
 
-    public RenderLayer(RenderLayerName layer){
+    public RenderLayer(RenderLayerName layer) {
         this.layer = layer;
     }
 
-    protected void drawAll(GraphicsContext gc){
+    protected void drawAll(GraphicsContext gc) {
         synchronized (this) {
             int drawablesSize = drawables.size();
             GameObject[] gameObjects = new GameObject[drawablesSize];
@@ -81,24 +80,26 @@ public class RenderLayer {
 //                GameObject go = drawables.get(i);
 
                 GameObject go = gameObjects[i];
-                if (go != null && go.isOnScreen())
+                if (go != null && go.isOnScreen()) {
                     go.draw(gc);
+                }
             }
         }
 
     }
 
-    protected void drawAll(GraphicsRenderer gr){
+    protected void drawAll(GraphicsRenderer gr) {
         int drawablesSize = drawables.size();
-        for (int i = 0;  i <  drawablesSize; i++) {
+        for (int i = 0; i < drawablesSize; i++) {
             GameObject go = drawables.get(i);
-            if(go != null)
+            if (go != null) {
                 go.draw(gr);
+            }
         }
 
     }
 
-    public boolean hasGameObject(GameObject go){
+    public boolean hasGameObject(GameObject go) {
         synchronized (this) {
             return drawables.contains(go);
         }
@@ -111,10 +112,11 @@ public class RenderLayer {
         }
     }
 
-    public void removeGameObject(GameObject go){
+    public void removeGameObject(GameObject go) {
         synchronized (this) {
-            if (drawables.contains(go))
+            if (drawables.contains(go)) {
                 drawables.remove(go);
+            }
         }
     }
 

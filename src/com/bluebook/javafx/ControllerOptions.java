@@ -1,6 +1,7 @@
 package com.bluebook.javafx;
 
 import com.bluebook.engine.GameApplication;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class ControllerOptions {
-
 
 
     @FXML
@@ -27,14 +25,14 @@ public class ControllerOptions {
     //AudioPlayer audioPlayer = new AudioPlayer();
 
     @FXML
-    private void toggleLyd(ActionEvent event){
+    private void toggleLyd(ActionEvent event) {
         // TODO: 2/27/18
         //sette lyd fra audioplayer sin setVolume function
-        if(b){
+        if (b) {
             slider.setDisable(true);
             b = false;
             //audioPlayer.setVolume(-100);
-        }else {
+        } else {
             slider.setDisable(false);
             b = true;
             int vol = (int) slider.getValue();
@@ -44,19 +42,19 @@ public class ControllerOptions {
     }
 
     @FXML
-    private void setPlayerName(ActionEvent event){
+    private void setPlayerName(ActionEvent event) {
         // TODO: 2/27/18
         //sette navn på gui til det satt her
     }
 
     @FXML
-    private void setGore(ActionEvent event){
+    private void setGore(ActionEvent event) {
         // TODO: 2/27/18
         //set/clear gore from game
     }
 
     @FXML
-    private void returnToMenu(ActionEvent event){
+    private void returnToMenu(ActionEvent event) {
         FXMLLoader fxml = new FXMLLoader();
         Parent root = null;
         try {

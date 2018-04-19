@@ -10,14 +10,10 @@ public class Corpse extends Item {
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Corpse(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        setSize(new Vector2(2,2));
+        setSize(new Vector2(2, 2));
         setRenderLayer(RenderLayer.RenderLayerName.LOW_BLOCKS);
         collider = new BoxCollider(this);
     }

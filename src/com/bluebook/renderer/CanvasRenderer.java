@@ -1,33 +1,26 @@
 package com.bluebook.renderer;
 
-import com.bluebook.camera.OrtographicCamera;
+import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.GameObject;
+import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * This class is used to draw all {@link GameObject}
  */
 public class CanvasRenderer {
 
-    public static final boolean useGraphicsRenderer = false;
+    private static final boolean useGraphicsRenderer = false;
     private ArrayList<GameObject> drawables = new ArrayList<>();
     private RenderLayer[] layers = new RenderLayer[RenderLayer.RenderLayerName.values().length];
     private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
 
-    public Color bgColor = Color.BLACK;
+    private Color bgColor = Color.BLACK;
 
     private static CanvasRenderer singelton;
 
@@ -35,33 +28,35 @@ public class CanvasRenderer {
 
     private Canvas canvas;
 
-    private CanvasRenderer(){
-        for(int i = 0; i < layers.length; i++){
+    private CanvasRenderer() {
+        for (int i = 0; i < layers.length; i++) {
             layers[i] = new RenderLayer(RenderLayer.RenderLayerName.get(i));
         }
         flg = new FPSLineGraph();
 
     }
 
-    public void addCollider(Collider col){
+    public void addCollider(Collider col) {
         synchronized (this) {
             colliderDebugDrawables.add(col);
         }
     }
 
-    public void removeCollider(Collider col){
+    public void removeCollider(Collider col) {
         synchronized (this) {
-            if(colliderDebugDrawables.contains(col))
+            if (colliderDebugDrawables.contains(col)) {
                 colliderDebugDrawables.remove(col);
+            }
         }
     }
 
     /**
-     * This function will add the GameObject to the list of drawables to be drawn onto the canvas
-     * IF nothing is specified the {@link RenderLayer} beeing used is LOW_BLOCKS
+     * This function will add the GameObject to the list of drawables to be drawn onto the canvas IF
+     * nothing is specified the {@link RenderLayer} beeing used is LOW_BLOCKS
+     *
      * @param in Object to be drawn on canvas
      */
-    public void addGameObject(GameObject in){
+    public void addGameObject(GameObject in) {
         synchronized (this) {
             layers[RenderLayer.RenderLayerName.LOW_BLOCKS.getValue()].addGameObject(in);
         }
@@ -69,10 +64,11 @@ public class CanvasRenderer {
 
     /**
      * Will add drawable to layer
+     *
      * @param in Object to be drawn
      * @param layer RenderLayer to be used
      */
-    public void  addGameObject(GameObject in, RenderLayer.RenderLayerName layer){
+    public void addGameObject(GameObject in, RenderLayer.RenderLayerName layer) {
         synchronized (this) {
             layers[layer.getValue()].addGameObject(in);
         }
@@ -80,11 +76,9 @@ public class CanvasRenderer {
 
     /**
      * Will move gameobject to designated renderlayer
-     * @param go
-     * @param layer
      */
-    public void moveGameObjectToLayer(GameObject go, RenderLayer.RenderLayerName layer){
-        synchronized (this){
+    public void moveGameObjectToLayer(GameObject go, RenderLayer.RenderLayerName layer) {
+        synchronized (this) {
             removeGameObject(go);
             addGameObject(go, layer);
         }
@@ -92,14 +86,16 @@ public class CanvasRenderer {
 
     /**
      * Will return the layer this objects is in
+     *
      * @param go {@link GameObject} to be searched for
      * @return {@link com.bluebook.renderer.RenderLayer.RenderLayerName} that contains GO
      */
-    public RenderLayer.RenderLayerName getLayer(GameObject go){
-        synchronized (this){
-            for(int i = 0; i < layers.length; i++){
-                if(layers[i].hasGameObject(go))
+    public RenderLayer.RenderLayerName getLayer(GameObject go) {
+        synchronized (this) {
+            for (int i = 0; i < layers.length; i++) {
+                if (layers[i].hasGameObject(go)) {
                     return RenderLayer.RenderLayerName.get(i);
+                }
             }
         }
         return null;
@@ -107,11 +103,12 @@ public class CanvasRenderer {
 
     /**
      * Will remove the {@link GameObject} from all {@link RenderLayer}
+     *
      * @param go {@link GameObject} to be removed
      */
-    public void removeGameObject(GameObject go){
+    public void removeGameObject(GameObject go) {
         synchronized (this) {
-            for(int i =  0; i < layers.length; i++){
+            for (int i = 0; i < layers.length; i++) {
                 layers[i].removeGameObject(go);
             }
         }
@@ -120,9 +117,10 @@ public class CanvasRenderer {
     /**
      * Returns the instance
      */
-    public static CanvasRenderer getInstance(){
-        if(singelton == null)
+    public static CanvasRenderer getInstance() {
+        if (singelton == null) {
             singelton = new CanvasRenderer();
+        }
 
         return singelton;
     }
@@ -130,53 +128,54 @@ public class CanvasRenderer {
     /**
      * Draw all objects onto canvas
      */
-    public void drawAll(){
+    public void drawAll() {
         synchronized (this) {
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             gc.save();
 
-
             clearCanvas(gc);
-
 
             gc.setFill(bgColor);
             gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             GraphicsRenderer gr = new GraphicsRenderer(gc);
-            for(int i = 0; i < layers.length;  i++){
-                if(useGraphicsRenderer)
-                layers[i].drawAll(gr);
-                else
+            for (int i = 0; i < layers.length; i++) {
+                if (useGraphicsRenderer) {
+                    layers[i].drawAll(gr);
+                } else {
                     layers[i].drawAll(gc);
+                }
             }
 
             if (GameEngine.DEBUG) {
                 for (Collider c : colliderDebugDrawables) {
                     c.debugDraw(gc);
                 }
-                flg.addFPS(GameEngine.getInstance().FPS);
+                flg.addFPS(GameEngine.getInstance().draw_FPS);
                 flg.draw(gc);
                 HitDetectionHandler.getInstance().qtTree.draw(gc);
             }
-            if(OrtographicCamera.main != null)
-            gc.restore();
+            if (OrthographicCamera.main != null) {
+                gc.restore();
+            }
         }
     }
 
     /**
      * Draw all objects onto canvas
+     *
      * @param canvas canvas for objects to be drawn to
      */
-    public void drawAll(Canvas canvas){
+    public void drawAll(Canvas canvas) {
         setCanvas(canvas);
         drawAll();
     }
 
-    private void clearCanvas(GraphicsContext gc){ ;
+    private void clearCanvas(GraphicsContext gc) {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
-    public void setCanvas(Canvas canvas){
+    public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
 

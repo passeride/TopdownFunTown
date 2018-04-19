@@ -1,16 +1,11 @@
 package com.rominntrenger.main.maploader;
 
-import javafx.scene.image.Image;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.HashMap;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 
 public class ImageBuffering {
 
@@ -18,6 +13,7 @@ public class ImageBuffering {
     private static HashMap<String, Image> bgImages = new HashMap<>();
 
     private BufferedImage image; // = new BufferedImage(188, 188, BufferedImage.TYPE_INT_RGB);
+
     public BufferedImage loadImage(String name, int w, int h) {
         image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         File f = new File("./assets/maps/" + name + ".png");

@@ -2,11 +2,10 @@ package com.bluebook.renderer;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.HitDetectionHandler;
+import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import java.util.ArrayList;
 
 /**
  * used for debug drawing a graph of fps
@@ -26,20 +25,21 @@ public class FPSLineGraph {
     int horziontal_lines = 5;
     int fontSize = 20;
 
-    public FPSLineGraph(){
+    public FPSLineGraph() {
         main = this;
     }
 
     // TODO: make stuff right bro, also optimize
-    public void draw(GraphicsContext gc){
+    public void draw(GraphicsContext gc) {
 
         // Drawing horizontal  lines
-        for(int i = 0;  i < horziontal_lines; i++){
+        for (int i = 0; i < horziontal_lines; i++) {
             double tmpY = Y + (height / horziontal_lines) * i;
             //double tmpY = lerp(Y, Y + height, i / horziontal_lines);
             gc.setFont(new Font(fontSize));
-            gc.fillText((int)(max_value - ( (max_value - min_value) / horziontal_lines) * i) + ":", X, tmpY);
-            gc.setLineWidth( 2);
+            gc.fillText((int) (max_value - ((max_value - min_value) / horziontal_lines) * i) + ":",
+                X, tmpY);
+            gc.setLineWidth(2);
             gc.strokeLine(X + fontSize, tmpY, X + width, tmpY);
         }
 
@@ -47,59 +47,58 @@ public class FPSLineGraph {
         fpsArray.toArray(tmpArr);
 
         Double prev = 0.0;
-        int points =  fpsArray.size() > pointsOnGraph ? pointsOnGraph : fpsArray.size();
+        int points = fpsArray.size() > pointsOnGraph ? pointsOnGraph : fpsArray.size();
         gc.setFill(Color.BLUE);
-        for(int i = 0; i < points; i++){
+        for (int i = 0; i < points; i++) {
 
-            double FPS = fpsArray.get(fpsArray.size() - i -1);
+            double FPS = fpsArray.get(fpsArray.size() - i - 1);
             double tmpY = Y + height + mapFPSValue(FPS);
-            gc.strokeLine(X + (width / pointsOnGraph) * (points - i),  tmpY, X + (width / pointsOnGraph) * (points - i + 1),tmpY);
+            gc.strokeLine(X + (width / pointsOnGraph) * (points - i), tmpY,
+                X + (width / pointsOnGraph) * (points - i + 1), tmpY);
         }
 
         gc.setFont(new Font(fontSize));
-        double FPS = GameEngine.getInstance().FPS;
-//        gc.setFill(FPS > 60 ? Color.BLACK : Color.RED);
+        double FPS = GameEngine.getInstance().draw_FPS;
+//        gc.setFill(draw_FPS > 60 ? Color.BLACK : Color.RED);
         gc.setFill(new Color(0.6, 0.6, 0.6, 0.6));
         gc.fillRect(X, Y + height / 2, 400, height);
         gc.setFill(Color.BLACK);
-        gc.fillText("Draw_FPS: "  + GameEngine.getInstance().FPS, X, Y + height);
-        gc.fillText("Col_FPS: "  + GameEngine.getInstance().collision_FPS, X, Y + height + 20);
-        gc.fillText("    Col_num:" + HitDetectionHandler.getInstance().colliders.size(), X, Y + height + 40);
-        gc.fillText("Raycast:" + GameEngine.getInstance().raycast_FPS, X, Y + height + 60);
+        gc.fillText("Draw_FPS: " + GameEngine.getInstance().draw_FPS, X, Y + height);
+        gc.fillText("Col_FPS: " + GameEngine.getInstance().collision_FPS, X, Y + height + 20);
+        gc.fillText("    Col_num:" + HitDetectionHandler.getInstance().colliders.size(), X,
+            Y + height + 40);
+        gc.fillText("    Ray_num:" + HitDetectionHandler.getInstance().raycasts.size(), X,
+            Y + height + 60);
 
-        gc.fillText("    Ray_num:" + HitDetectionHandler.getInstance().raycasts.size(), X, Y + height + 80);
-
-        gc.fillText("Update_FPS: "  + GameEngine.getInstance().update_FPS, X, Y + height + 100);
+        gc.fillText("Update_FPS: " + GameEngine.getInstance().update_FPS, X, Y + height + 100);
 
     }
 
-    public double getAverage(){
+    public double getAverage() {
         double fpsSum = 0.0;
-        for(Double d: fpsArray){
-            fpsSum += (double)d;
+        for (Double d : fpsArray) {
+            fpsSum += d;
         }
 
         return fpsSum / fpsArray.size();
     }
 
-    public double mapFPSValue(double  fps){
+    public double mapFPSValue(double fps) {
         return fps / max_value - min_value * height;
     }
 
-    float lerp(float point1, float point2, float alpha)
-    {
+    float lerp(float point1, float point2, float alpha) {
         return point1 + alpha * (point2 - point1);
     }
 
-    public void addFPS(double FPS){
+    public void addFPS(double FPS) {
         fpsArray.add(FPS);
-        if(fpsArray.size() > pointsOnGraph){
-            ArrayList<Double> tmp = (ArrayList<Double>)fpsArray.clone();
+        if (fpsArray.size() > pointsOnGraph) {
+            ArrayList<Double> tmp = (ArrayList<Double>) fpsArray.clone();
             fpsArray.clear();
             fpsArray.addAll(tmp.subList(tmp.size() - pointsOnGraph, tmp.size()));
         }
     }
-
 
 
 }

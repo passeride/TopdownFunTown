@@ -1,11 +1,8 @@
 package com.rominntrenger.main.objects;
 
 import com.bluebook.engine.GameApplication;
-import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
@@ -15,25 +12,20 @@ import com.rominntrenger.main.messageHandling.Describable;
 import com.rominntrenger.main.messageHandling.MessageHandler;
 import com.rominntrenger.main.objects.blocks.Item;
 import com.rominntrenger.main.objects.player.Player;
-import com.rominntrenger.main.objects.player.RedRifle;
-import com.rominntrenger.main.objects.player.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Key extends Item implements Describable {
+
     private int keyID;
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Key(Vector2 position, Vector2 direction, Sprite sprite, int ID) {
         super(position, direction, sprite);
         this.keyID = ID;
 
-        setSize(new Vector2(0.5,0.5));
+        setSize(new Vector2(0.5, 0.5));
         setRenderLayer(RenderLayer.RenderLayerName.TILES);
         collider = new BoxCollider(this);
         collider.setTag("Item");
@@ -51,9 +43,9 @@ public class Key extends Item implements Describable {
         Player p = ((RomInntrenger) GameApplication.getInstance()).player;
         p.setPlayerKey(this.keyID);
         Inventory i = ((RomInntrenger) GameApplication.getInstance()).inventory;
-        i.addItem(new InventoryItem(sprite,this.keyID));
+        i.addItem(new InventoryItem(sprite, this.keyID));
         destroy();
         collider.destroy();
-        System.out.println("The Key is: "+ p.getPlayerKey());
+        System.out.println("The Key is: " + p.getPlayerKey());
     }
 }

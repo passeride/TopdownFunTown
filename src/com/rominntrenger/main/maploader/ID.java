@@ -31,5 +31,5 @@ public enum ID {
     AlienPurple,
     AlienExplode,
     AlienTurret,
-    SpawnPlayer;
+    SpawnPlayer
 }

@@ -1,17 +1,14 @@
 package com.bluebook.engine;
 
-import com.bluebook.camera.OrtographicCamera;
 import com.bluebook.physics.CollisionThread;
-import com.bluebook.physics.RaycastThread;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
-import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.Canvas;
 
 /**
  * This class is the main engine of the game
@@ -20,37 +17,44 @@ public class GameEngine {
 
     private UpdateThread updateThread;
     private CollisionThread collisionThread;
-    private RaycastThread raycastThread;
-    private final BlockingQueue<String> messageQueue = new ArrayBlockingQueue<>(1);
+    private BlockingQueue<String> messageQueue = new ArrayBlockingQueue<>(1);
 
-    public ArrayList<GameObject> updateObjects = new ArrayList<>();
+    private ArrayList<GameObject> updateObjects = new ArrayList<>();
 
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
 
-    private long prevTick = 0;
-
     public static boolean DEBUG = false;
 
     private boolean isPaused = false;
 
-    public static GameEngine singelton;
+    private static GameEngine singleton;
 
-    public double FPS = 0.0;
+    /**
+     * Used by drawThread to update draw_FPS, this will be drawn on screen in DEBUG_MODE triggered by {@link GameEngine#DEBUG} and drawn in {@link com.bluebook.renderer.FPSLineGraph}
+     */
+    public double draw_FPS = 0.0;
+
+    /**
+     * Used by {@link CollisionThread} to update collision_FPS, this will be drawn on screen in DEBUG_MODE triggered by {@link GameEngine#DEBUG} and drawn in {@link com.bluebook.renderer.FPSLineGraph}
+     */
     public double collision_FPS = 0.0;
+
+    /**
+     * Used by {@link UpdateThread} to update draw_FPS, this will be drawn on screen in DEBUG_MODE triggered by {@link GameEngine#DEBUG} and drawn in {@link com.bluebook.renderer.FPSLineGraph}
+     */
     public double update_FPS = 0.0;
-    public double raycast_FPS = 0.0;
 
     public Canvas canvas;
-    OrtographicCamera camera;
 
     /**
      * Constructor for GameEngine
+     *
      * @param canvas Canvas for game to be drawn to
      */
-    public GameEngine(Canvas canvas){
-        singelton = this;
+    public GameEngine(Canvas canvas) {
+        singleton = this;
         CanvasRenderer.getInstance().setCanvas(canvas);
 
         this.canvas = canvas;
@@ -61,60 +65,54 @@ public class GameEngine {
 
     }
 
-
-
-    private void startAnimationTimer(){
+    private void startAnimationTimer() {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 CanvasRenderer.getInstance().drawAll();
 
                 // Finding FSP for debugging
-                long oldFrameTime = frameTimes[frameTimeIndex] ;
-                frameTimes[frameTimeIndex] = now ;
-                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+                long oldFrameTime = frameTimes[frameTimeIndex];
+                frameTimes[frameTimeIndex] = now;
+                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
                 if (frameTimeIndex == 0) {
-                    arrayFilled = true ;
+                    arrayFilled = true;
                 }
                 if (arrayFilled) {
-                    long elapsedNanos = now - oldFrameTime ;
-                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
-                    FPS = 1_000_000_000.0 / elapsedNanosPerFrame ;
+                    long elapsedNanos = now - oldFrameTime;
+                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+                    draw_FPS = 1_000_000_000.0 / elapsedNanosPerFrame;
                 }
             }
         };
         timer.start();
     }
 
-    public void Pause(){
+    public void pauseGame() {
         isPaused = true;
         stopCollisionThread();
         stopUpdateThread();
     }
 
-    public void unPause(){
+
+    public void resumeGame() {
         isPaused = false;
         startUpdateThread();
         startCollisionThread();
     }
 
-    public boolean isPaused(){
+    public boolean isPaused() {
         return isPaused;
     }
 
-    /**
-     * Singelton getter
-     * @return
-     */
-    public static GameEngine getInstance(){
-        return singelton;
+    public static GameEngine getInstance() {
+        return singleton;
     }
 
     /**
      * This is used by the constructor of gameobject so it's update function is called
-     * @param go
      */
-    public void addGameObject(GameObject go){
+    public void addGameObject(GameObject go) {
         synchronized (this) {
             updateObjects.add(go);
         }
@@ -122,59 +120,35 @@ public class GameEngine {
 
     /**
      * Removes the object from updateobjects, this is called during an gameobjects destruction
-     * @param go
      */
-    public void removeGameObject(GameObject go){
+    public void removeGameObject(GameObject go) {
         synchronized (this) {
-            if (updateObjects.contains(go))
+            if (updateObjects.contains(go)) {
                 updateObjects.remove(go);
+            }
         }
     }
 
     /**
      * This should be called every tick from the {@link UpdateThread}
-     * @param delta
      */
-    public void update(double delta){
+    public void update(double delta) {
         synchronized (this) {
-            GameApplication ga = GameApplication.getInstance();
-
-            //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
-
-//            HitDetectionHandler.getInstance().updatePositions();
-//
-//            HitDetectionHandler.getInstance().lookForCollision();
             GameApplication.getInstance().update(delta);
-            int lengthOfArray = updateObjects.size();
-            for (int i = 0; i < lengthOfArray; i++)
-                if(updateObjects.get(i).isAlive())
-                    updateObjects.get(i).update(delta);
+            GameObject[] updateGameObjects = new GameObject[updateObjects.size()];
+            updateObjects.toArray(updateGameObjects);
+            for (int i = 0; i < updateGameObjects.length; i++) {
+                if (updateGameObjects[i] != null && updateGameObjects[i].isAlive()) {
+                    updateGameObjects[i].update(delta);
+                }
+            }
         }
-        //CanvasRenderer.getInstance().drawAll();
-    }
-
-
-    /**
-     * Will start the update thread that runs concurrently to process logic
-     */
-    public void startRaycastThread(){
-        Thread t = new Thread(raycastThread);
-        t.setDaemon(true);
-        t.start();
-    }
-
-    /**
-     * Will terminate logic thread
-     */
-    public void stopRaycastThread(){
-        if(raycastThread.isRunning())
-            raycastThread.terminate();
     }
 
     /**
      * Will start the update thread that runs concurrently to process logic
      */
-    public void startUpdateThread(){
+    public void startUpdateThread() {
         Thread t = new Thread(updateThread);
         t.setDaemon(true);
         t.start();
@@ -183,18 +157,19 @@ public class GameEngine {
     /**
      * Will terminate logic thread
      */
-    public void stopUpdateThread(){
-        if(updateThread.isRunning())
+    public void stopUpdateThread() {
+        if (updateThread.isRunning()) {
             updateThread.terminate();
+        }
     }
 
-    public void startCollisionThread(){
+    public void startCollisionThread() {
         Thread t = new Thread(collisionThread);
         t.setDaemon(true);
         t.start();
     }
 
-    public void stopCollisionThread(){
+    public void stopCollisionThread() {
         if (collisionThread.isRunning()) {
             collisionThread.terminate();
         }

@@ -10,14 +10,13 @@ import com.bluebook.util.Vector2;
 import com.rominntrenger.main.objects.Explotion;
 import com.rominntrenger.main.objects.Projectile;
 import com.rominntrenger.main.objects.player.Player;
+import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
-
-import java.util.ArrayList;
 
 public class AlienTurret extends Enemy {
 
@@ -41,9 +40,6 @@ public class AlienTurret extends Enemy {
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
      */
     public AlienTurret(Vector2 position, Vector2 direction) {
         super(position, direction, new Sprite("enemies/turret"));
@@ -53,11 +49,12 @@ public class AlienTurret extends Enemy {
     }
 
     /**
-     * Goes over {@link #raycasts} and returns a double array with positions first array is X cooridnates
-     * second is Y coordinates
+     * Goes over {@link #raycasts} and returns a double array with positions first array is X
+     * cooridnates second is Y coordinates
+     *
      * @return [x/y][position]
      */
-    private double[][] getPolygon(){
+    private double[][] getPolygon() {
         double[][] ret = new double[2][];
         double[] xs = new double[raycasts.size() + 1];
         double[] ys = new double[raycasts.size() + 1];
@@ -65,15 +62,16 @@ public class AlienTurret extends Enemy {
         boolean playerNotSeen = true;
         boolean enemyNotSeen = true;
 
-        for(int i = 0; i < raycasts.size(); i++){
+        for (int i = 0; i < raycasts.size(); i++) {
             RayCastHit rch = raycasts.get(i).getHit();
-            if(rch != null) {
+            if (rch != null) {
                 if (rch.isHit) {
-                    if(rch.colliderHit.getTag() == "UnHittable" || rch.colliderHit.getTag() == "Walk"){
+                    if (rch.colliderHit.getTag() == "UnHittable"
+                        || rch.colliderHit.getTag() == "Walk") {
                         player = rch.colliderHit.getGameObject();
                         playerSeen = true;
                         playerNotSeen = false;
-                    }else if(rch.colliderHit.getTag() == "Hittable"){
+                    } else if (rch.colliderHit.getTag() == "Hittable") {
                         enemy = rch.colliderHit.getGameObject();
                         enemySeen = true;
                         enemyNotSeen = false;
@@ -89,18 +87,19 @@ public class AlienTurret extends Enemy {
         ret[0] = xs;
         ret[1] = ys;
 
-        if(playerNotSeen){
+        if (playerNotSeen) {
             playerSeen = false;
         }
 
-        if(enemyNotSeen)
+        if (enemyNotSeen) {
             enemySeen = false;
+        }
 
         return ret;
     }
 
-    private void setUpRayCast(){
-        for(int i = 0; i < rayCastResolution; i++){
+    private void setUpRayCast() {
+        for (int i = 0; i < rayCastResolution; i++) {
             //double dir = (Math.PI / 2) + ((Math.PI * 2) * (progress + 1.0)) * ((double) i / rayCastResolution);
             double dir = (Math.PI / 2) + ((double) i / rayCastResolution);
             RayCast r = new RayCast(dir, this, 6000);
@@ -113,10 +112,12 @@ public class AlienTurret extends Enemy {
         }
     }
 
-    private void updateRayCast(){
-        for(int i = 0; i < rayCastResolution; i++){
+    private void updateRayCast() {
+        for (int i = 0; i < rayCastResolution; i++) {
 
-            double dir = getDirection().getAngleInRadians() + (Math.PI * 1.25) + ((Math.PI / 2) * ((double) i / rayCastResolution));
+            double dir =
+                getDirection().getAngleInRadians() + (Math.PI * 1.25) + ((Math.PI / 2) * ((double) i
+                    / rayCastResolution));
             RayCast r = raycasts.get(i);
             r.setAngle(dir);
 
@@ -132,17 +133,20 @@ public class AlienTurret extends Enemy {
     @Override
     public void update(double delta) {
         super.update(delta);
-        if(playerSeen) {
-            setDirection(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
+        if (playerSeen) {
+            setDirection(Vector2.Vector2FromAngleInDegrees(
+                Vector2.getAngleBetweenInDegrees(getPosition(), player.getPosition()) + 90));
             shoot();
-        }else if(enemySeen){
-            setDirection(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), enemy.getPosition()) + 90));
+        } else if (enemySeen) {
+            setDirection(Vector2.Vector2FromAngleInDegrees(
+                Vector2.getAngleBetweenInDegrees(getPosition(), enemy.getPosition()) + 90));
             shoot();
-        }else{
+        } else {
             timeTest += delta;
             progress = (timeTest % osscilation) / osscilation;
-            if (timesChanged < (int) (timeTest / osscilation))
+            if (timesChanged < (int) (timeTest / osscilation)) {
                 angleGrowing = !angleGrowing;
+            }
             if (!angleGrowing) {
                 progress = 1 - progress;
             }
@@ -162,21 +166,21 @@ public class AlienTurret extends Enemy {
 
         //gc.applyEffect(new ColorAdjust(0, 0, -0.8, 0));
 
-        if(playerSeen) {
+        if (playerSeen) {
             gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-                    CycleMethod.NO_CYCLE,
-                    new Stop(0.0, new Color(1, 0, 0, 0.3)),
-                    new Stop(1.0, Color.TRANSPARENT)));
-        }else if(enemySeen){
+                CycleMethod.NO_CYCLE,
+                new Stop(0.0, new Color(1, 0, 0, 0.3)),
+                new Stop(1.0, Color.TRANSPARENT)));
+        } else if (enemySeen) {
             gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-                    CycleMethod.NO_CYCLE,
-                    new Stop(0.0, new Color(0.5, 0.5, 1, 0.6)),
-                    new Stop(1.0, Color.TRANSPARENT)));
-        }else{
+                CycleMethod.NO_CYCLE,
+                new Stop(0.0, new Color(0.5, 0.5, 1, 0.6)),
+                new Stop(1.0, Color.TRANSPARENT)));
+        } else {
             gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-                    CycleMethod.NO_CYCLE,
-                    new Stop(0.0, new Color(0.5, 1, 0.5, 0.6)),
-                    new Stop(1.0, Color.TRANSPARENT)));
+                CycleMethod.NO_CYCLE,
+                new Stop(0.0, new Color(0.5, 1, 0.5, 0.6)),
+                new Stop(1.0, Color.TRANSPARENT)));
         }
         gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
@@ -191,7 +195,11 @@ public class AlienTurret extends Enemy {
     }
 
     public void shoot() {
-        Projectile p = new Projectile(Vector2.rotateVectorAroundPoint(Vector2.add(getPosition(), new Vector2(0,  80)), getPosition(), getDirection().getAngleInDegrees()), Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90), new Sprite("/projectiles/projectile_c_00"));
+        Projectile p = new Projectile(Vector2
+            .rotateVectorAroundPoint(Vector2.add(getPosition(), new Vector2(0, 80)), getPosition(),
+                getDirection().getAngleInDegrees()),
+            Vector2.Vector2FromAngleInDegrees(getDirection().getAngleInDegrees() - 90),
+            new Sprite("/projectiles/projectile_c_00"));
 
         p.setPeriod(.2f);
         p.setAmplitude(8f);
@@ -211,7 +219,7 @@ public class AlienTurret extends Enemy {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(10);
 
-                }else if(other.getGameObject() instanceof Enemy){
+                } else if (other.getGameObject() instanceof Enemy) {
                     other.getGameObject().destroy();
                 }
                 p.destroy();

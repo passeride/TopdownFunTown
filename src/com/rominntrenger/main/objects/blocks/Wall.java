@@ -4,21 +4,15 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vector2;
-import com.rominntrenger.main.objects.Explotion;
-import javafx.scene.canvas.GraphicsContext;
 
 public class Wall extends Item {
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Wall(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        setSize(new Vector2(1,1));
+        setSize(new Vector2(1, 1));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
         collider.setTag("Block");

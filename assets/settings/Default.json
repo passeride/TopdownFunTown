@@ -1,14 +1,24 @@
 {
+  "window_title":"RomInntrengere v0.1",
+  "start_menu":false,
+  "fullscreen":true,
+
   "grid_X": 16,
   "grid_Y": 9,
   "game_resolution_X":1920,
   "game_resolution_Y":1080,
-  "fullscreen":true,
-  "map_movement_padding_X":0.0,
-  "map_movement_padding_Y":0.0,
+
+  "OrthographicCamera_deadzone_X":0.5,
+  "OrthographicCamera_deadzone_Y":0.5,
+  "OrthographicCamera_dampening":0.1,
+
+  "Physics_use_quadtree": true,
+  "Physics_use_raycast": false,
+  "Physics_circle_line_resolution": 5,
+  "Physics_rigidbody2d_VelocityVerlet": true,
+
   "player_health":100,
   "player_shoot_cost":40,
   "player_initial_score":1500,
   "player_hit_distance_multiplier": 0.5
-
 }

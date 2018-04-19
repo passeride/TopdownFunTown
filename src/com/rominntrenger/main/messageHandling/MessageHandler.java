@@ -5,6 +5,9 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,11 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-public class MessageHandler extends GameObject{
+public class MessageHandler extends GameObject {
 
     private boolean isActive = true;
     private Sprite sprite;
@@ -31,7 +30,7 @@ public class MessageHandler extends GameObject{
     private int resolutionX;
     private int resolutionY;
 
-    private MessageHandler(){
+    private MessageHandler() {
         super(Vector2.ZERO, Vector2.ZERO, new Sprite(""));
         allwaysOnScreen = true;
         this.setRenderLayer(RenderLayer.RenderLayerName.GUI);
@@ -48,8 +47,8 @@ public class MessageHandler extends GameObject{
 
     private static MessageHandler instance;
 
-    public static MessageHandler getInstance(){
-        if (instance == null){
+    public static MessageHandler getInstance() {
+        if (instance == null) {
             instance = new MessageHandler();
         }
         return instance;
@@ -58,7 +57,7 @@ public class MessageHandler extends GameObject{
     @Override
     public void update(double delta) {
         super.update(delta);
-        if(System.currentTimeMillis() > start + duration * 1000){
+        if (System.currentTimeMillis() > start + duration * 1000) {
             isActive = false;
             sprite = null;
         }
@@ -67,32 +66,35 @@ public class MessageHandler extends GameObject{
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
-        if(isActive){
+        if (isActive) {
             //fills the box
-            gc.setFill(Color.rgb(13,13,13,0.8));
-            gc.fillRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
-
+            gc.setFill(Color.rgb(13, 13, 13, 0.8));
+            gc.fillRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin),
+                height - margin);
 
             //border for box
             gc.setStroke(Color.rgb(217, 217, 217));
             gc.setLineWidth(5);
-            gc.strokeRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin), height - margin);
+            gc.strokeRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin),
+                height - margin);
 
             //sets font smoothing and font type
             gc.setFill(Color.WHITE);
             gc.setFontSmoothingType(FontSmoothingType.LCD);
             gc.setFont(font);
 
-
-            if(sprite != null){
+            if (sprite != null) {
                 //TODO: Draw sprite
-                sprite.drawGUI(gc, new Vector2(margin / 2 + 15,resolutionY - (height + margin - 25) / 2), (height - 50 ) / 2, (height - 50) / 2);
+                sprite.drawGUI(gc,
+                    new Vector2(margin / 2 + 15, resolutionY - (height + margin - 25) / 2),
+                    (height - 50) / 2, (height - 50) / 2);
                 //displays text
-                gc.fillText(printMessage,margin / 2 + height / 2 + 50,resolutionY - (height - 150) / 2);
+                gc.fillText(printMessage, margin / 2 + height / 2 + 50,
+                    resolutionY - (height - 150) / 2);
 
-            }else{
+            } else {
                 //displays text
-                gc.fillText(printMessage,margin / 2 + 50,resolutionY - (height - 150) / 2);
+                gc.fillText(printMessage, margin / 2 + 50, resolutionY - (height - 150) / 2);
 
             }
 
@@ -103,22 +105,25 @@ public class MessageHandler extends GameObject{
 
     /**
      * This function will write a message to the screen  and also display a sprite
+     *
      * @param s Message to be displayed
      * @param sprite Sprite to display
      */
-    public void writeMessage(String s, Sprite sprite){
+    public void writeMessage(String s, Sprite sprite) {
 
         this.sprite = sprite;
         sprite.setOrigin(transform);
         writeMessage(s);
     }
 
-    /**This function writes a message to the screen inside box from drawMessageBox function
-     *@param s - string that the text will be.
+    /**
+     * This function writes a message to the screen inside box from drawMessageBox function
+     *
+     * @param s - string that the text will be.
      */
-    public void writeMessage(String s){
+    public void writeMessage(String s) {
         isActive = true;
-        start  = System.currentTimeMillis();
+        start = System.currentTimeMillis();
         message = s;
 
         //attempt at typing effect for text
@@ -126,6 +131,7 @@ public class MessageHandler extends GameObject{
             {
                 setCycleDuration(Duration.millis(duration / 2 * 1000));
             }
+
             @Override
             protected void interpolate(double frac) {
                 final int lenght = message.length();
@@ -136,7 +142,9 @@ public class MessageHandler extends GameObject{
         animation.play();
     }
 
-    /**sets the duration of the display box.
+    /**
+     * sets the duration of the display box.
+     *
      * @param duration is the given duration for the display box
      */
     public void setDuration(long duration) {

@@ -7,12 +7,13 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class SpotLightExample extends Application {
+
     @Override
     public void start(Stage stage) {
         //Creating a Text object
@@ -68,7 +69,7 @@ public class SpotLightExample extends Application {
         circle.setEffect(lighting);
 
         //Creating a Group object
-        Group root = new Group(text,circle);
+        Group root = new Group(text, circle);
 
         //Creating a scene object
         Scene scene = new Scene(root, 600, 300);
@@ -82,7 +83,8 @@ public class SpotLightExample extends Application {
         //Displaying the contents of the stage
         stage.show();
     }
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         launch(args);
     }
 }  

@@ -16,109 +16,109 @@ public class LevelImageLoader {
                 int pixel = image.getRGB(x, y);
                 color = toHex(pixel);
 
-                switch(color) {
+                switch (color) {
                     case ("440000"):
                         gameMap[x][y] = ID.SpawnPlayer;
-                    break;
+                        break;
                     case ("FFFFFF"):
                         gameMap[x][y] = ID.Wall;
-                    break;
+                        break;
                     case ("FF0000"):
                         gameMap[x][y] = ID.Blood;
-                    break;
+                        break;
 
                     //DOORS
                     case ("DDDDDD"):
                         gameMap[x][y] = ID.Door;
-                    break;
+                        break;
                     case ("DD0000"):
                         gameMap[x][y] = ID.DoorY;
-                    break;
+                        break;
                     case ("DD00FF"):
                         gameMap[x][y] = ID.DoorB;
-                    break;
+                        break;
                     case ("DDFF00"):
                         gameMap[x][y] = ID.DoorG;
-                    break;
+                        break;
                     case ("DD0F0F"):
                         gameMap[x][y] = ID.DoorP;
-                    break;
+                        break;
                     case ("DDF0F0"):
                         gameMap[x][y] = ID.DoorR;
-                    break;
+                        break;
 
                     // KEYS
                     case ("CCCCCC"):
                         gameMap[x][y] = ID.Key;
-                    break;
+                        break;
                     case ("CC0000"):
                         gameMap[x][y] = ID.KeyY;
-                    break;
+                        break;
                     case ("CC00FF"):
                         gameMap[x][y] = ID.KeyB;
-                    break;
+                        break;
                     case ("CCFF00"):
                         gameMap[x][y] = ID.KeyG;
-                    break;
+                        break;
                     case ("CC0F0F"):
                         gameMap[x][y] = ID.KeyP;
-                    break;
+                        break;
                     case ("CCF0F0"):
                         gameMap[x][y] = ID.KeyR;
-                    break;
+                        break;
 
                     //ITEMS
                     case ("330000"):
                         gameMap[x][y] = ID.StasisBox;
-                    break;
+                        break;
                     case ("33FFFF"):
                         gameMap[x][y] = ID.Barrel;
-                    break;
+                        break;
                     case ("33CCCC"):
                         gameMap[x][y] = ID.Crate;
-                    break;
+                        break;
                     case ("334444"):
                         gameMap[x][y] = ID.Corpse;
-                    break;
+                        break;
                     case ("336666"):
                         gameMap[x][y] = ID.Ship;
-                    break;
+                        break;
                     case ("336600"):
                         gameMap[x][y] = ID.KeyShip;
-                    break;
+                        break;
                     case ("335555"):
                         gameMap[x][y] = ID.Table;
-                    break;
+                        break;
                     case ("337777"):
                         gameMap[x][y] = ID.Bench;
-                    break;
+                        break;
 
                     //ENEMIES
                     case ("EE2222"):
                         gameMap[x][y] = ID.AlienGreen;
-                    break;
+                        break;
                     case ("EE4444"):
                         gameMap[x][y] = ID.AlienPurple;
-                    break;
+                        break;
                     case ("EE6666"):
                         gameMap[x][y] = ID.AlienExplode;
-                    break;
+                        break;
                     case ("EECCCC"):
                         gameMap[x][y] = ID.AlienTurret;
-                    break;
-                    case("666FFF"):
+                        break;
+                    case ("666FFF"):
                         gameMap[x][y] = ID.PickupWeaponS;
-                    break;
-                    case("666EEE"):
+                        break;
+                    case ("666EEE"):
                         gameMap[x][y] = ID.PickupWeaponR;
-                    break;
-                    case("666000"):
+                        break;
+                    case ("666000"):
                         gameMap[x][y] = ID.PickupWeaponY;
-                    break;
+                        break;
 
                     default:
                         gameMap[x][y] = ID.Empty;
-                    break;
+                        break;
 
                 }
 
@@ -127,10 +127,10 @@ public class LevelImageLoader {
         return gameMap;
     }
 
-        public static String toHex(int value) {
-            String hexColor = String.format("%06X", (0xFFFFFF & value));
-            return hexColor;
-        }
+    public static String toHex(int value) {
+        String hexColor = String.format("%06X", (0xFFFFFF & value));
+        return hexColor;
+    }
         /*
         public static void main(String[] args) {
             ImageBuffering loader = new ImageBuffering();

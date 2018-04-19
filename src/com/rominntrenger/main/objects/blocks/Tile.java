@@ -9,14 +9,10 @@ public class Tile extends Item {
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Tile(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        setSize(new Vector2(1,1));
+        setSize(new Vector2(1, 1));
         this.setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }
 

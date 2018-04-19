@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.canvas.Canvas?>
-
-<GridPane alignment="center" hgap="10" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bluebook.javafx.Controller">
-   <children>
-       <Canvas id="canvas" fx:id="canvas" height="1080.0" styleClass="canvas" width="1920.0" />
-   </children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<GridPane alignment="center" hgap="10" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0"
+    minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" vgap="10"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.bluebook.javafx.Controller">
+    <children>
+        <Canvas id="canvas" fx:id="canvas" height="1080.0" styleClass="canvas" width="1920.0"/>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
 </GridPane>

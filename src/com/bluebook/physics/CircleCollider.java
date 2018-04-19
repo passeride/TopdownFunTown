@@ -1,25 +1,33 @@
 package com.bluebook.physics;
 
-import com.bluebook.camera.OrtographicCamera;
+import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
 import com.sun.javafx.geom.Line2D;
+import java.util.List;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
-import java.util.List;
-
-public class CircleCollider extends Collider{
+public class CircleCollider extends Collider {
 
     private double radius;
-    private int lineResolution = 12;
+    private static int lineResolution = 12;
 
-    public CircleCollider(GameObject go, double radius){
+    public CircleCollider(GameObject go, double radius) {
         super(go);
         this.radius = radius;
         this.position = go.getPosition();
+        lineResolution = GameSettings.getInt("Physics_circle_line_resolution");
     }
 
 
@@ -30,23 +38,24 @@ public class CircleCollider extends Collider{
 
     @Override
     protected void updateCenterPoint() {
-        synchronized (this){
+        synchronized (this) {
 
         }
     }
 
     @Override
     public void debugDraw(GraphicsContext gc) {
-        synchronized (this){
+        synchronized (this) {
 
-            double offX = OrtographicCamera.main != null ? OrtographicCamera.main.getX() : 0.0;
-            double offY = OrtographicCamera.main != null ? OrtographicCamera.main.getY() : 0.0;
+            double offX = OrthographicCamera.main != null ? OrthographicCamera.main.getX() : 0.0;
+            double offY = OrthographicCamera.main != null ? OrthographicCamera.main.getY() : 0.0;
 
             gc.setStroke(Color.GREEN);
-            gc.strokeArc(position.getX() + offX - radius,  position.getY() + offY - radius, radius * 2, radius * 2, 0, 360, ArcType.CHORD);
+            gc.strokeArc(position.getX() + offX - radius, position.getY() + offY - radius,
+                radius * 2, radius * 2, 0, 360, ArcType.CHORD);
             gc.setStroke(Color.TEAL);
             Line2D[] lines = getLines();
-            for(int i = 0; i < lines.length; i++){
+            for (int i = 0; i < lines.length; i++) {
                 gc.strokeLine(lines[i].x1, lines[i].y1, lines[i].x2, lines[i].y2);
             }
 
@@ -55,7 +64,6 @@ public class CircleCollider extends Collider{
                 intersection.setFill(Color.RED);
                 Bounds b = intersection.getBoundsInParent();
                 gc.beginPath();
-
 
                 double centerX = b.getMinX() + (b.getMaxX() - b.getMinX()) / 2;
                 double centerY = b.getMinY() + (b.getMaxY() - b.getMinY()) / 2;
@@ -67,7 +75,6 @@ public class CircleCollider extends Collider{
                         gc.lineTo(((LineTo) pe).getX() + offX, ((LineTo) pe).getY() + offY);
                     }
                 }
-
 
                 gc.closePath();
                 gc.fill();
@@ -100,20 +107,22 @@ public class CircleCollider extends Collider{
 
     @Override
     public boolean instersects(Collider other) {
-        if(other instanceof CircleCollider){
-            CircleCollider otherCircle = (CircleCollider)  other;
+        if (other instanceof CircleCollider) {
+            CircleCollider otherCircle = (CircleCollider) other;
             return position.distance(otherCircle.position) < radius + otherCircle.radius;
-        }else if(other instanceof BoxCollider){
+        } else if (other instanceof BoxCollider) {
             BoxCollider box = (BoxCollider) other;
             Vector2 circleCenter = getPosition();
             Vector2 boxCenter = new Vector2(box.getRect().getX() + box.getRect().getWidth() / 2,
-                    box.getRect().getY() + box.getRect().getHeight() / 2);
-            Vector2 hitVector = Vector2.subtract(boxCenter,circleCenter).getNormalizedVector();
+                box.getRect().getY() + box.getRect().getHeight() / 2);
+            Vector2 hitVector = Vector2.subtract(boxCenter, circleCenter).getNormalizedVector();
             hitVector = Vector2.multiply(hitVector, getRadius());
             hitVector = Vector2.add(circleCenter, hitVector);
-            return (box.getRect().getBoundsInParent().intersects(new Rectangle(hitVector.getX(),  hitVector.getY(), 2, 2).getBoundsInParent()));
+            return (box.getRect().getBoundsInParent().intersects(
+                new Rectangle(hitVector.getX(), hitVector.getY(), 2, 2).getBoundsInParent()));
+        } else {
+            return false;
         }
-        else return false;
     }
 
     @Override
@@ -122,22 +131,25 @@ public class CircleCollider extends Collider{
         Vector2 pos = gameObject.getTransform().getGlobalPosition();
 
         Vector2[] circlePoints = new Vector2[lineResolution];
-        for(int i = 0; i < circlePoints.length; i ++){
-            circlePoints[i] = Vector2.rotateVectorAroundPoint(Vector2.add(pos, new Vector2(0, radius)), pos,(360 / lineResolution)* i);
+        for (int i = 0; i < circlePoints.length; i++) {
+            circlePoints[i] = Vector2
+                .rotateVectorAroundPoint(Vector2.add(pos, new Vector2(0, radius)), pos,
+                    (360 / lineResolution) * i);
         }
-
 
         Line2D[] ret = new Line2D[lineResolution - 1];
 
-        for(int i = 0; i < ret.length; i++){
-            if(i != ret.length){
+        for (int i = 0; i < ret.length; i++) {
+            if (i != ret.length) {
                 Vector2 start = circlePoints[i];
                 Vector2 dest = circlePoints[i + 1];
-                ret[i] = new Line2D((float)start.getX(), (float)start.getY(), (float)dest.getX(), (float)dest.getY());
-            }else{
+                ret[i] = new Line2D((float) start.getX(), (float) start.getY(), (float) dest.getX(),
+                    (float) dest.getY());
+            } else {
                 Vector2 start = circlePoints[i];
                 Vector2 dest = circlePoints[0];
-                ret[i] = new Line2D((float)start.getX(), (float)start.getY(), (float)dest.getX(), (float)dest.getY());
+                ret[i] = new Line2D((float) start.getX(), (float) start.getY(), (float) dest.getX(),
+                    (float) dest.getY());
             }
 
         }

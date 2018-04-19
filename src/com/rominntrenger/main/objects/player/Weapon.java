@@ -12,6 +12,7 @@ import com.rominntrenger.main.objects.enemy.Enemy;
  * Weapon class is used for weapons that the Player can equip and shoot with
  */
 public abstract class Weapon extends GameObject {
+
     public Vector2 offset;
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "./assets/audio/scifi002.wav";
@@ -20,9 +21,6 @@ public abstract class Weapon extends GameObject {
     /**
      * Constructor for Weapon
      *
-     * @param position
-     * @param direction
-     * @param sprite
      * @param offset is the offset compared to the player.
      */
     public Weapon(Vector2 position, Vector2 direction, Sprite sprite, Vector2 offset) {
@@ -47,28 +45,31 @@ public abstract class Weapon extends GameObject {
     /**
      * Shoot will shoot a projectile constructed in this class at the direction the player is faced
      */
-    public void shoot(){
-        audioPlayer.setSpital(this);
+    public void shoot() {
+        audioPlayer.setSpatial(this);
         audioPlayer.playOnce();
         // score -= 50;
-        Vector2 angle = Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
+        Vector2 angle = Vector2
+            .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
 
         Vector2 spawnPosition = transform.getWorldPosition();
 
         Projectile p = new Projectile(spawnPosition,
-                Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
-                new Sprite(projectilePath));
+            Vector2
+                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
+            new Sprite(projectilePath));
         p.setSpeed(800);
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
         p.setOnCollisionListener(other -> {
-            if(other.getGameObject() instanceof Player) {
+            if (other.getGameObject() instanceof Player) {
                 Player player = (Player) other.getGameObject();
                 player.hit(10);
-                if (GameEngine.DEBUG)
+                if (GameEngine.DEBUG) {
                     System.out.println("Bullet Hit " + other.getName());
+                }
                 player.destroy();
-            }else if(other.getGameObject() instanceof Enemy){
+            } else if (other.getGameObject() instanceof Enemy) {
                 other.getGameObject().destroy();
             }
             p.destroy();

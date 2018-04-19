@@ -5,51 +5,61 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bluebook.javafx.ControllerMenu">
-   <children>
-      <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image fx:id="mountianImage" url="./pictures/mountain.jpg"/>
-         </image>
-      </ImageView>
-      <Button fx:id="button" defaultButton="true" layoutX="785.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="150.0" prefWidth="330.0" text="START SPILL">
-         <font>
-            <Font size="43.0" />
-         </font>
-      </Button>
-      <Button fx:id="button2" defaultButton="true" layoutX="785.0" layoutY="845.0" mnemonicParsing="false" onAction="#skruAvSpill" prefHeight="150.0" prefWidth="330.0" text="QUIT">
-         <font>
-            <Font size="43.0" />
-         </font>
-      </Button>
-      <Button fx:id="button1" defaultButton="true"
-              layoutX="785.0" layoutY="600.0" mnemonicParsing="false"
-              onAction="#gaaTilOptions" prefHeight="150.0"
-              prefWidth="330.0" text="OPTIONS">
-         <font>
-            <Font size="43.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="8.0" layoutY="855.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image fx:id="fireImage" url="./pictures/Fire.gif" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="1615.0" layoutY="855.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image fx:id="fireImage2" url="./pictures/Fire.gif" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imageViewPug" fitHeight="300.0" fitWidth="400.0" layoutX="66.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image fx:id="pug" url="./pictures/pug.gif" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="101.0" fitWidth="719.0" layoutX="640.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="./pictures/logo.gif" />
-         </image>
-      </ImageView>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+    prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.161"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bluebook.javafx.ControllerMenu">
+    <children>
+        <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true"
+            preserveRatio="true">
+            <image>
+                <Image fx:id="mountianImage" url="./pictures/mountain.jpg"/>
+            </image>
+        </ImageView>
+        <Button fx:id="button" defaultButton="true" layoutX="785.0" layoutY="370.0"
+            mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="150.0"
+            prefWidth="330.0" text="START SPILL">
+            <font>
+                <Font size="43.0"/>
+            </font>
+        </Button>
+        <Button fx:id="button2" defaultButton="true" layoutX="785.0" layoutY="845.0"
+            mnemonicParsing="false" onAction="#skruAvSpill" prefHeight="150.0" prefWidth="330.0"
+            text="QUIT">
+            <font>
+                <Font size="43.0"/>
+            </font>
+        </Button>
+        <Button fx:id="button1" defaultButton="true"
+            layoutX="785.0" layoutY="600.0" mnemonicParsing="false"
+            onAction="#gaaTilOptions" prefHeight="150.0"
+            prefWidth="330.0" text="OPTIONS">
+            <font>
+                <Font size="43.0"/>
+            </font>
+        </Button>
+        <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="8.0" layoutY="855.0"
+            pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image fx:id="fireImage" url="./pictures/Fire.gif"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="1615.0" layoutY="855.0"
+            pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image fx:id="fireImage2" url="./pictures/Fire.gif"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="imageViewPug" fitHeight="300.0" fitWidth="400.0" layoutX="66.0"
+            layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image fx:id="pug" url="./pictures/pug.gif"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="101.0" fitWidth="719.0" layoutX="640.0" layoutY="138.0"
+            pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="./pictures/logo.gif"/>
+            </image>
+        </ImageView>
+    </children>
 </AnchorPane>

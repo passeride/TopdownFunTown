@@ -2,6 +2,9 @@ package com.bluebook.javafx;
 
 
 import com.bluebook.engine.GameApplication;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -17,11 +20,7 @@ import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class ControllerMenu implements Initializable{
+public class ControllerMenu implements Initializable {
 
     GameApplication gameApplication;
 
@@ -31,11 +30,11 @@ public class ControllerMenu implements Initializable{
     private javafx.scene.control.Button button1;
 
 
-        @Override
-    public void initialize(URL location, ResourceBundle resources){
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         gameApplication = GameApplication.getInstance();
         Path path = new Path();
-        path.getElements().add(new MoveTo(1800,970));
+        path.getElements().add(new MoveTo(1800, 970));
         path.getElements().add(new CubicCurveTo(760, 0, 760, 240, 1500, 800));
         path.getElements().add(new CubicCurveTo(0, 240, 0, 480, 760, 480));
         PathTransition pathTransition = new PathTransition();
@@ -46,7 +45,7 @@ public class ControllerMenu implements Initializable{
         pathTransition.setCycleCount(Timeline.INDEFINITE);
         pathTransition.setAutoReverse(true);
         pathTransition.play();
-        }
+    }
 
 
     @FXML
@@ -56,8 +55,8 @@ public class ControllerMenu implements Initializable{
     }
 
     @FXML
-    private void gaaTilOptions(ActionEvent event){
-            FXMLLoader fxml = new FXMLLoader();
+    private void gaaTilOptions(ActionEvent event) {
+        FXMLLoader fxml = new FXMLLoader();
         Parent root = null;
         try {
             root = fxml.load(getClass().getResource("options.fxml").openStream());
@@ -65,12 +64,12 @@ public class ControllerMenu implements Initializable{
             e.printStackTrace();
         }
         Stage stageOptions = gameApplication.getStage();
-            stageOptions.setScene(new Scene(root));
-            stageOptions.show();
+        stageOptions.setScene(new Scene(root));
+        stageOptions.show();
     }
 
     @FXML
-    private void skruAvSpill(ActionEvent event){
+    private void skruAvSpill(ActionEvent event) {
         Stage stage = (Stage) button1.getScene().getWindow();
         stage.close();
     }

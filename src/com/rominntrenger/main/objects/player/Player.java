@@ -1,19 +1,19 @@
 package com.rominntrenger.main.objects.player;
 
 import com.bluebook.audio.AudioPlayer;
-import com.bluebook.camera.OrtographicCamera;
+import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.*;
+import com.bluebook.physics.CircleCollider;
+import com.bluebook.physics.Collider;
+import com.bluebook.physics.RigidBody2D;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vector2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.main.messageHandling.Describable;
-
-import java.io.IOException;
 
 public class Player extends GameObject {
 
@@ -33,20 +33,15 @@ public class Player extends GameObject {
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Player(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
 
-
-        ((RomInntrenger)GameApplication.getInstance()).player = this;
+        ((RomInntrenger) GameApplication.getInstance()).player = this;
 
         setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
-        hitSound.setSpital(this);
+        hitSound.setSpatial(this);
 
         collider = new CircleCollider(this, 30);
         collider.setName("player");
@@ -64,17 +59,17 @@ public class Player extends GameObject {
         walkCollider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-                if(other.getGameObject() instanceof Describable){
-                    ((Describable)other.getGameObject()).showMessage();
+                if (other.getGameObject() instanceof Describable) {
+                    ((Describable) other.getGameObject()).showMessage();
                 }
             }
         });
 
         rb2 = new RigidBody2D(this);
 
-        OrtographicCamera.main.follow(this);
+        OrthographicCamera.main.follow(this);
 
-        romInntrenger = ((RomInntrenger)GameApplication.getInstance());
+        romInntrenger = ((RomInntrenger) GameApplication.getInstance());
 
     }
 
@@ -82,7 +77,7 @@ public class Player extends GameObject {
     public void update(double delta) {
         rb2.update(delta);
 
-        translate(Vector2.multiply(rb2.velocity, delta));
+        translate(Vector2.multiply(rb2.getVelocity(), delta));
         translate(Vector2.ZERO); // This is to update in case of intersection
     }
 
@@ -116,8 +111,6 @@ public class Player extends GameObject {
 
     /**
      * Override to create a 8 % margin for movement
-     *
-     * @param moveVector
      */
     @Override
     public void translate(Vector2 moveVector) {
@@ -125,13 +118,15 @@ public class Player extends GameObject {
 
         Collider hit = walkCollider.getIntersectionCollider();
 
-        if(hit == null)
+        if (hit == null) {
             transform.setLocalPosition(newPoss);
-        else {
+        } else {
             transform.setLocalPosition(
-                    Vector2.add(
-                            transform.getLocalPosition(),
-                            Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.5)));
+                Vector2.add(
+                    transform.getLocalPosition(),
+                    Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(),
+                        hit.getGameObject().getTransform().getGlobalPosition())
+                        .getNormalizedVector(), 0.5)));
 
         }
     }
@@ -152,7 +147,7 @@ public class Player extends GameObject {
 
     private void die() {
         currentWeapon.destroy();
-        GameEngine.getInstance().Pause();
+        GameEngine.getInstance().pauseGame();
 
         // This is for fun, to mess with Hilde's old computer
         /*
@@ -176,10 +171,12 @@ public class Player extends GameObject {
     }
 
     public void shoot() {
-        if(currentWeapon != null){
+        if (currentWeapon != null) {
             currentWeapon.shoot();
         }
-        rb2.addForce(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),  30000));
+        rb2.addForce(Vector2.multiply(Vector2
+                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),
+            30000));
     }
 
     public Weapon getCurrentWeapon() {

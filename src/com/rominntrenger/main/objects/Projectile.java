@@ -1,22 +1,20 @@
 package com.rominntrenger.main.objects;
 
+import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
-import com.bluebook.graphics.Sprite;
-import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
+import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.ArrayList;
-
 /**
- * Projectile is a used by Enemy and Player to shoot stuff
- * It has multiple paramter to change speed and Possibly add a sine wave pattern to it
+ * Projectile is a used by Enemy and Player to shoot stuff It has multiple paramter to change speed
+ * and Possibly add a sine wave pattern to it
  */
-public class Projectile extends GameObject{
+public class Projectile extends GameObject {
 
     private double speed = 800.0;
     private double TTL = 1.2;
@@ -44,10 +42,6 @@ public class Projectile extends GameObject{
 
     /**
      * Constructor for Projectile given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Projectile(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
@@ -63,8 +57,8 @@ public class Projectile extends GameObject{
         squareWithStart = 1;
     }
 
-    public static void clearAllProjectiles(){
-        for(Projectile p : allProjectilse){
+    public static void clearAllProjectiles() {
+        for (Projectile p : allProjectilse) {
             p.destroy();
         }
         allProjectilse.clear();
@@ -76,28 +70,31 @@ public class Projectile extends GameObject{
 
     @Override
     public void update(double delta) {
-        if (isSine)
-            translate(Vector2.add(Vector2.rotateVectorAroundPoint(SmoothSineWave(delta), Vector2.ZERO, getDirection().getAngleInDegrees()), Vector2.multiply(getDirection(), speed * delta)));
-        else
+        if (isSine) {
+            translate(Vector2.add(Vector2
+                    .rotateVectorAroundPoint(SmoothSineWave(delta), Vector2.ZERO,
+                        getDirection().getAngleInDegrees()),
+                Vector2.multiply(getDirection(), speed * delta)));
+        } else {
             translate(Vector2.multiply(getDirection(), speed * delta));
+        }
 
-        if(isTimeDecay){
+        if (isTimeDecay) {
 
             double elapseInSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
             double TTLAdjusted = TTL * 1.2;
             double elapseProgress = (TTLAdjusted - elapseInSeconds) / TTLAdjusted;
 
-            if(elapseProgress > 0.1) {
+            if (elapseProgress > 0.1) {
                 elapseProgress = elapseProgress / 2 + 0.5;
                 transform.setLocalScale(Vector2.multiply(startSize, elapseProgress));
-            }else{
+            } else {
                 destroy();
             }
         }
     }
 
-    double lerp(double point1, double point2, double alpha)
-    {
+    double lerp(double point1, double point2, double alpha) {
         return point1 + alpha * (point2 - point1);
     }
 
@@ -135,10 +132,11 @@ public class Projectile extends GameObject{
     }
 
     @Override
-    public void setSize(Vector2 vec){
+    public void setSize(Vector2 vec) {
         super.setSize(vec);
-        if(collider != null && collider instanceof BoxCollider)
-            ((BoxCollider)collider).updateRect();
+        if (collider != null && collider instanceof BoxCollider) {
+            ((BoxCollider) collider).updateRect();
+        }
     }
 
     @Override

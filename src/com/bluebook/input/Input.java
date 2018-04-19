@@ -4,67 +4,62 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vector2;
+import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 /**
  * Singelton class to be used  for handeling input on the logic thread
  */
 public class Input {
 
-    private static Input singelton;
+    private static Input singleton;
 
-    public ArrayList<KeyCode> input = new ArrayList<KeyCode>();
-    public ArrayList<KeyCode> input_once = new ArrayList<>();
-    boolean mouseButton0 = false;
-    boolean mouseButton1 = false;
-    boolean mouseOnScreen = false;
-    double mouse_X = 0.0, mouse_y = 0.0;
+    private ArrayList<KeyCode> input;
+    private ArrayList<KeyCode> input_once;
+    private boolean mouseButton0 = false;
+    private boolean mouseButton1 = false;
+    private double mouse_X = 0.0, mouse_y = 0.0;
 
-    public static boolean DEBUG = false;
-
-    public Input(Stage stage){
-        singelton = this;
+    public Input(Stage stage) {
+        singleton = this;
         setEventHandlers(stage);
+        input = new ArrayList<>();
+        input_once = new ArrayList<>();
     }
 
     /**
      * Will return the pressed state of keycode
+     *
      * @param code Key to check
      * @return is pressed
      */
-    public boolean isKeyDown(KeyCode code){
-        if(input.contains(code)){
+    public boolean isKeyDown(KeyCode code) {
+        return input.contains(code);
+    }
+
+    /**
+     * Will return if a key is pressed, and then remove it to avoid multiple presses
+     *
+     * @param code Key To check
+     */
+    public boolean isKeyPressed(KeyCode code) {
+        if (input_once.contains(code)) {
+            input_once.remove(code);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
-     * Will return if a key is pressed, and then remove it to avoid multiple presses
-     * @param code Key To check
-     * @return
-     */
-    public boolean isKeyPressed(KeyCode code){
-        if(input_once.contains(code)){
-            input_once.remove(code);
-            return true;
-        }else{
-            return false;
-        }
-    }
-    /**
      * This will return the pressed state of the primary mouse button
-     * @return
      */
-    public boolean isMouseButton0Pressed(){
-        if(mouseButton0){
+    public boolean isMouseButton0Pressed() {
+        if (mouseButton0) {
             mouseButton0 = false;
             return true;
         }
@@ -73,10 +68,9 @@ public class Input {
 
     /**
      * This will return the pressed state of the secondary mouse button
-     * @return
      */
-    public boolean isMouseButton1Pressed(){
-        if(mouseButton1){
+    public boolean isMouseButton1Pressed() {
+        if (mouseButton1) {
             mouseButton1 = false;
             return true;
         }
@@ -85,31 +79,30 @@ public class Input {
 
     /**
      * Singelton Getter
-     * @return
      */
-    public static Input getInstance(){
-        return singelton;
+    public static Input getInstance() {
+        return singleton;
     }
 
-    private void setEventHandlers(Stage stage){
+    private void setEventHandlers(Stage stage) {
         stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
             @Override
             public void handle(KeyEvent event) {
-                if(Input.DEBUG){
+                if (GameEngine.DEBUG) {
                     System.out.println("KEY PRESSED " + event.getCode());
                 }
                 keyPressed(event);
-                if(event.getCode() == KeyCode.F1){
+                if (event.getCode() == KeyCode.F1) {
                     GameEngine.DEBUG = !GameEngine.DEBUG;
                 }
                 // Freeze stuff
-                if(event.getCode() ==  KeyCode.F2){
+                if (event.getCode() == KeyCode.F2) {
                     GameEngine engine = GameEngine.getInstance();
-                    if(engine.isPaused()){
-                        engine.unPause();
-                    }else {
-                        engine.Pause();
+                    if (engine.isPaused()) {
+                        engine.resumeGame();
+                    } else {
+                        engine.pauseGame();
                     }
                 }
             }
@@ -118,7 +111,7 @@ public class Input {
         stage.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(Input.DEBUG){
+                if (GameEngine.DEBUG) {
                     System.out.println("KEY RELEASED " + event.getCode());
                 }
                 keyReleased(event);
@@ -135,12 +128,12 @@ public class Input {
         stage.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(Input.DEBUG){
+                if (GameEngine.DEBUG) {
                     System.out.println("MOUSE PRESSED " + event.getButton());
                 }
-                if(event.isPrimaryButtonDown()){
+                if (event.isPrimaryButtonDown()) {
                     setMouseButton0State(true);
-                }else if(event.isSecondaryButtonDown()){
+                } else if (event.isSecondaryButtonDown()) {
                     setMouseButton1State(true);
                 }
             }
@@ -149,81 +142,69 @@ public class Input {
         stage.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(Input.DEBUG){
+                if (GameEngine.DEBUG) {
                     System.out.println("MOUSE Released " + event.getButton());
                 }
-                if(event.isPrimaryButtonDown()){
+                if (event.isPrimaryButtonDown()) {
                     setMouseButton0State(false);
-                }else if(event.isSecondaryButtonDown()){
+                } else if (event.isSecondaryButtonDown()) {
                     setMouseButton1State(false);
                 }
             }
         });
     }
 
-    private void mouseEnter(){
-        mouseOnScreen = true;
-    }
-
-    private void mouseExit(){
-        mouseOnScreen = false;
-    }
-
-    private void setMouseButton0State(boolean state){
+    private void setMouseButton0State(boolean state) {
         mouseButton0 = state;
     }
 
-    private void setMouseButton1State(boolean state){
+    private void setMouseButton1State(boolean state) {
         mouseButton1 = state;
     }
 
-    private void setMousePosition(double X, double Y){
-        this.mouse_X = mapMouseToCanvas(0,
-                GameSettings.getInt("game_resolution_X"), 0,
-                GameApplication.getInstance().getScreenWidth(), X);
-        this.mouse_y = mapMouseToCanvas(0, GameSettings.getInt("game_resolution_Y"),
-                0, GameApplication.getInstance().getScreenHeight(), Y);
+    private void setMousePosition(double X, double Y) {
+        this.mouse_X = mapMouseToCanvas(
+            GameSettings.getInt("game_resolution_X"),
+            GameApplication.getInstance().getScreenWidth(), X);
+        this.mouse_y = mapMouseToCanvas(GameSettings.getInt("game_resolution_Y"),
+            GameApplication.getInstance().getScreenHeight(), Y);
     }
 
-    private double mapMouseToCanvas(double output_start, double output_end, double input_start, double input_end, double input){
-        return output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
-    }
-
-    private boolean isMouseOnScreen(){
-        return mouseOnScreen;
+    private double mapMouseToCanvas(double output_end,
+        double input_end, double input) {
+        return (double) 0 + ((output_end - (double) 0) / (input_end - (double) 0)) * (input
+            - (double) 0);
     }
 
     /**
      * This will return the position of the mouse on screen
-     * @return
      */
-    public Vector2 getMousePosition(){
+    public Vector2 getMousePosition() {
         return new Vector2(mouse_X, mouse_y);
     }
 
-    private void keyPressed(KeyEvent event){
+    private void keyPressed(KeyEvent event) {
         KeyCode pressed = event.getCode();
-        if(!input.contains(pressed)){
+        if (!input.contains(pressed)) {
             input.add(pressed);
         }
 
-        if(!input_once.contains(pressed)){
+        if (!input_once.contains(pressed)) {
             input_once.add(pressed);
         }
     }
 
-    private void keyReleased(KeyEvent event){
+    private void keyReleased(KeyEvent event) {
         KeyCode released = event.getCode();
-        if(input.contains(released)){
+        if (input.contains(released)) {
             input.remove(released);
         }
 
-        if(input_once.contains(released)){
+        if (input_once.contains(released)) {
             input_once.remove(released);
         }
 
     }
-
 
 
 }

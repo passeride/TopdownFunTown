@@ -1,8 +1,8 @@
 package test.com.bluebook.util;
 
-import com.bluebook.util.Vector2;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.bluebook.util.Vector2;
 
 class Vector2Test {
 
@@ -69,7 +69,7 @@ class Vector2Test {
         v1.normalize();
         double distance = v1.getLength();
         // Assert
-        assertEquals(1, distance, 0.001,"Length of normalized vector was not excpedted");
+        assertEquals(1, distance, 0.001, "Length of normalized vector was not excpedted");
     }
 
 }

@@ -14,6 +14,7 @@ import com.rominntrenger.main.objects.blocks.Blood;
 import com.rominntrenger.main.objects.player.Player;
 
 public abstract class Enemy extends GameObject {
+
     double speed = 300;
     GameObject target;
     double angularDampening = 0.05;
@@ -26,10 +27,6 @@ public abstract class Enemy extends GameObject {
 
     /**
      * Constructor for GameObject given position rotation and sprite
-     *
-     * @param position
-     * @param direction
-     * @param sprite
      */
     public Enemy(Vector2 position, Vector2 direction, Sprite sprite) {
         super(position, direction, sprite);
@@ -65,7 +62,7 @@ public abstract class Enemy extends GameObject {
         this.behaviour = new Wander();
     }
 
-    public void setBehaviour(Behaviour behaviour){
+    public void setBehaviour(Behaviour behaviour) {
         this.behaviour = behaviour;
     }
 
@@ -87,13 +84,15 @@ public abstract class Enemy extends GameObject {
 
         Collider hit = walkCollider.getIntersectionCollider();
 
-        if(hit == null)
+        if (hit == null) {
             transform.setLocalPosition(newPoss);
-        else {
+        } else {
             transform.setLocalPosition(
-                    Vector2.add(
-                            transform.getLocalPosition(),
-                            Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(), hit.getGameObject().getTransform().getGlobalPosition()).getNormalizedVector(), 0.5)));
+                Vector2.add(
+                    transform.getLocalPosition(),
+                    Vector2.multiply(Vector2.subtract(getTransform().getGlobalPosition(),
+                        hit.getGameObject().getTransform().getGlobalPosition())
+                        .getNormalizedVector(), 0.5)));
 
         }
     }
@@ -110,8 +109,13 @@ public abstract class Enemy extends GameObject {
     @Override
     public void update(double delta) {
         if (target != null) {
-            translate(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
-            setDirection(Vector2.add(getDirection(), Vector2.multiply(Vector2.Vector2FromAngleInDegrees(Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), angularDampening)));
+            translate(Vector2.multiply(Vector2.Vector2FromAngleInDegrees(
+                Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
+                speed * delta));
+            setDirection(Vector2.add(getDirection(), Vector2.multiply(Vector2
+                    .Vector2FromAngleInDegrees(
+                        Vector2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
+                angularDampening)));
             getDirection().normalize();
         }
         this.delta = delta;
