@@ -13,7 +13,7 @@
   "OrthographicCamera_dampening":0.1,
 
   "Physics_use_quadtree": true,
-  "Physics_use_raycast": true,
+  "Physics_use_raycast": false,
   "Physics_circle_line_resolution": 5,
   "Physics_rigidbody2d_VelocityVerlet": true,
   "Physics_rigidbody2d_friction":0.1,

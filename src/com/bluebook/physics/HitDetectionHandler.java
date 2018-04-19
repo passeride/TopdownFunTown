@@ -143,7 +143,7 @@ public class HitDetectionHandler {
         CopyOnWriteArrayList<Line2D> cowLines = new CopyOnWriteArrayList<>();
         cowLines.addAll(lines);
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(1000);
 
         List<Future<RayCastHit>> list = new ArrayList<>();
 
@@ -176,7 +176,7 @@ public class HitDetectionHandler {
             }
         }
 
-        executor.shutdown();
+        executor.shutdownNow();
 //        for (RayCast r : raycasts) {
 //            r.Cast(cowLines);
 //        }
