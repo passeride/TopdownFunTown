@@ -2,8 +2,11 @@ package com.rominntrenger.objects.blocks;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
+import com.bluebook.physics.Collider;
+import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.Projectile;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Crate extends Item {
@@ -16,6 +19,16 @@ public class Crate extends Item {
         setSize(new Vec2(1, 1));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
+        collider.setTag("Block");
+        collider.addInteractionLayer("DMG");
+        collider.setOnCollisionListener(new OnCollisionListener() {
+            @Override
+            public void onCollision(Collider other) {
+                if(other.getGameObject() instanceof Projectile) {
+                    destroy();
+                }
+            }
+        });
     }
 
     @Override

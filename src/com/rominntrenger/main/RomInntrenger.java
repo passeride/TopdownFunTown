@@ -31,10 +31,10 @@ public class RomInntrenger extends GameApplication {
     protected void onLoad() {
         super.onLoad();
         currentWeapon = new StarterWeapon(Vec2.ZERO,
-            new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
+            new AnimationSprite("/friendlies/weaponNone", 4), Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("startMap");
+        MapCreator level = new MapCreator("startLevel1");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));

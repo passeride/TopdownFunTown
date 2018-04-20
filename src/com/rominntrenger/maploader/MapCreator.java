@@ -116,6 +116,7 @@ public class MapCreator extends GameObject {
                     case KeyY:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyY"),
                             2);
+                        grid[i][j] = new Barrel(vector, Vec2.ZERO, new Sprite("./items/crate_0"));
                         break;
 
                     case KeyB:
@@ -203,7 +204,7 @@ public class MapCreator extends GameObject {
                         break;
                     case Crate:
                         grid[i][j] = new Crate(vector, Vec2.ZERO,
-                            new Sprite("./items/crate_02"));
+                            new Sprite("./items/crate_0"));
                         break;
                     case Bench:
                         grid[i][j] = new Bench(vector, Vec2.ZERO, new Sprite("./items/bench"));
