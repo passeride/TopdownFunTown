@@ -213,7 +213,7 @@ public class MapCreator extends GameObject {
                         break;
                     case Corpse:
                         grid[i][j] = new Corpse(vector, Vec2.ZERO,
-                            new Sprite("./items/corpse_00"));
+                            new Sprite("./items/corpse_0"));
                         break;
                     case Barrel:
                         grid[i][j] = new Barrel(vector, Vec2.ZERO,
