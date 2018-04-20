@@ -34,7 +34,7 @@ public class RomInntrenger extends GameApplication {
             new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("startMap");
+        MapCreator level = new MapCreator("sandBox");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));

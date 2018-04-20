@@ -7,6 +7,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
+import com.bluebook.physics.Light2D;
 import com.bluebook.physics.RigidBody2D;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
@@ -14,6 +15,10 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
 
@@ -27,7 +32,10 @@ public class Player extends GameObject {
     private Weapon currentWeapon;
     private int playerKey = 9;
 
+
+
     public RigidBody2D rb2;
+    public Light2D light2D;
 
     private RomInntrenger romInntrenger;
 
@@ -47,6 +55,9 @@ public class Player extends GameObject {
         collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
+
+
+        light2D = new Light2D(this);
 
         // WalkCollider
         walkCollider = new CircleCollider(this, 20);
@@ -71,6 +82,31 @@ public class Player extends GameObject {
 
         romInntrenger = ((RomInntrenger) GameApplication.getInstance());
 
+    }
+
+    @Override
+    public void draw(GraphicsContext gc) {
+        super.draw(gc);
+        if(light2D.polygon !=  null){
+            double[][] polygon = light2D.polygon;
+            gc.setGlobalBlendMode(BlendMode.OVERLAY);
+
+            gc.setFill(Color.RED);
+            gc.setStroke(Color.BLUE);
+            gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+            gc.strokePolygon(polygon[0], polygon[1], polygon[0].length);
+
+
+            Vec2 pos = transform.getGlobalPosition();
+            Vec2 cam = OrthographicCamera.getOffset();
+            for(int i = 0; i < polygon[0].length; i++){
+//                System.out.println("X:" + polygon[0][i] + " Y: " + polygon[1][i]);
+                gc.setStroke(Color.BLUE);
+                gc.setLineWidth(6);
+                gc.strokeLine(pos.getX(),  pos.getY(), polygon[0][i],  polygon[1][i]);
+//                gc.fillArc(pos.getX() + polygon[0][i], pos.getY() + polygon[0][i],  20, 20, 0, 360, ArcType.OPEN);
+            }
+        }
     }
 
     @Override
