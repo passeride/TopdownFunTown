@@ -1,10 +1,12 @@
 package com.bluebook.renderer;
 
 import com.bluebook.camera.OrthographicCamera;
+import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.GameObject;
+import com.rominntrenger.main.RomInntrenger;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -135,10 +137,27 @@ public class CanvasRenderer {
             gc.save();
 
             clearCanvas(gc);
-
             gc.setFill(bgColor);
             gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             GraphicsRenderer gr = new GraphicsRenderer(gc);
+
+/*            if(((RomInntrenger) GameApplication.getInstance()).player.light2D.polygon !=  null){
+                double[][] polygon = ((RomInntrenger) GameApplication.getInstance()).player.light2D.polygon;
+//            gc.setGlobalBlendMode(BlendMode.OVERLAY);
+
+//            gc.beginPath();
+//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+//                CycleMethod.NO_CYCLE,
+//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
+//                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
+                gc.beginPath();
+                gc.setFill(new Color(1,  1,1, 0.3));
+                gc.clip();
+                gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+
+            }*/
+
+
             for (RenderLayer layer : layers) {
                 if (useGraphicsRenderer) {
                     layer.drawAll(gr);
@@ -158,6 +177,7 @@ public class CanvasRenderer {
             if (OrthographicCamera.main != null) {
                 gc.restore();
             }
+
         }
     }
 

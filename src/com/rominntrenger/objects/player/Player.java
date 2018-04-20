@@ -90,8 +90,9 @@ public class Player extends GameObject {
     @Override
     public void draw(GraphicsContext gc) {
 
-        if(light2D.polygon !=  null){
-            double[][] polygon = light2D.polygon;
+        if(true) {
+            if (light2D.polygon != null) {
+                double[][] polygon = light2D.polygon;
 //            gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
 //            gc.beginPath();
@@ -99,8 +100,11 @@ public class Player extends GameObject {
 //                CycleMethod.NO_CYCLE,
 //                new Stop(0.0, new Color(1, 1, 1, 0.3)),
 //                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
-            gc.setFill(new Color(1,  1,1, 0.3));
-            gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+                gc.beginPath();
+                gc.setFill(new Color(1, 1, 1, 0.3));
+                gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+//                gc.clip();
+            }
         }
         super.draw(gc);
 

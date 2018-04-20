@@ -53,7 +53,6 @@ public class Light2D {
                 }
 
                 openSegments.sort((o1, o2) -> segmentInFrontOf(o1, o2, pos) ? 1 : -1);
-
                 LineSegment nearestEnd = null;
                 if (openSegments.size() > 0)
                     nearestEnd = openSegments.get(0);
@@ -131,6 +130,10 @@ public class Light2D {
     }
 
     boolean segmentInFrontOf(LineSegment a, LineSegment b, Vec2 relativePoint) {
+
+        if(a == null || b == null || relativePoint == null)
+            return false;
+
         boolean A1 = leftOf(a, interpolate(b.p1.position, b.p2.position, 0.01));
         boolean A2 = leftOf(a, interpolate(b.p2.position, b.p1.position, 0.01));
         boolean A3 = leftOf(a, relativePoint);
