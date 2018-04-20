@@ -109,32 +109,32 @@ public class MapCreator extends GameObject {
 
                     //KEYS AND DOORS
                     case Key:
-                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key"),
                             1);
                         break;
 
                     case KeyY:
-                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyY"),
                             2);
                         break;
 
                     case KeyB:
-                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyB"),
                             3);
                         break;
 
                     case KeyG:
-                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyG"),
                             4);
                         break;
 
                     case KeyP:
-                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyP"),
                             5);
                         break;
 
                     case KeyR:
-                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
+                        grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyR"),
                             6);
                         break;
 
@@ -144,39 +144,57 @@ public class MapCreator extends GameObject {
                         break;
 
                     case Door:
-                        if(currentLevel[i-1][j] == ID.Wall) {
-                            System.out.println("The wall is to my North");
-                        } else if(currentLevel[i+1][j] == ID.Wall) {
-                            System.out.println("The wall is to my South");
-                        } else if(currentLevel[i][j-1] == ID.Wall) {
-                            System.out.println("The wall is to my West");
-                        } else if(currentLevel[i][j-1] == ID.Wall) {
-                            System.out.println("The wall is to my East");
-                        }
-
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"),1);
-                       System.out.println("The door ID is 0 this is where it constructs");
+                        if (currentLevel[i][j - 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/door"), 1);
+                        else if (currentLevel[i][j + 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/door"), 1);
+                        else
+                            grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/door"),1);
                     break;
                     case DoorY:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorY"),2);
+                        if (currentLevel[i][j - 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorY"), 2);
+                        else if (currentLevel[i][j + 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorY"), 2);
+                        else
+                            grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorY"),2);
                     break;
                     case DoorB:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorB"),3);
+                        if (currentLevel[i][j - 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorB"), 3);
+                        else if (currentLevel[i][j + 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorB"), 3);
+                        else
+                            grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorB"),3);
                     break;
                     case DoorG:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 4);
-                        // System.out.println("This door is also made");
+                        if (currentLevel[i][j - 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorG"), 4);
+                        else if (currentLevel[i][j + 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorG"), 4);
+                        else
+                            grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"),4);
                         break;
                     case DoorP:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorP"),5);
+                        if (currentLevel[i][j - 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorP"), 5);
+                        else if (currentLevel[i][j + 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorP"), 5);
+                        else
+                            grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorP"),5);
                     break;
                     case DoorR:
-                        grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorR"),6);
+                        if (currentLevel[i][j - 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/door"), 6);
+                        else if (currentLevel[i][j + 1] == ID.Wall)
+                            grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/door"), 6);
+                        else
+                            grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/door"),6);
                     break;
                     case Ship:
                         new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"), 7);
                         grid[i][j] = new Ship(vector, Vec2.ZERO, new Sprite("../bg/ship"));
-                        break;
+                    break;
 
                     // BOXES AND SUCH
                     case StasisBox:
