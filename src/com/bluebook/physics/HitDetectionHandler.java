@@ -132,7 +132,7 @@ public class HitDetectionHandler {
             for(Collider base : colliders){
                 checkCollision(base);
 
-                if(DO_RAYCAST && !(base.getGameObject() instanceof Player)) {
+                if(DO_RAYCAST && !(base.getGameObject() instanceof Player) && base.interactionLayer.contains("Obscure")) {
                     Line2D[] baseLines = base.getLines();
                     for(Line2D l : baseLines)
                         lines.add(l);

@@ -93,14 +93,14 @@ public class Player extends GameObject {
         if(true) {
             if (light2D.polygon != null) {
                 double[][] polygon = light2D.polygon;
-//            gc.setGlobalBlendMode(BlendMode.OVERLAY);
+            gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
 //            gc.beginPath();
-//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 2, true,
 //                CycleMethod.NO_CYCLE,
 //                new Stop(0.0, new Color(1, 1, 1, 0.3)),
 //                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
-                gc.beginPath();
+//                gc.beginPath();
                 gc.setFill(new Color(1, 1, 1, 0.3));
                 gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
 //                gc.clip();
