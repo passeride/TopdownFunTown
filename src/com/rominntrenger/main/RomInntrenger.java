@@ -34,7 +34,7 @@ public class RomInntrenger extends GameApplication {
             new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("startMap");
+        MapCreator level = new MapCreator("FSMTEST");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
@@ -72,6 +72,10 @@ public class RomInntrenger extends GameApplication {
 
         if (input.isKeyDown(KeyCode.A)) {
             player.moveLeft(delta);
+        }
+        if(input.isKeyPressed(KeyCode.ESCAPE)){
+            GameApplication.getInstance().getStage().getScene().setRoot(menu.getRoot());
+
         }
 
         if (input.isMouseButton0Pressed()) {
