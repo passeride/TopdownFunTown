@@ -37,112 +37,37 @@ public class Light2D {
 
         boolean changedSegment = false;
 
-        for (LinePoint lp : points) {
 
-//            openSegments.sort((o1, o2) -> segmentInFrontOf(o1, o2, pos) ? 1 : -1);
-//            if(openSegments.size() > 1)
-//            openSegment = openSegments.get(0);
+        for(int pass = 0; pass < 2; pass++) {
+            for (LinePoint lp : points) {
+                openSegments.sort((o1, o2) -> segmentInFrontOf(o1, o2, pos) ? 1 : -1);
 
-            if (lp.beginsSegment) {
-                if (prevPoint == null) {
-                    prevPoint = lp;
-                }
-                openSegments.add(openSegment);
+                LineSegment nearestStart = null;
+                if (openSegments.size() > 0)
+                    nearestStart = openSegments.get(0);
 
-                if (lp.dist <= prevPoint.dist && lp.angle > prevPoint.angle) {
-//                        outputPoints.add(lp.position);
-//                        openSegments.sort((o1, o2) -> segmentInFrontOf(o1, o2, pos) ? 1 : -1);
-
-                    if (openSegment != null && lp.segment != null && segmentInFrontOf(lp.segment,
-                        openSegment, pos)) {
-//                            System.out.println("HEY");
-                        outputPoints.add(
-                            lineIntersection(openSegment.p1.position, openSegment.p2.position, pos,
-                                Vec2.add(pos,
-                                    Vec2.multiply(Vec2.Vector2FromAngleInDegrees(lp.angle),
-                                        2000))));
-                        outputPoints.addAll(getOutPoints(pos, beginAngle, lp.angle, openSegment));
-                        outputPoints
-                            .addAll(getOutPoints(pos, lp.angle, lp.segment.p2.angle, lp.segment));
-
-//                            outputPoints.add(lp.position);
-                        prevPoint = lp.segment.p2;
-                        beginAngle = lp.segment.p2.angle;
-//                            openSegment = lp.segment;
-                    } else {
-
-                    }
-
-
+                if (lp.beginsSegment) {
+                    openSegments.add(lp.segment);
                 } else {
-//                        outputPoints.add(lp.position);
-                }
-            } else {
-                if (prevPoint != null && prevPoint.segment == lp.segment) {
-
-                    outputPoints.add(lp.position);
-//                        outputPoints.addAll(getOutPoints(pos, beginAngle, lp.angle, lp.segment));
-                    prevPoint = null;
-                    openSegment = null;
-                }
-
-                if (openSegments.contains(lp.segment)) {
                     openSegments.remove(lp.segment);
                 }
+
+                openSegments.sort((o1, o2) -> segmentInFrontOf(o1, o2, pos) ? 1 : -1);
+
+                LineSegment nearestEnd = null;
+                if (openSegments.size() > 0)
+                    nearestEnd = openSegments.get(0);
+
+                if (nearestStart != nearestEnd) {
+                    if(pass == 1) {
+                        outputPoints.addAll(getOutPoints(pos, beginAngle, lp.angle, nearestStart));
+                    }
+                    beginAngle = lp.angle;
+
+                }
+
             }
-
         }
-
-//        for(int pass = 0; pass < 2; pass ++) {
-//            for (LinePoint lp : points) {
-
-//                LineSegment openSegment = null;
-
-//                if(openSegments.size() >  1)
-//                    openSegment = openSegments.get(0);
-//
-//                if(lp.beginsSegment){
-//                    int index = 0;
-//
-//                    LineSegment segment = null;
-//                    if(openSegments.size() > index)
-//                        segment =  openSegments.get(index);
-
-//                    for(LineSegment ls : openSegments){
-//                        if(segmentInFrontOf(segment, ls, pos)){
-//                            segment = ls;
-//                        }
-//                    }
-//                    while(segment != null && segmentInFrontOf(lp.segment, segment, pos)){
-//                        index++;
-//                        if(openSegments.size() > index)
-//                            segment = openSegments.get(index);
-//                        else
-//                            segment = null;
-//                    }
-
-//
-//                    if(!openSegments.contains(lp.segment)){
-//                        openSegments.add(lp.segment);
-//                    }
-//
-//                }else{
-//                    int index = openSegments.indexOf(lp.segment);
-//                    if(index > 1){
-//                        openSegments.remove(index);
-//                    }
-//                }
-//
-//                if(openSegments.contains(openSegment)){
-//                    if(pass == 1){
-//                        outputPoints.addAll(getOutPoints(pos, beginAngle, lp.angle, openSegment));
-//                    }
-//                    beginAngle = Vec2.getAngleBetweenInDegrees(pos, lp.position);
-//                }
-//            }
-//        }
-
-//        points.forEach( p -> System.out.println(Vec2.getAngleBetweenInDegrees(source.getPosition(), p.position)));
 
         double[][] polygon = new double[2][outputPoints.size()];
 
@@ -152,7 +77,6 @@ public class Light2D {
             polygon[1][i] = p.getY();
         }
 
-//        System.out.println("SIZE: " + outputPoints.size() + " of " + points.size());
         this.polygon = polygon;
         return polygon;
 
@@ -172,11 +96,11 @@ public class Light2D {
             p4.setX(segment.p2.position.getX());
             p4.setY(segment.p2.position.getY());
         } else {
-            p3.setX(origin.getX() + Math.cos(angle1));
-            p3.setY(origin.getY() + Math.sin(angle1));
+            p3.setX(origin.getX() + Math.cos(angle1) * 200);
+            p3.setY(origin.getY() + Math.sin(angle1) * 200);
 
-            p4.setX(origin.getX() + Math.cos(angle2));
-            p4.setY(origin.getY() + Math.sin(angle2));
+            p4.setX(origin.getX() + Math.cos(angle2) * 200);
+            p4.setY(origin.getY() + Math.sin(angle2) * 200);
         }
 
         Vec2 begin = lineIntersection(p3, p4, p1, p2);

@@ -152,9 +152,6 @@ public class HitDetectionHandler {
 
     private void doRaycasts() {
         if(DO_SHADOW_SWEEP){
-
-            System.out.println("Do SHADOWSWEEP");
-
             Vec2 cam = OrthographicCamera.getOffset();
             Vec2 screen = GameSettings.getScreen();
 

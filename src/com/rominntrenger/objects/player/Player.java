@@ -18,6 +18,9 @@ import com.rominntrenger.messageHandling.Describable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
@@ -86,27 +89,21 @@ public class Player extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        super.draw(gc);
+
         if(light2D.polygon !=  null){
             double[][] polygon = light2D.polygon;
-            gc.setGlobalBlendMode(BlendMode.OVERLAY);
+//            gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
-            gc.setFill(Color.RED);
-            gc.setStroke(Color.BLUE);
+//            gc.beginPath();
+//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
+//                CycleMethod.NO_CYCLE,
+//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
+//                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
+            gc.setFill(new Color(1,  1,1, 0.3));
             gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
-            gc.strokePolygon(polygon[0], polygon[1], polygon[0].length);
-
-
-            Vec2 pos = transform.getGlobalPosition();
-            Vec2 cam = OrthographicCamera.getOffset();
-            for(int i = 0; i < polygon[0].length; i++){
-//                System.out.println("X:" + polygon[0][i] + " Y: " + polygon[1][i]);
-                gc.setStroke(Color.BLUE);
-                gc.setLineWidth(6);
-                gc.strokeLine(pos.getX(),  pos.getY(), polygon[0][i],  polygon[1][i]);
-//                gc.fillArc(pos.getX() + polygon[0][i], pos.getY() + polygon[0][i],  20, 20, 0, 360, ArcType.OPEN);
-            }
         }
+        super.draw(gc);
+
     }
 
     @Override
