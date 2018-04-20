@@ -78,7 +78,7 @@ public abstract class GameApplication extends Application {
         Pane root = new Pane();
         root.setPrefSize(1920, 1080);
 
-        InputStream is = Files.newInputStream(Paths.get("/home/pm/Git/topdownfuntown/assets/pictures/bg.gif"));
+        InputStream is = Files.newInputStream(Paths.get("./assets/pictures/bg.gif"));
         System.out.println(is);
         Image img = new Image(is);
         is.close();
