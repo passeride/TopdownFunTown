@@ -146,6 +146,10 @@ public class Player extends GameObject {
         translate(Vec2.multiply(Vec2.RIGHT, speed * delta));
     }
 
+    public void move(Vec2 direction, double delta){
+        translate(Vec2.multiply(direction, speed * delta));
+    }
+
     /**
      * Override to create a 8 % margin for movement
      */

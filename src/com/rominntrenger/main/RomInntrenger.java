@@ -4,6 +4,7 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
+import com.bluebook.input.GamepadInput;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.gui.Inventory;
@@ -27,6 +28,8 @@ public class RomInntrenger extends GameApplication {
 
     MessageHandler msh;
 
+    GamepadInput gi;
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -45,51 +48,83 @@ public class RomInntrenger extends GameApplication {
         player.setCurrentWeapon(currentWeapon);
 
         msh = MessageHandler.getInstance();
+
+        gi = new GamepadInput();
     }
 
     @Override
     public void update(double delta) {
         cam.update(delta);
+        gi.pullEvents();
 
-        if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input.isKeyDown(KeyCode.A)
-            || input.isKeyDown(KeyCode.D)) {
-            ((AnimationSprite) player.getSprite()).setPlaying(true);
-        } else {
-            ((AnimationSprite) player.getSprite()).setPlaying(false);
-        }
+        if(gi.getNumberOfControllers() > 0){
+            //        System.out.println("X:" + gi.rightJoistick.getX() + " Y: " + gi.rightJoistick.getY());
+            if(gi.rightJoistick.getMagnitude() > 0.1){
+                ((AnimationSprite) player.getSprite()).setPlaying(true);
+            }else{
+                ((AnimationSprite) player.getSprite()).setPlaying(false);
+            }
+            player.move(gi.rightJoistick, delta);
 
-        if (input.isKeyDown(KeyCode.S)) {
-            player.moveDown(delta);
-        }
+            if (gi.leftJoistick.getMagnitude() > 0.1) {
+                player.lookAt(
+                    Vec2.subtract(player.getPosition(), Vec2.multiply(gi.leftJoistick, -1)));
+            }else if(gi.rightJoistick.getMagnitude() > 0.1){
+                player.lookAt(
+                    Vec2.subtract(player.getPosition(), Vec2.multiply(gi.rightJoistick, -1)));
+            }
 
-        if (input.isKeyDown(KeyCode.W)) {
-            player.moveUp(delta);
-        }
+            if (gi.shoot) {
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
 
-        if (input.isKeyDown(KeyCode.D)) {
-            player.moveRight(delta);
-        }
+                player.shoot();
+            } else {
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
 
-        if (input.isKeyDown(KeyCode.A)) {
-            player.moveLeft(delta);
-        }
+            }
+        }else {
+            if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
+                .isKeyDown(KeyCode.A)
+                || input.isKeyDown(KeyCode.D)) {
+                ((AnimationSprite) player.getSprite()).setPlaying(true);
+            } else {
+                ((AnimationSprite) player.getSprite()).setPlaying(false);
+            }
 
-        if (input.isMouseButton0Pressed()) {
-            // TODO: Fix trainwreck
-            ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
+            if (input.isKeyDown(KeyCode.S)) {
+                player.moveDown(delta);
+            }
 
-            player.shoot();
-        } else {
-            ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
+            if (input.isKeyDown(KeyCode.W)) {
+                player.moveUp(delta);
+            }
 
-        }
+            if (input.isKeyDown(KeyCode.D)) {
+                player.moveRight(delta);
+            }
 
-        // Lookat
+            if (input.isKeyDown(KeyCode.A)) {
+                player.moveLeft(delta);
+            }
+
+            if (input.isMouseButton0Pressed()) {
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
+
+                player.shoot();
+            } else {
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
+
+            }
+
+            // Lookat
+
+
         if (OrthographicCamera.main != null) {
             player.lookAt(Vec2.subtract(input.getMousePosition(),
                 new Vec2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY())));
         } else {
             player.lookAt(input.getMousePosition());
+        }
         }
 
     }

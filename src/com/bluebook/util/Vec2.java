@@ -27,6 +27,10 @@ public class Vec2 extends Point2D {
         this.Y = Y;
     }
 
+    public double getMagnitude(){
+        return Math.abs(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)));
+    }
+
     /**
      * Will create a normalized vector based on radians input
      *
