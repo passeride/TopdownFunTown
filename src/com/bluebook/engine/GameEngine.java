@@ -9,7 +9,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 
 /**
- * This class is the main engine of the game
+ * This class is the main engine of the gamePane
  */
 public class GameEngine {
 
@@ -45,10 +45,12 @@ public class GameEngine {
 
     private Canvas canvas;
 
+    private AnimationTimer drawTimer;
+
     /**
      * Constructor for GameEngine
      *
-     * @param canvas Canvas for game to be drawn to
+     * @param canvas Canvas for gamePane to be drawn to
      */
     public GameEngine(Canvas canvas) {
         singleton = this;
@@ -62,8 +64,8 @@ public class GameEngine {
 
     }
 
-    private void startAnimationTimer() {
-        AnimationTimer timer = new AnimationTimer() {
+    protected void startAnimationTimer() {
+        drawTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 CanvasRenderer.getInstance().drawAll();
@@ -82,13 +84,14 @@ public class GameEngine {
                 }
             }
         };
-        timer.start();
+        drawTimer.start();
     }
 
     public void pauseGame() {
         isPaused = true;
         stopCollisionThread();
         stopUpdateThread();
+        drawTimer.stop();
     }
 
 
@@ -96,6 +99,7 @@ public class GameEngine {
         isPaused = false;
         startUpdateThread();
         startCollisionThread();
+        drawTimer.start();
     }
 
     public boolean isPaused() {
