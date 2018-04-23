@@ -9,6 +9,7 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.player.Player;
+import java.util.ArrayList;
 
 /**
  * Explotion is an effect that will spawn a visual Push player back, and also do damadge
@@ -19,7 +20,7 @@ public class Explotion extends GameObject {
     double force = 60000;
     int dmg = 4;
 
-    Player player;
+    ArrayList<Player> players;
 
     /**
      * Explotion will spawn a Explotion on the position given with a random rotation This will push
@@ -30,11 +31,13 @@ public class Explotion extends GameObject {
             new AnimationSprite("effects/explotion", 11));
         setSize(new Vec2(5, 5));
         setRenderLayer(RenderLayer.RenderLayerName.PROJECTILE);
-        player = ((RomInntrenger) GameApplication.getInstance()).player;
+        players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
 
         playAudio();
-        addForce();
-        doDamadge();
+        for(Player p : players) {
+            addForce(p);
+            doDamadge(p);
+        }
         setAnimationDestroyListener();
     }
 
@@ -60,7 +63,7 @@ public class Explotion extends GameObject {
         clip.playOnce();
     }
 
-    void doDamadge() {
+    void doDamadge(Player player) {
         double distance2Player = player.getPosition().distance(getPosition());
 
         double dmgMultiplier = 1 - (distance2Player / distance);
@@ -70,7 +73,7 @@ public class Explotion extends GameObject {
         }
     }
 
-    void addForce() {
+    void addForce(Player player) {
         double distance2Player = player.getPosition().distance(getPosition());
         double forceMultiplier = 1 - (distance2Player / distance);
 

@@ -166,12 +166,15 @@ public class HitDetectionHandler {
             lines.add(new Line2D(LeftX, BottomY, LeftX, TopY));
 
 
-            Vec2 source = ((RomInntrenger) GameApplication.getInstance()).player.getTransform().getGlobalPosition();
+//            Vec2 source = ((RomInntrenger) GameApplication.getInstance()).player.getTransform().getGlobalPosition();
+            Vec2 source = Light2D.light.source.getTransform().getGlobalPosition();
 
             ArrayList<LineSegment> lineSegments = new ArrayList<>();
             lines.forEach(l -> lineSegments.add(new LineSegment(l, source)));
 
-            ((RomInntrenger) GameApplication.getInstance()).player.light2D.calculateVisibility(lineSegments);
+
+            Light2D.light.calculateVisibility(lineSegments);
+//            ((RomInntrenger) GameApplication.getInstance()).player.light2D.calculateVisibility(lineSegments);
 
 
         }else {

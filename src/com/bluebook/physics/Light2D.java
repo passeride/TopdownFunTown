@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 public class Light2D {
 
+    public static Light2D light;
+
     GameObject source;
 
     public double[][] polygon;
 
     public Light2D(GameObject source) {
         this.source = source;
+        light = this;
     }
 
 

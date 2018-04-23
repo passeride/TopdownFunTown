@@ -53,7 +53,7 @@ public class PickupWeapon extends Item implements Describable {
     public void showMessage() {
         MessageHandler.getInstance()
             .writeMessage("U got a new pew pew! \n This one is red!", sprite);
-        Player p = ((RomInntrenger) GameApplication.getInstance()).player;
+        Player p = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayere(transform.getGlobalPosition());
         Weapon w = new RedRifle(Vec2.ZERO,
             new AnimationSprite("/friendlies/arms", 2), Vec2.ZERO);
         p.setCurrentWeapon(w);

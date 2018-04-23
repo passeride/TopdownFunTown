@@ -33,7 +33,7 @@ public class AlienPurple extends Enemy {
     @Override
     public void update(double delta) {
         super.update(delta);
-        setTarget(((RomInntrenger) GameApplication.getInstance()).player);
+        setTarget(((RomInntrenger) GameApplication.getInstance()).getClosestPlayere(transform.getGlobalPosition()));
 
         if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();

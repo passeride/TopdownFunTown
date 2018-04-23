@@ -1,6 +1,7 @@
 package com.bluebook.input;
 
 import com.bluebook.util.Vec2;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -10,9 +11,9 @@ import net.java.games.input.EventQueue;
 
 public class GamepadInput {
 
-    public Vec2 leftJoistick = new Vec2(0, 0);
-    public Vec2 rightJoistick = new Vec2(0, 0);
-    public boolean shoot = false;
+    private Vec2[] leftJoistick;
+    private Vec2[] rightJoistick;
+    private Boolean[] shoot;
 
     private ArrayList<Controller> controllers = new ArrayList<>();
 
@@ -22,12 +23,25 @@ public class GamepadInput {
 
         for (int i = 0; i < ca.length; i++) {
 
-            if (ca[i].getName().equals("Wireless Controller")) {
+            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Stick")) {
                 controllers.add(ca[i]);
             }
             /* Get the name of the controller */
             System.out.println(ca[i].getName());
             System.out.println(ca[i].getType().toString());
+        }
+
+        // setting up cache array
+        int numOfControllers = controllers.size();
+        System.out.println("Number of controllers " + numOfControllers);
+        leftJoistick = new Vec2[numOfControllers];
+        rightJoistick = new Vec2[numOfControllers];
+        shoot = new Boolean[numOfControllers];  
+
+        for(int i = 0; i < numOfControllers; i++){
+            leftJoistick[i] = new Vec2(0, 0);
+            rightJoistick[i] = new Vec2(0, 0);
+            shoot[i] = new Boolean(false);
         }
     }
 
@@ -42,6 +56,8 @@ public class GamepadInput {
 
             Controller con = controllers.get(i);
 
+
+
             con.poll();
             EventQueue queue = con.getEventQueue();
             Event event = new Event();
@@ -50,24 +66,24 @@ public class GamepadInput {
 
                 switch (comp.getName()) {
                     case "x":
-                        leftJoistick.setX(event.getValue());
+                        leftJoistick[i].setX(event.getValue());
                         break;
                     case "y":
-                        leftJoistick.setY(event.getValue());
+                        leftJoistick[i].setY(event.getValue());
                         break;
                     case "rx":
-                        rightJoistick.setX(event.getValue());
+                        rightJoistick[i].setX(event.getValue());
                         break;
                     case "ry":
-                        rightJoistick.setY(event.getValue());
+                        rightJoistick[i].setY(event.getValue());
                         break;
                     case "rz":
                         float value = event.getValue();
                         if (value > -0.8) {
-                            shoot = true;
+                            shoot[i] = true;
                             con.getRumblers()[0].rumble(1);
                         } else {
-                            shoot = false;
+                            shoot[i] = false;
                             con.getRumblers()[0].rumble(0);
 
                         }
@@ -75,23 +91,48 @@ public class GamepadInput {
 
 //                    System.out.println(comp.getName().toString());
 
-                StringBuffer buffer = new StringBuffer(con.getName());
-                buffer.append(" at ");
-                buffer.append(event.getNanos()).append(", ");
-                buffer.append(comp.getName()).append(" changed to ");
-                float value = event.getValue();
-                if (comp.isAnalog()) {
-                    buffer.append(value);
-                } else {
-                    if (value == 1.0f) {
-                        buffer.append("On");
-                    } else {
-                        buffer.append("Off");
-                    }
-                }
-                System.out.println(buffer.toString());
+//                StringBuffer buffer = new StringBuffer(con.getName());
+//                buffer.append( " NUM: " + i + " ");
+//                buffer.append(" at ");
+//                buffer.append(event.getNanos()).append(", ");
+//                buffer.append(comp.getName()).append(" changed to ");
+//                float value = event.getValue();
+//                if (comp.isAnalog()) {
+//                    buffer.append(value);
+//                } else {
+//                    if (value == 1.0f) {
+//                        buffer.append("On");
+//                    } else {
+//                        buffer.append("Off");
+//                    }
+//                }
+//                System.out.println(buffer.toString());
             }
 
         }
     }
+
+    public Vec2 getLeftJoistick(int id) {
+        if(id <= leftJoistick.length)
+            return leftJoistick[id];
+        else
+            return Vec2.ZERO;
+    }
+
+
+    public Vec2 getRightJoistick(int id) {
+        if(id <= leftJoistick.length)
+            return rightJoistick[id];
+        else
+            return Vec2.ZERO;
+    }
+
+
+    public boolean isShoot(int id) {
+        if(id <= shoot.length)
+            return shoot[id];
+        else
+            return false;
+    }
+
 }
