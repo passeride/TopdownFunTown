@@ -1,24 +1,36 @@
 package com.rominntrenger.gui;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.FloatControl.Type;
 
 public class GameMenu extends Parent {
         private VBox menu0, menu1, menu2;
+        private HBox volDisplay;
         private Slider soundSlider;
         private Stage primaryStage;
         private final int offset = 400;
         private Rectangle bg;
-        public MenuButton resumeButton, optionsButton, exitButton, backButtonMainMenu, soundButton, videoButton, goreButton, backButtonSoundMenu;
+        private Clip clip;
+        private AudioPlayer ap;
+        private FloatControl gainControl;
+        public MenuButton resumeButton, optionsButton, exitButton, backButtonMainMenu,
+            soundButton, videoButton, goreButton, backButtonSoundMenu,soundCaption, soundValue,
+            saveButton, restartButton;
 
 
     public GameMenu(Stage primaryStage) {
@@ -50,6 +62,8 @@ public class GameMenu extends Parent {
         }
 
         public void addButton(){
+        ap = new AudioPlayer("./assets/audio/MoodyLoop.wav");
+
             resumeButton = new MenuButton("START/RESUME");
             resumeButton.setOnMouseClicked(event -> {
                 FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), this);
@@ -71,6 +85,12 @@ public class GameMenu extends Parent {
                 }
             });
 
+            saveButton = new MenuButton("SAVE");
+            saveButton.setOnMouseClicked(event -> {
+
+            });
+
+            restartButton = new MenuButton("RESTART");
 
             optionsButton = new MenuButton("OPTIONS");
             optionsButton.setOnMouseClicked(event -> {
@@ -125,6 +145,7 @@ public class GameMenu extends Parent {
 
                 translateTransition.play();
                 translateTransition1.play();
+                //ap.playLoop();
 
                 translateTransition.setOnFinished(evt -> {
                     getChildren().remove(menu1);
@@ -142,25 +163,43 @@ public class GameMenu extends Parent {
 
                 tt.play();
                 tt1.play();
+                ap.stop();
 
                 tt.setOnFinished(evt -> {
                     getChildren().remove(menu2);
                 });
             });
-            soundSlider = new Slider();
-            soundSlider.setMin(0);
-            soundSlider.setMax(100);
-            soundSlider.setValue(100);
+
+            volDisplay = new HBox(10);
+            soundSlider = new Slider(0, 1,1);
             soundSlider.setShowTickLabels(true);
             soundSlider.setShowTickMarks(true);
+
+            soundCaption = new MenuButton("SOUND LEVEL:");
+            soundValue = new MenuButton("100");
+
+            clip = ap.getClip();
+            gainControl = ap.getGainControl();
+            soundSlider.valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val,
+                Number new_val) -> {
+                if(clip.isControlSupported(Type.MASTER_GAIN)) {
+                    FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    float range = gainControl.getMaximum() - gainControl.getMinimum();
+                    float gain = (range * (float)soundSlider.getValue()) + gainControl.getMinimum();
+                    System.out.println("Volum er: " + gain + " i DB");
+                    volume.setValue((gain));
+                }
+                soundValue.setText(((int)((double)new_val * 100)) + "");
+            });
 
 
             videoButton = new MenuButton("VIDEO");
             goreButton = new MenuButton("GORE");
 
-            menu0.getChildren().addAll(resumeButton, optionsButton, exitButton);
+            menu0.getChildren().addAll(resumeButton, saveButton,optionsButton, exitButton);
             menu1.getChildren().addAll(backButtonMainMenu, soundButton, videoButton, goreButton);
-            menu2.getChildren().addAll(backButtonSoundMenu, soundSlider);
+            volDisplay.getChildren().addAll(soundCaption, soundSlider, soundValue);
+            menu2.getChildren().addAll(backButtonSoundMenu, volDisplay);
         }
 
 

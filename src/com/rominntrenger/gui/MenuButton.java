@@ -47,4 +47,8 @@ public class MenuButton extends StackPane {
         setOnMouseReleased(event -> setEffect(null));
     }
 
+
+    public void setText(String format) {
+        this.text.setText(format);
+    }
 }

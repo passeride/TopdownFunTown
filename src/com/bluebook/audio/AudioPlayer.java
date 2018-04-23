@@ -3,6 +3,7 @@ package com.bluebook.audio;
 import com.bluebook.util.GameObject;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.FloatControl.Type;
 
 /**
  * class 'AudioPlayer' is generated to play audio-files loaded by the class 'AudioLoader'
@@ -11,6 +12,7 @@ public class AudioPlayer {
 
     private boolean isSpatial = false;
     private Clip clip;
+    public static float volume =1f;
 
     private GameObject source;
 
@@ -25,7 +27,12 @@ public class AudioPlayer {
     public AudioPlayer(String path) {
         clip = AudioLoader.loadAudioClip(path);
         gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-    }
+        if(clip.isControlSupported(Type.MASTER_GAIN)) {
+            FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float range = gainControl.getMaximum() - gainControl.getMinimum();
+            float gain = (range * this.volume) + gainControl.getMinimum();
+            volume.setValue(gain);
+        }}
 
     /**
      * plays the selected audio once
@@ -65,7 +72,7 @@ public class AudioPlayer {
     /**
      * stops currently playing audio if clip.isRunning() returns true
      */
-    private void stop() {
+    public void stop() {
         if (clip.isRunning()) {
             clip.stop();
         }
@@ -91,10 +98,12 @@ public class AudioPlayer {
     /**
      * Sets the volum of selected audio-clip through decibel. e.g. -30 to lower the amount
      *
-     * @param decibel decibel
+     * @param volume decibel
      */
-    public void setVolume(float decibel) {
-        gainControl.setValue(decibel);
+    public void setVolume(float volume) {
+        float range = gainControl.getMaximum() - gainControl.getMinimum();
+        float gain = (range * volume) + gainControl.getMinimum();
+        gainControl.setValue(gain);
     }
 
     /**
@@ -122,5 +131,13 @@ public class AudioPlayer {
     public void setSpatial(GameObject source) {
         this.isSpatial = true;
         this.source = source;
+    }
+
+    public Clip getClip() {
+        return clip;
+    }
+
+    public FloatControl getGainControl() {
+        return gainControl;
     }
 }

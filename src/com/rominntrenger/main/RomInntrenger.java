@@ -13,6 +13,8 @@ import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
 import javafx.scene.input.KeyCode;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class RomInntrenger extends GameApplication {
 
@@ -24,6 +26,8 @@ public class RomInntrenger extends GameApplication {
     public Weapon currentWeapon;
 
     public AudioPlayer bgMusic;
+    public Clip clip;
+    public FloatControl floatControl;
 
     MessageHandler msh;
 
@@ -40,6 +44,7 @@ public class RomInntrenger extends GameApplication {
         healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
+        clip = bgMusic.getClip();
         bgMusic.playLoop();
 
         player.setCurrentWeapon(currentWeapon);
@@ -96,5 +101,13 @@ public class RomInntrenger extends GameApplication {
             player.lookAt(input.getMousePosition());
         }
 
+    }
+
+    public Clip getClip() {
+        return clip;
+    }
+
+    public FloatControl getFloatControl() {
+        return floatControl;
     }
 }
