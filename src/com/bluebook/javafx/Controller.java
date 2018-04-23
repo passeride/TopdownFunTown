@@ -1,5 +1,6 @@
 package com.bluebook.javafx;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
 import java.net.URL;
@@ -18,7 +19,17 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         GameSettings.SCREEN_HEIGHT = (int) canvas.getHeight();
         GameSettings.SCREEN_WIDTH = (int) canvas.getWidth();
-        new GameEngine(canvas);
+        if(GameEngine.getInstance() == null)
+            new GameEngine(canvas);
+
+        GameApplication ga = GameApplication.getInstance();
+        GameApplication.X_scale.set(GameSettings.getInt("game_resolution_X") / ga.getScreenWidth());
+        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
+        GameApplication.Y_scale.set(GameSettings.getInt("game_resolution_Y") / ga.getScreenHeight());
+
+
+        canvas.scaleXProperty().bindBidirectional(GameApplication.X_scale);
+        canvas.scaleYProperty().bindBidirectional(GameApplication.Y_scale);
     }
 
     /**

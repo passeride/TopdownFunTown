@@ -22,6 +22,7 @@ import javafx.util.Duration;
 public class ControllerMenu implements Initializable {
 
     GameApplication gameApplication;
+    private Stage primaryStage;
 
     @FXML
     private ImageView imageViewPug;
@@ -50,8 +51,8 @@ public class ControllerMenu implements Initializable {
     @FXML
     private void handleButtonAction() {
         try {
-            Stage stage = gameApplication.getStage();
-            gameApplication.callGame(stage);
+            primaryStage = gameApplication.getStage();
+            gameApplication.callGame(primaryStage);
         } catch (IOException e) {
             e.printStackTrace();
         }

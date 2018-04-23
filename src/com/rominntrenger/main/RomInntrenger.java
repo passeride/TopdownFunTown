@@ -16,6 +16,8 @@ import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
 import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class RomInntrenger extends GameApplication {
 
@@ -27,6 +29,8 @@ public class RomInntrenger extends GameApplication {
     public Weapon currentWeapon;
 
     public AudioPlayer bgMusic;
+    public Clip clip;
+    public FloatControl floatControl;
 
     MessageHandler msh;
 
@@ -39,12 +43,13 @@ public class RomInntrenger extends GameApplication {
             new AnimationSprite("/friendlies/weaponNone", 4), Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("startMap");
+        MapCreator level = new MapCreator("FSMTEST");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
+        clip = bgMusic.getClip();
         bgMusic.playLoop();
 
         msh = MessageHandler.getInstance();
@@ -119,16 +124,32 @@ public class RomInntrenger extends GameApplication {
                 if (input.isKeyDown(KeyCode.A)) {
                     player.moveLeft(delta);
                 }
+        if (input.isKeyDown(KeyCode.A)) {
+            player.moveLeft(delta);
+        }
+        if(input.isKeyPressed(KeyCode.ESCAPE)){
+            callMenu();
+        }
 
                 if(player.hasWeapon()) {
                     if (input.isMouseButton0Pressed()) {
                         ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
+        if(player.getCurrentWeapon() != null) {
+            if (input.isMouseButton0Pressed()) {
+                // TODO: Fix trainwreck
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
 
                         player.shoot();
                     } else {
                         ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
                     }
                 }
+                player.shoot();
+            } else {
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
+
+            }
+        }
 
                 // Lookat
 
@@ -166,6 +187,14 @@ public class RomInntrenger extends GameApplication {
         Player ret = players.get(0);
         double minDistance = ret.getTransform().getGlobalPosition().distance(relativePoint);
 
+    }
+
+    public Clip getClip() {
+        return clip;
+    }
+
+    public FloatControl getFloatControl() {
+        return floatControl;
         for(Player p : players){
             double newDist = p.getTransform().getGlobalPosition().distance(relativePoint);
             if(newDist < minDistance){
