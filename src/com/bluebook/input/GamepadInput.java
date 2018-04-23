@@ -59,6 +59,7 @@ public class GamepadInput {
 
 
 
+
             con.poll();
             EventQueue queue = con.getEventQueue();
             Event event = new Event();
@@ -82,11 +83,10 @@ public class GamepadInput {
                         float value = event.getValue();
                         if (value > -0.8) {
                             shoot[i] = true;
-                            con.getRumblers()[0].rumble(1);
+//                            con.getRumblers()[0].rumble(1);
                         } else {
                             shoot[i] = false;
-                            con.getRumblers()[0].rumble(0);
-
+//                            con.getRumblers()[0].rumble(0);
                         }
                 }
 
@@ -114,7 +114,7 @@ public class GamepadInput {
     }
 
     public Vec2 getLeftJoistick(int id) {
-        if(id <= leftJoistick.length)
+        if(id < leftJoistick.length)
             return leftJoistick[id];
         else
             return Vec2.ZERO;
@@ -122,7 +122,7 @@ public class GamepadInput {
 
 
     public Vec2 getRightJoistick(int id) {
-        if(id <= leftJoistick.length)
+        if(id < leftJoistick.length)
             return rightJoistick[id];
         else
             return Vec2.ZERO;
@@ -130,7 +130,7 @@ public class GamepadInput {
 
 
     public boolean isShoot(int id) {
-        if(id <= shoot.length)
+        if(id < shoot.length)
             return shoot[id];
         else
             return false;

@@ -28,6 +28,7 @@ public class Projectile extends GameObject {
 
     private long startTime = 0;
 
+    private GameObject source;
 
     private static ArrayList<Projectile> allProjectilse = new ArrayList<>();
 
@@ -194,5 +195,13 @@ public class Projectile extends GameObject {
 
     public void setSine(boolean sine) {
         isSine = sine;
+    }
+
+    public GameObject getSource() {
+        return source;
+    }
+
+    public void setSource(GameObject source) {
+        this.source = source;
     }
 }

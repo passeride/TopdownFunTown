@@ -33,8 +33,6 @@ public class Input {
         setEventHandlers(stage);
         input = new ArrayList<>();
         input_once = new ArrayList<>();
-
-
     }
 
 

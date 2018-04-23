@@ -1,16 +1,23 @@
 package com.bluebook.renderer;
 
 import com.bluebook.camera.OrthographicCamera;
-import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
+import com.bluebook.physics.Light2D;
+import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
-import com.rominntrenger.main.RomInntrenger;
 import java.util.ArrayList;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
  * This class is used to draw all {@link GameObject}
@@ -141,22 +148,7 @@ public class CanvasRenderer {
             gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             GraphicsRenderer gr = new GraphicsRenderer(gc);
 
-/*            if(((RomInntrenger) GameApplication.getInstance()).player.light2D.polygon !=  null){
-                double[][] polygon = ((RomInntrenger) GameApplication.getInstance()).player.light2D.polygon;
-//            gc.setGlobalBlendMode(BlendMode.OVERLAY);
-
-//            gc.beginPath();
-//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0., true,
-//                CycleMethod.NO_CYCLE,
-//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
-//                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
-                gc.beginPath();
-                gc.setFill(new Color(1,  1,1, 0.3));
-                gc.clip();
-                gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
-
-            }*/
-
+//            gc.setEffect(new ColorAdjust(0, 0, -0.8, 0));
 
             for (RenderLayer layer : layers) {
                 if (useGraphicsRenderer) {
@@ -165,6 +157,8 @@ public class CanvasRenderer {
                     layer.drawAll(gc);
                 }
             }
+            gc.restore();
+
 
             if (GameEngine.DEBUG) {
                 for (Collider c : colliderDebugDrawables) {
@@ -179,6 +173,14 @@ public class CanvasRenderer {
             }
 
         }
+
+    }
+
+    private void setInverseClip(final Node node, final Shape clip) {
+        final Rectangle inverse = new Rectangle();
+        inverse.setWidth(node.getLayoutBounds().getWidth());
+        inverse.setHeight(node.getLayoutBounds().getHeight());
+        node.setClip(Shape.subtract(inverse, clip));
     }
 
     /**

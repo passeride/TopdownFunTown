@@ -19,6 +19,8 @@ public abstract class Weapon extends GameObject {
     private static String testFil1 = "./assets/audio/scifi002.wav";
     protected String projectilePath = "/projectiles/projectile_gold_00";
 
+    private Player holder;
+
     /**
      * Constructor for Weapon
      *
@@ -60,16 +62,18 @@ public abstract class Weapon extends GameObject {
                 .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
             new Sprite(projectilePath));
         p.setSpeed(speed);
+        p.setSource(holder);
         p.getCollider().addInteractionLayer("Block");
         p.getCollider().addInteractionLayer("Hittable");
+        p.getCollider().addInteractionLayer("Walk");
         p.setOnCollisionListener(other -> {
-            if (other.getGameObject() instanceof Player) {
+            if (other.getGameObject() instanceof Player && other.getGameObject() != p.getSource()) {
                 Player player = (Player) other.getGameObject();
                 player.hit(10);
                 if (GameEngine.DEBUG) {
                     System.out.println("Bullet Hit " + other.getName());
                 }
-                player.destroy();
+//                player.destroy();
             } else if (other.getGameObject() instanceof Enemy) {
                 other.getGameObject().destroy();
             }
@@ -77,5 +81,13 @@ public abstract class Weapon extends GameObject {
 
         });
 
+    }
+
+    public Player getHolder() {
+        return holder;
+    }
+
+    public void setHolder(Player holder) {
+        this.holder = holder;
     }
 }

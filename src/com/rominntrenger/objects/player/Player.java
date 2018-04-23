@@ -17,6 +17,7 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Bloom;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -35,10 +36,14 @@ public class Player extends GameObject {
     private int playerKey = 9;
 
     private long previousShotTime = 0;
-    private double shootInterval = 0.1;
+    private double shootInterval = 0.5;
+
+    private boolean uses_controller = false;
 
     public RigidBody2D rb2;
     public Light2D light2D;
+
+    private double angularDampening = 0.2;
 
     private RomInntrenger romInntrenger;
 
@@ -93,19 +98,31 @@ public class Player extends GameObject {
         if(true) {
             if (light2D.polygon != null) {
                 double[][] polygon = light2D.polygon;
-            gc.setGlobalBlendMode(BlendMode.OVERLAY);
-
-//            gc.beginPath();
-//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 2, true,
-//                CycleMethod.NO_CYCLE,
-//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
-//                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
-//                gc.beginPath();
-                gc.setFill(new Color(1, 1, 1, 0.3));
+//                gc.save();
+//                gc.setGlobalBlendMode(BlendMode.OVERLAY);
+                gc.setFill(new Color(1, 1, 1, 0.1));
                 gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
-//                gc.clip();
+//                gc.restore();
             }
         }
+
+
+        if(uses_controller) {
+//            gc.save();
+//            gc.setGlobalBlendMode(BlendMode.OVERLAY);
+
+            Vec2 pos = transform.getGlobalPosition();
+            double dir = getDirection().getAngleInRadians() - Math.PI / 2;
+            gc.setStroke(new Color(1, 0, 0, 0.3));
+            gc.setLineDashes(8, 10, 8, 10);
+            gc.setLineWidth(5);
+            gc.strokeLine(pos.getX(), pos.getY(),
+                pos.getX() + Math.cos(dir) * 2000,
+                pos.getY() + Math.sin(dir) * 2000);
+//            gc.restore();
+
+        }
+//        gc.setGlobalBlendMode(BlendMode.);
         super.draw(gc);
 
     }
@@ -117,6 +134,7 @@ public class Player extends GameObject {
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
     }
+
 
     /**
      * Will move the player object NORTH/UP by {@link Player#speed}
@@ -187,7 +205,8 @@ public class Player extends GameObject {
     }
 
     private void die() {
-        currentWeapon.destroy();
+        if(currentWeapon != null)
+            currentWeapon.destroy();
         GameEngine.getInstance().pauseGame();
 
         // This is for fun, to mess with Hilde's old computer
@@ -239,6 +258,7 @@ public class Player extends GameObject {
         if(this.currentWeapon != null)
         this.currentWeapon.destroy();
         this.currentWeapon = currentWeapon;
+        this.currentWeapon.setHolder(this);
         this.currentWeapon.getTransform().setParent(transform);
     }
 
@@ -248,5 +268,13 @@ public class Player extends GameObject {
 
     public void setPlayerKey(int playerKey) {
         this.playerKey = playerKey;
+    }
+
+    public boolean isUses_controller() {
+        return uses_controller;
+    }
+
+    public void setUses_controller(boolean uses_controller) {
+        this.uses_controller = uses_controller;
     }
 }

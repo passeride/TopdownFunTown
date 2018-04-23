@@ -13,6 +13,8 @@ public class RenderLayer {
 
     private ArrayList<GameObject> drawables = new ArrayList<>();
 
+    public RenderLayerName rln;
+
     /**
      * Used by {@link RenderLayer} to signify what the layers name is
      */
@@ -67,6 +69,7 @@ public class RenderLayer {
 
     protected void drawAll(GraphicsContext gc) {
         synchronized (this) {
+
             int drawablesSize = drawables.size();
             GameObject[] gameObjects = new GameObject[drawablesSize];
             gameObjects = drawables.toArray(gameObjects);

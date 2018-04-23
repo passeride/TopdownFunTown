@@ -14,6 +14,8 @@ public class GameSettings {
 
     private static Map<String, String> loadedSettings;
 
+    public static double scale = 1.0;
+
     public static void setLoadedSettings(Map<String, String> inMap) {
         loadedSettings = inMap;
     }
@@ -95,10 +97,12 @@ public class GameSettings {
         int resolutionX = GameSettings.getInt("game_resolution_X");
         int gridX = GameSettings.getInt("grid_X");
         double x = resolutionX / gridX;
+        x *= scale;
 
         int resolutionY = GameSettings.getInt("game_resolution_Y");
         int gridY = GameSettings.getInt("grid_Y");
         double y = resolutionY / gridY;
+        y *= scale;
 
         return new Vec2(x, y);
     }

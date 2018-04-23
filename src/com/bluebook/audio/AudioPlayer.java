@@ -3,6 +3,7 @@ package com.bluebook.audio;
 import com.bluebook.util.GameObject;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.FloatControl.Type;
 
 /**
  * class 'AudioPlayer' is generated to play audio-files loaded by the class 'AudioLoader'

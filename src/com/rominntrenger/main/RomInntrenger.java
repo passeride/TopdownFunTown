@@ -5,6 +5,7 @@ import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.input.GamepadInput;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.gui.Inventory;
@@ -38,7 +39,7 @@ public class RomInntrenger extends GameApplication {
             new AnimationSprite("/friendlies/weaponNone", 4), Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("startLevel1");
+        MapCreator level = new MapCreator("startMap");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
@@ -49,6 +50,12 @@ public class RomInntrenger extends GameApplication {
         msh = MessageHandler.getInstance();
 
         gi = new GamepadInput();
+//
+//        if(gi.getNumberOfControllers() > 0){
+//            for(Player p : players){
+//                p.setUses_controller(true);
+//            }
+//        }
     }
 
     @Override
@@ -57,23 +64,24 @@ public class RomInntrenger extends GameApplication {
         gi.pullEvents();
         for(Player player : players) {
             if (gi.getNumberOfControllers() > 0) {
+                player.setUses_controller(true);
+
                 int playerID = players.indexOf(player);
-//                System.out.println("Getting id for player " + playerID + " and LEFT X IS " + gi.getLeftJoistick(playerID).getX());
-                if (gi.getRightJoistick(playerID).getMagnitude() > 0.1) {
+                if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
                     ((AnimationSprite) player.getSprite()).setPlaying(true);
                 } else {
                     ((AnimationSprite) player.getSprite()).setPlaying(false);
                 }
-                player.move(gi.getRightJoistick(playerID), delta);
+                player.move(gi.getLeftJoistick(playerID), delta);
 
-                if (gi.getLeftJoistick(playerID).getMagnitude() > 0.1) {
-                    player.lookAt(
-                        Vec2.subtract(player.getPosition(),
-                            Vec2.multiply(gi.getLeftJoistick(playerID), -1)));
-                } else if (gi.getRightJoistick(playerID).getMagnitude() > 0.1) {
+                if (gi.getRightJoistick(playerID).getMagnitude() > 0.01) {
                     player.lookAt(
                         Vec2.subtract(player.getPosition(),
                             Vec2.multiply(gi.getRightJoistick(playerID), -1)));
+                } else if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
+                    player.lookAt(
+                        Vec2.subtract(player.getPosition(),
+                            Vec2.multiply(gi.getLeftJoistick(playerID), -1)));
                 }
 
                 if(player.hasWeapon()) {
@@ -85,7 +93,9 @@ public class RomInntrenger extends GameApplication {
                         ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
                     }
                 }
-            } else {
+
+            } else if(players.indexOf(player) == 1){
+
                 if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
                     .isKeyDown(KeyCode.A)
                     || input.isKeyDown(KeyCode.D)) {
@@ -130,6 +140,17 @@ public class RomInntrenger extends GameApplication {
                 }
             }
         }
+
+
+        if(input.isKeyPressed(KeyCode.UP)){
+            GameSettings.scale += 0.2;
+        }
+
+        if(input.isKeyPressed(KeyCode.DOWN)){
+            GameSettings.scale -= 0.2;
+        }
+
+
 
     }
 
