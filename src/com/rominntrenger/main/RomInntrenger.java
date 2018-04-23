@@ -187,14 +187,6 @@ public class RomInntrenger extends GameApplication {
         Player ret = players.get(0);
         double minDistance = ret.getTransform().getGlobalPosition().distance(relativePoint);
 
-    }
-
-    public Clip getClip() {
-        return clip;
-    }
-
-    public FloatControl getFloatControl() {
-        return floatControl;
         for(Player p : players){
             double newDist = p.getTransform().getGlobalPosition().distance(relativePoint);
             if(newDist < minDistance){
