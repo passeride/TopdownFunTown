@@ -151,6 +151,8 @@ public class GameMenu extends Parent {
             soundSlider.setMin(0);
             soundSlider.setMax(100);
             soundSlider.setValue(100);
+            soundSlider.setShowTickLabels(true);
+            soundSlider.setShowTickMarks(true);
 
 
             videoButton = new MenuButton("VIDEO");

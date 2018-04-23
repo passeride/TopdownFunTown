@@ -18,7 +18,8 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         GameSettings.SCREEN_HEIGHT = (int) canvas.getHeight();
         GameSettings.SCREEN_WIDTH = (int) canvas.getWidth();
-        new GameEngine(canvas);
+        if(GameEngine.getInstance() == null)
+            new GameEngine(canvas);
     }
 
     /**
