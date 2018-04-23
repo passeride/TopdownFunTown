@@ -74,18 +74,19 @@ public class RomInntrenger extends GameApplication {
             player.moveLeft(delta);
         }
         if(input.isKeyPressed(KeyCode.ESCAPE)){
-            GameApplication.getInstance().getStage().getScene().setRoot(menu.getRoot());
-
+            callMenu();
         }
 
-        if (input.isMouseButton0Pressed()) {
-            // TODO: Fix trainwreck
-            ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
+        if(player.getCurrentWeapon() != null) {
+            if (input.isMouseButton0Pressed()) {
+                // TODO: Fix trainwreck
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
 
-            player.shoot();
-        } else {
-            ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
+                player.shoot();
+            } else {
+                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
 
+            }
         }
 
         // Lookat

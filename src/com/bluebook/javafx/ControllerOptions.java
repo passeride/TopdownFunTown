@@ -50,7 +50,7 @@ public class ControllerOptions {
     @FXML
     private void setGore(ActionEvent event) {
         // TODO: 2/27/18
-        //set/clear gore from game
+        //set/clear gore from gamePane
     }
 
     @FXML

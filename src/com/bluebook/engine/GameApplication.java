@@ -23,7 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * The GameApplication class is used to create the foundation of any BlueBook game
+ * The GameApplication class is used to create the foundation of any BlueBook gamePane
  * This will call the JavaFX code to start a frame, also start engine with all it's corresponding parts
  */
 public abstract class GameApplication extends Application{
@@ -35,11 +35,13 @@ public abstract class GameApplication extends Application{
     protected Input input;
     private GameEngine engine;
     private Stage primaryStage;
-    private static DoubleProperty X_scale = new SimpleDoubleProperty();
-    private static DoubleProperty Y_scale = new SimpleDoubleProperty();
+    public static DoubleProperty X_scale = new SimpleDoubleProperty();
+    public static DoubleProperty Y_scale = new SimpleDoubleProperty();
 //    private GameMenu gameMenu;
     private Scene scene;
     public Menu menu;
+    public Pane gamePane;
+    boolean gameStarted = false;
 
     public GameApplication() {
         singleton = this;
@@ -84,6 +86,13 @@ public abstract class GameApplication extends Application{
 //            callGame(primaryStage);
 //        }
 //    }
+
+
+    protected void callMenu(){
+        GameEngine.getInstance().pauseGame();
+        GameApplication.getInstance().getStage().getScene().setRoot(menu.getRoot());
+
+    }
 
     /**
      * This will be called after FXML is set up, should be a good starting point for loading
@@ -162,7 +171,7 @@ public abstract class GameApplication extends Application{
     }
 
     /**
-     * Will start the game, used from Menu to start Game FXML
+     * Will start the gamePane, used from Menu to start Game FXML
      * @param primaryStage primary stage of the application
      */
     public void callGame(Stage primaryStage) throws IOException{
@@ -170,10 +179,11 @@ public abstract class GameApplication extends Application{
 
         FXMLLoader fxmlGame = new FXMLLoader();
 
-        Pane root = fxmlGame
+        if(gamePane == null)
+        gamePane = fxmlGame
                 .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
 
-        primaryStage.getScene().setRoot(root);
+        primaryStage.getScene().setRoot(gamePane);
 //        menu.setRoot(root);
         Controller controller = fxmlGame.getController();
 //        primaryStage.getScene().setOnKeyPressed(event -> {
@@ -218,17 +228,13 @@ public abstract class GameApplication extends Application{
         engine = GameEngine.getInstance();
         input = Input.getInstance();
 
-        X_scale.set(GameSettings.getInt("game_resolution_X") / getScreenWidth());
-        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
-        Y_scale.set(GameSettings.getInt("game_resolution_Y") / getScreenHeight());
 
-        controller.canvas.scaleXProperty().bindBidirectional(X_scale);
-        controller.canvas.scaleYProperty().bindBidirectional(Y_scale);
+        if(!gameStarted) {
+            onLoad();
+            gameStarted = true;
+        }
 
-        onLoad();
-
-        engine.startUpdateThread();
-        engine.startCollisionThread();
+        engine.resumeGame();
     }
 
 

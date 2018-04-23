@@ -19,7 +19,7 @@ public class RayCast {
     private List<String> interactionLayer = new ArrayList<>();
 
     /**
-     * This will create a raycast for the PhysicsThread to compile from a game object in an angle
+     * This will create a raycast for the PhysicsThread to compile from a gamePane object in an angle
      */
     public RayCast(double angle, GameObject source) {
         HitDetectionHandler.getInstance().raycasts.add(this);
@@ -30,7 +30,7 @@ public class RayCast {
 
 
     /**
-     * This will create a raycast for the PhysicsThread to compile from a game object in an angle
+     * This will create a raycast for the PhysicsThread to compile from a gamePane object in an angle
      */
     public RayCast(double angle, GameObject source, float max_distance) {
         HitDetectionHandler.getInstance().raycasts.add(this);
