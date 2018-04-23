@@ -1,8 +1,12 @@
 package com.bluebook.physics;
 
+import com.bluebook.camera.OrthographicCamera;
+import com.bluebook.engine.GameApplication;
 import com.bluebook.physics.quadtree.QuadTree;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.player.Player;
 import com.sun.javafx.geom.Line2D;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import java.util.ArrayList;
@@ -30,7 +34,9 @@ public class HitDetectionHandler {
     /**
      * Will trigger weather to use Raycast or not, this is set in the settings file
      */
-    public static boolean DO_RAYCAST = false;
+    public static boolean DO_RAYCAST = true;
+
+    public static boolean DO_SHADOW_SWEEP = true;
 
     private static HitDetectionHandler singleton;
 
@@ -55,6 +61,8 @@ public class HitDetectionHandler {
     private HitDetectionHandler() {
         USE_QUADTREE = GameSettings.getBoolean("Physics_use_quadtree");
         DO_RAYCAST = GameSettings.getBoolean("Physics_use_raycast");
+        DO_SHADOW_SWEEP = GameSettings.getBoolean("Physics_use_shadowSweep");
+
     }
 
     /**
@@ -117,16 +125,19 @@ public class HitDetectionHandler {
     protected void lookForCollision() {
         synchronized (this) {
 
+            lines.clear();
             if(USE_QUADTREE)
                 buildQuadTree();
 
             for(Collider base : colliders){
                 checkCollision(base);
 
-                if(DO_RAYCAST) {
+                if(DO_RAYCAST && !(base.getGameObject() instanceof Player) && base.interactionLayer.contains("Obscure")) {
                     Line2D[] baseLines = base.getLines();
                     for(Line2D l : baseLines)
                         lines.add(l);
+
+
                 }
             }
 
@@ -140,46 +151,74 @@ public class HitDetectionHandler {
     public static int counter = 0;
 
     private void doRaycasts() {
-        CopyOnWriteArrayList<Line2D> cowLines = new CopyOnWriteArrayList<>();
-        cowLines.addAll(lines);
+        if(DO_SHADOW_SWEEP){
+            Vec2 cam = OrthographicCamera.getOffset();
+            Vec2 screen = GameSettings.getScreen();
 
-        ExecutorService executor = Executors.newFixedThreadPool(1000);
+            float LeftX = (float) cam.getX();
+            float TopY = (float) cam.getY();
+            float RightX = (float)(cam.getX() - screen.getX());
+            float BottomY = (float)(cam.getY() - screen.getY());
 
-        List<Future<RayCastHit>> list = new ArrayList<>();
+            lines.add(new Line2D(LeftX, TopY, RightX, TopY));
+            lines.add(new Line2D(RightX, TopY, RightX, BottomY));
+            lines.add(new Line2D(RightX, BottomY, LeftX, BottomY));
+            lines.add(new Line2D(LeftX, BottomY, LeftX, TopY));
 
-        counter = 0;
+
+//            Vec2 source = ((RomInntrenger) GameApplication.getInstance()).player.getTransform().getGlobalPosition();
+            Vec2 source = Light2D.light.source.getTransform().getGlobalPosition();
+
+            ArrayList<LineSegment> lineSegments = new ArrayList<>();
+            lines.forEach(l -> lineSegments.add(new LineSegment(l, source)));
+
+
+            Light2D.light.calculateVisibility(lineSegments);
+//            ((RomInntrenger) GameApplication.getInstance()).player.light2D.calculateVisibility(lineSegments);
+
+
+        }else {
+            CopyOnWriteArrayList<Line2D> cowLines = new CopyOnWriteArrayList<>();
+            cowLines.addAll(lines);
+
+            ExecutorService executor = Executors.newFixedThreadPool(1000);
+
+            List<Future<RayCastHit>> list = new ArrayList<>();
+
+            counter = 0;
 //        System.out.println(raycasts.size());
 
-        for(int i = 0; i < raycasts.size(); i++){
-            Future<RayCastHit> future = executor.submit(() -> {
+            for (int i = 0; i < raycasts.size(); i++) {
+                Future<RayCastHit> future = executor.submit(() -> {
 
-                int id = counter++;
-                if(id < raycasts.size()) {
-                    raycasts.get(id).Cast(cowLines);
+                    int id = counter++;
+                    if (id < raycasts.size()) {
+                        raycasts.get(id).Cast(cowLines);
 
-                    return raycasts.get(id).getHit();
-                }else{
-                    return null;
-                }
-            });
-            list.add(future);
+                        return raycasts.get(id).getHit();
+                    } else {
+                        return null;
+                    }
+                });
+                list.add(future);
 
-        }
-
-        for(Future<RayCastHit> fut : list){
-            try {
-                RayCastHit rch = fut.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             }
-        }
 
-        executor.shutdownNow();
+            for (Future<RayCastHit> fut : list) {
+                try {
+                    RayCastHit rch = fut.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            executor.shutdownNow();
 //        for (RayCast r : raycasts) {
 //            r.Cast(cowLines);
 //        }
+        }
     }
 
     private void moveBuffer() {

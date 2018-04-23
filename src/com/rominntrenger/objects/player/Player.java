@@ -7,6 +7,7 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
+import com.bluebook.physics.Light2D;
 import com.bluebook.physics.RigidBody2D;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
@@ -14,11 +15,17 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
 
     AudioPlayer hitSound;
-    protected Vec2 collisionDirection;
     private double speed = 800.0; // Gotta go fast
     private double baseSpeed = 300.0;
     private double speedBoostSpeed = 1000.0;
@@ -27,7 +34,11 @@ public class Player extends GameObject {
     private Weapon currentWeapon;
     private int playerKey = 9;
 
+    private long previousShotTime = 0;
+    private double shootInterval = 0.1;
+
     public RigidBody2D rb2;
+    public Light2D light2D;
 
     private RomInntrenger romInntrenger;
 
@@ -37,7 +48,7 @@ public class Player extends GameObject {
     public Player(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
 
-        ((RomInntrenger) GameApplication.getInstance()).player = this;
+        ((RomInntrenger) GameApplication.getInstance()).players.add(this);
 
         setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
         hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
@@ -47,6 +58,9 @@ public class Player extends GameObject {
         collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
+
+
+        light2D = new Light2D(this);
 
         // WalkCollider
         walkCollider = new CircleCollider(this, 20);
@@ -70,6 +84,29 @@ public class Player extends GameObject {
         OrthographicCamera.main.follow(this);
 
         romInntrenger = ((RomInntrenger) GameApplication.getInstance());
+
+    }
+
+    @Override
+    public void draw(GraphicsContext gc) {
+
+        if(true) {
+            if (light2D.polygon != null) {
+                double[][] polygon = light2D.polygon;
+            gc.setGlobalBlendMode(BlendMode.OVERLAY);
+
+//            gc.beginPath();
+//            gc.setFill(new RadialGradient(0, 0, 0.5, 0.5, 2, true,
+//                CycleMethod.NO_CYCLE,
+//                new Stop(0.0, new Color(1, 1, 1, 0.3)),
+//                new Stop(1.0, Color.TRANSPARENT)));            gc.setStroke(Color.BLUE);
+//                gc.beginPath();
+                gc.setFill(new Color(1, 1, 1, 0.3));
+                gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
+//                gc.clip();
+            }
+        }
+        super.draw(gc);
 
     }
 
@@ -107,6 +144,10 @@ public class Player extends GameObject {
      */
     public void moveRight(double delta) {
         translate(Vec2.multiply(Vec2.RIGHT, speed * delta));
+    }
+
+    public void move(Vec2 direction, double delta){
+        translate(Vec2.multiply(direction, speed * delta));
     }
 
     /**
@@ -171,16 +212,27 @@ public class Player extends GameObject {
     }
 
     public void shoot() {
-        if (currentWeapon != null) {
-            currentWeapon.shoot();
+        if(System.currentTimeMillis() - previousShotTime >  shootInterval * 1000) {
+            if (currentWeapon != null) {
+                currentWeapon.shoot();
+                previousShotTime = System.currentTimeMillis();
+                rb2.addForce(Vec2.multiply(Vec2
+                        .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),
+                    30000));
+            }
+
         }
-        rb2.addForce(Vec2.multiply(Vec2
-                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),
-            30000));
     }
 
     public Weapon getCurrentWeapon() {
         return currentWeapon;
+    }
+
+    public boolean hasWeapon(){
+        if(currentWeapon != null)
+            return true;
+        else
+            return false;
     }
 
     public void setCurrentWeapon(Weapon currentWeapon) {

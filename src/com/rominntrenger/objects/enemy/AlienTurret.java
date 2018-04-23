@@ -198,9 +198,7 @@ public class AlienTurret extends Enemy {
                 new Stop(0.0, new Color(0.5, 1, 0.5, 0.6)),
                 new Stop(1.0, Color.TRANSPARENT)));
         }
-        gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
-        gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
 
         gc.restore();
 

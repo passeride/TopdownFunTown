@@ -5,11 +5,13 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import java.util.ArrayList;
+import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import net.java.games.input.*;
 
 /**
  * Singelton class to be used  for handeling input on the logic thread
@@ -31,7 +33,11 @@ public class Input {
         setEventHandlers(stage);
         input = new ArrayList<>();
         input_once = new ArrayList<>();
+
+
     }
+
+
 
     /**
      * Will return the pressed state of keycode

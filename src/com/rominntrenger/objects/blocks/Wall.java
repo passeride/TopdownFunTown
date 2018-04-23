@@ -16,5 +16,6 @@ public class Wall extends Item {
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
         collider = new BoxCollider(this);
         collider.setTag("Block");
+        collider.addInteractionLayer("Obscure");
     }
 }

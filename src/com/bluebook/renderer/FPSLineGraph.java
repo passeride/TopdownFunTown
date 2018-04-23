@@ -57,6 +57,10 @@ public class FPSLineGraph {
                 X + (width / pointsOnGraph) * (points - i + 1), tmpY);
         }
 
+        gc.setFill(Color.WHITE);
+
+        gc.fillRect(0, 0, 400, 600);
+
         gc.setFont(new Font(fontSize));
         double FPS = GameEngine.getInstance().draw_FPS;
 //        gc.setFill(draw_FPS > 60 ? Color.BLACK : Color.RED);

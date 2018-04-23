@@ -31,7 +31,7 @@ public abstract class Enemy extends GameObject {
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
-        collider = new BoxCollider(this);
+        collider = new CircleCollider(this, 20);
 
         collider.setName("enemy");
         collider.setTag("Hittable");
