@@ -23,6 +23,7 @@ public class GamepadInput {
 
         for (int i = 0; i < ca.length; i++) {
 
+            // TODO: get a xbox controller and test with that
             if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Stick")) {
                 controllers.add(ca[i]);
             }
