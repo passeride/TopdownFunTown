@@ -23,6 +23,7 @@ import com.rominntrenger.objects.blocks.Table;
 import com.rominntrenger.objects.blocks.Wall;
 import com.rominntrenger.objects.enemy.AlienExplode;
 import com.rominntrenger.objects.enemy.AlienGreen;
+import com.rominntrenger.objects.enemy.AlienGreenKey;
 import com.rominntrenger.objects.enemy.AlienPurple;
 import com.rominntrenger.objects.enemy.AlienTurret;
 import com.rominntrenger.objects.player.Player;
@@ -111,18 +112,18 @@ public class MapCreator extends GameObject {
                     case Key:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key"),
                             1);
-                        break;
+                    break;
 
                     case KeyY:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyY"),
                             2);
-                        grid[i][j] = new Barrel(vector, Vec2.ZERO, new Sprite("./items/crate_0"));
-                        break;
+                        grid[i][j] = new Crate(vector, Vec2.ZERO, new Sprite("./items/crate_0"));
+                    break;
 
                     case KeyB:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyB"),
                             3);
-                        break;
+                    break;
 
                     case KeyG:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyG"),
@@ -224,7 +225,10 @@ public class MapCreator extends GameObject {
                     //ENEMIES
                     case AlienGreen:
                         grid[i][j] = new AlienGreen(vector);
-                        break;
+                    break;
+                    case AlienGreenKey:
+                        grid[i][j] = new AlienGreenKey(vector);
+                    break;
                     case AlienPurple:
                         grid[i][j] = new AlienPurple(vector);
                         break;
