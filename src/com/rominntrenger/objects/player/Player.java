@@ -204,6 +204,13 @@ public class Player extends GameObject {
         hitSound.playOnce();
     }
 
+    public void heal(int health) {
+        int hp = romInntrenger.healthElement.getHp();
+        hp += health;
+        romInntrenger.healthElement.setHp(hp);
+        // TODO: if health == max : don't heal
+    }
+
     private void die() {
         if(currentWeapon != null)
             currentWeapon.destroy();

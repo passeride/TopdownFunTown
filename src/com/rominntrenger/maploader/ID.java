@@ -19,6 +19,8 @@ public enum ID {
     PickupWeaponS,
     PickupWeaponR,
     PickupWeaponY,
+    HealingItemSmall,
+    HealingItemBig,
     KeyShip,
     Barrel,
     Crate,

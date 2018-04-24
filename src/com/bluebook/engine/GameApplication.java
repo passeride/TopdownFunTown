@@ -208,8 +208,8 @@ public abstract class GameApplication extends Application{
 //            }
 //        });
 //
-//        setWidthListener(primaryStage, controller);
-//        setHeightListener(primaryStage, controller);
+        setWidthListener(primaryStage, controller);
+       setHeightListener(primaryStage, controller);
 //        Scene scene = new Scene(root, 800, 800);
 //        primaryStage.setTitle("Top Down Fun Town");
 //        primaryStage.setScene(scene);
