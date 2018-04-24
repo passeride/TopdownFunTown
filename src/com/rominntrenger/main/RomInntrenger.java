@@ -40,7 +40,8 @@ public class RomInntrenger extends GameApplication {
     protected void onLoad() {
         super.onLoad();
         currentWeapon = new StarterWeapon(Vec2.ZERO,
-            new AnimationSprite("/friendlies/weaponNone", 4), Vec2.ZERO); //TODO: Fix this so no shoots
+            new AnimationSprite("/friendlies/weaponNone", 4),
+            Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
         MapCreator level = new MapCreator("FSMTEST");
@@ -55,19 +56,13 @@ public class RomInntrenger extends GameApplication {
         msh = MessageHandler.getInstance();
 
         gi = new GamepadInput();
-//
-//        if(gi.getNumberOfControllers() > 0){
-//            for(Player p : players){
-//                p.setUses_controller(true);
-//            }
-//        }
     }
 
     @Override
     public void update(double delta) {
         cam.update(delta);
         gi.pullEvents();
-        for(Player player : players) {
+        for (Player player : players) {
             if (gi.getNumberOfControllers() > 0) {
                 player.setUses_controller(true);
 
@@ -89,7 +84,7 @@ public class RomInntrenger extends GameApplication {
                             Vec2.multiply(gi.getLeftJoistick(playerID), -1)));
                 }
 
-                if(player.hasWeapon()) {
+                if (player.hasWeapon()) {
                     if (gi.isShoot(playerID)) {
                         ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
 
@@ -99,7 +94,7 @@ public class RomInntrenger extends GameApplication {
                     }
                 }
 
-            } else if(players.indexOf(player) == 0){
+            } else if (players.indexOf(player) == 0) {
 
                 if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
                     .isKeyDown(KeyCode.A)
@@ -120,36 +115,34 @@ public class RomInntrenger extends GameApplication {
                 if (input.isKeyDown(KeyCode.D)) {
                     player.moveRight(delta);
                 }
-
                 if (input.isKeyDown(KeyCode.A)) {
                     player.moveLeft(delta);
                 }
-        if (input.isKeyDown(KeyCode.A)) {
-            player.moveLeft(delta);
-        }
-        if(input.isKeyPressed(KeyCode.ESCAPE)){
-            callMenu();
-        }
+                if (input.isKeyPressed(KeyCode.ESCAPE)) {
+                    callMenu();
+                }
 
-                if(player.hasWeapon()) {
+                if (player.hasWeapon()) {
                     if (input.isMouseButton0Pressed()) {
                         ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
-        if(player.getCurrentWeapon() != null) {
-            if (input.isMouseButton0Pressed()) {
-                // TODO: Fix trainwreck
-                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
+                        if (player.getCurrentWeapon() != null) {
+                            if (input.isMouseButton0Pressed()) {
+                                // TODO: Fix trainwreck
+                                ((AnimationSprite) player.getCurrentWeapon().getSprite())
+                                    .setPlaying(true);
 
+                                player.shoot();
+                            } else {
+                                ((AnimationSprite) player.getCurrentWeapon().getSprite())
+                                    .setPlaying(false);
+                            }
+                        }
                         player.shoot();
                     } else {
                         ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
+
                     }
                 }
-                player.shoot();
-            } else {
-                ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
-
-            }
-        }
 
                 // Lookat
 
@@ -162,34 +155,33 @@ public class RomInntrenger extends GameApplication {
             }
         }
 
-
-        if(input.isKeyPressed(KeyCode.UP)){
+        if (input.isKeyPressed(KeyCode.UP)) {
             GameSettings.scale += 0.2;
         }
 
-        if(input.isKeyPressed(KeyCode.DOWN)){
+        if (input.isKeyPressed(KeyCode.DOWN)) {
             GameSettings.scale -= 0.2;
         }
 
 
-
     }
 
-    public ArrayList<Player> getPlayers(){
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public Player getClosestPlayere(Vec2 relativePoint){
+    public Player getClosestPlayere(Vec2 relativePoint) {
 
-        if(players.size() == 0)
+        if (players.size() == 0) {
             return null;
+        }
 
         Player ret = players.get(0);
         double minDistance = ret.getTransform().getGlobalPosition().distance(relativePoint);
 
-        for(Player p : players){
+        for (Player p : players) {
             double newDist = p.getTransform().getGlobalPosition().distance(relativePoint);
-            if(newDist < minDistance){
+            if (newDist < minDistance) {
                 ret = p;
                 minDistance = newDist;
             }

@@ -9,12 +9,19 @@ public class Vec2 extends Point2D {
 
     private double X;
     private double Y;
+    private boolean immutable = false;
 
-    public static final Vec2 UP = new Vec2(0, -1);
-    public static final Vec2 DOWN = new Vec2(0, 1);
-    public static final Vec2 LEFT = new Vec2(-1, 0);
-    public static final Vec2 RIGHT = new Vec2(1, 0);
-    public static final Vec2 ZERO = new Vec2(0, 0);
+    public static final Vec2 UP = new Vec2(0, -1, true);
+    public static final Vec2 DOWN = new Vec2(0, 1, true);
+    public static final Vec2 LEFT = new Vec2(-1, 0, true);
+    public static final Vec2 RIGHT = new Vec2(1, 0, true);
+    public static final Vec2 ZERO = new Vec2(0, 0, true);
+
+    private Vec2(double x, double y, boolean immutable){
+        this.X = x;
+        this.Y = y;
+        this.immutable = false;
+    }
 
     /**
      * 2 dimensional vector
@@ -186,9 +193,11 @@ public class Vec2 extends Point2D {
      * 1)
      */
     public void normalize() {
-        double length = getLength();
-        X /= length;
-        Y /= length;
+        if(!immutable) {
+            double length = getLength();
+            X /= length;
+            Y /= length;
+        }
     }
 
     public double getX() {
@@ -196,7 +205,8 @@ public class Vec2 extends Point2D {
     }
 
     public void setX(double x) {
-        X = x;
+        if(!immutable)
+            X = x;
     }
 
     public double getY() {
@@ -205,12 +215,15 @@ public class Vec2 extends Point2D {
 
     @Override
     public void setLocation(double x, double y) {
-        this.X = x;
-        this.Y = y;
+        if(!immutable) {
+            this.X = x;
+            this.Y = y;
+        }
     }
 
     public void setY(double y) {
-        Y = y;
+        if(!immutable)
+            Y = y;
     }
 
 }
