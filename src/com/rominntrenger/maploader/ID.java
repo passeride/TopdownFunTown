@@ -28,6 +28,7 @@ public enum ID {
     Blood,
     Bench,
     AlienGreen,
+    AlienGreenKey,
     AlienPurple,
     AlienExplode,
     AlienTurret,

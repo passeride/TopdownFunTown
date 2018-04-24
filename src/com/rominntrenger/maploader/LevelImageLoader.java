@@ -102,7 +102,10 @@ public class LevelImageLoader {
                     //ENEMIES
                     case ("EE2222"):
                         gameMap[x][y] = ID.AlienGreen;
-                        break;
+                    break;
+                    case ("EE2244"):
+                        gameMap[x][y] = ID.AlienGreenKey;
+                    break;
                     case ("EE4444"):
                         gameMap[x][y] = ID.AlienPurple;
                         break;
