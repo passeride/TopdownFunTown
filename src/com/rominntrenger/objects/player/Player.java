@@ -13,16 +13,11 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.Bloom;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
 
@@ -46,6 +41,7 @@ public class Player extends GameObject {
     private double angularDampening = 0.2;
 
     private RomInntrenger romInntrenger;
+    private AudioPlayer audioPlayer;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -133,6 +129,7 @@ public class Player extends GameObject {
 
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
+
     }
 
 
@@ -198,8 +195,16 @@ public class Player extends GameObject {
         hp -= dmg;
         romInntrenger.healthElement.setHp(hp);
         if (hp <= 0) {
+            new DeathOverlay();
             die();
+            audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
+            audioPlayer.playOnce();
+            romInntrenger.bgMusic.stop();
+            romInntrenger.bgMusic.close();
             destroy();
+
+
+
         }
         hitSound.playOnce();
     }

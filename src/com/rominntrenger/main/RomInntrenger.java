@@ -44,7 +44,7 @@ public class RomInntrenger extends GameApplication {
             Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("FSMTEST");
+        MapCreator level = new MapCreator("startLevel1");
         level.createLevel();
         inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
@@ -60,6 +60,11 @@ public class RomInntrenger extends GameApplication {
 
     @Override
     public void update(double delta) {
+//        if(input.isKeyPressed(KeyCode.H)){
+//            new DeathOverlay();
+//        }
+//
+
         cam.update(delta);
         gi.pullEvents();
         for (Player player : players) {

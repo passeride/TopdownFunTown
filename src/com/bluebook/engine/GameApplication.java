@@ -16,7 +16,6 @@ import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.Pane;
@@ -31,14 +30,13 @@ public abstract class GameApplication extends Application{
     private static final String SETTINGS_PATH = "./assets/settings/Default.json";
 
     private static GameApplication singleton;
-    private boolean START_MENU = false;
+//    private boolean START_MENU = false;
     protected Input input;
     private GameEngine engine;
     private Stage primaryStage;
     public static DoubleProperty X_scale = new SimpleDoubleProperty();
     public static DoubleProperty Y_scale = new SimpleDoubleProperty();
 //    private GameMenu gameMenu;
-    private Scene scene;
     public Menu menu;
     public Pane gamePane;
     boolean gameStarted = false;
@@ -64,29 +62,6 @@ public abstract class GameApplication extends Application{
 
 
     }
-
-//    private void loadFXML(Stage primaryStage) throws IOException {
-//        FXMLLoader fxml = new FXMLLoader();
-//        fxml.setLocation(new File("assets").toURI().toURL());
-//
-//        Parent root;
-//        if (START_MENU) {
-//            root = fxml
-//                .load(getClass().getResource("../../bluebook/javafx/MenuC.fxml").openStream());
-//        } else {
-//            root = fxml
-//                .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
-//        }
-//
-//        primaryStage.setTitle(GameSettings.getString("window_title"));
-//        primaryStage.setScene(new Scene(root, GameSettings.getDouble("game_resolution_X"), GameSettings.getDouble("game_resolution_Y")));
-//        primaryStage.show();
-//
-//        if (!START_MENU) {
-//            callGame(primaryStage);
-//        }
-//    }
-
 
     protected void callMenu(){
         GameEngine.getInstance().pauseGame();
@@ -179,12 +154,12 @@ public abstract class GameApplication extends Application{
 
         FXMLLoader fxmlGame = new FXMLLoader();
 
-        if(gamePane == null)
-        gamePane = fxmlGame
-                .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        if(gamePane == null) {
+            gamePane = fxmlGame
+                    .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+        }
 
         primaryStage.getScene().setRoot(gamePane);
-//        menu.setRoot(root);
         Controller controller = fxmlGame.getController();
 //        primaryStage.getScene().setOnKeyPressed(event -> {
 //            if (event.getCode() == KeyCode.ESCAPE) {
@@ -237,5 +212,8 @@ public abstract class GameApplication extends Application{
         engine.resumeGame();
     }
 
+    public Pane getGamePane() {
+        return gamePane;
+    }
 
 }
