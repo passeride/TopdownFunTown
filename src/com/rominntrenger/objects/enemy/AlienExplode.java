@@ -35,6 +35,6 @@ public class AlienExplode extends Enemy {
 
     public void update(double delta) {
         super.update(delta);
-        setTarget(((RomInntrenger) GameApplication.getInstance()).getClosestPlayere(transform.getGlobalPosition()));
+        setTarget(((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(transform.getGlobalPosition()));
     }
 }

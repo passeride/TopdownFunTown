@@ -17,7 +17,7 @@ public class Attack implements Behaviour {
 
         speed = enemy.getSpeed();
         delta = enemy.getDelta();
-        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayere(enemy.getTransform().getGlobalPosition());
+        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(enemy.getTransform().getGlobalPosition());
         double distance2Player = enemy.getPosition().distance(player.getPosition());
         if (behaviourContext != null) {
             enemy.setTarget(player);

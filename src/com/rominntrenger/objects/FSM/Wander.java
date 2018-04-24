@@ -26,7 +26,7 @@ public class Wander implements Behaviour {
         }
 
         behaviourContext.translate(Vec2.multiply(behaviourContext.getDirection(), speed * delta));
-        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayere(behaviourContext.getTransform().getGlobalPosition());
+        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(behaviourContext.getTransform().getGlobalPosition());
         double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
         if (distance2Player <= GameSettings.getDouble("Alien_attack_distance")) {
             behaviourContext.setBehaviour(new Attack());

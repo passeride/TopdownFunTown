@@ -40,7 +40,7 @@ public class Key extends Item implements Describable {
 
     public void showMessage() {
         MessageHandler.getInstance().writeMessage("Wow! A Key!!", sprite);
-        Player p = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayere(transform.getGlobalPosition());
+        Player p = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(transform.getGlobalPosition());
         p.setPlayerKey(this.keyID);
         Inventory i = ((RomInntrenger) GameApplication.getInstance()).inventory;
         i.addItem(new InventoryItem(sprite, this.keyID));

@@ -170,7 +170,7 @@ public class RomInntrenger extends GameApplication {
         return players;
     }
 
-    public Player getClosestPlayere(Vec2 relativePoint) {
+    public Player getClosestPlayer(Vec2 relativePoint) {
 
         if (players.size() == 0) {
             return null;
