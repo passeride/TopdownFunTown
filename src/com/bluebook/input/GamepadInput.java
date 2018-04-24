@@ -1,6 +1,8 @@
 package com.bluebook.input;
 
 import com.bluebook.util.Vec2;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import net.java.games.input.Component;
@@ -18,19 +20,20 @@ public class GamepadInput {
     private ArrayList<Controller> controllers = new ArrayList<>();
 
     public GamepadInput() {
-
+        
         Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
 
         for (int i = 0; i < ca.length; i++) {
 
             // TODO: get a xbox controller and test with that
-            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Stick")) {
+            if (ca[i].getName().equals("Wireless Controller")) {
                 controllers.add(ca[i]);
             }
             /* Get the name of the controller */
             System.out.println(ca[i].getName());
             System.out.println(ca[i].getType().toString());
         }
+
 
         // setting up cache array
         int numOfControllers = controllers.size();

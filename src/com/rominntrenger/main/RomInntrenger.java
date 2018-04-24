@@ -99,7 +99,7 @@ public class RomInntrenger extends GameApplication {
                     }
                 }
 
-            } else if(players.indexOf(player) == 1){
+            } else if(players.indexOf(player) == 0){
 
                 if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
                     .isKeyDown(KeyCode.A)
