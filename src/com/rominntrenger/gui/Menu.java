@@ -18,7 +18,7 @@ import javafx.util.Duration;
 public class Menu extends Parent{
 
 
-     private boolean START_MENU = false;
+     private boolean START_MENU;
      private GameMenu gameMenu;
      private Scene scene;
      private Stage primaryStage;
@@ -26,11 +26,6 @@ public class Menu extends Parent{
      private Image image;
      private boolean isBackgroundImageVisible = true;
      Pane root;
-    //private static Menu singleton;
-
-//    public static Menu getInstance() {
-//        return singleton;
-//    }
 
 
     public Menu(Stage primaryStage){

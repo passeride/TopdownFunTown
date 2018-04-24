@@ -91,7 +91,7 @@ public class GameEngine {
         isPaused = true;
         stopCollisionThread();
         stopUpdateThread();
-        drawTimer.stop();
+//        drawTimer.stop();
     }
 
 
@@ -99,7 +99,7 @@ public class GameEngine {
         isPaused = false;
         startUpdateThread();
         startCollisionThread();
-        drawTimer.start();
+//        drawTimer.start();
     }
 
     public boolean isPaused() {

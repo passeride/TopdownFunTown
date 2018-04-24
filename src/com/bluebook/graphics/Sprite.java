@@ -49,7 +49,7 @@ public class Sprite {
         this.origin = origin;
     }
 
-    Sprite() {
+    public Sprite() {
 
     }
 

@@ -145,7 +145,7 @@ public class GameMenu extends Parent {
 
                 translateTransition.play();
                 translateTransition1.play();
-                //ap.playLoop();
+                ap.playLoop();
 
                 translateTransition.setOnFinished(evt -> {
                     getChildren().remove(menu1);
@@ -164,6 +164,7 @@ public class GameMenu extends Parent {
                 tt.play();
                 tt1.play();
                 ap.stop();
+                ap.close();
 
                 tt.setOnFinished(evt -> {
                     getChildren().remove(menu2);

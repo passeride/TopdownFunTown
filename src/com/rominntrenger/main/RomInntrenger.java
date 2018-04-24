@@ -60,6 +60,11 @@ public class RomInntrenger extends GameApplication {
 
     @Override
     public void update(double delta) {
+//        if(input.isKeyPressed(KeyCode.H)){
+//            new DeathOverlay();
+//        }
+//
+
         cam.update(delta);
         gi.pullEvents();
         for (Player player : players) {
