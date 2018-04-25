@@ -30,7 +30,7 @@ public class LevelImageLoader {
                         gameMap[x][y] = ID.Wall;
                         break;
                     case ("FF0000"):
-                        gameMap[x][y] = ID.Blood;
+                        gameMap[x][y] = ID.AlienSpawner;
                         break;
 
                     //DOORS

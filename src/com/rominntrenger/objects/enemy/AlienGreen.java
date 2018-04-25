@@ -43,6 +43,8 @@ public class AlienGreen extends Enemy {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("/projectiles/projectile_enemy_00"));
         p.getCollider().addInteractionLayer("UnHittable");
+        p.getCollider().addInteractionLayer("Hittable");
+
         p.getCollider().addInteractionLayer("Block");
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
@@ -51,18 +53,23 @@ public class AlienGreen extends Enemy {
         p.setPhase(200f);
         p.setSpeed(1600);
         p.setSine(true);
+        p.setSource(this);
 
 
 
         p.setOnCollisionListener(other -> {
-            if (other.getGameObject() instanceof Player) {
-                Player pl = (Player) other.getGameObject();
-                pl.hit(bullet_dmg);
-                pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-                    Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
-                    3000.0));
+            if(other.getGameObject() != p.getSource()) {
+                if (other.getGameObject() instanceof Player) {
+                    Player pl = (Player) other.getGameObject();
+                    pl.hit(bullet_dmg);
+                    pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
+                        Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
+                        3000.0));
+                } else if (other.getGameObject() instanceof Enemy) {
+                    ((Enemy) other.getGameObject()).hit(bullet_dmg);
+                }
+                p.destroy();
             }
-            p.destroy();
         });
     }
 

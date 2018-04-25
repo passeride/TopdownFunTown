@@ -36,6 +36,8 @@ public class RomInntrenger extends GameApplication {
 
     GamepadInput gi;
 
+    StateHandling stateHandling;
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -44,9 +46,9 @@ public class RomInntrenger extends GameApplication {
             Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("testHeals");
+        MapCreator level = new MapCreator("startMap");
         level.createLevel();
-        inventory = new Inventory(6);
+//        inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
@@ -56,6 +58,10 @@ public class RomInntrenger extends GameApplication {
         msh = MessageHandler.getInstance();
 
         gi = new GamepadInput();
+
+        stateHandling = new StateHandling();
+
+        new ScoreElement(players.get(0));
     }
 
     @Override
@@ -111,6 +117,17 @@ public class RomInntrenger extends GameApplication {
 
                 if (input.isKeyDown(KeyCode.S)) {
                     player.moveDown(delta);
+
+                    //Checks if loading works
+                    double playerPosX = player.getTransform().getGlobalPosition().getX();
+                    double playerPosY = player.getTransform().getGlobalPosition().getY();
+                    double playerDegrees = player.getTransform().getGlobalRotation().getAngleInDegrees();
+                    stateHandling.saveGame(1,10, playerPosX, playerPosY, playerDegrees);
+                    stateHandling.loadWaveNumber();
+                    stateHandling.loadPlayerHealth();
+                    stateHandling.loadPlayerPositionX();
+                    stateHandling.loadPlayerPositionY();
+                    stateHandling.loadPlayerDirectioninDegrees();
                 }
 
                 if (input.isKeyDown(KeyCode.W)) {

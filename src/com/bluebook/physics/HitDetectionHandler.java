@@ -68,7 +68,7 @@ public class HitDetectionHandler {
     private void buildQuadTree() {
         synchronized (this) {
             Vec2 screen = GameSettings.getScreen();
-            qtTree = new QuadTree(new Rectangle(-screen.getX() * 20, -screen.getY() * 20, screen.getX() * 40, screen.getY() * 40), 5); // Creating oversized quadtree
+            qtTree = new QuadTree(new Rectangle(-screen.getX() * 5, -screen.getY() * 5, screen.getX() * 10, screen.getY() * 10), 3); // Creating oversized quadtree
             for (Collider c : colliders) {
                 qtTree.insert(c);
             }

@@ -30,8 +30,7 @@ public class Player extends GameObject {
     private Weapon currentWeapon;
     private int playerKey = 9;
 
-    private long previousShotTime = 0;
-    private double shootInterval = 0.5;
+    private int enemiesKilled = 0;
 
     private boolean uses_controller = false;
 
@@ -243,17 +242,26 @@ public class Player extends GameObject {
     }
 
     public void shoot() {
-        if(System.currentTimeMillis() - previousShotTime >  shootInterval * 1000) {
-            if (currentWeapon != null) {
-                currentWeapon.shoot();
-                previousShotTime = System.currentTimeMillis();
-                rb2.addForce(Vec2.multiply(Vec2
-                        .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() + 90),
-                    30000));
-            }
 
+        if (currentWeapon != null) {
+            if(currentWeapon.shoot()) {
+//                rb2.addForce(Vec2.multiply(Vec2
+//                        .Vector2FromAngleInDegrees(
+//                            transform.getGlobalRotation().getAngleInDegrees() + 90),
+//                    30000));
+            }
         }
+
     }
+
+    public int getEnemiesKilled(){
+        return enemiesKilled;
+    }
+
+    public void killedEnemy(){
+        enemiesKilled++;
+    }
+
 
     public Weapon getCurrentWeapon() {
         return currentWeapon;
