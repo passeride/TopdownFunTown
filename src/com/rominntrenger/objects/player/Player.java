@@ -12,6 +12,7 @@ import com.bluebook.physics.RigidBody2D;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.main.RomInntrenger;
@@ -21,7 +22,15 @@ import javafx.scene.paint.Color;
 
 public class Player extends GameObject {
 
+
+    int PlayerID = 0;
+    Color playerColor = Color.RED;
+    int maxPlayerHealth = 100;
+    int playerHealth = 100;
+
+
     AudioPlayer hitSound;
+
     private double speed = 800.0; // Gotta go fast
     private double baseSpeed = 300.0;
     private double speedBoostSpeed = 1000.0;
@@ -84,6 +93,9 @@ public class Player extends GameObject {
         OrthographicCamera.main.follow(this);
 
         romInntrenger = ((RomInntrenger) GameApplication.getInstance());
+
+        maxPlayerHealth = GameSettings.getInt("player_health");
+        playerHealth = maxPlayerHealth;
 
     }
 
@@ -190,10 +202,9 @@ public class Player extends GameObject {
      * Used when player is hit to subtract health and check for death
      */
     public void hit(int dmg) {
-        int hp = romInntrenger.healthElement.getHp();
-        hp -= dmg;
-        romInntrenger.healthElement.setHp(hp);
-        if (hp <= 0) {
+        playerHealth -= dmg;
+
+        if (playerHealth <= 0) {
             new DeathOverlay();
             die();
             audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
@@ -296,5 +307,37 @@ public class Player extends GameObject {
 
     public void setUses_controller(boolean uses_controller) {
         this.uses_controller = uses_controller;
+    }
+
+    public int getPlayerID() {
+        return PlayerID;
+    }
+
+    public void setPlayerID(int playerID) {
+        PlayerID = playerID;
+    }
+
+    public Color getPlayerColor() {
+        return playerColor;
+    }
+
+    public void setPlayerColor(Color playerColor) {
+        this.playerColor = playerColor;
+    }
+
+    public int getMaxPlayerHealth() {
+        return maxPlayerHealth;
+    }
+
+    public void setMaxPlayerHealth(int maxPlayerHealth) {
+        this.maxPlayerHealth = maxPlayerHealth;
+    }
+
+    public int getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public void setPlayerHealth(int playerHealth) {
+        this.playerHealth = playerHealth;
     }
 }

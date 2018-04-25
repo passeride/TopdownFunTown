@@ -12,6 +12,7 @@ import com.rominntrenger.maploader.LevelImageLoader;
 import com.rominntrenger.objects.AlienHive;
 import com.rominntrenger.objects.Door;
 import com.rominntrenger.objects.Key;
+import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Ship;
 import com.rominntrenger.objects.blocks.Barrel;
 import com.rominntrenger.objects.blocks.Bench;
@@ -106,8 +107,9 @@ public class MapCreator extends GameObject {
                         break;
 
                     case SpawnPlayer:
-                        grid[i][j] = new Player(vector, Vec2.ZERO,
-                            new AnimationSprite("/friendlies/character", 4));
+                        PlayerSpawn.position = vector;
+//                        grid[i][j] = new Player(vector, Vec2.ZERO,
+//                            new AnimationSprite("/friendlies/character", 4));
                         break;
 
                     //KEYS AND DOORS

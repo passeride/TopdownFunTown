@@ -5,6 +5,7 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
@@ -16,17 +17,16 @@ public class AlienGreen extends Enemy {
     private double shootInterval = 0.001;
     private long prevShot = 0;
 
-    /*
-    public AlienGreen(Vec2 position, Vec2 direction, Sprite sprite) {
-        super(position, direction, sprite);
-    } */
-
     public AlienGreen(Vec2 position) {
         super(position, Vec2.ZERO, new AnimationSprite("/enemies/enemyGreen", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
-        // setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
         speed = 200;
+
+        max_health = GameSettings.getInt("Alien_green_max_health");
+        health = max_health;
+
+        bullet_dmg = GameSettings.getInt("Alien_green_bullet_dmg");
     }
 
     public void update(double delta) {
@@ -54,8 +54,6 @@ public class AlienGreen extends Enemy {
         p.setSpeed(1600);
         p.setSine(true);
         p.setSource(this);
-
-
 
         p.setOnCollisionListener(other -> {
             if(other.getGameObject() != p.getSource()) {
