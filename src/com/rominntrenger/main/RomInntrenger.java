@@ -18,6 +18,7 @@ import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.stateHandling.StateHandling;
 import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -45,6 +46,8 @@ public class RomInntrenger extends GameApplication {
 
     GamepadInput gi;
 
+    StateHandling stateHandling;
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -56,7 +59,7 @@ public class RomInntrenger extends GameApplication {
         MapCreator level = new MapCreator("startMap");
         level.createLevel();
 //        inventory = new Inventory(6);
-//        healthElement = new HealthElement(new Vec2(0, 0));
+        //healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         clip = bgMusic.getClip();
@@ -66,7 +69,7 @@ public class RomInntrenger extends GameApplication {
 
         gi = new GamepadInput();
 
-//        new ScoreElement(players.get(0));
+        stateHandling = new StateHandling();
 
         if(gi.getNumberOfControllers() > 0) {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
@@ -145,6 +148,17 @@ public class RomInntrenger extends GameApplication {
 
                 if (input.isKeyDown(KeyCode.S)) {
                     player.moveDown(delta);
+
+                    //Checks if loading works
+                    double playerPosX = player.getTransform().getGlobalPosition().getX();
+                    double playerPosY = player.getTransform().getGlobalPosition().getY();
+                    double playerDegrees = player.getTransform().getGlobalRotation().getAngleInDegrees();
+                    stateHandling.saveGame(1,10, playerPosX, playerPosY, playerDegrees);
+                    stateHandling.loadWaveNumber();
+                    stateHandling.loadPlayerHealth();
+                    stateHandling.loadPlayerPositionX();
+                    stateHandling.loadPlayerPositionY();
+                    stateHandling.loadPlayerDirectioninDegrees();
                 }
 
                 if (input.isKeyDown(KeyCode.W)) {
