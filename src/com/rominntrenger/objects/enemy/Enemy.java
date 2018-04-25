@@ -12,6 +12,8 @@ import com.rominntrenger.objects.FSM.Behaviour;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
+import com.rominntrenger.objects.weapon.WeaponClip;
+import com.rominntrenger.objects.weapon.WeaponClipUpgrade;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,8 @@ public abstract class Enemy extends GameObject {
     public static List<Enemy> allEnemies = new ArrayList<>();
 
     double speed = 300;
-    private int max_health = 1000;
-    private int health = 1000;
+    int max_health = 1000;
+    int health = 1000;
     GameObject target;
     double angularDampening = 0.05;
     int bullet_dmg = 10;
@@ -120,6 +122,7 @@ public abstract class Enemy extends GameObject {
 //        walkCollider.destroy();
         allEnemies.remove(this);
         new Blood(getPosition());
+//        new WeaponClipUpgrade(getPosition(), new WeaponClip());
         super.destroy();
 //        if(isKeyHolder)
 //            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;

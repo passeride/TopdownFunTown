@@ -11,11 +11,17 @@ import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.gui.Inventory;
 import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
+import com.rominntrenger.objects.PlayerGuiElement;
+import com.rominntrenger.objects.PlayerSpawn;
+import com.rominntrenger.objects.ScoreElement;
 import com.rominntrenger.objects.player.Player;
+import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.stateHandling.StateHandling;
 import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
@@ -31,6 +37,10 @@ public class RomInntrenger extends GameApplication {
     public AudioPlayer bgMusic;
     public Clip clip;
     public FloatControl floatControl;
+
+    private Color[] playerColor = {
+        Color.RED,Color.GREEN, Color.BLUE, Color.CYAN
+    };
 
     MessageHandler msh;
 
@@ -49,7 +59,7 @@ public class RomInntrenger extends GameApplication {
         MapCreator level = new MapCreator("startMap");
         level.createLevel();
 //        inventory = new Inventory(6);
-        healthElement = new HealthElement(new Vec2(0, 0));
+        //healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         clip = bgMusic.getClip();
@@ -61,7 +71,28 @@ public class RomInntrenger extends GameApplication {
 
         stateHandling = new StateHandling();
 
-        new ScoreElement(players.get(0));
+        if(gi.getNumberOfControllers() > 0) {
+            for (int i = 0; i < gi.getNumberOfControllers(); i++) {
+                System.out.println("making players");
+                Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
+                    new AnimationSprite("/friendlies/character", 4));
+                p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+                    new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
+                p.setPlayerID(i + 1);
+                p.setPlayerColor(playerColor[i]);
+
+                new PlayerGuiElement(p);
+
+            }
+        }else{
+            Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
+                new AnimationSprite("/friendlies/character", 4));
+            p.setPlayerID(0);
+            p.setPlayerColor(playerColor[0]);
+
+            new PlayerGuiElement(p);
+
+        }
     }
 
     @Override
