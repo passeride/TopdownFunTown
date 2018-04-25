@@ -14,6 +14,7 @@ import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.stateHandling.StateHandling;
 import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
 import javax.sound.sampled.Clip;
@@ -36,6 +37,8 @@ public class RomInntrenger extends GameApplication {
 
     GamepadInput gi;
 
+    StateHandling stateHandling;
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -56,6 +59,8 @@ public class RomInntrenger extends GameApplication {
         msh = MessageHandler.getInstance();
 
         gi = new GamepadInput();
+
+        stateHandling = new StateHandling();
     }
 
     @Override
@@ -111,6 +116,17 @@ public class RomInntrenger extends GameApplication {
 
                 if (input.isKeyDown(KeyCode.S)) {
                     player.moveDown(delta);
+
+                    //Checks if loading works
+                    double playerPosX = player.getTransform().getGlobalPosition().getX();
+                    double playerPosY = player.getTransform().getGlobalPosition().getY();
+                    double playerDegrees = player.getTransform().getGlobalRotation().getAngleInDegrees();
+                    stateHandling.saveGame(1,10, playerPosX, playerPosY, playerDegrees);
+                    stateHandling.loadWaveNumber();
+                    stateHandling.loadPlayerHealth();
+                    stateHandling.loadPlayerPositionX();
+                    stateHandling.loadPlayerPositionY();
+                    stateHandling.loadPlayerDirectioninDegrees();
                 }
 
                 if (input.isKeyDown(KeyCode.W)) {
