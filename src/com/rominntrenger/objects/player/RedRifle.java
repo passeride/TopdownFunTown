@@ -15,12 +15,13 @@ public class RedRifle extends Weapon {
         super(direction, sprite, offset);
         audioPlayer = new AudioPlayer("./assets/audio/lukasPew.wav");
         projectilePath = "/projectiles/projectile_g_02";
+        shootInterval = 0.01;
         speed = 1800;
     }
 
 
     @Override
-    public void shoot() {
-        super.shoot();
+    public boolean shoot() {
+        return super.shoot();
     }
 }

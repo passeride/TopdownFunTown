@@ -30,7 +30,7 @@ public class LevelImageLoader {
                         gameMap[x][y] = ID.Wall;
                         break;
                     case ("FF0000"):
-                        gameMap[x][y] = ID.Blood;
+                        gameMap[x][y] = ID.AlienSpawner;
                         break;
 
                     //DOORS
@@ -123,7 +123,13 @@ public class LevelImageLoader {
                         break;
                     case ("666000"):
                         gameMap[x][y] = ID.PickupWeaponY;
-                        break;
+                    break;
+                    case ("77FFFF"):
+                        gameMap[x][y] = ID.HealingItemSmall;
+                    break;
+                    case ("770000"):
+                        gameMap[x][y] = ID.HealingItemBig;
+                    break;
 
                     default:
                         gameMap[x][y] = ID.Empty;

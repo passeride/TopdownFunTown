@@ -9,6 +9,7 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.maploader.LevelImageLoader;
+import com.rominntrenger.objects.AlienHive;
 import com.rominntrenger.objects.Door;
 import com.rominntrenger.objects.Key;
 import com.rominntrenger.objects.Ship;
@@ -26,6 +27,7 @@ import com.rominntrenger.objects.enemy.AlienGreen;
 import com.rominntrenger.objects.enemy.AlienGreenKey;
 import com.rominntrenger.objects.enemy.AlienPurple;
 import com.rominntrenger.objects.enemy.AlienTurret;
+import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.player.Player;
 import java.awt.image.BufferedImage;
 import javafx.scene.canvas.GraphicsContext;
@@ -99,8 +101,8 @@ public class MapCreator extends GameObject {
                         grid[i][j] = new Wall(vector, Vec2.ZERO, new Sprite("../bg/wall"));
                         break;
 
-                    case Blood:
-                        grid[i][j] = new Blood(vector);
+                    case AlienSpawner:
+                        grid[i][j] = new AlienHive(vector);
                         break;
 
                     case SpawnPlayer:
@@ -128,22 +130,22 @@ public class MapCreator extends GameObject {
                     case KeyG:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyG"),
                             4);
-                        break;
+                    break;
 
                     case KeyP:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyP"),
                             5);
-                        break;
+                    break;
 
                     case KeyR:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/keyR"),
                             6);
-                        break;
+                    break;
 
                     case KeyShip:
                         grid[i][j] = new Key(vector, Vec2.ZERO, new Sprite("./items/key_gold00"),
                             7);
-                        break;
+                    break;
 
                     case Door:
                         if (currentLevel[i][j - 1] == ID.Wall)
@@ -176,7 +178,7 @@ public class MapCreator extends GameObject {
                             grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorG"), 4);
                         else
                             grid[i][j] = new Door(vector, Vec2.ZERO, new Sprite("../bg/doorG"),4);
-                        break;
+                    break;
                     case DoorP:
                         if (currentLevel[i][j - 1] == ID.Wall)
                             grid[i][j] = new Door(vector, Vec2.UP, new Sprite("../bg/doorP"), 5);
@@ -202,25 +204,25 @@ public class MapCreator extends GameObject {
                     case StasisBox:
                         grid[i][j] = new StasisBox(vector, Vec2.ZERO,
                             new Sprite("./items/stasisBoxRed"));
-                        break;
+                    break;
                     case Crate:
                         grid[i][j] = new Crate(vector, Vec2.ZERO,
                             new Sprite("./items/crate_0"));
-                        break;
+                    break;
                     case Bench:
                         grid[i][j] = new Bench(vector, Vec2.ZERO, new Sprite("./items/bench"));
-                        break;
+                    break;
                     case Table:
                         grid[i][j] = new Table(vector, Vec2.ZERO, new Sprite("./items/table"));
-                        break;
+                    break;
                     case Corpse:
                         grid[i][j] = new Corpse(vector, Vec2.ZERO,
                             new Sprite("./items/corpse_0"));
-                        break;
+                    break;
                     case Barrel:
                         grid[i][j] = new Barrel(vector, Vec2.ZERO,
                             new Sprite("./items/barrel_blue"));
-                        break;
+                    break;
 
                     //ENEMIES
                     case AlienGreen:
@@ -231,34 +233,42 @@ public class MapCreator extends GameObject {
                     break;
                     case AlienPurple:
                         grid[i][j] = new AlienPurple(vector);
-                        break;
+                    break;
                     case AlienTurret:
                         grid[i][j] = new AlienTurret(vector, Vec2.ZERO);
-                        break;
+                    break;
                     case AlienExplode:
                         grid[i][j] = new AlienExplode(vector);
-                        break;
+                    break;
 
                     //WEAPONS
                     case PickupWeaponS:
                         grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
                             new Sprite("./items/weaponS"), 0);
                         //TODO: Fix sprite so it is the starter weapon
-                        break;
+                    break;
 
                     case PickupWeaponR:
                         grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
                             new Sprite("./items/weaponR_03"), 1);
-                        break;
+                    break;
 
                     case PickupWeaponY:
                         grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
                             new Sprite("./items/weaponY"), 2);
+                    break;
+
+                    case HealingItemSmall:
+                        grid[i][j] = new HealingItem(vector, Vec2.ZERO, new Sprite("./items/healSmall"), true);
                         break;
+
+                    case HealingItemBig:
+                        grid[i][j] = new HealingItem(vector, Vec2.ZERO, new Sprite("./items/healBig"),false);
+                    break;
 
                     default:
                         //grid[i][j] = new Tile(vector, Vec2.ZERO, new Sprite("../bg/tile"));
-                        break;
+                    break;
                 }
 
             }

@@ -19,6 +19,8 @@ public enum ID {
     PickupWeaponS,
     PickupWeaponR,
     PickupWeaponY,
+    HealingItemSmall,
+    HealingItemBig,
     KeyShip,
     Barrel,
     Crate,
@@ -32,5 +34,6 @@ public enum ID {
     AlienPurple,
     AlienExplode,
     AlienTurret,
+    AlienSpawner,
     SpawnPlayer
 }

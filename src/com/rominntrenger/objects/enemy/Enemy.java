@@ -12,24 +12,28 @@ import com.rominntrenger.objects.FSM.Behaviour;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public abstract class Enemy extends GameObject {
 
+    public static List<Enemy> allEnemies = new ArrayList<>();
+
     double speed = 300;
+    private int max_health = 1000;
+    private int health = 1000;
     GameObject target;
     double angularDampening = 0.05;
     int bullet_dmg = 10;
     Behaviour behaviour;
     public double delta;
-    private Collider walkCollider;
 
-    public boolean isKeyHolder = false;
-
-    /**
-     * Constructor for GameObject given position rotation and sprite
-     */
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
+        allEnemies.add(this);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
         collider = new CircleCollider(this, 20);
 
@@ -50,13 +54,6 @@ public abstract class Enemy extends GameObject {
                 }
             }
         });
-
-        // WalkCollider
-//        walkCollider = new CircleCollider(this, 20);
-//        walkCollider.setName("Enemy_Walk");
-//        walkCollider.setTag("Enemy_Walk");
-//        walkCollider.addInteractionLayer("Block");
-//        walkCollider.setPadding(new Vec2(-20, -20));
 
         this.behaviour = new Wander();
     }
@@ -99,9 +96,29 @@ public abstract class Enemy extends GameObject {
         }
     }
 
+    public void hit(int dmg){
+        health -= dmg;
+        if(health < 0){
+            this.destroy();
+        }
+    }
+
+    @Override
+    public void draw(GraphicsContext gc) {
+        if(health > 0) {
+            super.draw(gc);
+            Vec2 pos = transform.getGlobalPosition();
+            gc.setStroke(Color.BLACK);
+            gc.strokeRect(pos.getX() - 50, pos.getY() - 50, 100, 20);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
+        }
+    }
+
     @Override
     public void destroy() {
 //        walkCollider.destroy();
+        allEnemies.remove(this);
         new Blood(getPosition());
         super.destroy();
 //        if(isKeyHolder)
