@@ -11,6 +11,7 @@ import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.gui.Inventory;
 import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
+import com.rominntrenger.objects.ScoreElement;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
@@ -44,9 +45,9 @@ public class RomInntrenger extends GameApplication {
             Vec2.ZERO); //TODO: Fix this so no shoots
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("testHeals");
+        MapCreator level = new MapCreator("startMap");
         level.createLevel();
-        inventory = new Inventory(6);
+//        inventory = new Inventory(6);
         healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
@@ -56,6 +57,8 @@ public class RomInntrenger extends GameApplication {
         msh = MessageHandler.getInstance();
 
         gi = new GamepadInput();
+
+        new ScoreElement(players.get(0));
     }
 
     @Override

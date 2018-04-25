@@ -21,8 +21,8 @@ public class RenderLayer {
     public enum RenderLayerName {
         BACKGROUND(0),
         TILES(1),
-        ENEMIES(2),
-        LOW_BLOCKS(3),
+        LOW_BLOCKS(2),
+        ENEMIES(3),
         PLAYER(4),
         HIGH_BLOCKS(5),
         PROJECTILE(6),

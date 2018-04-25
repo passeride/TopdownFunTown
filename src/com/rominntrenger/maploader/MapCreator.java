@@ -9,6 +9,7 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.maploader.LevelImageLoader;
+import com.rominntrenger.objects.AlienHive;
 import com.rominntrenger.objects.Door;
 import com.rominntrenger.objects.Key;
 import com.rominntrenger.objects.Ship;
@@ -100,8 +101,8 @@ public class MapCreator extends GameObject {
                         grid[i][j] = new Wall(vector, Vec2.ZERO, new Sprite("../bg/wall"));
                         break;
 
-                    case Blood:
-                        grid[i][j] = new Blood(vector);
+                    case AlienSpawner:
+                        grid[i][j] = new AlienHive(vector);
                         break;
 
                     case SpawnPlayer:

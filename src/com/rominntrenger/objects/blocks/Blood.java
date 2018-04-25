@@ -2,6 +2,7 @@ package com.rominntrenger.objects.blocks;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
+import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 
@@ -17,6 +18,6 @@ public class Blood extends GameObject {
     public Blood(Vec2 position) {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
             new Sprite("effects/blood"));
-        setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
+        setRenderLayer(RenderLayerName.LOW_BLOCKS);
     }
 }

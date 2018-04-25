@@ -49,6 +49,9 @@ public class PickupWeapon extends Item implements Describable {
         return weaponID;
     }
 
+
+
+
     @Override
     public void showMessage() {
         MessageHandler.getInstance()
@@ -58,7 +61,8 @@ public class PickupWeapon extends Item implements Describable {
             new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO);
         p.setCurrentWeapon(w);
         ((RomInntrenger) GameApplication.getInstance()).currentWeapon = w;
-        destroy();
         collider.destroy();
+        destroy();
+
     }
 }

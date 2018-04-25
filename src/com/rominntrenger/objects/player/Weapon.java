@@ -15,9 +15,14 @@ public abstract class Weapon extends GameObject {
 
     public Vec2 offset;
     double speed = 800;
+    int dmg = 10;
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "./assets/audio/scifi002.wav";
     protected String projectilePath = "/projectiles/projectile_gold_00";
+
+    private long previousShotTime = 0;
+    protected double shootInterval = 0.5;
+
 
     private Player holder;
 
@@ -48,39 +53,51 @@ public abstract class Weapon extends GameObject {
     /**
      * Shoot will shoot a projectile constructed in this class at the direction the player is faced
      */
-    public void shoot() {
-        audioPlayer.setSpatial(this);
-        audioPlayer.playOnce();
-        // score -= 50;
-        Vec2 angle = Vec2
-            .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
+    public boolean shoot() {
+        if(System.currentTimeMillis() - previousShotTime >  shootInterval * 1000) {
 
-        Vec2 spawnPosition = transform.getWorldPosition();
+            previousShotTime = System.currentTimeMillis();
 
-        Projectile p = new Projectile(spawnPosition,
-            Vec2
-                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90),
-            new Sprite(projectilePath));
-        p.setSpeed(speed);
-        p.setSource(holder);
-        p.getCollider().addInteractionLayer("Block");
-        p.getCollider().addInteractionLayer("Hittable");
-        p.getCollider().addInteractionLayer("Walk");
-        p.setOnCollisionListener(other -> {
-            if (other.getGameObject() instanceof Player && other.getGameObject() != p.getSource()) {
-                Player player = (Player) other.getGameObject();
-                player.hit(10);
-                if (GameEngine.DEBUG) {
-                    System.out.println("Bullet Hit " + other.getName());
-                }
+            audioPlayer.setSpatial(this);
+            audioPlayer.playOnce();
+            // score -= 50;
+            Vec2 angle = Vec2
+                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
+
+            Vec2 spawnPosition = transform.getWorldPosition();
+
+            Projectile p = new Projectile(spawnPosition,
+                Vec2
+                    .Vector2FromAngleInDegrees(
+                        transform.getGlobalRotation().getAngleInDegrees() - 90),
+                new Sprite(projectilePath));
+            p.setSpeed(speed);
+            p.setSource(holder);
+            p.getCollider().addInteractionLayer("Block");
+            p.getCollider().addInteractionLayer("Hittable");
+            p.getCollider().addInteractionLayer("Walk");
+            p.setOnCollisionListener(other -> {
+                if (other.getGameObject() instanceof Player && other.getGameObject() != p
+                    .getSource()) {
+                    Player player = (Player) other.getGameObject();
+                    player.hit(dmg);
+                    if (GameEngine.DEBUG) {
+                        System.out.println("Bullet Hit " + other.getName());
+                    }
 //                player.destroy();
-            } else if (other.getGameObject() instanceof Enemy) {
-                other.getGameObject().destroy();
-            }
-            p.destroy();
+                } else if (other.getGameObject() instanceof Enemy) {
+                    Enemy e = ((Enemy)other.getGameObject());
+                    e.hit(dmg);
+                    if(e.isAlive()) {
+                        ((Player) p.getSource()).killedEnemy();
+                    }
+                }
+                p.destroy();
 
-        });
-
+            });
+            return true;
+        }else
+            return false;
     }
 
     public Player getHolder() {
