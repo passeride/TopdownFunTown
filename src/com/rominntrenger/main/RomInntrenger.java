@@ -71,6 +71,7 @@ public class RomInntrenger extends GameApplication {
 
         new WaveManager();
 
+
         if(gi.getNumberOfControllers() > 0) {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
                 System.out.println("making players");
