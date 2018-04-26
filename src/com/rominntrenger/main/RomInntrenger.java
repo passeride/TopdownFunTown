@@ -34,6 +34,10 @@ public class RomInntrenger extends GameApplication {
     public Clip clip;
     public FloatControl floatControl;
 
+    private Color[] playerColor = {
+        Color.RED,Color.GREEN, Color.BLUE, Color.CYAN
+    };
+
     MessageHandler msh;
 
     GamepadInput gi;
@@ -51,7 +55,7 @@ public class RomInntrenger extends GameApplication {
         MapCreator level = new MapCreator("startMap");
         level.createLevel();
 //        inventory = new Inventory(6);
-        healthElement = new HealthElement(new Vec2(0, 0));
+        //healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         clip = bgMusic.getClip();
@@ -63,7 +67,28 @@ public class RomInntrenger extends GameApplication {
 
         stateHandling = new StateHandling();
 
-        new ScoreElement(players.get(0));
+        if(gi.getNumberOfControllers() > 0) {
+            for (int i = 0; i < gi.getNumberOfControllers(); i++) {
+                System.out.println("making players");
+                Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
+                    new AnimationSprite("/friendlies/character", 4));
+                p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+                    new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
+                p.setPlayerID(i + 1);
+                p.setPlayerColor(playerColor[i]);
+
+                new PlayerGuiElement(p);
+
+            }
+        }else{
+            Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
+                new AnimationSprite("/friendlies/character", 4));
+            p.setPlayerID(0);
+            p.setPlayerColor(playerColor[0]);
+
+            new PlayerGuiElement(p);
+
+        }
     }
 
     @Override
