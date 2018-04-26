@@ -10,6 +10,7 @@ public class LineSegment {
     public LinePoint p1 = new LinePoint(), p2 = new LinePoint();
     Vec2 source;
     public double d;
+    public boolean isLightStopping = true;
 
     public LineSegment(Line2D line, Vec2 source){
             p1.position = new Vec2(line.x1, line.y1);

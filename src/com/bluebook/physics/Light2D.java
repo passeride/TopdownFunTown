@@ -84,6 +84,54 @@ public class Light2D {
 
     }
 
+    /*
+bool pointInPolygon() {
+
+  int   i, j=polyCorners-1 ;
+  bool  oddNodes=NO      ;
+
+  for (i=0; i<polyCorners; i++) {
+    if (polyY[i]<y && polyY[j]>=y
+    ||  polyY[j]<y && polyY[i]>=y) {
+      if (polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x) {
+        oddNodes=!oddNodes;
+        }
+      }
+    j=i;
+    }
+
+  return oddNodes; }
+     */
+
+    public boolean pointInPoly(Vec2 point){
+        if(polygon == null)
+            return false;
+
+
+        int j = polygon[0].length - 1;
+
+        double x = point.getX();
+        double y = point.getY();
+
+        double[] polyY = polygon[1];
+        double[] polyX = polygon[0];
+
+        boolean oddNodes = false;
+
+        for(int i = 0; i < polygon[0].length; i++){
+            if ((polyY[i]< y && polyY[j]>=y
+                ||   polyY[j]< y && polyY[i]>=y)
+                &&  (polyX[i]<=x || polyX[j]<=x)) {
+                if (polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x) {
+                    oddNodes=!oddNodes;
+                }
+            }
+            j=i;
+        }
+        return oddNodes;
+
+    }
+
 
     ArrayList<Vec2> getOutPoints(Vec2 origin, double angle1, double angle2, LineSegment segment) {
         ArrayList<Vec2> ret = new ArrayList<>();

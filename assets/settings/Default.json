@@ -1,6 +1,6 @@
 {
   "window_title":"RomInntrengere v0.1",
-  "start_menu":true,
+  "start_menu":false,
   "fullscreen":true,
 
   "grid_X": 32,
