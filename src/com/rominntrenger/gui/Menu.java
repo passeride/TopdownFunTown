@@ -1,5 +1,6 @@
 package com.rominntrenger.gui;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.util.GameSettings;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,7 +74,15 @@ public class Menu extends Parent{
 
          primaryStage.setScene(scene);
          primaryStage.show();
-     }
+
+         if(GameSettings.getBoolean("start_menu")) {
+             try {
+                 GameApplication.getInstance().callGame(primaryStage);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+         }
+    }
 
      public void keyBoardInput(){
          scene.setOnKeyPressed(event -> {

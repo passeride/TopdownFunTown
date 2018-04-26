@@ -100,8 +100,8 @@ public abstract class Enemy extends GameObject {
 
     public void hit(int dmg){
         health -= dmg;
-        if(health < 0){
-            this.destroy();
+        if(health <= 0){
+            destroy();
         }
     }
 
@@ -123,6 +123,7 @@ public abstract class Enemy extends GameObject {
         allEnemies.remove(this);
         new Blood(getPosition());
 //        new WeaponClipUpgrade(getPosition(), new WeaponClip());
+        collider.destroy();
         super.destroy();
 //        if(isKeyHolder)
 //            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;
@@ -130,16 +131,6 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void update(double delta) {
-//        if (target != null) {
-//            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-//                Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
-//                speed * delta));
-//            setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2
-//                    .Vector2FromAngleInDegrees(
-//                        Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
-//                angularDampening)));
-//            getDirection().normalize();
-//        }
         this.delta = delta;
     }
 

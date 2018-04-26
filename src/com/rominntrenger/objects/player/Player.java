@@ -19,6 +19,7 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
 
@@ -50,6 +51,9 @@ public class Player extends GameObject {
 
     private RomInntrenger romInntrenger;
     private AudioPlayer audioPlayer;
+
+    private boolean isMultiplayer = false;
+    private int multiPlayerCircleRadius = 75;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -97,10 +101,12 @@ public class Player extends GameObject {
         maxPlayerHealth = GameSettings.getInt("player_health");
         playerHealth = maxPlayerHealth;
 
+
     }
 
     @Override
     public void draw(GraphicsContext gc) {
+        Vec2 pos = transform.getGlobalPosition();
 
         if(true) {
             if (light2D.polygon != null) {
@@ -118,9 +124,8 @@ public class Player extends GameObject {
 //            gc.save();
 //            gc.setGlobalBlendMode(BlendMode.OVERLAY);
 
-            Vec2 pos = transform.getGlobalPosition();
             double dir = getDirection().getAngleInRadians() - Math.PI / 2;
-            gc.setStroke(new Color(1, 0, 0, 0.3));
+            gc.setStroke( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
             gc.setLineDashes(8, 10, 8, 10);
             gc.setLineWidth(5);
             gc.strokeLine(pos.getX(), pos.getY(),
@@ -130,7 +135,21 @@ public class Player extends GameObject {
 
         }
 //        gc.setGlobalBlendMode(BlendMode.);
+
+        if(getPlayerID()!= 0){
+            gc.setFill( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
+            gc.fillArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius /  2,
+                multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
+
+            gc.setStroke(playerColor);
+            gc.setLineWidth(3);
+            gc.setLineDashes(3, 1, 3, 2);
+            gc.strokeArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius /  2,
+                multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
+        }
+
         super.draw(gc);
+
 
     }
 

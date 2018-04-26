@@ -13,6 +13,7 @@ import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.PlayerSpawn;
+import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.player.StarterWeapon;
@@ -38,7 +39,7 @@ public class RomInntrenger extends GameApplication {
     public FloatControl floatControl;
 
     private Color[] playerColor = {
-        Color.RED,Color.GREEN, Color.BLUE, Color.CYAN
+        Color.RED,Color.GREEN, Color.BLUE, Color.YELLOW
     };
 
     MessageHandler msh;
@@ -68,6 +69,7 @@ public class RomInntrenger extends GameApplication {
 
         gi = new GamepadInput();
 
+        new WaveManager();
 
         if(gi.getNumberOfControllers() > 0) {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
