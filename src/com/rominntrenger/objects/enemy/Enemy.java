@@ -56,14 +56,11 @@ public abstract class Enemy extends GameObject {
         collider.addInteractionLayer("Block");
         collider.addInteractionLayer("Walk");
 
-        collider.setOnCollisionListener(new OnCollisionListener() {
-            @Override
-            public void onCollision(Collider other) {
-                if (other.getGameObject() instanceof Player) {
-                    Player p = (Player) other.getGameObject();
-                    p.hit(bullet_dmg);
-                    destroy();
-                }
+        collider.setOnCollisionListener((Collider other) -> {
+            if (other.getGameObject() instanceof Player) {
+                Player p = (Player) other.getGameObject();
+                p.hit(bullet_dmg);
+                destroy();
             }
         });
 
