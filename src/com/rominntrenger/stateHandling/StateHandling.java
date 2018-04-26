@@ -23,19 +23,19 @@ public class StateHandling {
      */
     public void saveGame(int waveNumber, int playerHealth, double playerPositionX, double playerPositionY, double playerDirectionInDegrees){
         try{
-            FileOutputStream saveWaveNumberF = new FileOutputStream("SaveWaveNumber.sav");
+            FileOutputStream saveWaveNumberF = new FileOutputStream("./saveFiles/SaveWaveNumber.sav");
             ObjectOutputStream saveWaveNumber = new ObjectOutputStream(saveWaveNumberF);
 
-            FileOutputStream savePlayerHealthF = new FileOutputStream("SavePlayerHealth.sav");
+            FileOutputStream savePlayerHealthF = new FileOutputStream("./saveFiles/SavePlayerHealth.sav");
             ObjectOutputStream savePlayerHealth = new ObjectOutputStream(savePlayerHealthF);
 
-            FileOutputStream savePlayerPositionXF = new FileOutputStream("SavePlayerPositionX.sav");
+            FileOutputStream savePlayerPositionXF = new FileOutputStream("./saveFiles/SavePlayerPositionX.sav");
             ObjectOutputStream savePlayerPositionX = new ObjectOutputStream(savePlayerPositionXF);
 
-            FileOutputStream savePlayerPositionYF = new FileOutputStream("SavePlayerPositionY.sav");
+            FileOutputStream savePlayerPositionYF = new FileOutputStream("./saveFiles/SavePlayerPositionY.sav");
             ObjectOutputStream savePLayerPositionY = new ObjectOutputStream(savePlayerPositionYF);
 
-            FileOutputStream savePlayerDirectionInDegreesF = new FileOutputStream("SavePlayerDirectionInDegrees.sav");
+            FileOutputStream savePlayerDirectionInDegreesF = new FileOutputStream("./saveFiles/SavePlayerDirectionInDegrees.sav");
             ObjectOutputStream savePlayerDirectionInDegrees = new ObjectOutputStream(savePlayerDirectionInDegreesF);
 
             saveWaveNumber.writeObject(waveNumber);
@@ -57,7 +57,7 @@ public class StateHandling {
 
     public int loadWaveNumber(){
         try{
-            FileInputStream saveFile = new FileInputStream("SaveWaveNumber.sav");
+            FileInputStream saveFile = new FileInputStream("./saveFiles/SaveWaveNumber.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             waveNumber = (int) save.readObject();
             save.close();
@@ -73,7 +73,7 @@ public class StateHandling {
     }
     public int loadPlayerHealth(){
         try {
-            FileInputStream saveFile = new FileInputStream("SavePlayerHealth.sav");
+            FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerHealth.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerHealth = (int) save.readObject();
             save.close();
@@ -89,7 +89,7 @@ public class StateHandling {
     }
     public double loadPlayerPositionX(){
         try{
-            FileInputStream saveFile = new FileInputStream("SavePlayerPositionX.sav");
+            FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerPositionX.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerPositionX = (double) save.readObject();
             save.close();
@@ -104,7 +104,7 @@ public class StateHandling {
     }
     public double loadPlayerPositionY(){
         try{
-            FileInputStream saveFile = new FileInputStream("SavePlayerPositionY.sav");
+            FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerPositionY.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerPositionY = (double) save.readObject();
             save.close();
@@ -119,7 +119,7 @@ public class StateHandling {
     }
     public double loadPlayerDirectioninDegrees(){
         try{
-            FileInputStream saveFile = new FileInputStream("SavePlayerDirectionInDegrees.sav");
+            FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerDirectionInDegrees.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerDirectionInDegrees = (double) save.readObject();
             save.close();
