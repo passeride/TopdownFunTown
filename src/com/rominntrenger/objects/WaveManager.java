@@ -5,6 +5,7 @@ import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javafx.beans.WeakInvalidationListener;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -16,6 +17,7 @@ import javafx.scene.text.TextAlignment;
 
 public class WaveManager extends GameObject {
 
+    public static ArrayList<AlienHive> hives = new ArrayList<>();
 
     private int width = 300;
     private int height = 100;
@@ -27,6 +29,7 @@ public class WaveManager extends GameObject {
 
     private long pauseStart = 0;
     private double pauseTime = 7.5;
+
 
     private WaveSate state = WaveSate.PAUSE;
 
@@ -49,10 +52,10 @@ public class WaveManager extends GameObject {
             new Stop(0.0, Color.GREEN),
             new Stop(1.0, Color.TRANSPARENT));
         waveGradient =  new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-            new Stop(0.0, Color.PURPLE),
+            new Stop(0.0, Color.RED),
             new Stop(1.0, Color.TRANSPARENT));
         bossGradient =  new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-            new Stop(0.0, Color.RED),
+            new Stop(0.0, Color.PURPLE),
             new Stop(1.0, Color.TRANSPARENT));
 
         pauseStart = System.currentTimeMillis();
@@ -73,10 +76,17 @@ public class WaveManager extends GameObject {
 
     @Override
     public void update(double delta) {
-        double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
-        if(timeLeft <= 0.0){
-            state = WaveSate.WAVE;
-            waveNumber++;
+        if(state == WaveSate.PAUSE) {
+            double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
+            if (timeLeft <= 0.0) {
+                state = WaveSate.WAVE;
+                waveStart = System.currentTimeMillis();
+                waveNumber++;
+            }
+        }else if(state == WaveSate.WAVE){
+            for(AlienHive ah : hives){
+                ah.spawn();
+            }
         }
     }
 
@@ -108,6 +118,9 @@ public class WaveManager extends GameObject {
         gc.fillText("Wave " + waveNumber, 1920 / 2, height / 2);
 
         double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
+        if(state == WaveSate.WAVE){
+            timeLeft = (System.currentTimeMillis() - waveStart) / 1000.0;
+        }
         gc.setFont(new Font(height / 3));
         DecimalFormat df = new DecimalFormat("0.0");
         gc.fillText(df.format(timeLeft), 1920 / 2, height - height /  5);

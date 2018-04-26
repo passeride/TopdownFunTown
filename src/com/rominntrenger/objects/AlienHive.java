@@ -13,6 +13,9 @@ public class AlienHive extends GameObject {
 
     private int max_enemies = 25;
 
+    private int currency = 150;
+
+    public boolean isActive = false;
 
 
     /**
@@ -22,14 +25,21 @@ public class AlienHive extends GameObject {
         super(position, Vec2.ZERO, new Sprite("projectiles/projectileRed"));
 
         setSize(new Vec2(3, 3));
+
+        WaveManager.hives.add(this);
+
+    }
+
+    public void spawn(){
+        if(System.currentTimeMillis() - previousSPawn > spawnRate * 1000.0 && Enemy.allEnemies.size() < max_enemies){
+            new AlienGreen(getPosition());
+            previousSPawn = System.currentTimeMillis();
+        }
     }
 
     @Override
     public void update(double delta) {
         super.update(delta);
-        if(System.currentTimeMillis() - previousSPawn > spawnRate * 1000.0 && Enemy.allEnemies.size() < max_enemies){
-            new AlienGreen(getPosition());
-            previousSPawn = System.currentTimeMillis();
-        }
+
     }
 }

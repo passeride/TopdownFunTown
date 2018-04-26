@@ -17,6 +17,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
+import com.rominntrenger.objects.enemy.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
@@ -160,6 +161,17 @@ public class Player extends GameObject {
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
 
+
+        int playerInLight = 0;
+        for(Enemy e : Enemy.allEnemies){
+            if(light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
+                e.isSeenByPlayer = true;
+                playerInLight++;
+            }else {
+                e.isSeenByPlayer = false;
+            }
+        }
+        System.out.println("Number of enemies in light: " + playerInLight);
     }
 
 

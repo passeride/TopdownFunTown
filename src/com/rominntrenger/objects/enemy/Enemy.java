@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public abstract class Enemy extends GameObject {
 
@@ -32,6 +33,9 @@ public abstract class Enemy extends GameObject {
     int bullet_dmg = 10;
     Behaviour behaviour;
     public double delta;
+
+    public boolean isSeenByPlayer = false;
+
 
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
@@ -107,13 +111,17 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        if(health > 0) {
-            super.draw(gc);
-            Vec2 pos = transform.getGlobalPosition();
-            gc.setStroke(Color.BLACK);
-            gc.strokeRect(pos.getX() - 50, pos.getY() - 50, 100, 20);
-            gc.setFill(Color.GREEN);
-            gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
+        super.draw(gc);
+        Vec2 pos = transform.getGlobalPosition();
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(pos.getX() - 50, pos.getY() - 50, 100, 20);
+        gc.setFill(Color.GREEN);
+        gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
+
+        if(isSeenByPlayer) {
+            gc.setFill(Color.RED);
+            gc.fillArc(pos.getX() - 30, pos.getY() - 30, 60, 60, 0, 360, ArcType.CHORD);
+
         }
     }
 
