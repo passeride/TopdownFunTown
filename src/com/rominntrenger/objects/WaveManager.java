@@ -4,9 +4,10 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.messageHandling.MessageHandler;
+import com.rominntrenger.objects.enemy.Enemy;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import javafx.beans.WeakInvalidationListener;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -14,12 +15,13 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import sun.plugin2.message.Message;
 
 public class WaveManager extends GameObject {
 
     public static ArrayList<AlienHive> hives = new ArrayList<>();
 
-    private int width = 300;
+    private int width = 375;
     private int height = 100;
     private int boxRadius = 90;
 
@@ -29,6 +31,8 @@ public class WaveManager extends GameObject {
 
     private long pauseStart = 0;
     private double pauseTime = 7.5;
+
+    private boolean hivesDownMessage = false;
 
 
     private WaveSate state = WaveSate.PAUSE;
@@ -79,15 +83,22 @@ public class WaveManager extends GameObject {
         if(state == WaveSate.PAUSE) {
             double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
             if (timeLeft <= 0.0) {
-                state = WaveSate.WAVE;
-                waveStart = System.currentTimeMillis();
-                waveNumber++;
+                startWave();
             }
         }else if(state == WaveSate.WAVE){
 
-            if(!isHivesAlive()){
-                pauseStart = System.currentTimeMillis();
-                state = WaveSate.PAUSE;
+            if(getAliveHives() == 0){
+                if(!hivesDownMessage){
+                    if(Enemy.allEnemies.size() > hives.size()){
+                        MessageHandler.getInstance()
+                            .writeMessage("All the hives are down!\n Now just kill the smoll bois!",
+                                new Sprite("portraits/mc_grumpy"));
+                    }
+                    hivesDownMessage = true;
+                }
+
+                if(Enemy.allEnemies.size() == hives.size())
+                    endWave();
             }
             for(AlienHive ah : hives){
                 ah.spawn();
@@ -95,10 +106,55 @@ public class WaveManager extends GameObject {
         }
     }
 
+    void endWave(){
+        int alive = hives.size();
+        for(AlienHive ah : hives){
+            if(!ah.isActive())
+                alive--;
+        }
+
+        System.out.println("Alive is " + alive);
+        pauseStart = System.currentTimeMillis();
+        state = WaveSate.PAUSE;
+
+        MessageHandler.getInstance().writeMessage("Dem boiz be back real soon \n\n Get ready!",
+            new Sprite("portraits/mc_happy"));
+    }
+
+    void startWave(){
+        state = WaveSate.WAVE;
+        waveStart = System.currentTimeMillis();
+        waveNumber++;
+
+        hivesDownMessage = false;
+
+        for(AlienHive ah : hives){
+            ah.reset();
+        }
+    }
+
+    int getAliveHives(){
+        int alive = hives.size();
+        for(AlienHive ah : hives){
+            if(!ah.isActive())
+                alive--;
+        }
+        return  alive;
+    }
+
     boolean isHivesAlive(){
         boolean ret = true;
         for(AlienHive h : hives){
             if(!h.isActive())
+                ret = false;
+        }
+        return ret;
+    }
+
+    boolean isHivesDead(){
+        boolean ret = true;
+        for(AlienHive h : hives){
+            if(h.isActive())
                 ret = false;
         }
         return ret;
@@ -130,7 +186,12 @@ public class WaveManager extends GameObject {
         gc.setFill(Color.BLACK);
         gc.setFont(new Font(height / 2));
         gc.setTextAlign(TextAlignment.CENTER);
+
+        if(state == WaveSate.WAVE)
         gc.fillText("Wave " + waveNumber, 1920 / 2, height / 2);
+        else if(state == WaveSate.PAUSE)
+            gc.fillText("Next wave in:", 1920 / 2, height / 2);
+
 
         double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
         if(state == WaveSate.WAVE){

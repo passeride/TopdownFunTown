@@ -1,6 +1,8 @@
 package com.rominntrenger.objects;
 
 import com.bluebook.graphics.Sprite;
+import com.bluebook.physics.Collider;
+import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.enemy.AlienGreen;
@@ -32,6 +34,8 @@ public class AlienHive extends Enemy {
         max_health = 1000;
         health = 1000;
 
+        collider.setOnCollisionListener(null);
+
     }
 
 
@@ -53,7 +57,9 @@ public class AlienHive extends Enemy {
 //        super.destroy();
     }
 
-    public void resett(){
+    public void reset(){
+        isActive = true;
+        health = max_health;
         setSprite(new Sprite("projectiles/projectileRed"));
     }
 
@@ -72,7 +78,4 @@ public class AlienHive extends Enemy {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 }

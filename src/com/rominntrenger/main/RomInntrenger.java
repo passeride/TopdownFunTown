@@ -13,7 +13,6 @@ import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.PlayerSpawn;
-import com.rominntrenger.objects.ScoreElement;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
@@ -72,7 +71,6 @@ public class RomInntrenger extends GameApplication {
 
         new WaveManager();
 
-        stateHandling = new StateHandling();
 
         if(gi.getNumberOfControllers() > 0) {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
@@ -85,6 +83,8 @@ public class RomInntrenger extends GameApplication {
                 p.setPlayerColor(playerColor[i]);
 
                 new PlayerGuiElement(p);
+                stateHandling = new StateHandling();
+
 
             }
         }else{
@@ -94,6 +94,9 @@ public class RomInntrenger extends GameApplication {
             p.setPlayerColor(playerColor[0]);
 
             new PlayerGuiElement(p);
+            stateHandling = new StateHandling();
+
+
         }
     }
 
@@ -102,7 +105,8 @@ public class RomInntrenger extends GameApplication {
 //        if(input.isKeyPressed(KeyCode.H)){
 //            new DeathOverlay();
 //        }
-//
+
+
 
         cam.update(delta);
         gi.pullEvents();
@@ -140,6 +144,21 @@ public class RomInntrenger extends GameApplication {
 
             } else if (players.indexOf(player) == 0) {
 
+                // SAVE DEBUG CODE
+
+                if(input.isKeyPressed(KeyCode.K)){
+                    //Checks if loading works
+                    double playerPosX = player.getPosition().getX();
+                    double playerPosY = player.getPosition().getY();
+                    double playerDegrees = player.getTransform().getGlobalRotation().getAngleInDegrees();
+                    stateHandling.saveGame(1,10, playerPosX, playerPosY, playerDegrees);
+
+                }
+                if(input.isKeyPressed(KeyCode.T)){
+                    stateHandling.setAllLoadData(stateHandling);
+                }
+                // End of saveDebug Kode
+
                 if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
                     .isKeyDown(KeyCode.A)
                     || input.isKeyDown(KeyCode.D)) {
@@ -151,16 +170,6 @@ public class RomInntrenger extends GameApplication {
                 if (input.isKeyDown(KeyCode.S)) {
                     player.moveDown(delta);
 
-                    //Checks if loading works
-                    double playerPosX = player.getTransform().getGlobalPosition().getX();
-                    double playerPosY = player.getTransform().getGlobalPosition().getY();
-                    double playerDegrees = player.getTransform().getGlobalRotation().getAngleInDegrees();
-                    stateHandling.saveGame(1,10, playerPosX, playerPosY, playerDegrees);
-                    stateHandling.loadWaveNumber();
-                    stateHandling.loadPlayerHealth();
-                    stateHandling.loadPlayerPositionX();
-                    stateHandling.loadPlayerPositionY();
-                    stateHandling.loadPlayerDirectioninDegrees();
                 }
 
                 if (input.isKeyDown(KeyCode.W)) {
@@ -244,5 +253,6 @@ public class RomInntrenger extends GameApplication {
 
         return ret;
     }
+
 
 }

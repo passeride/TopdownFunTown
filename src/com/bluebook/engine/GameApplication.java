@@ -105,6 +105,7 @@ public abstract class GameApplication extends Application{
     }
 
     private void setHeightListener(Stage primaryStage, Controller controller) {
+        Y_scale.set( primaryStage.getHeight() / GameSettings.getInt("game_resolution_Y"));
         primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
             Y_scale.set((double) newValue / GameSettings.getInt("game_resolution_Y"));
             //controller.setCanvasHeight((double)newValue);
@@ -112,6 +113,8 @@ public abstract class GameApplication extends Application{
     }
 
     private void setWidthListener(Stage primaryStage, Controller controller) {
+        X_scale.set(primaryStage.getWidth() / GameSettings.getInt("game_resolution_X"));
+
         primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
             X_scale.set((double) newValue / GameSettings.getInt("game_resolution_X"));
             //controller.setCanvasWidth((double) newValue);
