@@ -40,7 +40,7 @@ public class RomInntrenger extends GameApplication {
     public FloatControl floatControl;
 
     private Color[] playerColor = {
-        Color.RED,Color.GREEN, Color.BLUE, Color.CYAN
+        Color.RED,Color.GREEN, Color.BLUE, Color.YELLOW
     };
 
     MessageHandler msh;

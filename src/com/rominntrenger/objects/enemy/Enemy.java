@@ -131,16 +131,6 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void update(double delta) {
-//        if (target != null) {
-//            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-//                Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
-//                speed * delta));
-//            setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2
-//                    .Vector2FromAngleInDegrees(
-//                        Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())),
-//                angularDampening)));
-//            getDirection().normalize();
-//        }
         this.delta = delta;
     }
 
