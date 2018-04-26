@@ -165,10 +165,10 @@ public class Player extends GameObject {
         int playerInLight = 0;
         for(Enemy e : Enemy.allEnemies){
             if(light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
-                e.isSeenByPlayer = true;
+                e.setIsSeenByPlayer(getPlayerID(), true);
                 playerInLight++;
             }else {
-                e.isSeenByPlayer = false;
+                e.setIsSeenByPlayer(getPlayerID(), false);
             }
         }
         System.out.println("Number of enemies in light: " + playerInLight);

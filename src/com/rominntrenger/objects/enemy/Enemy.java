@@ -1,5 +1,6 @@
 package com.rominntrenger.objects.enemy;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.CircleCollider;
@@ -8,6 +9,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.FSM.Behaviour;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
@@ -34,11 +36,14 @@ public abstract class Enemy extends GameObject {
     Behaviour behaviour;
     public double delta;
 
-    public boolean isSeenByPlayer = false;
+    private boolean[] isSeenByPlayer;
 
 
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
+        // setSeenByPlayer
+        isSeenByPlayer = new boolean[((RomInntrenger) GameApplication.getInstance()).players.size()];
+
         allEnemies.add(this);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
         collider = new CircleCollider(this, 20);
@@ -118,7 +123,8 @@ public abstract class Enemy extends GameObject {
         gc.setFill(Color.GREEN);
         gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
 
-        if(isSeenByPlayer) {
+        if(isSeenByPlayer()) {
+            System.out.println(isSeenByPlayer.length);
             gc.setFill(Color.RED);
             gc.fillArc(pos.getX() - 30, pos.getY() - 30, 60, 60, 0, 360, ArcType.CHORD);
 
@@ -152,5 +158,18 @@ public abstract class Enemy extends GameObject {
 
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public void setIsSeenByPlayer(int playerID, boolean state){
+        isSeenByPlayer[playerID] = state;
+    }
+
+    public boolean isSeenByPlayer(){
+        boolean ret = false;
+        for(Boolean bol : isSeenByPlayer){
+            if(bol)
+                ret = true;
+        }
+        return ret;
     }
 }
