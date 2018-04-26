@@ -1,9 +1,13 @@
 package com.rominntrenger.stateHandling;
 
+import com.bluebook.util.Vec2;
+import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.player.Player;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class StateHandling {
 
@@ -12,6 +16,10 @@ public class StateHandling {
     double playerPositionX;
     double playerPositionY;
     double playerDirectionInDegrees;
+    String pathToPlayerSprite = "./assets/sprite/friendlies/character_0.png";
+    RomInntrenger romInntrenger;
+    ArrayList<Player> playerArray;
+
 
     /**
      * Saves the current gamestate in different files as serialization wasent functioning correctly
@@ -71,13 +79,15 @@ public class StateHandling {
             waveNumber = 1;
         return waveNumber;
     }
-    public int loadPlayerHealth(){
+    public int loadPlayerHealth(Player player){
         try {
             FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerHealth.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerHealth = (int) save.readObject();
+            player.setPlayerHealth(playerHealth);
             save.close();
             System.out.println("playerHealth : " + playerHealth);
+
             return playerHealth;
 
         }catch (Exception exc){
@@ -117,11 +127,13 @@ public class StateHandling {
         return playerPositionY;
 
     }
-    public double loadPlayerDirectioninDegrees(){
+    public double loadPlayerDirectionInDegrees(Player player){
         try{
             FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerDirectionInDegrees.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerDirectionInDegrees = (double) save.readObject();
+//            player = romInntrenger.getPlayers().get(0);
+            player.setDirection(Vec2.Vector2FromAngleInDegrees(playerDirectionInDegrees));
             save.close();
             System.out.println("player in degrees : " + playerDirectionInDegrees);
             return playerDirectionInDegrees;
@@ -130,5 +142,19 @@ public class StateHandling {
         }
         return playerDirectionInDegrees;
     }
+    public void setPlayerPositionFromLoadFile(StateHandling stateHandling, Player player){
+        double posX = stateHandling.loadPlayerPositionX();
+        double posY = stateHandling.loadPlayerPositionY();
+        player.setPosition(new Vec2(posX, posY));
+    }
 
+    public void setAllLoadData(StateHandling stateHandling){
+        RomInntrenger romInntrenger = (RomInntrenger) RomInntrenger.getInstance();
+        Player player = romInntrenger.getPlayers().get(0);
+        stateHandling.loadWaveNumber();
+        stateHandling.loadPlayerHealth(player);
+        stateHandling.loadPlayerDirectionInDegrees(player);
+        stateHandling.setPlayerPositionFromLoadFile(stateHandling, player);
+
+    }
 }
