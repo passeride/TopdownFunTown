@@ -1,13 +1,17 @@
 package com.rominntrenger.objects.enemy;
 
+import com.bluebook.engine.GameApplication;
+import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.FSM.Behaviour;
+import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public abstract class Enemy extends GameObject {
 
@@ -176,4 +181,5 @@ public abstract class Enemy extends GameObject {
     public int getMax_health() {
         return max_health;
     }
+
 }
