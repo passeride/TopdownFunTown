@@ -28,6 +28,16 @@
   "Alien_green_speed": 450,
   "Alien_green_max_health": 30,
   "Alien_green_bullet_dmg": 10,
+  "Alien_worm_max_health": 50,
+  "Alien_worm_hit_dmg": 20,
+  "Alien_zombie_max_health": 40,
+  "Alien_zombie_hit_dmg": 50,
+  "Alien_eye_max_health": 60,
+  "Alien_eye_hit_dmg": 2,
+  "Alien_glow_max_health": 30,
+  "Alien_glow_bullet_dmg": 5,
+  "Alien_mother_max_health": 100,
+  "Alien_mother_hit_dmg": 1,
 
   "player_health":1000
 

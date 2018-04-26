@@ -7,9 +7,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.FSM.Behaviour;
-import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
@@ -22,9 +20,9 @@ public abstract class Enemy extends GameObject {
 
     public static List<Enemy> allEnemies = new ArrayList<>();
 
-    double speed = 300;
-    int max_health = 1000;
-    int health = 1000;
+    protected double speed = 300;
+    protected int max_health = 1000;
+    protected int health = 1000;
     GameObject target;
     double angularDampening = 0.05;
     int bullet_dmg = 10;
@@ -33,8 +31,14 @@ public abstract class Enemy extends GameObject {
 
     private Behaviour[] behaviours = new Behaviour[12];
 
+    private boolean[] isSeenByPlayer;
+
+
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
+        // setSeenByPlayer
+        isSeenByPlayer = new boolean[Math.max(1, ((RomInntrenger) GameApplication.getInstance()).players.size() + 2)];
+
         allEnemies.add(this);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
         collider = new CircleCollider(this, 20);
@@ -46,14 +50,11 @@ public abstract class Enemy extends GameObject {
         collider.addInteractionLayer("Block");
         collider.addInteractionLayer("Walk");
 
-        collider.setOnCollisionListener(new OnCollisionListener() {
-            @Override
-            public void onCollision(Collider other) {
-                if (other.getGameObject() instanceof Player) {
-                    Player p = (Player) other.getGameObject();
-                    p.hit(bullet_dmg);
-                    destroy();
-                }
+        collider.setOnCollisionListener((Collider other) -> {
+            if (other.getGameObject() instanceof Player) {
+                Player p = (Player) other.getGameObject();
+                p.hit(bullet_dmg);
+                destroy();
             }
         });
 
@@ -113,13 +114,16 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        if(health > 0) {
-            super.draw(gc);
-            Vec2 pos = transform.getGlobalPosition();
-            gc.setStroke(Color.BLACK);
-            gc.strokeRect(pos.getX() - 50, pos.getY() - 50, 100, 20);
-            gc.setFill(Color.GREEN);
-            gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
+        super.draw(gc);
+        Vec2 pos = transform.getGlobalPosition();
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(pos.getX() - 50, pos.getY() - 50, 100, 20);
+        gc.setFill(Color.GREEN);
+        gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
+
+        if(GameEngine.DEBUG && isSeenByPlayer()) {
+            gc.setFill(Color.RED);
+            gc.fillArc(pos.getX() - 30, pos.getY() - 30, 60, 60, 0, 360, ArcType.CHORD);
         }
     }
 
@@ -150,6 +154,19 @@ public abstract class Enemy extends GameObject {
 
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public void setIsSeenByPlayer(int playerID, boolean state){
+        isSeenByPlayer[playerID] = state;
+    }
+
+    public boolean isSeenByPlayer(){
+        boolean ret = false;
+        for(Boolean bol : isSeenByPlayer){
+            if(bol)
+                ret = true;
+        }
+        return ret;
     }
 
     public int getHealth() {

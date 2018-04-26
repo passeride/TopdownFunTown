@@ -19,7 +19,16 @@ public class PlayerGuiElement extends GameObject{
     int x = 20;
     int y = 20;
     double margin = 10;
-
+    private int space = 5;
+    Sprite health;
+    int healthW;
+    int healthH;
+    Sprite skull;
+    int skullW;
+    int skullH;
+    Sprite ammo;
+    int ammoW;
+    int ammoH;
 
     public PlayerGuiElement(Player p) {
         super(Vec2.ZERO, Vec2.ZERO, null);
@@ -42,29 +51,50 @@ public class PlayerGuiElement extends GameObject{
         Color bg = new Color(c.getRed(), c.getGreen(), c.getBlue(), 0.3);
         gc.setFill(bg);
 
-        gc.strokeRect(x, y, width, height);
-        gc.fillRect(x, y, width, height);
+        gc.strokeRect(x, y, width+32+32, height); // TODO: Unhardcode this somehow, can't use healthW+skullW+ammoW because they do not yet exist
+        gc.fillRect(x, y, width+32+32, height);
 
         double row = height / 4;
 
         // Health
-        gc.strokeRect(x + margin /  2, y + margin / 2, width - margin, row - margin);
+        health = new Sprite("./gui/health",transform);
+        health.setSquareHeight(35);
+        health.setSquareWidth(35);
+        healthH = (int)health.getSquareHeight();
+        healthW = (int)health.getSquareWidth();
+        health.drawGUI(gc, new Vec2(x, y), healthW, healthH);
+
+        gc.strokeRect(x + (double)healthW + margin + space /  2, y + margin / 2, width - margin, row - margin);
         gc.setFill(Color.GREEN);
-        gc.fillRect(x + margin /  2, y + margin / 2, ((double)player.getPlayerHealth() / (double)player.getMaxPlayerHealth()) * (width - margin), row - margin);
+        gc.fillRect(x + (double)healthW + margin + space /  2, y + margin / 2, ((double)player.getPlayerHealth() / (double)player.getMaxPlayerHealth()) * (width - margin), row - margin);
 
         // Kills
-        gc.strokeRect(x + margin /  2,  (row * 1 ) + y + margin / 2, width - margin, row - margin);
+        skull = new Sprite("./gui/killNum",transform);
+        skull.setSquareHeight(35);
+        skull.setSquareWidth(35);
+        skullH = (int)skull.getSquareHeight();
+        skullW = (int)skull.getSquareWidth();
+        skull.drawGUI(gc, new Vec2(x, y + healthH), skullW, skullH);
+
+        gc.strokeRect(x + skullW + margin + space /  2,  (row * 1 ) + y + margin / 2, width - margin, row - margin);
         gc.setFill(Color.BLACK);
-        gc.setFont(new Font(row - margin * 2));
-        gc.fillText("K: " + player.getEnemiesKilled(), x + margin / 2,(row * 2) + y - margin / 2);
+        gc.setFont(new Font(row - margin * 2+space));
+        gc.fillText(" "+player.getEnemiesKilled(), x + skullW + (space*2) + margin / 2 ,(row * 2) + y - margin / 2);
 
         // Ammo
+        ammo = new Sprite("./gui/ammo",transform);
+        ammo.setSquareHeight(35);
+        ammo.setSquareWidth(35);
+        ammoH = (int)ammo.getSquareHeight();
+        ammoW = (int)ammo.getSquareWidth();
+        ammo.drawGUI(gc, new Vec2(x, y + healthH + skullH), ammoW, ammoH);
+
         Weapon w = player.getCurrentWeapon();
         if(w != null) {
-            gc.strokeRect(x + margin / 2, (row * 2) + y + margin / 2, width - margin, row - margin);
+            gc.strokeRect(x + margin + ammoW + space / 2, (row * 2) + y + skullH + healthH + margin / 2, width - margin, row - margin);
 
             gc.setFill(Color.GREEN);
-            gc.fillRect(x + margin /  2, (row * 2 ) + y + margin / 2, ((double)w.getAmmoRemaining() / (double)w.getAmmoCap()) * (width - margin), row - margin);
+            gc.fillRect(x + margin + ammoW + space /  2, (row * 2 ) + y + skullH + healthH + margin / 2, ((double)w.getAmmoRemaining() / (double)w.getAmmoCap()) * (width - margin), row - margin);
 
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(row - margin));
