@@ -3,7 +3,12 @@ package com.rominntrenger.objects;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.enemy.AlienEye;
+import com.rominntrenger.objects.enemy.AlienGlow;
 import com.rominntrenger.objects.enemy.AlienGreen;
+import com.rominntrenger.objects.enemy.AlienMother;
+import com.rominntrenger.objects.enemy.AlienWorm;
+import com.rominntrenger.objects.enemy.AlienZombie;
 import com.rominntrenger.objects.enemy.Enemy;
 
 public class AlienHive extends GameObject {
@@ -28,7 +33,12 @@ public class AlienHive extends GameObject {
     public void update(double delta) {
         super.update(delta);
         if(System.currentTimeMillis() - previousSPawn > spawnRate * 1000.0 && Enemy.allEnemies.size() < max_enemies){
-            new AlienGreen(getPosition());
+            //new AlienGreen(getPosition());
+            //new AlienWorm(getPosition());
+            //new AlienZombie(getPosition());
+            //new AlienEye(getPosition());
+            // new AlienGlow(getPosition());
+            //new AlienMother(getPosition());
             previousSPawn = System.currentTimeMillis();
         }
     }
