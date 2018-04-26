@@ -1,6 +1,7 @@
 package com.rominntrenger.objects.enemy;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.CircleCollider;
@@ -27,9 +28,9 @@ public abstract class Enemy extends GameObject {
 
     public static List<Enemy> allEnemies = new ArrayList<>();
 
-    double speed = 300;
-    int max_health = 1000;
-    int health = 1000;
+    protected double speed = 300;
+    protected int max_health = 1000;
+    protected int health = 1000;
     GameObject target;
     double angularDampening = 0.05;
     int bullet_dmg = 10;
@@ -42,7 +43,7 @@ public abstract class Enemy extends GameObject {
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         // setSeenByPlayer
-        isSeenByPlayer = new boolean[((RomInntrenger) GameApplication.getInstance()).players.size()];
+        isSeenByPlayer = new boolean[Math.max(1, ((RomInntrenger) GameApplication.getInstance()).players.size() + 2)];
 
         allEnemies.add(this);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
@@ -123,11 +124,9 @@ public abstract class Enemy extends GameObject {
         gc.setFill(Color.GREEN);
         gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
 
-        if(isSeenByPlayer()) {
-            System.out.println(isSeenByPlayer.length);
+        if(GameEngine.DEBUG && isSeenByPlayer()) {
             gc.setFill(Color.RED);
             gc.fillArc(pos.getX() - 30, pos.getY() - 30, 60, 60, 0, 360, ArcType.CHORD);
-
         }
     }
 

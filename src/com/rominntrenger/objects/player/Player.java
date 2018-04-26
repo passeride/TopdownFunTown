@@ -171,7 +171,6 @@ public class Player extends GameObject {
                 e.setIsSeenByPlayer(getPlayerID(), false);
             }
         }
-        System.out.println("Number of enemies in light: " + playerInLight);
     }
 
 

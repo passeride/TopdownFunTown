@@ -84,11 +84,26 @@ public class WaveManager extends GameObject {
                 waveNumber++;
             }
         }else if(state == WaveSate.WAVE){
+
+            if(!isHivesAlive()){
+                pauseStart = System.currentTimeMillis();
+                state = WaveSate.PAUSE;
+            }
             for(AlienHive ah : hives){
                 ah.spawn();
             }
         }
     }
+
+    boolean isHivesAlive(){
+        boolean ret = true;
+        for(AlienHive h : hives){
+            if(!h.isActive())
+                ret = false;
+        }
+        return ret;
+    }
+
 
     @Override
     public void draw(GraphicsContext gc) {
