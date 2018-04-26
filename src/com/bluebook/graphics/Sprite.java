@@ -5,7 +5,9 @@ import com.bluebook.util.GameSettings;
 import com.bluebook.util.Transform;
 import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 
 /**
@@ -189,6 +191,8 @@ public class Sprite {
 
         scaledSquareWidth = squareWidth;
         scaledSquareHeight = squareHeight;
+
+
 
         if (isRotated) {
             gc = rotateGraphicsContext(gc, position);

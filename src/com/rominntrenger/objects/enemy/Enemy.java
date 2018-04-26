@@ -100,8 +100,8 @@ public abstract class Enemy extends GameObject {
 
     public void hit(int dmg){
         health -= dmg;
-        if(health < 0){
-            this.destroy();
+        if(health <= 0){
+            destroy();
         }
     }
 
@@ -123,6 +123,7 @@ public abstract class Enemy extends GameObject {
         allEnemies.remove(this);
         new Blood(getPosition());
 //        new WeaponClipUpgrade(getPosition(), new WeaponClip());
+        collider.destroy();
         super.destroy();
 //        if(isKeyHolder)
 //            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;

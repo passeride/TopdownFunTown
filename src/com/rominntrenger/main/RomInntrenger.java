@@ -14,6 +14,7 @@ import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.ScoreElement;
+import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.player.StarterWeapon;
@@ -69,6 +70,8 @@ public class RomInntrenger extends GameApplication {
 
         gi = new GamepadInput();
 
+        new WaveManager();
+
         stateHandling = new StateHandling();
 
         if(gi.getNumberOfControllers() > 0) {
@@ -91,7 +94,6 @@ public class RomInntrenger extends GameApplication {
             p.setPlayerColor(playerColor[0]);
 
             new PlayerGuiElement(p);
-
         }
     }
 
