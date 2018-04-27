@@ -6,6 +6,7 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.Explotion;
+import com.rominntrenger.objects.FSM.Attack;
 import java.util.Random;
 
 /**
@@ -27,6 +28,7 @@ public class AlienExplode extends Enemy {
     }
 
 
+
     @Override
     public void destroy() {
         new Explotion(getPosition());
@@ -34,7 +36,10 @@ public class AlienExplode extends Enemy {
     }
 
     public void update(double delta) {
-        super.update(delta);
-        setTarget(((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(transform.getGlobalPosition()));
+        super.nextBehaviour();
+
+        if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
+            prevShot = System.currentTimeMillis();
+        }
     }
 }

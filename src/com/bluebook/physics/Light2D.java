@@ -104,33 +104,35 @@ bool pointInPolygon() {
      */
 
     public boolean pointInPoly(Vec2 point){
-        if(polygon == null)
-            return false;
+        try {
+            if (polygon == null)
+                return false;
 
+            double x = point.getX();
+            double y = point.getY();
 
+            double[] polyY = polygon[1].clone();
+            double[] polyX = polygon[0].clone();
 
-        double x = point.getX();
-        double y = point.getY();
+            int j = polyY.length - 1;
 
-        double[] polyY = polygon[1].clone();
-        double[] polyX = polygon[0].clone();
+            boolean oddNodes = false;
 
-        int j = polyX.length - 1;
-
-
-        boolean oddNodes = false;
-
-        for(int i = 0; i < polyY.length; i++){
-            if ((polyY[i]< y && polyY[j]>=y
-                ||   polyY[j]< y && polyY[i]>=y)
-                &&  (polyX[i]<=x || polyX[j]<=x)) {
-                if (polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x) {
-                    oddNodes=!oddNodes;
+            for (int i = 0; i < polyY.length; i++) {
+                if ((polyY[i] < y && polyY[j] >= y
+                    || polyY[j] < y && polyY[i] >= y)
+                    && (polyX[i] <= x || polyX[j] <= x)) {
+                    if (polyX[i] + (y - polyY[i]) / (polyY[j] - polyY[i]) * (polyX[j] - polyX[i])
+                        < x) {
+                        oddNodes = !oddNodes;
+                    }
                 }
+                j = i;
             }
-            j=i;
+            return oddNodes;
+        }catch(ArrayIndexOutOfBoundsException exception) {
+            return false;
         }
-        return oddNodes;
 
     }
 

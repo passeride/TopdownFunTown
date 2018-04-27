@@ -28,7 +28,7 @@ public class WaveManager extends GameObject {
     private int height = 100;
     private int boxRadius = 90;
 
-    private int waveNumber = 0;
+    private int waveNumber = 10;
 
     private long waveStart = 0;
 

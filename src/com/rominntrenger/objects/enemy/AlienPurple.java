@@ -8,6 +8,7 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
 import java.util.Random;
@@ -33,9 +34,9 @@ public class AlienPurple extends Enemy {
     @Override
     public void update(double delta) {
         super.update(delta);
-        setTarget(((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(transform.getGlobalPosition()));
+        super.nextBehaviour();
 
-        if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
+        if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
             shoot();
         }

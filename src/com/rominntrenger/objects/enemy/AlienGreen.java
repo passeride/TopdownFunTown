@@ -31,7 +31,7 @@ public class AlienGreen extends Enemy {
 
     public void update(double delta) {
         super.update(delta);
-        AlienGreen.super.nextBehaviour();
+        super.nextBehaviour();
 
         if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
