@@ -212,4 +212,20 @@ public class WaveManager extends GameObject {
         gc.fillText(df.format(timeLeft), 1920 / 2, height - height /  5);
 
     }
+
+    public int getWaveNumber() {
+        return waveNumber;
+    }
+
+    public void setWaveNumber(int waveNumber) {
+        this.waveNumber = waveNumber;
+    }
+
+    public WaveSate getState() {
+        return state;
+    }
+
+    public void setState(WaveSate state) {
+        this.state = state;
+    }
 }
