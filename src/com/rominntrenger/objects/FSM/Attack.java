@@ -9,30 +9,39 @@ import com.rominntrenger.objects.player.Player;
 
 public class Attack implements Behaviour {
 
+    public static int position = 1;
+    boolean hasFled = false;
+
     @Override
     public void nextBehaviour(Enemy behaviourContext) {
-        Enemy enemy = behaviourContext;
+
         double speed;
         double delta;
+        speed = behaviourContext.getSpeed();
+        delta = behaviourContext.getDelta();
 
-        speed = enemy.getSpeed();
-        delta = enemy.getDelta();
-        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(enemy.getTransform().getGlobalPosition());
-        double distance2Player = enemy.getPosition().distance(player.getPosition());
-        if (behaviourContext != null) {
-            enemy.setTarget(player);
-            enemy.setDirection(Vec2.subtract(player.getPosition(), enemy.getPosition()));
-            enemy.setSpeed(450);
-            enemy.translate(Vec2.multiply(enemy.getDirection().getNormalizedVector(),speed * delta));
+        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(
+            behaviourContext.getTransform().getGlobalPosition());
+        double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
+        behaviourContext.setTarget(player);
+        behaviourContext.setDirection(Vec2.subtract(player.getPosition(), behaviourContext.getPosition()));
+        behaviourContext.setSpeed(GameSettings.getDouble("Alien_green_speed"));
+        behaviourContext
+            .translate(Vec2.multiply(behaviourContext.getDirection().getNormalizedVector(),speed * delta));
 
-        }
         if(distance2Player >= GameSettings.getDouble("Alien_attack_distance")){
-            behaviourContext.setBehaviour(new Wander());
+            behaviourContext.setBehaviour(Wander.position);
         }
 
-//        if(enemy.health <= (enemy.health / 2)){
-//            behaviourContext.setBehaviour(new Flee());
-//        }
+        if(behaviourContext.getHealth() <= (behaviourContext.getMax_health() / 2)){
+            if(!hasFled){
+                hasFled = true;
+                behaviourContext.setBehaviour(Flee.position);
+
+            }else {
+                behaviourContext.setBehaviour(Attack.position);
+            }
+        }
 
     }
 }

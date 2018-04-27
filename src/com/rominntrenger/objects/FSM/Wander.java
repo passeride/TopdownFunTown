@@ -10,6 +10,8 @@ import com.rominntrenger.objects.player.Player;
 public class Wander implements Behaviour {
 
     private long prevRandomMove = 0;
+    public static int position = 0;
+    private int health = 30;
 
 
     @Override
@@ -26,16 +28,26 @@ public class Wander implements Behaviour {
         }
 
         behaviourContext.translate(Vec2.multiply(behaviourContext.getDirection(), speed * delta));
-        Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(behaviourContext.getTransform().getGlobalPosition());
+        Player player = ((RomInntrenger) GameApplication.
+            getInstance()).getClosestPlayer(behaviourContext.getTransform().getGlobalPosition());
         double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
         if (distance2Player <= GameSettings.getDouble("Alien_attack_distance")) {
-            behaviourContext.setBehaviour(new Attack());
+            behaviourContext.setBehaviour(Attack.position);
         }
+
+        if((distance2Player >= GameSettings.getDouble("Alien_attack_distance")) && (
+            behaviourContext.getHealth() != health)){
+            health = behaviourContext.getHealth();
+            behaviourContext.setBehaviour(Attack.position);
+        }
+
 
     }
     private void RandomMove(Enemy behaviourContext){
-        double speed = behaviourContext.getSpeed();
-        double delta = behaviourContext.getDelta();
+        double speed;
+        double delta;
+        speed = behaviourContext.getSpeed();
+        delta = behaviourContext.getDelta();
 
         Vec2 direction = Vec2.Vector2FromAngleInDegrees(Math.random() * 360);
         behaviourContext.setDirection(direction);

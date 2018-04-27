@@ -3,21 +3,18 @@ package com.rominntrenger.objects.enemy;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.FSM.Behaviour;
+import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.weapon.WeaponClip;
-import com.rominntrenger.objects.weapon.WeaponClipUpgrade;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -37,6 +34,8 @@ public abstract class Enemy extends GameObject {
     int bullet_dmg = 10;
     Behaviour behaviour;
     public double delta;
+
+    private Behaviour[] behaviours = new Behaviour[12];
 
     private boolean[] isSeenByPlayer;
 
@@ -65,14 +64,20 @@ public abstract class Enemy extends GameObject {
             }
         });
 
-        this.behaviour = new Wander();
+
+        behaviours[Wander.position] = new Wander();
+        behaviours[Attack.position] = new Attack();
+        behaviours[Flee.position] = new Flee();
+
+
+        behaviour = behaviours[Wander.position];
     }
 
     /** Sets the current behaviour to input.
-     * @param behaviour
+     * @param behaviourPosition
      */
-    public void setBehaviour(Behaviour behaviour) {
-        this.behaviour = behaviour;
+    public void setBehaviour(int behaviourPosition) {
+        this.behaviour = behaviours[behaviourPosition];
     }
 
     public void nextBehaviour() {
@@ -169,4 +174,13 @@ public abstract class Enemy extends GameObject {
         }
         return ret;
     }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getMax_health() {
+        return max_health;
+    }
+
 }
