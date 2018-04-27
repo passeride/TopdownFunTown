@@ -48,13 +48,16 @@ public class Player extends GameObject {
     public RigidBody2D rb2;
     public Light2D light2D;
 
-    private double angularDampening = 0.2;
+    private double angularDampening = 0.1;
 
     private RomInntrenger romInntrenger;
     private AudioPlayer audioPlayer;
 
     private boolean isMultiplayer = false;
     private int multiPlayerCircleRadius = 75;
+    private boolean showLaser = false;
+
+    private Vec2 lookDirection = new Vec2(0,1);
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -100,6 +103,7 @@ public class Player extends GameObject {
         romInntrenger = ((RomInntrenger) GameApplication.getInstance());
 
         maxPlayerHealth = GameSettings.getInt("player_health");
+        angularDampening = GameSettings.getDouble("player_angular_dampening");
         playerHealth = maxPlayerHealth;
 
 
@@ -114,17 +118,14 @@ public class Player extends GameObject {
                 double[][] polygon = light2D.polygon;
 //                gc.save();
 //                gc.setGlobalBlendMode(BlendMode.OVERLAY);
-                gc.setFill(new Color(1, 1, 1, 0.1));
+                gc.setFill(new Color(1, 0.7, 0.8, 0.2));
                 gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
 //                gc.restore();
             }
         }
 
 
-        if(uses_controller) {
-//            gc.save();
-//            gc.setGlobalBlendMode(BlendMode.OVERLAY);
-
+        if(uses_controller && showLaser) {
             double dir = getDirection().getAngleInRadians() - Math.PI / 2;
             gc.setStroke( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
             gc.setLineDashes(8, 10, 8, 10);
@@ -135,7 +136,6 @@ public class Player extends GameObject {
 //            gc.restore();
 
         }
-//        gc.setGlobalBlendMode(BlendMode.);
 
         if(getPlayerID()!= 0){
             gc.setFill( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
@@ -162,6 +162,7 @@ public class Player extends GameObject {
         translate(Vec2.ZERO); // This is to update in case of intersection
 
 
+
         int playerInLight = 0;
         for(Enemy e : Enemy.allEnemies){
             if(light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
@@ -173,37 +174,85 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * Will return the speed with possible modifications from pickups
+     * @return
+     */
+    public double getModifiedSpeed(){
+        double modSpeed = speed;
+        if(currentWeapon != null && currentWeapon.getWeaponBase() != null)
+            modSpeed *= currentWeapon.getWeaponBase().speedMultiplier;
+
+        return modSpeed;
+    }
+
+    /**
+     * Used by controller input to set a laser guide for shooting direction
+     * @param lookDirection
+     */
+    public void lookInDirection(Vec2 lookDirection){
+        this.lookDirection = lookDirection.getNormalizedVector();
+        if(lookDirection.getMagnitude() > 0.8){
+            showLaser = true;
+        }else{
+            showLaser = false;
+        }
+
+        // TODO: FIX SHIT
+        if (lookDirection.getMagnitude() >  0.2) {
+//            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
+            // Getting modified angular dampening
+            double angularDampeningWModifiers = angularDampening;
+
+            if(currentWeapon != null && currentWeapon.getWeaponBase() != null)
+                angularDampeningWModifiers *= currentWeapon.getWeaponBase().angularDampeningMultiplier;
+
+            setDirection(
+                Vec2.add(
+                    getDirection(),
+                    Vec2.multiply(
+                        Vec2.Vector2FromAngleInDegrees(
+                            Vec2.getAngleBetweenInDegrees(getPosition(),
+                                Vec2.add(getPosition(), lookDirection)
+                            ) + 90
+                        )
+                        ,angularDampeningWModifiers)
+                )
+            );
+            getDirection().normalize();
+        }
+    }
 
     /**
      * Will move the player object NORTH/UP by {@link Player#speed}
      */
     public void moveUp(double delta) {
-        translate(Vec2.multiply(Vec2.UP, speed * delta));
+        translate(Vec2.multiply(Vec2.UP, getModifiedSpeed() * delta));
     }
 
     /**
      * Will move the player object SOUTH/DOWN by {@link Player#speed}
      */
     public void moveDown(double delta) {
-        translate(Vec2.multiply(Vec2.DOWN, speed * delta));
+        translate(Vec2.multiply(Vec2.DOWN, getModifiedSpeed() * delta));
     }
 
     /**
      * Will move the player object WEST/LEFT by {@link Player#speed}
      */
     public void moveLeft(double delta) {
-        translate(Vec2.multiply(Vec2.LEFT, speed * delta));
+        translate(Vec2.multiply(Vec2.LEFT, getModifiedSpeed() * delta));
     }
 
     /**
      * Will move the player object EAST/RIGHT by {@link Player#speed}
      */
     public void moveRight(double delta) {
-        translate(Vec2.multiply(Vec2.RIGHT, speed * delta));
+        translate(Vec2.multiply(Vec2.RIGHT, getModifiedSpeed() * delta));
     }
 
     public void move(Vec2 direction, double delta){
-        translate(Vec2.multiply(direction, speed * delta));
+        translate(Vec2.multiply(direction, getModifiedSpeed() * delta));
     }
 
     /**
@@ -287,7 +336,7 @@ public class Player extends GameObject {
         if (currentWeapon != null) {
             if(currentWeapon.shoot()) {
 //                rb2.addForce(Vec2.multiply(Vec2
-//                        .Vector2FromAngleInDegrees(
+//                        .Vec2FromAngleInDegrees(
 //                            transform.getGlobalRotation().getAngleInDegrees() + 90),
 //                    30000));
             }

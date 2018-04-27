@@ -33,9 +33,9 @@ public abstract class Weapon extends GameObject {
     private long previousShotTime = 0;
     protected double shootInterval = 0.5;
 
-    private WeaponClip weaponClip;
-    private WeaponBarrel weaponBarrel;
-    private WeaponBase weaponBase;
+    WeaponClip weaponClip;
+    WeaponBarrel weaponBarrel;
+    WeaponBase weaponBase;
 
 
     private Player holder;
@@ -155,5 +155,13 @@ public abstract class Weapon extends GameObject {
 
     public void setAmmoRemaining(int ammoRemaining) {
         this.ammoRemaining = ammoRemaining;
+    }
+
+    public WeaponBase getWeaponBase() {
+        return weaponBase;
+    }
+
+    public void setWeaponBase(WeaponBase weaponBase) {
+        this.weaponBase = weaponBase;
     }
 }

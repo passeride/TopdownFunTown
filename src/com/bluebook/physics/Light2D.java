@@ -108,17 +108,19 @@ bool pointInPolygon() {
             return false;
 
 
-        int j = polygon[0].length - 1;
 
         double x = point.getX();
         double y = point.getY();
 
-        double[] polyY = polygon[1];
-        double[] polyX = polygon[0];
+        double[] polyY = polygon[1].clone();
+        double[] polyX = polygon[0].clone();
+
+        int j = polyX.length - 1;
+
 
         boolean oddNodes = false;
 
-        for(int i = 0; i < polygon[0].length; i++){
+        for(int i = 0; i < polyY.length; i++){
             if ((polyY[i]< y && polyY[j]>=y
                 ||   polyY[j]< y && polyY[i]>=y)
                 &&  (polyX[i]<=x || polyX[j]<=x)) {

@@ -1,5 +1,6 @@
 package com.bluebook.input;
 
+import com.bluebook.engine.GameEngine;
 import com.bluebook.util.Vec2;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -26,7 +27,7 @@ public class GamepadInput {
         for (int i = 0; i < ca.length; i++) {
 
             // TODO: get a xbox controller and test with that
-            if (ca[i].getName().equals("Wireless Controller")) {
+            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller") ) {
                 controllers.add(ca[i]);
             }
             /* Get the name of the controller */
@@ -92,25 +93,27 @@ public class GamepadInput {
 //                            con.getRumblers()[0].rumble(0);
                         }
                 }
+                if(GameEngine.DEBUG) {
 
-//                    System.out.println(comp.getName().toString());
+                    System.out.println(comp.getName().toString());
 
-//                StringBuffer buffer = new StringBuffer(con.getName());
-//                buffer.append( " NUM: " + i + " ");
-//                buffer.append(" at ");
-//                buffer.append(event.getNanos()).append(", ");
-//                buffer.append(comp.getName()).append(" changed to ");
-//                float value = event.getValue();
-//                if (comp.isAnalog()) {
-//                    buffer.append(value);
-//                } else {
-//                    if (value == 1.0f) {
-//                        buffer.append("On");
-//                    } else {
-//                        buffer.append("Off");
-//                    }
-//                }
-//                System.out.println(buffer.toString());
+                    StringBuffer buffer = new StringBuffer(con.getName());
+                    buffer.append(" NUM: " + i + " ");
+                    buffer.append(" at ");
+                    buffer.append(event.getNanos()).append(", ");
+                    buffer.append(comp.getName()).append(" changed to ");
+                    float value = event.getValue();
+                    if (comp.isAnalog()) {
+                        buffer.append(value);
+                    } else {
+                        if (value == 1.0f) {
+                            buffer.append("On");
+                        } else {
+                            buffer.append("Off");
+                        }
+                    }
+                    System.out.println(buffer.toString());
+                }
             }
 
         }

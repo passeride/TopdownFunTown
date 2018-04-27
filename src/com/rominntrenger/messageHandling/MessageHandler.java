@@ -84,7 +84,6 @@ public class MessageHandler extends GameObject {
             gc.setFont(font);
 
             if (sprite != null) {
-                //TODO: Draw sprite
                 sprite.drawGUI(gc,
                     new Vec2(margin / 2 + 15, resolutionY - (height + margin - 25) / 2),
                     (height - 50) / 2, (height - 50) / 2);

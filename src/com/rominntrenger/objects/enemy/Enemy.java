@@ -20,13 +20,14 @@ import com.rominntrenger.objects.weapon.WeaponClipUpgrade;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public abstract class Enemy extends GameObject {
 
-    public static List<Enemy> allEnemies = new ArrayList<>();
+    public static CopyOnWriteArrayList<Enemy> allEnemies = new CopyOnWriteArrayList<>();
 
     protected double speed = 300;
     protected int max_health = 1000;

@@ -70,7 +70,7 @@ public class RomInntrenger extends GameApplication {
 
         gi = new GamepadInput();
 
-        new WaveManager();
+        WaveManager.getInstance();
 
         stateHandling = new StateHandling();
 
@@ -99,11 +99,6 @@ public class RomInntrenger extends GameApplication {
 
     @Override
     public void update(double delta) {
-//        if(input.isKeyPressed(KeyCode.H)){
-//            new DeathOverlay();
-//        }
-//
-
         cam.update(delta);
         gi.pullEvents();
         for (Player player : players) {
@@ -119,13 +114,9 @@ public class RomInntrenger extends GameApplication {
                 player.move(gi.getLeftJoistick(playerID), delta);
 
                 if (gi.getRightJoistick(playerID).getMagnitude() > 0.01) {
-                    player.lookAt(
-                        Vec2.subtract(player.getPosition(),
-                            Vec2.multiply(gi.getRightJoistick(playerID), -1)));
+                    player.lookInDirection(gi.getRightJoistick(playerID));
                 } else if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
-                    player.lookAt(
-                        Vec2.subtract(player.getPosition(),
-                            Vec2.multiply(gi.getLeftJoistick(playerID), -1)));
+//                    player.lookInDirection(gi.getLeftJoistick(playerID));
                 }
 
                 if (player.hasWeapon()) {

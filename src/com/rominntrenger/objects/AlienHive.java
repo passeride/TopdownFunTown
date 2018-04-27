@@ -5,7 +5,9 @@ import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.enemy.AlienExplode;
 import com.rominntrenger.objects.enemy.AlienGreen;
+import com.rominntrenger.objects.enemy.AlienPurple;
 import com.rominntrenger.objects.enemy.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -40,11 +42,23 @@ public class AlienHive extends Enemy {
 
 
 
-    public void spawn(){
+    public void spawn(int i){
         if(isActive) {
             if (System.currentTimeMillis() - previousSPawn > spawnRate * 1000.0
                 && Enemy.allEnemies.size() < max_enemies) {
-                new AlienGreen(getPosition());
+                if(i <= 2) {
+                    new AlienGreen(getPosition());
+                }else  if(i <= 5){
+                    if(Math.random() >= 0.5){
+                        new AlienGreen(getPosition());
+                    }else{
+                        new AlienPurple(getPosition());
+                    }
+                }else{
+                    new AlienGreen(getPosition());
+                    new AlienPurple(getPosition());
+                    new AlienExplode(getPosition());
+                }
                 previousSPawn = System.currentTimeMillis();
             }
         }

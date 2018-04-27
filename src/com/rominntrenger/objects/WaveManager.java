@@ -1,5 +1,6 @@
 package com.rominntrenger.objects;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
@@ -20,6 +21,8 @@ import sun.plugin2.message.Message;
 public class WaveManager extends GameObject {
 
     public static ArrayList<AlienHive> hives = new ArrayList<>();
+
+    private static WaveManager singelton;
 
     private int width = 375;
     private int height = 100;
@@ -45,8 +48,13 @@ public class WaveManager extends GameObject {
     LinearGradient waveGradient;
     LinearGradient bossGradient;
 
+    public static WaveManager getInstance(){
+        if(singelton == null)
+            singelton = new WaveManager();
+        return singelton;
+    }
 
-    public WaveManager() {
+    private WaveManager() {
         super(Vec2.ZERO, Vec2.ZERO, null);
         allwaysOnScreen = true;
         setRenderLayer(RenderLayerName.GUI);
@@ -101,7 +109,7 @@ public class WaveManager extends GameObject {
                     endWave();
             }
             for(AlienHive ah : hives){
-                ah.spawn();
+                ah.spawn(waveNumber);
             }
         }
     }
@@ -119,6 +127,8 @@ public class WaveManager extends GameObject {
 
         MessageHandler.getInstance().writeMessage("Dem boiz be back real soon \n\n Get ready!",
             new Sprite("portraits/mc_happy"));
+        AudioPlayer ap = new AudioPlayer("./assets/audio/BoisBeBac.wav");
+        ap.playOnce();
     }
 
     void startWave(){
