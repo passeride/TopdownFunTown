@@ -20,7 +20,6 @@ public class AudioLoader {
      */
     private static HashMap<String, Clip> audioClips = new HashMap<>();
 
-
     /**
      * loads audio-file through the path specified to the function by the use of a clip.
      *
@@ -42,6 +41,5 @@ public class AudioLoader {
         }
         return audioClips.get(path);
     }
-
 
 }
