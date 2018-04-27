@@ -34,7 +34,8 @@ public class AlienHive extends Enemy {
         WaveManager.hives.add(this);
 
         max_health = 1000;
-        health = 1000;
+        isActive = false;
+        health = 0;
 
         collider.setOnCollisionListener(null);
 

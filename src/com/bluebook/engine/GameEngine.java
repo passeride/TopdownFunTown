@@ -5,6 +5,7 @@ import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 
@@ -16,7 +17,7 @@ public class GameEngine {
     private UpdateThread updateThread;
     private CollisionThread collisionThread;
 
-    private ArrayList<GameObject> updateObjects = new ArrayList<>();
+    private CopyOnWriteArrayList<GameObject> updateObjects = new CopyOnWriteArrayList<>();
 
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
@@ -113,21 +114,21 @@ public class GameEngine {
     /**
      * This is used by the constructor of gameobject so it's update function is called
      */
-    public void addGameObject(GameObject go) {
-        synchronized (this) {
+    public synchronized void addGameObject(GameObject go) {
+//        synchronized (this) {
             updateObjects.add(go);
-        }
+//        }
     }
 
     /**
      * Removes the object from updateobjects, this is called during an gameobjects destruction
      */
-    public void removeGameObject(GameObject go) {
-        synchronized (this) {
+    public synchronized void removeGameObject(GameObject go) {
+//        synchronized (this) {
             if (updateObjects.contains(go)) {
                 updateObjects.remove(go);
             }
-        }
+//        }
     }
 
     /**
@@ -151,6 +152,7 @@ public class GameEngine {
      */
     public void startUpdateThread() {
         Thread t = new Thread(updateThread);
+        t.setName("Update Thread");
         t.setDaemon(true);
         t.start();
     }
@@ -166,6 +168,7 @@ public class GameEngine {
 
     public void startCollisionThread() {
         Thread t = new Thread(collisionThread);
+        t.setName("Collision Thread");
         t.setDaemon(true);
         t.start();
     }

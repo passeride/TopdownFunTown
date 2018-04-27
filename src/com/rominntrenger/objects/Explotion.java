@@ -22,6 +22,8 @@ public class Explotion extends GameObject {
 
     ArrayList<Player> players;
 
+    boolean isFinnished = false;
+
     /**
      * Explotion will spawn a Explotion on the position given with a random rotation This will push
      * back and hurt player if close
@@ -46,7 +48,7 @@ public class Explotion extends GameObject {
             .setOnAnimationFinnishedListener(new OnAnimationFinishedListener() {
                 @Override
                 public void AnimationFinnished() {
-                    destroy();
+                    isFinnished = true;
                 }
             });
     }
@@ -54,6 +56,9 @@ public class Explotion extends GameObject {
     @Override
     public void update(double delta) {
         super.update(delta);
+        if(isFinnished){
+            destroy();
+        }
     }
 
     void playAudio() {

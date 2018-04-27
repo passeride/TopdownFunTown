@@ -28,6 +28,9 @@ public class AlienPurple extends Enemy {
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         //setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
         speed = 100;
+
+        max_health = 200;
+        health = max_health;
     }
 
 

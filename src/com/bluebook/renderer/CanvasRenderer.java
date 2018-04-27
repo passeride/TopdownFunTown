@@ -8,6 +8,7 @@ import com.bluebook.physics.Light2D;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,7 +28,7 @@ public class CanvasRenderer {
     private static final boolean useGraphicsRenderer = false;
     private ArrayList<GameObject> drawables = new ArrayList<>();
     private RenderLayer[] layers = new RenderLayer[RenderLayer.RenderLayerName.values().length];
-    private ArrayList<Collider> colliderDebugDrawables = new ArrayList<>();
+    private CopyOnWriteArrayList<Collider> colliderDebugDrawables = new CopyOnWriteArrayList<>();
 
     private Color bgColor = Color.BLACK;
 
@@ -46,13 +47,13 @@ public class CanvasRenderer {
     }
 
     public void addCollider(Collider col) {
-        synchronized (this) {
+        synchronized (colliderDebugDrawables) {
             colliderDebugDrawables.add(col);
         }
     }
 
     public void removeCollider(Collider col) {
-        synchronized (this) {
+        synchronized (colliderDebugDrawables) {
             if (colliderDebugDrawables.contains(col)) {
                 colliderDebugDrawables.remove(col);
             }
@@ -66,9 +67,9 @@ public class CanvasRenderer {
      * @param in Object to be drawn on canvas
      */
     public void addGameObject(GameObject in) {
-        synchronized (this) {
+//        synchronized (this) {
             layers[RenderLayer.RenderLayerName.LOW_BLOCKS.getValue()].addGameObject(in);
-        }
+//        }
     }
 
     /**
@@ -78,19 +79,19 @@ public class CanvasRenderer {
      * @param layer RenderLayer to be used
      */
     private void addGameObject(GameObject in, RenderLayer.RenderLayerName layer) {
-        synchronized (this) {
+//        synchronized (this) {
             layers[layer.getValue()].addGameObject(in);
-        }
+//        }
     }
 
     /**
      * Will move gameobject to designated renderlayer
      */
     public void moveGameObjectToLayer(GameObject go, RenderLayer.RenderLayerName layer) {
-        synchronized (this) {
+//        synchronized (this) {
             removeGameObject(go);
             addGameObject(go, layer);
-        }
+//        }
     }
 
     /**
@@ -100,13 +101,13 @@ public class CanvasRenderer {
      * @return {@link com.bluebook.renderer.RenderLayer.RenderLayerName} that contains GO
      */
     public RenderLayer.RenderLayerName getLayer(GameObject go) {
-        synchronized (this) {
+//        synchronized (this) {
             for (int i = 0; i < layers.length; i++) {
                 if (layers[i].hasGameObject(go)) {
                     return RenderLayer.RenderLayerName.get(i);
                 }
             }
-        }
+//        }
         return null;
     }
 
@@ -116,10 +117,8 @@ public class CanvasRenderer {
      * @param go {@link GameObject} to be removed
      */
     public void removeGameObject(GameObject go) {
-        synchronized (this) {
-            for (RenderLayer layer : layers) {
-                layer.removeGameObject(go);
-            }
+        for (RenderLayer layer : layers) {
+            layer.removeGameObject(go);
         }
     }
 
@@ -138,7 +137,7 @@ public class CanvasRenderer {
      * Draw all objects onto canvas
      */
     public void drawAll() {
-        synchronized (this) {
+//        synchronized (this) {
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             gc.save();
@@ -161,18 +160,21 @@ public class CanvasRenderer {
 
 
             if (GameEngine.DEBUG) {
-                for (Collider c : colliderDebugDrawables) {
-                    c.debugDraw(gc);
+                synchronized (colliderDebugDrawables) {
+                    for (Collider c : colliderDebugDrawables) {
+                        c.debugDraw(gc);
+                    }
                 }
                 flg.addFPS(GameEngine.getInstance().draw_FPS);
                 flg.draw(gc);
                 HitDetectionHandler.getInstance().qtTree.draw(gc);
+
             }
             if (OrthographicCamera.main != null) {
                 gc.restore();
             }
 
-        }
+//        }
 
     }
 

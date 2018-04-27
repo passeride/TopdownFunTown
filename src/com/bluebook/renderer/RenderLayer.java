@@ -4,6 +4,7 @@ import com.bluebook.util.GameObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -11,7 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class RenderLayer {
 
-    private ArrayList<GameObject> drawables = new ArrayList<>();
+    private CopyOnWriteArrayList<GameObject> drawables = new CopyOnWriteArrayList<>();
 
     public RenderLayerName rln;
 
@@ -68,7 +69,7 @@ public class RenderLayer {
     }
 
     protected void drawAll(GraphicsContext gc) {
-        synchronized (this) {
+        synchronized (drawables) {
 
             int drawablesSize = drawables.size();
             GameObject[] gameObjects = new GameObject[drawablesSize];
@@ -94,20 +95,20 @@ public class RenderLayer {
     }
 
     public boolean hasGameObject(GameObject go) {
-        synchronized (this) {
+        synchronized (drawables) {
             return drawables.contains(go);
         }
     }
 
 
     public void addGameObject(GameObject go) {
-        synchronized (this) {
+        synchronized (drawables) {
             drawables.add(go);
         }
     }
 
     public void removeGameObject(GameObject go) {
-        synchronized (this) {
+        synchronized (drawables) {
             if (drawables.contains(go)) {
                 drawables.remove(go);
             }
