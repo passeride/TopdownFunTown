@@ -26,7 +26,6 @@ public class PickupWeapon extends Item implements Describable {
         super(position, direction, sprite);
         setSize(new Vec2(0.7, 0.7));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
-        collider = new BoxCollider(this);
         this.weaponID = id;
 
         collider = new CircleCollider(this, 30);
@@ -48,6 +47,7 @@ public class PickupWeapon extends Item implements Describable {
     public int getWeaponID() {
         return weaponID;
     }
+
 
 
 

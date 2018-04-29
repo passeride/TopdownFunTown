@@ -103,7 +103,7 @@ public abstract class Weapon extends GameObject {
                 } else if (other.getGameObject() instanceof Enemy) {
                     Enemy e = ((Enemy)other.getGameObject());
                     e.hit(alteredDmg);
-                    if(e.isAlive()) {
+                    if(!e.isAlive()) { // CHeck if enemy survived
                         ((Player) p.getSource()).killedEnemy();
                     }
                 }

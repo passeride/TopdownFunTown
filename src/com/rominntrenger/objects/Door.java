@@ -36,18 +36,18 @@ public class Door extends GameObject implements Describable {
              */
             public void onCollision(Collider other) {
                 if (other.getGameObject() instanceof Player) {
-                    int[] playerKeyID = ((RomInntrenger) GameApplication.getInstance()).inventory
-                        .getItems();
+//                    int[] playerKeyID = ((RomInntrenger) GameApplication.getInstance()).inventory
+//                        .getItems();
 
-                    if(playerKeyID != null) {
-                        for (int i = 0; i < playerKeyID.length; i++) {
-                            playerID = playerKeyID[i];
-                            if (playerID == ID) {
-                                destroy();
-                                collider.destroy();
-                            }
-                        }
-                    }
+//                    if(playerKeyID != null) {
+//                        for (int i = 0; i < playerKeyID.length; i++) {
+//                            playerID = playerKeyID[i];
+//                            if (playerID == ID) {
+//                                destroy();
+//                                collider.destroy();
+//                            }
+//                        }
+//                    }
 
                 }
             }

@@ -1,8 +1,14 @@
 package com.rominntrenger.stateHandling;
 
+import com.bluebook.engine.GameEngine;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.PlayerSpawn;
+import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
+import com.rominntrenger.objects.player.RedRifle;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -70,6 +76,9 @@ public class StateHandling {
             waveNumber = (int) save.readObject();
             save.close();
             System.out.println("waveNumber : " + waveNumber);
+
+
+
             return waveNumber;
 
         }catch (Exception exc){
@@ -149,12 +158,31 @@ public class StateHandling {
     }
 
     public void setAllLoadData(StateHandling stateHandling){
+        // Pause Game
+        GameEngine.getInstance().pauseGame();
         RomInntrenger romInntrenger = (RomInntrenger) RomInntrenger.getInstance();
-        Player player = romInntrenger.getPlayers().get(0);
-        stateHandling.loadWaveNumber();
+        romInntrenger.clearGamestate();
+
+        // Resuming player
+        Player player = new Player(PlayerSpawn.position, Vec2.ZERO,
+            new AnimationSprite("/friendlies/character", 4));
+        player.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+            new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
+        player.setPlayerID(0);
+        player.setPlayerColor(romInntrenger.playerColor[0]);
+
+
         stateHandling.loadPlayerHealth(player);
         stateHandling.loadPlayerDirectionInDegrees(player);
         stateHandling.setPlayerPositionFromLoadFile(stateHandling, player);
 
+        // Wave
+        WaveManager waveManager = WaveManager.getInstance();
+        int waveNumber = stateHandling.loadWaveNumber();
+        waveManager.setWaveNumber(waveNumber);
+
+
+        // Resuming game
+        GameEngine.getInstance().resumeGame();
     }
 }

@@ -25,7 +25,7 @@ public class GameEngine {
 
     public static boolean DEBUG = false;
 
-    private boolean isPaused = false;
+    private boolean isPaused = true;
 
     private static GameEngine singleton;
 
@@ -88,19 +88,53 @@ public class GameEngine {
         drawTimer.start();
     }
 
+    /**
+     * Will terminate the {@link UpdateThread} and {@link CollisionThread}
+     * but the drawTimer will still be called
+     */
     public void pauseGame() {
-        isPaused = true;
-        stopCollisionThread();
-        stopUpdateThread();
-//        drawTimer.stop();
+        if(!isPaused) {
+            new Thread(() -> {
+                isPaused = true;
+                stopUpdateThread();
+                stopCollisionThread();
+                //        drawTimer.stop();
+
+
+            }).start();
+
+        }
     }
 
-
+    /**
+     * Will resume the {@link UpdateThread} and {@link CollisionThread}
+     * But will do so via a third thread created in this function, this is due to the possebility that
+     * UpdateThread will pause this to do some changes and then resume.
+     * This will not let UpdateThread go a full cycle, so it will not terminate.
+     * Resulting in parlell duplicates of {@link UpdateThread}
+     */
     public void resumeGame() {
-        isPaused = false;
-        startUpdateThread();
-        startCollisionThread();
-//        drawTimer.start();
+        if(isPaused) {
+            /*
+             * If UpdateThread calls pauseGame() and then resumeGame(), it will be duplicated and run in parralell
+             * Therefore we must create a seprate thread to reinstate it. With a dealy, to let it die in a safe manner.
+             *
+             */
+            Thread t = new Thread(() -> {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isPaused = false;
+                startUpdateThread();
+                startCollisionThread();
+                //        drawTimer.start();
+            });
+            t.setName("Thread restart thread");
+            t.setDaemon(true);
+            t.start();
+        }
     }
 
     public boolean isPaused() {
@@ -151,10 +185,12 @@ public class GameEngine {
      * Will start the update thread that runs concurrently to process logic
      */
     public void startUpdateThread() {
-        Thread t = new Thread(updateThread);
-        t.setName("Update Thread");
-        t.setDaemon(true);
-        t.start();
+        if(!updateThread.isRunning()) {
+            Thread t = new Thread(updateThread);
+            t.setName("Update Thread");
+            t.setDaemon(true);
+            t.start();
+        }
     }
 
     /**
@@ -167,10 +203,12 @@ public class GameEngine {
     }
 
     public void startCollisionThread() {
-        Thread t = new Thread(collisionThread);
-        t.setName("Collision Thread");
-        t.setDaemon(true);
-        t.start();
+        if(!collisionThread.isRunning()) {
+            Thread t = new Thread(collisionThread);
+            t.setName("Collision Thread");
+            t.setDaemon(true);
+            t.start();
+        }
     }
 
     private void stopCollisionThread() {

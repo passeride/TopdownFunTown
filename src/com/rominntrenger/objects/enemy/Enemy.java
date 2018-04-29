@@ -114,6 +114,7 @@ public abstract class Enemy extends GameObject {
     public void hit(int dmg){
         health -= dmg;
         if(health <= 0){
+            setAlive(false);
             destroy();
         }
     }

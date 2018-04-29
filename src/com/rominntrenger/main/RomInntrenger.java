@@ -14,6 +14,7 @@ import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.WaveManager;
+import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.player.StarterWeapon;
@@ -28,17 +29,18 @@ import javax.sound.sampled.FloatControl;
 public class RomInntrenger extends GameApplication {
 
     OrthographicCamera cam;
-    public Inventory inventory;
-    double camSpeed = 15;
+
+
+
     public ArrayList<Player> players = new ArrayList<>();
-    public HealthElement healthElement;
+
     public Weapon currentWeapon;
 
     public AudioPlayer bgMusic;
     public Clip clip;
     public FloatControl floatControl;
 
-    private Color[] playerColor = {
+    public Color[] playerColor = {
         Color.RED,Color.GREEN, Color.BLUE, Color.YELLOW
     };
 
@@ -82,7 +84,7 @@ public class RomInntrenger extends GameApplication {
                 p.setPlayerID(i + 1);
                 p.setPlayerColor(playerColor[i]);
 
-                new PlayerGuiElement(p);
+
                 stateHandling = new StateHandling();
 
 
@@ -95,9 +97,20 @@ public class RomInntrenger extends GameApplication {
 
             new PlayerGuiElement(p);
             stateHandling = new StateHandling();
-
-
         }
+    }
+
+    /**
+     * Used when restoring from file
+     */
+    public void clearGamestate(){
+        for(Player p : players){
+            p.destroy();
+        }
+        players.clear();
+        WaveManager.getInstance().clearGamestate();
+        Blood.clearAll();
+
     }
 
     @Override

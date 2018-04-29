@@ -48,6 +48,11 @@ public class PlayerGuiElement extends GameObject {
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+    }
+
+    @Override
     public void draw(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);
         gc.setLineDashes();

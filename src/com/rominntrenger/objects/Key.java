@@ -43,8 +43,8 @@ public class Key extends Item implements Describable {
         MessageHandler.getInstance().writeMessage("Wow! A Key!!", sprite);
         Player p = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(transform.getGlobalPosition());
         p.setPlayerKey(this.keyID);
-        Inventory i = ((RomInntrenger) GameApplication.getInstance()).inventory;
-        i.addItem(new InventoryItem(sprite, this.keyID));
+//        Inventory i = ((RomInntrenger) GameApplication.getInstance()).inventory;
+//        i.addItem(new InventoryItem(sprite, this.keyID));
         destroy();
         collider.destroy();
     }

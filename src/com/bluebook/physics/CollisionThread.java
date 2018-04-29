@@ -12,7 +12,7 @@ public class CollisionThread implements Runnable {
     private HitDetectionHandler hitDet;
     private float frameRate = 60f;
     private long sleepTime = (long) ((1f / frameRate) * 1000f);
-    private volatile boolean running = true;
+    private volatile boolean running = false;
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;

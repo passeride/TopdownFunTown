@@ -18,6 +18,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import sun.plugin2.message.Message;
 
+/**
+ * {@link WaveManager} will controll the waves, and also keep track of what enemies to spawn where
+ */
 public class WaveManager extends GameObject {
 
     public static ArrayList<AlienHive> hives = new ArrayList<>();
@@ -152,24 +155,18 @@ public class WaveManager extends GameObject {
         return  alive;
     }
 
-    boolean isHivesAlive(){
-        boolean ret = true;
-        for(AlienHive h : hives){
-            if(!h.isActive())
-                ret = false;
+    public void clearGamestate(){
+        hivesDownMessage = true;
+        endWave();
+        for(Enemy e : Enemy.allEnemies){
+            if(!(e instanceof AlienHive)){
+                e.destroy();
+            }
         }
-        return ret;
-    }
+        Enemy.allEnemies.clear();
 
-    boolean isHivesDead(){
-        boolean ret = true;
-        for(AlienHive h : hives){
-            if(h.isActive())
-                ret = false;
-        }
-        return ret;
-    }
 
+    }
 
     @Override
     public void draw(GraphicsContext gc) {

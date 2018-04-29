@@ -17,6 +17,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
+import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.enemy.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -29,6 +30,8 @@ public class Player extends GameObject {
     Color playerColor = Color.RED;
     int maxPlayerHealth = 100;
     int playerHealth = 100;
+
+    private PlayerGuiElement gui;
 
 
     AudioPlayer hitSound;
@@ -107,6 +110,7 @@ public class Player extends GameObject {
         playerHealth = maxPlayerHealth;
 
 
+        gui = new PlayerGuiElement(this);
     }
 
     @Override
@@ -281,7 +285,7 @@ public class Player extends GameObject {
      * Used when player is hit to subtract health and check for death
      */
     public void hit(int dmg) {
-        playerHealth -= dmg;
+        playerHealth = Math.max(0, playerHealth - dmg);
 
         if (playerHealth <= 0) {
             new DeathOverlay();
@@ -291,18 +295,16 @@ public class Player extends GameObject {
             romInntrenger.bgMusic.stop();
             romInntrenger.bgMusic.close();
             destroy();
-
-
-
         }
         hitSound.playOnce();
     }
 
+    /**
+     * Heals player, but will not surpass {@link Player#maxPlayerHealth}
+     * @param health
+     */
     public void heal(int health) {
-        int hp = romInntrenger.healthElement.getHp();
-        hp += health;
-        romInntrenger.healthElement.setHp(hp);
-        // TODO: if health == max : don't heal
+        playerHealth = Math.min(playerHealth + health, maxPlayerHealth);
     }
 
     private void die() {
@@ -352,6 +354,16 @@ public class Player extends GameObject {
         enemiesKilled++;
     }
 
+    @Override
+    public void destroy() {
+        if(currentWeapon != null)
+            currentWeapon.destroy();
+        if(walkCollider != null)
+            walkCollider.destroy();
+        if(gui != null)
+            gui.destroy();
+        super.destroy();
+    }
 
     public Weapon getCurrentWeapon() {
         return currentWeapon;
@@ -418,5 +430,13 @@ public class Player extends GameObject {
 
     public void setPlayerHealth(int playerHealth) {
         this.playerHealth = playerHealth;
+    }
+
+    public PlayerGuiElement getGui() {
+        return gui;
+    }
+
+    public void setGui(PlayerGuiElement gui) {
+        this.gui = gui;
     }
 }

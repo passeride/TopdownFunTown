@@ -167,7 +167,8 @@ public class CanvasRenderer {
                 }
                 flg.addFPS(GameEngine.getInstance().draw_FPS);
                 flg.draw(gc);
-                HitDetectionHandler.getInstance().qtTree.draw(gc);
+                if(HitDetectionHandler.getInstance().qtTree != null)
+                    HitDetectionHandler.getInstance().qtTree.draw(gc);
 
             }
             if (OrthographicCamera.main != null) {
