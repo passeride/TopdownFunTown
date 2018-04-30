@@ -30,9 +30,6 @@ public class RomInntrenger extends GameApplication {
 
     public HealthElement healthElement;
     OrthographicCamera cam;
-
-
-
     public ArrayList<Player> players = new ArrayList<>();
 
     public Weapon currentWeapon;
@@ -41,10 +38,19 @@ public class RomInntrenger extends GameApplication {
     public AudioPlayer bgMusic;
     public AudioPlayer evilLaughAP;
     public Clip clip;
-    public FloatControl floatControl;
 
+    /**
+     * Will give players colors corresponding to their PlayerID
+     */
     public Color[] playerColor = {
         Color.RED,Color.GREEN, Color.BLUE, Color.YELLOW
+    };
+
+    public String[] playerSprites = {
+        "/friendlies/character",
+        "/friendlies/characterCute",
+        "/friendlies/characterGreen",
+        "/friendlies/wahracter"
     };
 
     MessageHandler msh;
@@ -57,15 +63,19 @@ public class RomInntrenger extends GameApplication {
     @Override
     protected void onLoad() {
         super.onLoad();
-        currentWeapon = new StarterWeapon(Vec2.ZERO,
-            new AnimationSprite("/friendlies/weaponNone", 4),
-            Vec2.ZERO); //TODO: Fix this so no shoots
+        setUp();
+        spawnPlayers();
+
+    }
+
+    /**
+     * Will do some one time configuring
+     */
+    void setUp(){
         cam = new OrthographicCamera();
 
         MapCreator level = new MapCreator("startMap");
         level.createLevel();
-//        inventory = new Inventory(6);
-        //healthElement = new HealthElement(new Vec2(0, 0));
 
         bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
         clip = bgMusic.getClip();
@@ -76,27 +86,27 @@ public class RomInntrenger extends GameApplication {
         gi = new GamepadInput();
 
         WaveManager.getInstance();
+    }
 
-
+    /**
+     * Will spawn one player if 1 or no gamepads is connected
+     * And multiple if multiple gamepads are connectetd! o.0
+     */
+    void spawnPlayers(){
         if(gi.getNumberOfControllers() > 0) {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
-                System.out.println("making players");
                 Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
-                    new AnimationSprite("/friendlies/character", 4));
+                    new AnimationSprite(playerSprites[i], 4),  i + 1);
                 p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
                     new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
-                p.setPlayerID(i + 1);
                 p.setPlayerColor(playerColor[i]);
 
-
                 stateHandling = new StateHandling();
-
 
             }
         }else{
             Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
-                new AnimationSprite("/friendlies/character", 4));
-            p.setPlayerID(0);
+                new AnimationSprite("/friendlies/character", 4), 0);
             p.setPlayerColor(playerColor[0]);
 
             new PlayerGuiElement(p);

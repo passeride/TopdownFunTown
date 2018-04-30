@@ -37,13 +37,13 @@ public abstract class Enemy extends GameObject {
 
     private Behaviour[] behaviours = new Behaviour[12];
 
-    private boolean[] isSeenByPlayer;
+    private boolean[] isSeenByPlayer = new boolean[12];
 
 
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         // setSeenByPlayer
-        isSeenByPlayer = new boolean[Math.max(1, ((RomInntrenger) GameApplication.getInstance()).players.size() + 2)];
+//        isSeenByPlayer = new boolean[Math.max(1, ((RomInntrenger) GameApplication.getInstance()).players.size() + 2)];
 
         allEnemies.add(this);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);

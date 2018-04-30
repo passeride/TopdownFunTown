@@ -47,12 +47,11 @@ public class Player extends GameObject {
     private boolean uses_controller = false;
 
     public RigidBody2D rb2;
-    public Light2D light2D;
+    private Light2D light2D;
 
     private double angularDampening = 0.1;
 
     private RomInntrenger romInntrenger;
-    private AudioPlayer audioPlayer;
 
     private boolean isMultiplayer = false;
     private int multiPlayerCircleRadius = 75;
@@ -63,8 +62,10 @@ public class Player extends GameObject {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Player(Vec2 position, Vec2 direction, Sprite sprite) {
+    public Player(Vec2 position, Vec2 direction, Sprite sprite, int playerID) {
         super(position, direction, sprite);
+
+        this.setPlayerID(playerID);
 
         ((RomInntrenger) GameApplication.getInstance()).players.add(this);
 
@@ -254,6 +255,11 @@ public class Player extends GameObject {
         translate(Vec2.multiply(Vec2.RIGHT, getModifiedSpeed() * delta));
     }
 
+    /**
+     * Move function used when using a gamepad
+     * @param direction {@link Vec2} Normalized vector for direction
+     * @param delta Time Delta
+     */
     public void move(Vec2 direction, double delta){
         translate(Vec2.multiply(direction, getModifiedSpeed() * delta));
     }
@@ -289,7 +295,7 @@ public class Player extends GameObject {
         if (playerHealth <= 0) {
 //            new DeathOverlay();
             die();
-            audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
+            AudioPlayer audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
             audioPlayer.playOnce();
             romInntrenger.bgMusic.stop();
             romInntrenger.bgMusic.close();
@@ -313,16 +319,6 @@ public class Player extends GameObject {
         destroy();
 //        GameEngine.getInstance().pauseGame();
 //        destroy();
-    }
-
-    public void activateGottaGoFast() {
-        speedBost = true;
-        speed = baseSpeed + speedBoostSpeed;
-    }
-
-    public void deactivateGottaGoFast() {
-        speedBost = false;
-        speed = baseSpeed;
     }
 
     public void shoot() {
