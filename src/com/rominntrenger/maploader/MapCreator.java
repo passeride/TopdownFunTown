@@ -108,13 +108,17 @@ public class MapCreator extends GameObject {
 
                     case AlienSpawner:
                         grid[i][j] = new AlienHive(vector);
-                        break;
+                    break;
+
+                    case AlienSpawnerSmall:
+                        // TODO: ADD SMOL
+                    break;
 
                     case SpawnPlayer:
                         PlayerSpawn.position = vector;
 //                        grid[i][j] = new Player(vector, Vec2.ZERO,
 //                            new AnimationSprite("/friendlies/character", 4));
-                        break;
+                    break;
 
                     //KEYS AND DOORS
                     case Key:

@@ -31,7 +31,10 @@ public class LevelImageLoader {
                         break;
                     case ("FF0000"):
                         gameMap[x][y] = ID.AlienSpawner;
-                        break;
+                    break;
+                    case ("FF0044"):
+                        gameMap[x][y] = ID.AlienSpawnerSmall;
+                    break;
 
                     //DOORS
                     case ("DDDDDD"):
