@@ -3,7 +3,6 @@ package com.rominntrenger.objects.player;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
-import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
@@ -14,7 +13,6 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.objects.PlayerGuiElement;
@@ -49,12 +47,11 @@ public class Player extends GameObject {
     private boolean uses_controller = false;
 
     public RigidBody2D rb2;
-    public Light2D light2D;
+    private Light2D light2D;
 
     private double angularDampening = 0.1;
 
     private RomInntrenger romInntrenger;
-    private AudioPlayer audioPlayer;
 
     private boolean isMultiplayer = false;
     private int multiPlayerCircleRadius = 75;
@@ -65,8 +62,10 @@ public class Player extends GameObject {
     /**
      * Constructor for GameObject given position rotation and sprite
      */
-    public Player(Vec2 position, Vec2 direction, Sprite sprite) {
+    public Player(Vec2 position, Vec2 direction, Sprite sprite, int playerID) {
         super(position, direction, sprite);
+
+        this.setPlayerID(playerID);
 
         ((RomInntrenger) GameApplication.getInstance()).players.add(this);
 
@@ -161,6 +160,7 @@ public class Player extends GameObject {
     @Override
     public void update(double delta) {
         rb2.update(delta);
+        hit(0);
 
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
@@ -255,6 +255,11 @@ public class Player extends GameObject {
         translate(Vec2.multiply(Vec2.RIGHT, getModifiedSpeed() * delta));
     }
 
+    /**
+     * Move function used when using a gamepad
+     * @param direction {@link Vec2} Normalized vector for direction
+     * @param delta Time Delta
+     */
     public void move(Vec2 direction, double delta){
         translate(Vec2.multiply(direction, getModifiedSpeed() * delta));
     }
@@ -288,9 +293,9 @@ public class Player extends GameObject {
         playerHealth = Math.max(0, playerHealth - dmg);
 
         if (playerHealth <= 0) {
-            new DeathOverlay();
+//            new DeathOverlay();
             die();
-            audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
+            AudioPlayer audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
             audioPlayer.playOnce();
             romInntrenger.bgMusic.stop();
             romInntrenger.bgMusic.close();
@@ -307,30 +312,13 @@ public class Player extends GameObject {
         playerHealth = Math.min(playerHealth + health, maxPlayerHealth);
     }
 
+
     private void die() {
         if(currentWeapon != null)
             currentWeapon.destroy();
-        GameEngine.getInstance().pauseGame();
-
-        // This is for fun, to mess with Hilde's old computer
-        /*
-        try {
-            Runtime.getRuntime().exec("eject");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         destroy();
-    }
-
-    public void activateGottaGoFast() {
-        speedBost = true;
-        speed = baseSpeed + speedBoostSpeed;
-    }
-
-    public void deactivateGottaGoFast() {
-        speedBost = false;
-        speed = baseSpeed;
+//        GameEngine.getInstance().pauseGame();
+//        destroy();
     }
 
     public void shoot() {

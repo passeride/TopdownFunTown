@@ -8,7 +8,6 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -102,8 +101,8 @@ public class StateHandling {
         }catch (Exception exc){
             exc.printStackTrace();
         }
-        if(playerHealth == 0)
-            playerHealth = 10;
+        if(playerHealth <= 0)
+            playerHealth = 50;
         return  playerHealth;
     }
     public double loadPlayerPositionX(){
@@ -151,6 +150,7 @@ public class StateHandling {
         }
         return playerDirectionInDegrees;
     }
+
     public void setPlayerPositionFromLoadFile(StateHandling stateHandling, Player player){
         double posX = stateHandling.loadPlayerPositionX();
         double posY = stateHandling.loadPlayerPositionY();
@@ -165,16 +165,11 @@ public class StateHandling {
 
         // Resuming player
         Player player = new Player(PlayerSpawn.position, Vec2.ZERO,
-            new AnimationSprite("/friendlies/character", 4));
+            new AnimationSprite("/friendlies/character", 4), 0);
         player.setCurrentWeapon(new RedRifle(Vec2.ZERO,
             new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
         player.setPlayerID(0);
         player.setPlayerColor(romInntrenger.playerColor[0]);
-
-
-        stateHandling.loadPlayerHealth(player);
-        stateHandling.loadPlayerDirectionInDegrees(player);
-        stateHandling.setPlayerPositionFromLoadFile(stateHandling, player);
 
         // Wave
         WaveManager waveManager = WaveManager.getInstance();

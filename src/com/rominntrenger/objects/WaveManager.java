@@ -16,7 +16,6 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import sun.plugin2.message.Message;
 
 /**
  * {@link WaveManager} will controll the waves, and also keep track of what enemies to spawn where
@@ -36,7 +35,7 @@ public class WaveManager extends GameObject {
     private long waveStart = 0;
 
     private long pauseStart = 0;
-    private double pauseTime = 7.5;
+    private double pauseTime = 1.5;
 
     private boolean hivesDownMessage = false;
 

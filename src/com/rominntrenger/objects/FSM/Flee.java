@@ -21,6 +21,8 @@ public class Flee implements Behaviour {
         speed*=1.2;
         Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(
             behaviourContext.getTransform().getGlobalPosition());
+        if(player == null)
+            return;
         double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
         behaviourContext.setTarget(player);
         behaviourContext.setDirection(Vec2.subtract(

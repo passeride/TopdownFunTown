@@ -162,8 +162,11 @@ public class HitDetectionHandler {
             ArrayList<LineSegment> lineSegments = new ArrayList<>();
             lines.forEach(l -> lineSegments.add(new LineSegment(l, source)));
 
-
-            Light2D.light.calculateVisibility(lineSegments);
+            try {
+                Light2D.light.calculateVisibility(lineSegments);
+            }catch (IllegalArgumentException e){
+                System.out.println("IllegalArgumentException");
+            }
 //            ((RomInntrenger) GameApplication.getInstance()).player.light2D.calculateVisibility(lineSegments);
 
 

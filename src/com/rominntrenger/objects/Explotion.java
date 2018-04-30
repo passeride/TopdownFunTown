@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Explotion extends GameObject {
 
     double distance = 500;
-    double force = 60000;
+    double force = 6000;
     int dmg = 4;
 
     ArrayList<Player> players;
@@ -83,7 +83,7 @@ public class Explotion extends GameObject {
         double forceMultiplier = 1 - (distance2Player / distance);
 
         player.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-            Vec2.getAngleBetweenInDegrees(getPosition(), player.getPosition())),
+            Vec2.getAngleBetweenInDegrees(player.getPosition(), getPosition())),
             force * forceMultiplier));
 
     }
