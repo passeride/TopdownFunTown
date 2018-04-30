@@ -20,8 +20,16 @@ public class AlienHive extends Enemy {
 
     private int currency = 150;
 
+    private boolean isMotherHive = false;
 
     private boolean isActive = true;
+
+    public AlienHive(Vec2 position, boolean isMotherHive){
+        super(position, Vec2.ZERO, new Sprite("projectiles/projectileBlue"));
+
+        this.isMotherHive = isMotherHive;
+
+    }
 
     /**
      * Constructor for GameObject given position rotation and sprite

@@ -32,6 +32,7 @@ import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.player.Player;
 import java.awt.image.BufferedImage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Creating GameMap/Area with player, enemy and obstacle array lists.
@@ -72,9 +73,12 @@ public class MapCreator extends GameObject {
         int squaresScreenY = (int) (screen.getY() / squareSize.getY());
         for (int i = xNum - 1; i < xNum + squaresScreenX + 10; i++) {
             for (int j = yNum - 4; j < yNum + squaresScreenY + 10; j++) {
+                double x = squareSize.getX() * i + offset.getX() + squareSize.getX() / 2;
+                double y = squareSize.getY() * j + offset.getY() + squareSize.getY() / 2;
+
                 gc.drawImage(sprite.getImg(),
-                    squareSize.getX() * i + offset.getX() + squareSize.getX() / 2,
-                    squareSize.getY() * j + offset.getY() + squareSize.getY() / 2,
+                    x,
+                    y,
                     squareSize.getX(), squareSize.getY());
             }
         }
