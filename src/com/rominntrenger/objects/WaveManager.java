@@ -108,7 +108,7 @@ public class WaveManager extends GameObject {
                 }
 
                 if(Enemy.allEnemies.size() == hives.size())
-                    endWave();
+                    endWave(true);
             }
             for(AlienHive ah : hives){
                 ah.spawn(waveNumber);
@@ -116,7 +116,7 @@ public class WaveManager extends GameObject {
         }
     }
 
-    void endWave(){
+    void endWave(boolean showMessage){
         int alive = hives.size();
         for(AlienHive ah : hives){
             if(!ah.isActive())
@@ -127,10 +127,12 @@ public class WaveManager extends GameObject {
         pauseStart = System.currentTimeMillis();
         state = WaveSate.PAUSE;
 
-        MessageHandler.getInstance().writeMessage("Dem boiz be back real soon \n\n Get ready!",
-            new Sprite("portraits/mc_happy"));
-        AudioPlayer ap = new AudioPlayer("./assets/audio/BoisBeBac.wav");
-        ap.playOnce();
+        if(showMessage) {
+            MessageHandler.getInstance().writeMessage("Dem boiz be back real soon \n\n Get ready!",
+                new Sprite("portraits/mc_happy"));
+            AudioPlayer ap = new AudioPlayer("./assets/audio/BoisBeBac.wav");
+            ap.playOnce();
+        }
     }
 
     void startWave(){
@@ -156,7 +158,7 @@ public class WaveManager extends GameObject {
 
     public void clearGamestate(){
         hivesDownMessage = true;
-        endWave();
+        endWave(false);
         for(Enemy e : Enemy.allEnemies){
             if(!(e instanceof AlienHive)){
                 e.destroy();

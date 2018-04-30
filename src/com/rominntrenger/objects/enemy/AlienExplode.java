@@ -36,6 +36,7 @@ public class AlienExplode extends Enemy {
 
     @Override
     public void destroy() {
+
         new Explotion(getPosition(), getDirection(), getScale());
         super.destroy();
     }

@@ -129,6 +129,8 @@ public class RomInntrenger extends GameApplication {
         Explotion.clearAllExplotions();
         WaveManager.getInstance().clearGamestate();
         Blood.clearAll();
+        cam.setX(0);
+        cam.setY(0);
 
     }
 
@@ -269,10 +271,11 @@ public class RomInntrenger extends GameApplication {
                 deathOverlay = null;
 
             } else if (input.isKeyPressed(KeyCode.R)) {
-                deathOverlay.destroy();
-                deathOverlay = null;
+
                 clearGamestate();
                 spawnPlayers();
+                deathOverlay.destroy();
+                deathOverlay = null;
 
             }
         }

@@ -48,6 +48,9 @@ public class Explotion extends GameObject {
         setRenderLayer(RenderLayerName.HIGH_BLOCKS);
         players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
 
+        if(players.size() == 0)
+            destroy();
+
         for(Player p : players) {
             addForce(p);
             doDamadge(p);
