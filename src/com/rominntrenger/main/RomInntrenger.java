@@ -11,8 +11,10 @@ import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
+import com.rominntrenger.objects.Explotion;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.PlayerSpawn;
+import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
@@ -21,6 +23,7 @@ import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
 import com.rominntrenger.stateHandling.StateHandling;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javax.sound.sampled.Clip;
@@ -30,7 +33,7 @@ public class RomInntrenger extends GameApplication {
 
     public HealthElement healthElement;
     OrthographicCamera cam;
-    public ArrayList<Player> players = new ArrayList<>();
+    public CopyOnWriteArrayList<Player> players = new CopyOnWriteArrayList<>();
 
     public Weapon currentWeapon;
     private int prevWaveNumber = 0;
@@ -122,6 +125,8 @@ public class RomInntrenger extends GameApplication {
             p.destroy();
         }
         players.clear();
+        Projectile.clearAllProjectiles();
+        Explotion.clearAllExplotions();
         WaveManager.getInstance().clearGamestate();
         Blood.clearAll();
 
@@ -264,7 +269,10 @@ public class RomInntrenger extends GameApplication {
                 deathOverlay = null;
 
             } else if (input.isKeyPressed(KeyCode.R)) {
-                //TODO: sett in restart funksjon -> lukas?
+                deathOverlay.destroy();
+                deathOverlay = null;
+                clearGamestate();
+                spawnPlayers();
 
             }
         }
@@ -275,7 +283,7 @@ public class RomInntrenger extends GameApplication {
 
 
 
-    public ArrayList<Player> getPlayers() {
+    public CopyOnWriteArrayList<Player> getPlayers() {
         return players;
     }
 

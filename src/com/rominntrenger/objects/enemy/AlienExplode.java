@@ -19,7 +19,7 @@ public class AlienExplode extends Enemy {
     private long startTime = 0;
     private double timeToExplotion = 3.6;
     private double timePassed = 0.0;
-    private double maxSize = 3.0;
+    private double maxSize = 2.0;
 
     /**
      * Gives the spawn coordinate for AlienExplode
@@ -53,13 +53,7 @@ public class AlienExplode extends Enemy {
             setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), angularDampening)));
             getDirection().normalize();
         }
-//        super.nextBehaviour();
 
-
-
-//        if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
-//            prevShot = System.currentTimeMillis();
-//        }
     }
 
 

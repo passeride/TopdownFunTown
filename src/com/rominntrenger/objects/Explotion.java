@@ -5,22 +5,27 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
 import com.bluebook.renderer.RenderLayer;
+import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.player.Player;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Explotion is an effect that will spawn a visual Push player back, and also do damadge
  */
 public class Explotion extends GameObject {
 
+    private static CopyOnWriteArrayList<Explotion> allSplotions = new CopyOnWriteArrayList<>();
+
     double distance = 500;
     double force = 6000;
     int dmg = 4;
 
-    ArrayList<Player> players;
+    CopyOnWriteArrayList<Player> players;
 
     boolean isFinnished = false;
 
@@ -31,26 +36,39 @@ public class Explotion extends GameObject {
     public Explotion(Vec2 position) {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
             new AnimationSprite("effects/explotion", 11));
+        allSplotions.add(this);
         setSize(new Vec2(5, 5));
-        setRenderLayer(RenderLayer.RenderLayerName.PROJECTILE);
+        setRenderLayer(RenderLayerName.HIGH_BLOCKS);
         players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
 
-        playAudio();
         for(Player p : players) {
             addForce(p);
             doDamadge(p);
         }
+        playAudio();
+
         setAnimationDestroyListener();
+    }
+
+    public static void clearAllExplotions(){
+        Iterator<Explotion> iterator = allSplotions.iterator();
+        while(iterator.hasNext()){
+            Explotion explotion = iterator.next();
+            explotion.destroy();
+//            iterator.remove();
+        }
+        allSplotions.clear();
     }
 
     void setAnimationDestroyListener() {
         ((AnimationSprite) sprite)
-            .setOnAnimationFinnishedListener(new OnAnimationFinishedListener() {
-                @Override
-                public void AnimationFinnished() {
-                    isFinnished = true;
-                }
-            });
+            .setOnAnimationFinnishedListener(() -> isFinnished = true);
+    }
+
+    @Override
+    public void destroy() {
+        allSplotions.remove(this);
+        super.destroy();
     }
 
     @Override

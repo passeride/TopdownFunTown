@@ -9,6 +9,8 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -30,7 +32,7 @@ public class Projectile extends GameObject {
 
     private GameObject source;
 
-    private static ArrayList<Projectile> allProjectilse = new ArrayList<>();
+    private static CopyOnWriteArrayList<Projectile> allProjectilse = new CopyOnWriteArrayList<>();
 
     private Vec2 startPosition;
     boolean isSine = false;
@@ -69,8 +71,11 @@ public class Projectile extends GameObject {
     }
 
     public static void clearAllProjectiles() {
-        for (Projectile p : allProjectilse) {
+        Iterator<Projectile> iterator = allProjectilse.iterator();
+        while(iterator.hasNext()){
+            Projectile p = iterator.next();
             p.destroy();
+//            iterator.remove();
         }
         allProjectilse.clear();
     }

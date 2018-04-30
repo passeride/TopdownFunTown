@@ -350,6 +350,7 @@ public class Player extends GameObject {
             walkCollider.destroy();
         if(gui != null)
             gui.destroy();
+        romInntrenger.players.remove(this);
         super.destroy();
     }
 
