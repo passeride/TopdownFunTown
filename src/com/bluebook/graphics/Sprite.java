@@ -5,9 +5,7 @@ import com.bluebook.util.GameSettings;
 import com.bluebook.util.Transform;
 import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 
 /**
@@ -15,7 +13,7 @@ import javafx.scene.transform.Rotate;
  */
 public class Sprite {
 
-    Image img;
+    transient Image img;
     private double rotateAngle;
     private double squareWidth = 64;
     private double squareHeight = 64;
@@ -26,6 +24,8 @@ public class Sprite {
 
     private boolean isRotated = false;
 
+    private String path;
+
 
     /**
      * Sprite object with required image
@@ -34,12 +34,19 @@ public class Sprite {
      */
     public Sprite(String name) {
         loadImage(name);
+        this.path = name;
     }
 
     public Sprite(String name, Transform origin) {
         loadImage(name);
         this.origin = origin;
+        this.path = name;
 
+
+    }
+
+    public void reloadImage(){
+        img = SpriteLoader.loadImage(path);
     }
 
     private void loadImage(String name) {
@@ -69,6 +76,8 @@ public class Sprite {
                 img);
         }
     }
+
+
 
     public void draw(GraphicsRenderer gc, Vec2 position, Vec2 angle) {
         rotate(angle);
@@ -266,5 +275,13 @@ public class Sprite {
 
     public Image getImg() {
         return img;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

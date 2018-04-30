@@ -7,8 +7,8 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.input.GamepadInput;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.gui.HealthElement;
-import com.rominntrenger.gui.Inventory;
 import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.PlayerGuiElement;
@@ -28,6 +28,7 @@ import javax.sound.sampled.FloatControl;
 
 public class RomInntrenger extends GameApplication {
 
+    public HealthElement healthElement;
     OrthographicCamera cam;
 
 
@@ -35,8 +36,10 @@ public class RomInntrenger extends GameApplication {
     public ArrayList<Player> players = new ArrayList<>();
 
     public Weapon currentWeapon;
+    private int prevWaveNumber = 0;
 
     public AudioPlayer bgMusic;
+    public AudioPlayer evilLaughAP;
     public Clip clip;
     public FloatControl floatControl;
 
@@ -45,6 +48,7 @@ public class RomInntrenger extends GameApplication {
     };
 
     MessageHandler msh;
+    DeathOverlay deathOverlay;
 
     GamepadInput gi;
 
@@ -146,82 +150,82 @@ public class RomInntrenger extends GameApplication {
                 }
 
             } else if (players.indexOf(player) == 0) {
-
-                // SAVE DEBUG CODE
-
-                if(input.isKeyPressed(KeyCode.K)){
-                    //Checks if loading works
-                    double playerPosX = player.getPosition().getX();
-                    double playerPosY = player.getPosition().getY();
-                    double playerDegrees = player.getTransform().getGlobalRotation().getAngleInDegrees();
-                    stateHandling.saveGame(1,10, playerPosX, playerPosY, playerDegrees);
-
-                }
-                if(input.isKeyPressed(KeyCode.T)){
-                    stateHandling.setAllLoadData(stateHandling);
-                }
-                // End of saveDebug Kode
-
-                if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
-                    .isKeyDown(KeyCode.A)
-                    || input.isKeyDown(KeyCode.D)) {
-                    ((AnimationSprite) player.getSprite()).setPlaying(true);
-                } else {
-                    ((AnimationSprite) player.getSprite()).setPlaying(false);
-                }
-
-                if (input.isKeyDown(KeyCode.S)) {
-                    player.moveDown(delta);
-
-                }
-
-                if (input.isKeyDown(KeyCode.W)) {
-                    player.moveUp(delta);
-                }
-
-                if (input.isKeyDown(KeyCode.D)) {
-                    player.moveRight(delta);
-                }
-                if (input.isKeyDown(KeyCode.A)) {
-                    player.moveLeft(delta);
-                }
-                if (input.isKeyPressed(KeyCode.ESCAPE)) {
-                    callMenu();
-                }
-
-                if (player.hasWeapon()) {
-                    if (input.isMouseButton0Pressed()) {
-                        ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
-                        if (player.getCurrentWeapon() != null) {
-                            if (input.isMouseButton0Pressed()) {
-                                // TODO: Fix trainwreck
-                                ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                    .setPlaying(true);
-
-                                player.shoot();
-                            } else {
-                                ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                    .setPlaying(false);
-                            }
-                        }
-                        player.shoot();
-                    } else {
-                        ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
-
+                if (player.isAlive()) {
+                    if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
+                        System.out.println("lagrer spiller sin posisjon");
+                        prevWaveNumber = WaveManager.getInstance().getWaveNumber();
+                        double playerPosX = player.getPosition().getX();
+                        double playerPosY = player.getPosition().getY();
+                        double playerDegrees = player.getTransform().getGlobalRotation()
+                            .getAngleInDegrees();
+                        stateHandling.saveGame(prevWaveNumber, player.getPlayerHealth(), playerPosX,
+                            playerPosY, playerDegrees);
                     }
-                }
 
-                // Lookat
+                    if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
+                        .isKeyDown(KeyCode.A)
+                        || input.isKeyDown(KeyCode.D)) {
+                        ((AnimationSprite) player.getSprite()).setPlaying(true);
+                    } else {
+                        ((AnimationSprite) player.getSprite()).setPlaying(false);
+                    }
 
-                if (OrthographicCamera.main != null) {
-                    player.lookAt(Vec2.subtract(input.getMousePosition(),
-                        new Vec2(OrthographicCamera.main.getX(), OrthographicCamera.main.getY())));
-                } else {
-                    player.lookAt(input.getMousePosition());
+                    if (input.isKeyDown(KeyCode.S)) {
+                        player.moveDown(delta);
+                    }
+
+                    if (input.isKeyDown(KeyCode.W)) {
+                        player.moveUp(delta);
+                    }
+
+                    if (input.isKeyDown(KeyCode.D)) {
+                        player.moveRight(delta);
+                    }
+                    if (input.isKeyDown(KeyCode.A)) {
+                        player.moveLeft(delta);
+                    }
+                    if (input.isKeyPressed(KeyCode.ESCAPE)) {
+                        callMenu();
+                    }
+
+                    if (player.hasWeapon()) {
+                        if (input.isMouseButton0Pressed()) {
+                            ((AnimationSprite) player.getCurrentWeapon().getSprite())
+                                .setPlaying(true);
+                            if (player.getCurrentWeapon() != null) {
+                                if (input.isMouseButton0Pressed()) {
+                                    // TODO: Fix trainwreck
+                                    ((AnimationSprite) player.getCurrentWeapon().getSprite())
+                                        .setPlaying(true);
+
+                                    player.shoot();
+                                } else {
+                                    ((AnimationSprite) player.getCurrentWeapon().getSprite())
+                                        .setPlaying(false);
+                                }
+                            }
+                            player.shoot();
+                        } else {
+                            ((AnimationSprite) player.getCurrentWeapon().getSprite())
+                                .setPlaying(false);
+
+                        }
+                    }
+
+                    // Lookat
+                    if (OrthographicCamera.main != null) {
+                        player.lookAt(Vec2.subtract(input.getMousePosition(),
+                            new Vec2(OrthographicCamera.main.getX(),
+                                OrthographicCamera.main.getY())));
+                    } else {
+                        player.lookAt(input.getMousePosition());
+                    }
+                } else if (!player.isAlive()) {
+
                 }
             }
-        }
 
+        }
         if (input.isKeyPressed(KeyCode.UP)) {
             GameSettings.scale += 0.2;
         }
@@ -230,8 +234,36 @@ public class RomInntrenger extends GameApplication {
             GameSettings.scale -= 0.2;
         }
 
+        if(players.size() == 0) {
+            //Player player = players.get(0);
+            if (deathOverlay == null) {
+                deathOverlay = new DeathOverlay();
+                if (evilLaughAP == null) {
+                    evilLaughAP = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
+                    evilLaughAP.playOnce();
+                    evilLaughAP.close();
+                    bgMusic.stop();
+                    bgMusic.close();
+                }
+            }
+            if (input.isKeyPressed(KeyCode.P)) {
+                stateHandling.setAllLoadData(stateHandling);
+                System.out.println("P trykket");
+                //player.setAlive(true);
+                deathOverlay.destroy();
+                deathOverlay = null;
+
+            } else if (input.isKeyPressed(KeyCode.R)) {
+                //TODO: sett in restart funksjon -> lukas?
+
+            }
+        }
 
     }
+
+
+
+
 
     public ArrayList<Player> getPlayers() {
         return players;

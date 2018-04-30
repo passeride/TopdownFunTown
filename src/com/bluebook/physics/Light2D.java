@@ -18,7 +18,7 @@ public class Light2D {
     }
 
 
-    public double[][] calculateVisibility(ArrayList<LineSegment> list) {
+    public double[][] calculateVisibility(ArrayList<LineSegment> list) throws  IllegalArgumentException{
 
         ArrayList<LinePoint> points = new ArrayList<>();
 

@@ -3,7 +3,6 @@ package com.rominntrenger.objects.player;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
-import com.bluebook.engine.GameEngine;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
@@ -14,7 +13,6 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.objects.PlayerGuiElement;
@@ -161,6 +159,7 @@ public class Player extends GameObject {
     @Override
     public void update(double delta) {
         rb2.update(delta);
+        hit(0);
 
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
@@ -288,7 +287,7 @@ public class Player extends GameObject {
         playerHealth = Math.max(0, playerHealth - dmg);
 
         if (playerHealth <= 0) {
-            new DeathOverlay();
+//            new DeathOverlay();
             die();
             audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
             audioPlayer.playOnce();
@@ -307,20 +306,13 @@ public class Player extends GameObject {
         playerHealth = Math.min(playerHealth + health, maxPlayerHealth);
     }
 
+
     private void die() {
         if(currentWeapon != null)
             currentWeapon.destroy();
-        GameEngine.getInstance().pauseGame();
-
-        // This is for fun, to mess with Hilde's old computer
-        /*
-        try {
-            Runtime.getRuntime().exec("eject");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         destroy();
+//        GameEngine.getInstance().pauseGame();
+//        destroy();
     }
 
     public void activateGottaGoFast() {
