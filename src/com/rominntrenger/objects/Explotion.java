@@ -30,7 +30,7 @@ public class Explotion extends GameObject {
      */
     public Explotion(Vec2 position) {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
-            new AnimationSprite("effects/explotion", 11));
+            new AnimationSprite("effects/explosion", 6));
         setSize(new Vec2(5, 5));
         setRenderLayer(RenderLayer.RenderLayerName.PROJECTILE);
         players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
