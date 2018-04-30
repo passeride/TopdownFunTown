@@ -142,7 +142,7 @@ public class AlienTurret extends Enemy {
         for(RayCast r : raycasts){
             r.destroy();
         }
-        new Explotion(getPosition());
+//        new Explotion(getPosition(), getDirection());
     }
 
     @Override

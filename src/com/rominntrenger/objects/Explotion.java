@@ -24,20 +24,27 @@ public class Explotion extends GameObject {
     double distance = 500;
     double force = 6000;
     int dmg = 4;
+    private double splotionTime = 1.5;
+    private double timePassed = 0.0;
+    private double maxSize = 3;
 
     CopyOnWriteArrayList<Player> players;
 
     boolean isFinnished = false;
 
+    Vec2 startSize;
+
     /**
      * Explotion will spawn a Explotion on the position given with a random rotation This will push
      * back and hurt player if close
      */
-    public Explotion(Vec2 position) {
-        super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
-            new AnimationSprite("effects/explotion", 11));
+    public Explotion(Vec2 position, Vec2 rotation, Vec2 startSize) {
+        super(position, rotation,
+            new AnimationSprite("effects/explosion", 5));
+        ((AnimationSprite)sprite).setLength(0.1);
         allSplotions.add(this);
-        setSize(new Vec2(5, 5));
+        this.startSize = startSize;
+//        setSize(new Vec2(5, 5));
         setRenderLayer(RenderLayerName.HIGH_BLOCKS);
         players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
 
@@ -74,6 +81,14 @@ public class Explotion extends GameObject {
     @Override
     public void update(double delta) {
         super.update(delta);
+
+        timePassed += delta;
+        if(timePassed >= splotionTime)
+            destroy();
+        double sizeModifier = timePassed / splotionTime;
+        setSize(Vec2.add(startSize,new Vec2(sizeModifier * maxSize, sizeModifier * maxSize)));
+
+
         if(isFinnished){
             destroy();
         }
