@@ -16,7 +16,7 @@ public class AlienEye extends Enemy {
     private long prevShot = 0;
 
     public AlienEye(Vec2 position) {
-        super(position, Vec2.ZERO, new Sprite("./enemies/alienEye_0"));
+        super(position, Vec2.ZERO, new Sprite("/enemies/alienEye_0"));
 //        ((AnimationSprite) getSprite()).setPlaying(false);
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));

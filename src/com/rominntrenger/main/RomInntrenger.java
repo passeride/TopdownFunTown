@@ -226,7 +226,10 @@ public class RomInntrenger extends GameApplication {
                                         .setPlaying(false);
                                 }
                             }
-                            player.shoot();
+                            player.shoot(); }
+                        if (input.isMouseButton1Pressed()) {
+                            player.reloadCurrentWeapon();
+                            //TODO: See if works?
                         } else {
                             ((AnimationSprite) player.getCurrentWeapon().getSprite())
                                 .setPlaying(false);
@@ -293,10 +296,6 @@ public class RomInntrenger extends GameApplication {
         }
 
     }
-
-
-
-
 
     public CopyOnWriteArrayList<Player> getPlayers() {
         return players;

@@ -22,7 +22,7 @@ public class AlienWorm extends Enemy {
     private int hit_dmg;
 
     public AlienWorm(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("./enemies/alienWorm", 6));
+        super(position, Vec2.ZERO, new AnimationSprite("/enemies/alienWorm", 6));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 200;

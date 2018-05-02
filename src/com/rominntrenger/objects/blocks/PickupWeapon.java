@@ -60,7 +60,7 @@ public class PickupWeapon extends Item implements Describable {
         Weapon w = new RedRifle(Vec2.ZERO,
             new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO);
         p.setCurrentWeapon(w);
-        ((RomInntrenger) GameApplication.getInstance()).currentWeapon = w;
+        // ((RomInntrenger) GameApplication.getInstance()).currentWeapon = w;
         collider.destroy();
         destroy();
 
