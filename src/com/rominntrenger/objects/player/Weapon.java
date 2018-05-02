@@ -162,4 +162,68 @@ public abstract class Weapon extends GameObject {
     public void setWeaponBase(WeaponBase weaponBase) {
         this.weaponBase = weaponBase;
     }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public int getDmg() {
+        return dmg;
+    }
+
+    public void setDmg(int dmg) {
+        this.dmg = dmg;
+    }
+
+    public int getAlteredDmg() {
+        return alteredDmg;
+    }
+
+    public void setAlteredDmg(int alteredDmg) {
+        this.alteredDmg = alteredDmg;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
+
+    public void setAudioPlayer(AudioPlayer audioPlayer) {
+        this.audioPlayer = audioPlayer;
+    }
+
+    public static String getTestFil1() {
+        return testFil1;
+    }
+
+    public static void setTestFil1(String testFil1) {
+        Weapon.testFil1 = testFil1;
+    }
+
+    public String getProjectilePath() {
+        return projectilePath;
+    }
+
+    public void setProjectilePath(String projectilePath) {
+        this.projectilePath = projectilePath;
+    }
+
+    public long getPreviousShotTime() {
+        return previousShotTime;
+    }
+
+    public void setPreviousShotTime(long previousShotTime) {
+        this.previousShotTime = previousShotTime;
+    }
+
+    public double getShootInterval() {
+        return shootInterval;
+    }
+
+    public void setShootInterval(double shootInterval) {
+        this.shootInterval = shootInterval;
+    }
 }

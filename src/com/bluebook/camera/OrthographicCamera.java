@@ -28,6 +28,12 @@ public class OrthographicCamera {
         }
     }
 
+    public void moveToFollow(){
+        x = gameobject.getTransform().getLocalPosition().getX();
+        y = gameobject.getTransform().getLocalPosition().getY();
+
+    }
+
     public OrthographicCamera() {
         OrthographicCamera.main = this;
         // Loading from settings file

@@ -30,6 +30,7 @@ public class AnimationSprite extends Sprite {
      */
     public AnimationSprite(String name, int frames) {
         super();
+        setPath(name);
         this.animation = SpriteLoader.loadAnimationImage(name, frames);
         img = animation[0];
         length = 0.10;
@@ -91,6 +92,10 @@ public class AnimationSprite extends Sprite {
 
     public void setOnAnimationFinnishedListener(OnAnimationFinishedListener listener) {
         doneListener = listener;
+    }
+
+    public int getFrameCount() {
+        return animation.length;
     }
 
     public double getLength() {

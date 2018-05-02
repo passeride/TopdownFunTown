@@ -123,7 +123,6 @@ public class WaveManager extends GameObject {
                 alive--;
         }
 
-        System.out.println("Alive is " + alive);
         pauseStart = System.currentTimeMillis();
         state = WaveSate.PAUSE;
 
