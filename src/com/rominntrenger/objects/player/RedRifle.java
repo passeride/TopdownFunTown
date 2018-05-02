@@ -16,8 +16,8 @@ public class RedRifle extends Weapon {
      */
     public RedRifle(Vec2 direction, Sprite sprite, Vec2 offset) {
         super(direction, sprite, offset);
-        audioPlayer = new AudioPlayer("./assets/audio/lukasPew.wav");
-        projectilePath = "/projectiles/projectile_g_02";
+        audioPlayer = new AudioPlayer("audio/lukasPew.wav");
+        projectilePath = "projectiles/projectile_g_02";
         shootInterval = 0.01;
         speed = 1800;
 

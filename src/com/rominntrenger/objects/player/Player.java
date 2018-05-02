@@ -70,7 +70,7 @@ public class Player extends GameObject {
         ((RomInntrenger) GameApplication.getInstance()).players.add(this);
 
         setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
-        hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
+        hitSound = new AudioPlayer("audio/lukasAuu.wav");
         hitSound.setSpatial(this);
 
         collider = new CircleCollider(this, 30);
@@ -160,7 +160,7 @@ public class Player extends GameObject {
     @Override
     public void update(double delta) {
         rb2.update(delta);
-        hit(0);
+//        hit(0);
 
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
@@ -295,10 +295,10 @@ public class Player extends GameObject {
         if (playerHealth <= 0) {
 //            new DeathOverlay();
             die();
-            AudioPlayer audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
-            audioPlayer.playOnce();
-            romInntrenger.bgMusic.stop();
-            romInntrenger.bgMusic.close();
+//            AudioPlayer audioPlayer = new AudioPlayer("audio/Evil_Laugh.wav");
+//            audioPlayer.playOnce();
+//            romInntrenger.bgMusic.stop();
+//            romInntrenger.bgMusic.close();
             destroy();
         }
         hitSound.playOnce();

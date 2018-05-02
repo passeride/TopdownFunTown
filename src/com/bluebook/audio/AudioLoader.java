@@ -1,7 +1,9 @@
 package com.bluebook.audio;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -29,8 +31,13 @@ public class AudioLoader {
         if (!audioClips.containsKey(path)) {
             try {
 
-                File f = new File(path);
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+//                File f = new File(path);
+                //read audio data from whatever source (file/classloader/etc.)
+                InputStream audioSrc = AudioLoader.class.getClassLoader().getResourceAsStream(path);
+//add buffer for mark/reset support
+                InputStream bufferedIn = new BufferedInputStream(audioSrc);
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(bufferedIn);
+
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioIn);
 

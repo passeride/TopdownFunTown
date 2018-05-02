@@ -27,8 +27,8 @@ public abstract class Weapon extends GameObject {
 
 
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
-    private static String testFil1 = "./assets/audio/scifi002.wav";
-    protected String projectilePath = "/projectiles/projectile_gold_00";
+    private static String testFil1 = "audio/scifi002.wav";
+    protected String projectilePath = "projectiles/projectile_gold_00";
 
     private long previousShotTime = 0;
     protected double shootInterval = 0.5;

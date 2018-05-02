@@ -16,7 +16,7 @@ public class DeathOverlay extends GameObject {
      * Constructor for GameObject given position rotation and sprite
      */
     public DeathOverlay() {
-        super(Vec2.ZERO, Vec2.ZERO, new Sprite("../pictures/getGood"));
+        super(Vec2.ZERO, Vec2.ZERO, new Sprite("pictures/getGood"));
         allwaysOnScreen = true;
         setRenderLayer(RenderLayerName.GUI);
     }

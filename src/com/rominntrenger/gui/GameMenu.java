@@ -62,7 +62,7 @@ public class GameMenu extends Parent {
         }
 
         public void addButton(){
-        ap = new AudioPlayer("./assets/audio/MoodyLoop.wav");
+        ap = new AudioPlayer("audio/MoodyLoop.wav");
 
             resumeButton = new MenuButton("START/RESUME");
             resumeButton.setOnMouseClicked(event -> {

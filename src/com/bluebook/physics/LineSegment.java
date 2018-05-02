@@ -1,7 +1,5 @@
 package com.bluebook.physics;
 
-import com.bluebook.engine.GameEngine;
-import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
 

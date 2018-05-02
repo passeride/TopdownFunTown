@@ -9,7 +9,10 @@ import com.google.gson.reflect.TypeToken;
 import com.rominntrenger.gui.Menu;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.Map;
 import javafx.application.Application;
@@ -20,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sun.misc.IOUtils;
 
 /**
  * The GameApplication class is used to create the foundation of any BlueBook gamePane
@@ -27,7 +31,7 @@ import javafx.stage.Stage;
  */
 public abstract class GameApplication extends Application{
 
-    private static final String SETTINGS_PATH = "./assets/settings/Default.json";
+    private static final String SETTINGS_PATH = "settings/Default.json";
 
     private static GameApplication singleton;
 //    private boolean START_MENU = false;
@@ -88,17 +92,50 @@ public abstract class GameApplication extends Application{
     }
 
     private String readSettingsFile() {
-        File f = new File(SETTINGS_PATH);
-        String s = "";
-        if (f.exists()) {
-            try {
-                s = new String(Files.readAllBytes(f.toPath()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        ClassLoader cl = getClass().getClassLoader();
+        InputStream stream;
+        if (cl==null) {
+            stream = ClassLoader.getSystemResourceAsStream(SETTINGS_PATH);
+        }else{
+            stream = cl.getResourceAsStream(SETTINGS_PATH);
         }
-        return s;
+
+        StringBuilder sb = new StringBuilder();
+
+        int c;
+
+        try {
+            while ((c = stream.read()) != -1){
+                sb.append((char)c);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sb.toString();
     }
+
+    private String resolveName(String name) {
+        if (name == null) {
+            return name;
+        }
+        if (!name.startsWith("/")) {
+            Class c = this.getClass();
+            while (c.isArray()) {
+                c = c.getComponentType();
+            }
+            String baseName = c.getName();
+            int index = baseName.lastIndexOf('.');
+            if (index != -1) {
+                name = baseName.substring(0, index).replace('.', '/') + "/" + name;
+            }
+        } else {
+            name = name.substring(1);
+        }
+        return name;
+    }
+
 
     private void setStageKeyListener(Stage primaryStage) {
         new Input(primaryStage);
@@ -159,7 +196,7 @@ public abstract class GameApplication extends Application{
 
         if(gamePane == null) {
             gamePane = fxmlGame
-                    .load(getClass().getResource("../../bluebook/javafx/sample.fxml").openStream());
+                    .load(getClass().getClassLoader().getResourceAsStream("com/bluebook/javafx/sample.fxml"));
         }
 
         primaryStage.getScene().setRoot(gamePane);

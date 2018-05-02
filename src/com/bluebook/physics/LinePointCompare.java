@@ -12,6 +12,13 @@ public class LinePointCompare implements Comparator<LinePoint> {
         this.source = source;
     }
 
+    /**
+     * Dummy constructor
+     */
+    public LinePointCompare(){
+
+    }
+
     @Override
     public int compare(LinePoint pointA, LinePoint pointB) {
         if (pointA.angle > pointB.angle) return 1;

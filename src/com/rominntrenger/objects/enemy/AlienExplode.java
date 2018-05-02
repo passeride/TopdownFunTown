@@ -25,7 +25,7 @@ public class AlienExplode extends Enemy {
      * Gives the spawn coordinate for AlienExplode
      */
     public AlienExplode(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/alienExplode", 6));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/alienExplode", 6));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 500;

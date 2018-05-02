@@ -1,8 +1,6 @@
-package com.bluebook.physics.quadtree;
+package com.bluebook.physics;
 
 import com.bluebook.camera.OrthographicCamera;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
 import java.util.ArrayList;
@@ -60,6 +58,15 @@ public class QuadTree {
         public String getName() {
             return names[value];
         }
+    }
+
+
+    public void reset(){
+        colliders.clear();
+        for(QuadTree qt : children){
+            qt = null;
+        }
+        isSubdivided = false;
     }
 
     /**

@@ -41,11 +41,8 @@ public class Menu extends Parent{
         root.setPrefSize(1920, 1080);
 
          InputStream is = null;
-         try {
-             is = Files.newInputStream(Paths.get("./assets/pictures/bg.gif"));
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
+         //             is = Files.newInputStream(Paths.get("/pictures/bg.gif"));
+         is = getClass().getClassLoader().getResourceAsStream("sprite/pictures/bg.gif");
          System.out.println(is);
          image = new Image(is);
          try {

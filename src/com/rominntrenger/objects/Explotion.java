@@ -99,7 +99,7 @@ public class Explotion extends GameObject {
 
     void playAudio() {
 
-        AudioPlayer clip = new AudioPlayer("./assets/audio/PaalBoom.wav");
+        AudioPlayer clip = new AudioPlayer("audio/PaalBoom.wav");
         clip.setSpatial(this);
         clip.playOnce();
     }

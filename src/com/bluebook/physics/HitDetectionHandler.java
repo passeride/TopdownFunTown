@@ -1,12 +1,13 @@
 package com.bluebook.physics;
 
 import com.bluebook.camera.OrthographicCamera;
-import com.bluebook.physics.quadtree.QuadTree;
+import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
 import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -31,8 +32,6 @@ public class HitDetectionHandler {
     private static HitDetectionHandler singleton;
 
     public ArrayList<Collider> colliders = new ArrayList<>();
-    public ArrayList<Collider> raycast_colliders = new ArrayList<>();
-    public ArrayList<RayCast> raycasts = new ArrayList<>();
 
     public ArrayList<Line2D> lines = new ArrayList<>();
 
@@ -40,6 +39,16 @@ public class HitDetectionHandler {
     private ArrayList<Collider> colliderInBuffer = new ArrayList<>();
     private ArrayList<Collider> colliderOutBuffer = new ArrayList<>();
     public QuadTree qtTree;
+
+    /**
+     * Hopefully this will keep the garbadge collector from unloading
+     * LineSegment.class and we avoid issues. Let's see
+     * #hackerbois i'm in!
+     * DO NOT REMOVE!
+     */
+    private LineSegment ln = new LineSegment(new Line2D(0, 0, 1, 1), new Vec2(0, 0));
+    private LinePointCompare lpc = new LinePointCompare();
+    private LinePoint lp = new LinePoint();
 
     public static HitDetectionHandler getInstance() {
         if (singleton == null) {
@@ -52,6 +61,8 @@ public class HitDetectionHandler {
         USE_QUADTREE = GameSettings.getBoolean("Physics_use_quadtree");
         DO_RAYCAST = GameSettings.getBoolean("Physics_use_raycast");
         DO_SHADOW_SWEEP = GameSettings.getBoolean("Physics_use_shadowSweep");
+        Vec2 screen = GameSettings.getScreen();
+        qtTree = new QuadTree(new Rectangle(-screen.getX() * 5, -screen.getY() * 5, screen.getX() * 10, screen.getY() * 10), 3); // Creating oversized quadtree
 
     }
 
@@ -67,8 +78,9 @@ public class HitDetectionHandler {
 
     private void buildQuadTree() {
         synchronized (this) {
-            Vec2 screen = GameSettings.getScreen();
-            qtTree = new QuadTree(new Rectangle(-screen.getX() * 5, -screen.getY() * 5, screen.getX() * 10, screen.getY() * 10), 3); // Creating oversized quadtree
+
+//            qtTree = new QuadTree(new Rectangle(-screen.getX() * 5, -screen.getY() * 5, screen.getX() * 10, screen.getY() * 10), 3); // Creating oversized quadtree
+            qtTree.reset();
             for (Collider c : colliders) {
                 qtTree.insert(c);
             }
@@ -141,36 +153,35 @@ public class HitDetectionHandler {
     public static int counter = 0;
 
     private void doRaycasts() {
-        if(DO_SHADOW_SWEEP){
-            Vec2 cam = OrthographicCamera.getOffset();
-            Vec2 screen = GameSettings.getScreen();
+        synchronized (this) {
+            if (DO_SHADOW_SWEEP) {
+                Vec2 cam = OrthographicCamera.getOffset();
+                Vec2 screen = GameSettings.getScreen();
 
-            float LeftX = (float) cam.getX();
-            float TopY = (float) cam.getY();
-            float RightX = (float)(cam.getX() - screen.getX());
-            float BottomY = (float)(cam.getY() - screen.getY());
+                float LeftX = (float) cam.getX();
+                float TopY = (float) cam.getY();
+                float RightX = (float) (cam.getX() - screen.getX());
+                float BottomY = (float) (cam.getY() - screen.getY());
 
-            lines.add(new Line2D(LeftX, TopY, RightX, TopY));
-            lines.add(new Line2D(RightX, TopY, RightX, BottomY));
-            lines.add(new Line2D(RightX, BottomY, LeftX, BottomY));
-            lines.add(new Line2D(LeftX, BottomY, LeftX, TopY));
-
+                lines.add(new Line2D(LeftX, TopY, RightX, TopY));
+                lines.add(new Line2D(RightX, TopY, RightX, BottomY));
+                lines.add(new Line2D(RightX, BottomY, LeftX, BottomY));
+                lines.add(new Line2D(LeftX, BottomY, LeftX, TopY));
 
 //            Vec2 source = ((RomInntrenger) GameApplication.getInstance()).player.getTransform().getGlobalPosition();
-            Vec2 source = Light2D.light.source.getTransform().getGlobalPosition();
+                Vec2 source = Light2D.light.source.getTransform().getGlobalPosition();
 
-            ArrayList<LineSegment> lineSegments = new ArrayList<>();
-            lines.forEach(l -> lineSegments.add(new LineSegment(l, source)));
+                ArrayList<LineSegment> lineSegments = new ArrayList<>();
+                lines.forEach(l -> lineSegments.add(new LineSegment(l, source)));
 
-            try {
-                Light2D.light.calculateVisibility(lineSegments);
-            }catch (IllegalArgumentException e){
-                System.out.println("IllegalArgumentException");
-            }
+                try {
+                    Light2D.light.calculateVisibility(lineSegments);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("IllegalArgumentException");
+                }
 //            ((RomInntrenger) GameApplication.getInstance()).player.light2D.calculateVisibility(lineSegments);
 
-
-
+            }
         }
     }
 
@@ -189,7 +200,6 @@ public class HitDetectionHandler {
             colliderOutBuffer.clear();
 
         }
-        raycast_colliders.addAll(colliders);
     }
 
     /**

@@ -8,6 +8,7 @@ import com.bluebook.util.Vec2;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.canvas.GraphicsContext;
@@ -34,12 +35,8 @@ public class MessageHandler extends GameObject {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite(""));
         allwaysOnScreen = true;
         this.setRenderLayer(RenderLayer.RenderLayerName.GUI);
-        File file = new File("assets/fonts/Pixel-Miners.otf");
-        try {
-            font = Font.loadFont(new FileInputStream(file), 40);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        InputStream is = getClass().getClassLoader().getResourceAsStream("fonts/Pixel-Miners.otf");
+        font = Font.loadFont(is, 40);
 
         resolutionX = GameSettings.getInt("game_resolution_X");
         resolutionY = GameSettings.getInt("game_resolution_Y");

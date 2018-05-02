@@ -23,7 +23,7 @@ public class AlienPurple extends Enemy {
      * Constructor for GameObject given position rotation and sprite
      */
     public AlienPurple(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/enemyPurple", 3));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/enemyPurple", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         //setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
@@ -47,9 +47,9 @@ public class AlienPurple extends Enemy {
 
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
         Projectile p2 = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
 
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);

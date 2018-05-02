@@ -18,7 +18,7 @@ public class AlienGreen extends Enemy {
     private long prevShot = 0;
 
     public AlienGreen(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/enemyGreen", 3));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/enemyGreen", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 200;
@@ -41,7 +41,7 @@ public class AlienGreen extends Enemy {
 
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
 

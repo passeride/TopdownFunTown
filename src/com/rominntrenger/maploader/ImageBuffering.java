@@ -21,9 +21,8 @@ public class ImageBuffering {
      */
     public BufferedImage loadImage(String name) {
         image = null;
-        File f = new File("./assets/maps/" + name + ".png");
         try {
-            image = ImageIO.read(f);
+            image = ImageIO.read(ImageBuffering.class.getClassLoader().getResourceAsStream("sprite/maps/"+ name + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -33,12 +33,14 @@ public class Sprite {
      * @param name relative name to asset
      */
     public Sprite(String name) {
-        loadImage(name);
+        if(!name.equals(""))
+            loadImage(name);
         this.path = name;
     }
 
     public Sprite(String name, Transform origin) {
-        loadImage(name);
+        if(!name.equals(""))
+            loadImage(name);
         this.origin = origin;
         this.path = name;
 

@@ -3,7 +3,7 @@ package test.com.bluebook.physics.quadtree;
 
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
-import com.bluebook.physics.quadtree.QuadTree;
+import com.bluebook.physics.QuadTree;
 import com.bluebook.util.Vector2;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;

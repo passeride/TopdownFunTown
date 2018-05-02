@@ -42,7 +42,6 @@ public class RomInntrenger extends GameApplication {
 
     public AudioPlayer bgMusic;
     public AudioPlayer evilLaughAP;
-    public Clip clip;
 
     /**
      * Will give players colors corresponding to their PlayerID
@@ -52,10 +51,10 @@ public class RomInntrenger extends GameApplication {
     };
 
     public String[] playerSprites = {
-        "/friendlies/character",
-        "/friendlies/characterCute",
-        "/friendlies/characterGreen",
-        "/friendlies/wahracter"
+        "friendlies/character",
+        "friendlies/characterCute",
+        "friendlies/characterGreen",
+        "friendlies/wahracter"
     };
 
     MessageHandler msh;
@@ -82,8 +81,7 @@ public class RomInntrenger extends GameApplication {
         MapCreator level = new MapCreator("startMap");
         level.createLevel();
 
-        bgMusic = new AudioPlayer("./assets/audio/MoodyLoop.wav");
-        clip = bgMusic.getClip();
+        bgMusic = new AudioPlayer("audio/MoodyLoop.wav");
         bgMusic.playLoop();
 
         msh = MessageHandler.getInstance();
@@ -103,7 +101,7 @@ public class RomInntrenger extends GameApplication {
                 Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
                     new AnimationSprite(playerSprites[i], 4),  i + 1);
                 p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
-                    new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
+                    new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
                 p.setPlayerColor(playerColor[i]);
 
                 stateHandling = new StateHandling();
@@ -111,7 +109,9 @@ public class RomInntrenger extends GameApplication {
             }
         }else{
             Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
-                new AnimationSprite("/friendlies/character", 4), 0);
+                new AnimationSprite("friendlies/character", 4), 0);
+            p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+                new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
             p.setPlayerColor(playerColor[0]);
 
             stateHandling = new StateHandling();
@@ -132,6 +132,8 @@ public class RomInntrenger extends GameApplication {
         Blood.clearAll();
         cam.setX(0);
         cam.setY(0);
+        evilLaughAP.stop();
+        evilLaughAP = null;
 
     }
 
@@ -258,15 +260,15 @@ public class RomInntrenger extends GameApplication {
 
         if(players.size() == 0) {
             //Player player = players.get(0);
-            System.out.println("ZERO PLAYERS");
+//            System.out.println("ZERO PLAYERS");
             if (deathOverlay == null) {
                 deathOverlay = new DeathOverlay();
                 if (evilLaughAP == null) {
-                    evilLaughAP = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
+                    evilLaughAP = new AudioPlayer("audio/Evil_Laugh.wav");
                     evilLaughAP.playOnce();
-                    evilLaughAP.close();
+//                    evilLaughAP.close();
                     bgMusic.stop();
-                    bgMusic.close();
+//                    bgMusic.close();
                 }
             }
             if (input.isKeyPressed(KeyCode.P)) {
@@ -276,6 +278,8 @@ public class RomInntrenger extends GameApplication {
                 //player.setAlive(true);
                 deathOverlay.destroy();
                 deathOverlay = null;
+                bgMusic.playLoop();
+
 
             } else if (input.isKeyPressed(KeyCode.R)) {
 
@@ -283,6 +287,7 @@ public class RomInntrenger extends GameApplication {
                 spawnPlayers();
                 deathOverlay.destroy();
                 deathOverlay = null;
+                bgMusic.playLoop();
 
             }
         }
