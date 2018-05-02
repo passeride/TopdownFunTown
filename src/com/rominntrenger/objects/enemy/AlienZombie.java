@@ -20,7 +20,7 @@ public class AlienZombie extends Enemy {
     private int hit_dmg;
 
     public AlienZombie(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("./enemies/alienZombie", 4));
+        super(position, Vec2.ZERO, new AnimationSprite("/enemies/alienZombie", 4));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 100;
