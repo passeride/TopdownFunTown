@@ -9,6 +9,7 @@ import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.blocks.Soot;
 import com.rominntrenger.objects.player.Player;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -77,6 +78,7 @@ public class Explotion extends GameObject {
 
     @Override
     public void destroy() {
+        new Soot(getPosition());
         allSplotions.remove(this);
         super.destroy();
     }

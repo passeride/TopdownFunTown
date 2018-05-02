@@ -23,9 +23,6 @@ public abstract class Weapon extends GameObject {
     int ammoCap = 2000;
     int ammoRemaining = ammoCap;
 
-
-
-
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "./assets/audio/scifi002.wav";
     protected String projectilePath = "/projectiles/projectile_gold_00";
@@ -36,7 +33,6 @@ public abstract class Weapon extends GameObject {
     WeaponClip weaponClip;
     WeaponBarrel weaponBarrel;
     WeaponBase weaponBase;
-
 
     private Player holder;
 
@@ -62,7 +58,6 @@ public abstract class Weapon extends GameObject {
     public void setDirection(Vec2 direction) {
         super.setDirection(Vec2.Vector2FromAngleInDegrees(direction.getAngleInDegrees() + 90));
     }
-
 
     /**
      * Shoot will shoot a projectile constructed in this class at the direction the player is faced
@@ -115,7 +110,6 @@ public abstract class Weapon extends GameObject {
             return false;
     }
 
-
     public WeaponClip getWeaponClip() {
         return weaponClip;
     }
@@ -155,6 +149,10 @@ public abstract class Weapon extends GameObject {
 
     public void setAmmoRemaining(int ammoRemaining) {
         this.ammoRemaining = ammoRemaining;
+    }
+
+    public void reloadWeapon() {
+        this.ammoRemaining = ammoCap;
     }
 
     public WeaponBase getWeaponBase() {

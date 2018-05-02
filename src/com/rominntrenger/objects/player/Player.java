@@ -3,6 +3,7 @@ package com.rominntrenger.objects.player;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
@@ -22,15 +23,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
-
-
     int PlayerID = 0;
     Color playerColor = Color.RED;
     int maxPlayerHealth = 100;
     int playerHealth = 100;
 
     private PlayerGuiElement gui;
-
 
     AudioPlayer hitSound;
 
@@ -59,6 +57,8 @@ public class Player extends GameObject {
 
     private Vec2 lookDirection = new Vec2(0,1);
 
+    private Weapon w;
+
     /**
      * Constructor for GameObject given position rotation and sprite
      */
@@ -77,7 +77,6 @@ public class Player extends GameObject {
         collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
-
 
         light2D = new Light2D(this);
 
@@ -108,7 +107,6 @@ public class Player extends GameObject {
         angularDampening = GameSettings.getDouble("player_angular_dampening");
         playerHealth = maxPlayerHealth;
 
-
         gui = new PlayerGuiElement(this);
     }
 
@@ -126,7 +124,6 @@ public class Player extends GameObject {
 //                gc.restore();
             }
         }
-
 
         if(uses_controller && showLaser) {
             double dir = getDirection().getAngleInRadians() - Math.PI / 2;
@@ -152,8 +149,10 @@ public class Player extends GameObject {
                 multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
         }
 
-        super.draw(gc);
+        w = new RedRifle(Vec2.ZERO, new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO);
+        setCurrentWeapon(w);
 
+        super.draw(gc);
 
     }
 
@@ -164,8 +163,6 @@ public class Player extends GameObject {
 
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
-
-
 
         int playerInLight = 0;
         for(Enemy e : Enemy.allEnemies){
@@ -265,6 +262,13 @@ public class Player extends GameObject {
     }
 
     /**
+     * Reloads the current weapon to its max ammo cap.
+     */
+    public void reloadCurrentWeapon() {
+        currentWeapon.reloadWeapon();
+    }
+
+    /**
      * Override to create a 8 % margin for movement
      */
     @Override
@@ -311,7 +315,6 @@ public class Player extends GameObject {
     public void heal(int health) {
         playerHealth = Math.min(playerHealth + health, maxPlayerHealth);
     }
-
 
     private void die() {
         if(currentWeapon != null)
@@ -367,7 +370,7 @@ public class Player extends GameObject {
 
     public void setCurrentWeapon(Weapon currentWeapon) {
         if(this.currentWeapon != null)
-        this.currentWeapon.destroy();
+            this.currentWeapon.destroy();
         this.currentWeapon = currentWeapon;
         this.currentWeapon.setHolder(this);
         this.currentWeapon.getTransform().setParent(transform);

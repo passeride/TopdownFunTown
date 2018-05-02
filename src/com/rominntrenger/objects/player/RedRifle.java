@@ -26,7 +26,6 @@ public class RedRifle extends Weapon {
         setWeaponBarrel(new WeaponBarrel());
     }
 
-
     @Override
     public boolean shoot() {
         return super.shoot();
