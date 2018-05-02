@@ -108,11 +108,11 @@ public class RenderLayer {
     }
 
     public void removeGameObject(GameObject go) {
-        synchronized (drawables) {
+//        synchronized (drawables) {
             if (drawables.contains(go)) {
                 drawables.remove(go);
             }
-        }
+//        }
     }
 
 }
