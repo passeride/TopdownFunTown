@@ -19,10 +19,10 @@ public class AudioPlayer {
     private FloatControl gainControl;
 
     /**
-     * Constructor for AudioPlayer which sets and loads audio-path and gains control of the audio
+     * Constructor for AudioPlayer which sets and loads audio-spritePath and gains control of the audio
      * through FloatControls gainControl
      *
-     * @param path path
+     * @param path spritePath
      */
     public AudioPlayer(String path) {
         clip = AudioLoader.loadAudioClip(path);

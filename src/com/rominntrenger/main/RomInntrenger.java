@@ -21,6 +21,8 @@ import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.stateHandling.SaveStateLoader;
+import com.rominntrenger.stateHandling.SaveStateSaver;
 import com.rominntrenger.stateHandling.StateHandling;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -112,7 +114,6 @@ public class RomInntrenger extends GameApplication {
                 new AnimationSprite("/friendlies/character", 4), 0);
             p.setPlayerColor(playerColor[0]);
 
-            new PlayerGuiElement(p);
             stateHandling = new StateHandling();
         }
     }
@@ -169,14 +170,16 @@ public class RomInntrenger extends GameApplication {
             } else if (players.indexOf(player) == 0) {
                 if (player.isAlive()) {
                     if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
-                        System.out.println("lagrer spiller sin posisjon");
+//                        System.out.println("lagrer spiller sin posisjon");
                         prevWaveNumber = WaveManager.getInstance().getWaveNumber();
-                        double playerPosX = player.getPosition().getX();
-                        double playerPosY = player.getPosition().getY();
-                        double playerDegrees = player.getTransform().getGlobalRotation()
-                            .getAngleInDegrees();
-                        stateHandling.saveGame(prevWaveNumber, player.getPlayerHealth(), playerPosX,
-                            playerPosY, playerDegrees);
+//                        double playerPosX = player.getPosition().getX();
+//                        double playerPosY = player.getPosition().getY();
+//                        double playerDegrees = player.getTransform().getGlobalRotation()
+//                            .getAngleInDegrees();
+//                        stateHandling.saveGame(prevWaveNumber, player.getPlayerHealth(), playerPosX,
+//                            playerPosY, playerDegrees);
+
+//                        SaveStateSaver.save(this);
                     }
 
                     if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
@@ -244,15 +247,18 @@ public class RomInntrenger extends GameApplication {
 
         }
         if (input.isKeyPressed(KeyCode.UP)) {
-            GameSettings.scale += 0.2;
+            System.out.println("Players is now (ROM) "  + players.size());
+            SaveStateSaver.save(this);
         }
 
         if (input.isKeyPressed(KeyCode.DOWN)) {
-            GameSettings.scale -= 0.2;
+            System.out.println("Players is now (ROM) "  + players.size());
+            SaveStateLoader.loadPreviousSave(this);
         }
 
         if(players.size() == 0) {
             //Player player = players.get(0);
+            System.out.println("ZERO PLAYERS");
             if (deathOverlay == null) {
                 deathOverlay = new DeathOverlay();
                 if (evilLaughAP == null) {
@@ -264,7 +270,8 @@ public class RomInntrenger extends GameApplication {
                 }
             }
             if (input.isKeyPressed(KeyCode.P)) {
-                stateHandling.setAllLoadData(stateHandling);
+//                stateHandling.setAllLoadData(stateHandling);
+                SaveStateLoader.loadPreviousSave(this);
                 System.out.println("P trykket");
                 //player.setAlive(true);
                 deathOverlay.destroy();
