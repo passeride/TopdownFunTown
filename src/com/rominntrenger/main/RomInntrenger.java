@@ -33,11 +33,9 @@ import javax.sound.sampled.FloatControl;
 
 public class RomInntrenger extends GameApplication {
 
-    public HealthElement healthElement;
     OrthographicCamera cam;
     public CopyOnWriteArrayList<Player> players = new CopyOnWriteArrayList<>();
 
-    public Weapon currentWeapon;
     private int prevWaveNumber = 0;
 
     public AudioPlayer bgMusic;
@@ -105,7 +103,6 @@ public class RomInntrenger extends GameApplication {
                 p.setPlayerColor(playerColor[i]);
 
                 stateHandling = new StateHandling();
-
             }
         }else{
             Player p = new Player(PlayerSpawn.position, Vec2.ZERO,

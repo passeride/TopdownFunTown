@@ -165,9 +165,9 @@ public class StateHandling {
 
         // Resuming player
         Player player = new Player(PlayerSpawn.position, Vec2.ZERO,
-            new AnimationSprite("/friendlies/character", 4), 0);
+            new AnimationSprite("friendlies/character", 4), 0);
         player.setCurrentWeapon(new RedRifle(Vec2.ZERO,
-            new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
+            new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
         player.setPlayerID(0);
         player.setPlayerColor(romInntrenger.playerColor[0]);
 

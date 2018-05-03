@@ -109,7 +109,7 @@ public class Player extends GameObject {
 
         gui = new PlayerGuiElement(this);
 
-        w = new RedRifle(Vec2.ZERO, new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO);
+        w = new RedRifle(Vec2.ZERO, new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO);
         setCurrentWeapon(w);
     }
 
