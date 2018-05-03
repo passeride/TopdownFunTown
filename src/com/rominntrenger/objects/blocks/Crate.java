@@ -32,6 +32,11 @@ public class Crate extends Item {
     }
 
     @Override
+    public Crate createNew(Vec2 pos) {
+        return new Crate(pos, (Vec2)direction.clone(), new Sprite(getSprite().getPath()));
+    }
+
+    @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
     }

@@ -12,5 +12,9 @@ public class Item extends GameObject {
     public Item(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
     }
+
+    public Item createNew(Vec2 pos) {
+        return new Item(pos, (Vec2)direction.clone(), new Sprite(getSprite().getPath()));
+    }
 }
 

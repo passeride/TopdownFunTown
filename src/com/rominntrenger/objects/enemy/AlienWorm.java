@@ -52,6 +52,11 @@ public class AlienWorm extends Enemy {
         });
     }
 
+    @Override
+    public AlienWorm createNew(Vec2 pos) {
+        return new AlienWorm(pos);
+    }
+
     public void update(double delta) {
         super.update(delta);
         AlienWorm.super.nextBehaviour();

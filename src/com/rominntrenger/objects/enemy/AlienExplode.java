@@ -30,14 +30,12 @@ public class AlienExplode extends Enemy {
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 500;
         startTime = System.currentTimeMillis();
+        dropsBlood = false;
     }
-
-
 
     @Override
     public void destroy() {
-
-        new Explotion(getPosition(), getDirection(), getScale());
+        new Explotion(getPosition(), getDirection(), getScale(), getDropRate());
         super.destroy();
     }
 
@@ -57,5 +55,8 @@ public class AlienExplode extends Enemy {
 
     }
 
+    public AlienEye createNew(Vec2 pos) {
+        return new AlienEye(pos);
+    }
 
 }

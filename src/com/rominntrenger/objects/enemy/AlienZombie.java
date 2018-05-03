@@ -98,4 +98,9 @@ public class AlienZombie extends Enemy {
         double y = position.getY();
     }
 
+    @Override
+    public AlienZombie createNew(Vec2 pos) {
+        return new AlienZombie(pos);
+    }
+
 }

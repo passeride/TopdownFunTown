@@ -67,6 +67,7 @@ public abstract class GameObject {
         }
     }
 
+
     public boolean isOnScreen() {
         if (allwaysOnScreen) {
             return true;

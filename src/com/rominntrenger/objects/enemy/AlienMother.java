@@ -29,6 +29,11 @@ public class AlienMother extends Enemy {
         hit_dmg = GameSettings.getInt("Alien_mother_hit_dmg");
     }
 
+    @Override
+    public Enemy createNew(Vec2 pos) {
+        return null;
+    }
+
     public void update(double delta) {
         super.update(delta);
         // AlienMother.super.nextBehaviour();

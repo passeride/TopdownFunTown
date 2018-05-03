@@ -127,7 +127,7 @@ public class GamepadInput {
     }
 
 
-    public Vec2 getRightJoistick(int id) {
+    public Vec2 getRightJoystick(int id) {
         if(id < leftJoistick.length)
             return rightJoistick[id];
         else

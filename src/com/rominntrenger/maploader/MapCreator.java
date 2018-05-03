@@ -109,8 +109,8 @@ public class MapCreator extends GameObject {
                         grid[i][j] = new AlienHive(vector);
                     break;
 
-                    case AlienSpawnerSmall:
-                        // TODO: ADD SMOL
+                    case AlienSpawnerBig:
+                        grid[i][j] = new AlienHive(vector, true);
                     break;
 
                     case SpawnPlayer:

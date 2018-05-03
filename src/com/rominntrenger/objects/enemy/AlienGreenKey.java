@@ -73,4 +73,9 @@ public class AlienGreenKey extends Enemy {
         super.destroy();
     }
 
+    @Override
+    public Enemy createNew(Vec2 pos) {
+        return null;
+    }
+
 }

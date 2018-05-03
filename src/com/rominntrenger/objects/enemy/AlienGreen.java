@@ -76,4 +76,9 @@ public class AlienGreen extends Enemy {
         double y = position.getY();
     }
 
+    @Override
+    public AlienGreen createNew(Vec2 pos) {
+        return new AlienGreen(pos);
+    }
+
 }

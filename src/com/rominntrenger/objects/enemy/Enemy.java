@@ -7,6 +7,7 @@ import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.FSM.Attack;
@@ -14,6 +15,7 @@ import com.rominntrenger.objects.FSM.Behaviour;
 import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
+import com.rominntrenger.objects.blocks.Item;
 import com.rominntrenger.objects.player.Player;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,6 @@ import javafx.scene.shape.ArcType;
 public abstract class Enemy extends GameObject {
 
     public static CopyOnWriteArrayList<Enemy> allEnemies = new CopyOnWriteArrayList<>();
-
     protected double speed = 300;
     protected int max_health = 1000;
     protected int health = 1000;
@@ -35,10 +36,12 @@ public abstract class Enemy extends GameObject {
     Behaviour behaviour;
     public double delta;
 
+    protected boolean dropsBlood = true;
+    public double dropRate = GameSettings.getDouble("itemDropRate");
+
     private Behaviour[] behaviours = new Behaviour[12];
 
     private boolean[] isSeenByPlayer = new boolean[12];
-
 
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
@@ -64,12 +67,9 @@ public abstract class Enemy extends GameObject {
             }
         });
 
-
         behaviours[Wander.position] = new Wander();
         behaviours[Attack.position] = new Attack();
         behaviours[Flee.position] = new Flee();
-
-
         behaviour = behaviours[Wander.position];
     }
 
@@ -136,15 +136,27 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void destroy() {
-//        walkCollider.destroy();
         allEnemies.remove(this);
-        new Blood(getPosition());
 //        new WeaponClipUpgrade(getPosition(), new WeaponClip());
         collider.destroy();
+        if(Math.random() > dropRate) {
+            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().createNew(getPosition());
+        }
+        else {
+            if(dropsBlood)
+                new Blood(getPosition());
+        }
         super.destroy();
 //        if(isKeyHolder)
 //            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;
     }
+
+    /**
+     * Creates a new enemy from existing enemy.
+     * @param pos
+     * @return
+     */
+    public abstract Enemy createNew(Vec2 pos);
 
     @Override
     public void update(double delta) {
@@ -184,4 +196,7 @@ public abstract class Enemy extends GameObject {
         return max_health;
     }
 
+    public double getDropRate() {
+        return dropRate;
+    }
 }

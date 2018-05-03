@@ -103,4 +103,9 @@ public class AlienPurple extends Enemy {
             }
         });
     }
+
+    @Override
+    public AlienPurple createNew(Vec2 pos) {
+        return new AlienPurple(pos);
+    }
 }

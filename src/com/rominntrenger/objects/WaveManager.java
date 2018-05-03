@@ -129,7 +129,7 @@ public class WaveManager extends GameObject {
         if(showMessage) {
             MessageHandler.getInstance().writeMessage("Dem boiz be back real soon \n\n Get ready!",
                 new Sprite("portraits/mc_happy"));
-            AudioPlayer ap = new AudioPlayer("./assets/audio/BoisBeBac.wav");
+            AudioPlayer ap = new AudioPlayer("audio/BoisBeBac.wav");
             ap.playOnce();
         }
     }

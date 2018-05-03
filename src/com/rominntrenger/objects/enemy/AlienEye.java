@@ -82,4 +82,7 @@ public class AlienEye extends Enemy {
         double y = position.getY();
     }
 
+    public AlienEye createNew(Vec2 pos) {
+        return new AlienEye(pos);
+    }
 }

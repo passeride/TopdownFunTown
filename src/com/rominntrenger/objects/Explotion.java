@@ -10,6 +10,8 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.blocks.Soot;
+import com.rominntrenger.objects.enemy.AlienExplode;
+import com.rominntrenger.objects.enemy.Enemy;
 import com.rominntrenger.objects.player.Player;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +30,7 @@ public class Explotion extends GameObject {
     private double splotionTime = 1.5;
     private double timePassed = 0.0;
     private double maxSize = 3;
+    private double dropRate;
 
     CopyOnWriteArrayList<Player> players;
 
@@ -39,12 +42,13 @@ public class Explotion extends GameObject {
      * Explotion will spawn a Explotion on the position given with a random rotation This will push
      * back and hurt player if close
      */
-    public Explotion(Vec2 position, Vec2 rotation, Vec2 startSize) {
+    public Explotion(Vec2 position, Vec2 rotation, Vec2 startSize, double dropRate) {
         super(position, rotation,
             new AnimationSprite("effects/explosion", 5));
         ((AnimationSprite)sprite).setLength(0.1);
         allSplotions.add(this);
         this.startSize = startSize;
+        this.dropRate = dropRate;
 //        setSize(new Vec2(5, 5));
         setRenderLayer(RenderLayerName.HIGH_BLOCKS);
         players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
@@ -78,7 +82,10 @@ public class Explotion extends GameObject {
 
     @Override
     public void destroy() {
-        new Soot(getPosition());
+        if(Math.random() > dropRate)
+            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().createNew(getPosition());
+        else
+            new Soot(getPosition());
         allSplotions.remove(this);
         super.destroy();
     }

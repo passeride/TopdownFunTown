@@ -4,32 +4,40 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
+import com.bluebook.graphics.Sprite;
 import com.bluebook.input.GamepadInput;
-import com.bluebook.util.GameSettings;
+import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.Randomizer;
 import com.rominntrenger.gui.DeathOverlay;
 import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.Explotion;
-import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
+import com.rominntrenger.objects.blocks.Crate;
+import com.rominntrenger.objects.blocks.Item;
+import com.rominntrenger.objects.enemy.AlienExplode;
+import com.rominntrenger.objects.enemy.AlienEye;
+import com.rominntrenger.objects.enemy.AlienGlow;
+import com.rominntrenger.objects.enemy.AlienGreen;
+import com.rominntrenger.objects.enemy.AlienPurple;
+import com.rominntrenger.objects.enemy.AlienWorm;
+import com.rominntrenger.objects.enemy.AlienZombie;
+import com.rominntrenger.objects.enemy.Enemy;
+import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
-import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
 import com.rominntrenger.stateHandling.SaveStateLoader;
 import com.rominntrenger.stateHandling.SaveStateSaver;
 import com.rominntrenger.stateHandling.StateHandling;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 
 public class RomInntrenger extends GameApplication {
 
@@ -42,6 +50,9 @@ public class RomInntrenger extends GameApplication {
 
     public AudioPlayer bgMusic;
     public AudioPlayer evilLaughAP;
+
+    public Randomizer<Item> addRandomItem;
+    public Randomizer<Enemy> addRandomEnemy;
 
     /**
      * Will give players colors corresponding to their PlayerID
@@ -59,9 +70,7 @@ public class RomInntrenger extends GameApplication {
 
     MessageHandler msh;
     DeathOverlay deathOverlay;
-
     GamepadInput gi;
-
     StateHandling stateHandling;
 
     @Override
@@ -69,7 +78,6 @@ public class RomInntrenger extends GameApplication {
         super.onLoad();
         setUp();
         spawnPlayers();
-
     }
 
     /**
@@ -88,8 +96,9 @@ public class RomInntrenger extends GameApplication {
 
         gi = new GamepadInput();
 
-        WaveManager.getInstance();
-    }
+        createEnemyRandomizer();
+        createItemRandomizer();
+}
 
     /**
      * Will spawn one player if 1 or no gamepads is connected
@@ -134,7 +143,6 @@ public class RomInntrenger extends GameApplication {
         cam.setY(0);
         evilLaughAP.stop();
         evilLaughAP = null;
-
     }
 
     @Override
@@ -142,37 +150,39 @@ public class RomInntrenger extends GameApplication {
         cam.update(delta);
         gi.pullEvents();
         for (Player player : players) {
+            AnimationSprite animSprite = ((AnimationSprite) player.getSprite());
             if (gi.getNumberOfControllers() > 0) {
                 player.setUses_controller(true);
 
                 int playerID = players.indexOf(player);
                 if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
-                    ((AnimationSprite) player.getSprite()).setPlaying(true);
+                    animSprite.setPlaying(true);
                 } else {
-                    ((AnimationSprite) player.getSprite()).setPlaying(false);
+                    animSprite.setPlaying(false);
                 }
                 player.move(gi.getLeftJoistick(playerID), delta);
 
-                if (gi.getRightJoistick(playerID).getMagnitude() > 0.01) {
-                    player.lookInDirection(gi.getRightJoistick(playerID));
+                if (gi.getRightJoystick(playerID).getMagnitude() > 0.01) {
+                    player.lookInDirection(gi.getRightJoystick(playerID));
                 } else if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
 //                    player.lookInDirection(gi.getLeftJoistick(playerID));
                 }
 
                 if (player.hasWeapon()) {
                     if (gi.isShoot(playerID)) {
-                        ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(true);
+                        animSprite.setPlaying(true);
 
                         player.shoot();
                     } else {
-                        ((AnimationSprite) player.getCurrentWeapon().getSprite()).setPlaying(false);
+                        animSprite.setPlaying(false);
                     }
                 }
 
             } else if (players.indexOf(player) == 0) {
+                AnimationSprite animationSprite = ((AnimationSprite) player.getCurrentWeapon().getSprite());
+
                 if (player.isAlive()) {
                     if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
-//                        System.out.println("lagrer spiller sin posisjon");
                         prevWaveNumber = WaveManager.getInstance().getWaveNumber();
 //                        double playerPosX = player.getPosition().getX();
 //                        double playerPosY = player.getPosition().getY();
@@ -180,16 +190,15 @@ public class RomInntrenger extends GameApplication {
 //                            .getAngleInDegrees();
 //                        stateHandling.saveGame(prevWaveNumber, player.getPlayerHealth(), playerPosX,
 //                            playerPosY, playerDegrees);
-
 //                        SaveStateSaver.save(this);
                     }
 
                     if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
                         .isKeyDown(KeyCode.A)
                         || input.isKeyDown(KeyCode.D)) {
-                        ((AnimationSprite) player.getSprite()).setPlaying(true);
+                        animSprite.setPlaying(true);
                     } else {
-                        ((AnimationSprite) player.getSprite()).setPlaying(false);
+                        animSprite.setPlaying(false);
                     }
 
                     if (input.isKeyDown(KeyCode.S)) {
@@ -212,27 +221,21 @@ public class RomInntrenger extends GameApplication {
 
                     if (player.hasWeapon()) {
                         if (input.isMouseButton0Pressed()) {
-                            ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                .setPlaying(true);
+                            animationSprite.setPlaying(true);
                             if (player.getCurrentWeapon() != null) {
                                 if (input.isMouseButton0Pressed()) {
-                                    // TODO: Fix trainwreck
-                                    ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                        .setPlaying(true);
+                                    animationSprite.setPlaying(true);
 
                                     player.shoot();
                                 } else {
-                                    ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                        .setPlaying(false);
+                                    animationSprite.setPlaying(false);
                                 }
                             }
                             player.shoot(); }
                         if (input.isKeyDown(KeyCode.Q)) {
                             player.reloadCurrentWeapon();
-                            //TODO: See if works?
                         } else {
-                            ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                .setPlaying(false);
+                            animationSprite.setPlaying(false);
 
                         }
                     }
@@ -319,6 +322,26 @@ public class RomInntrenger extends GameApplication {
         }
 
         return ret;
+    }
+
+    /**
+     * Adds all enemies to the randomizer
+     */
+    public void createEnemyRandomizer() {
+        addRandomEnemy = new Randomizer<>();
+        addRandomEnemy.addElement(6, new AlienGreen(Vec2.ZERO));
+        addRandomEnemy.addElement(4, new AlienPurple(Vec2.ZERO));
+        addRandomEnemy.addElement(8, new AlienZombie(Vec2.ZERO));
+        addRandomEnemy.addElement(1, new AlienExplode(Vec2.ZERO));
+        addRandomEnemy.addElement(2, new AlienEye(Vec2.ZERO));
+        addRandomEnemy.addElement(1, new AlienGlow(Vec2.ZERO));
+        addRandomEnemy.addElement(3, new AlienWorm(Vec2.ZERO));
+    }
+
+    public void createItemRandomizer() {
+        addRandomItem = new Randomizer<>();
+        addRandomItem.addElement(5,new HealingItem(Vec2.ZERO,Vec2.ZERO,new Sprite("items/healSmall"),true));
+        addRandomItem.addElement(1,new HealingItem(Vec2.ZERO,Vec2.ZERO,new Sprite("items/healBig"),false));
     }
 
 }

@@ -160,4 +160,8 @@ public class AlienGlow extends Enemy {
         double y = position.getY();
     }
 
+    public AlienGlow createNew(Vec2 pos) {
+        return new AlienGlow(pos);
+    }
+
 }
