@@ -41,11 +41,9 @@ import javafx.scene.paint.Color;
 
 public class RomInntrenger extends GameApplication {
 
-    public HealthElement healthElement;
     OrthographicCamera cam;
     public CopyOnWriteArrayList<Player> players = new CopyOnWriteArrayList<>();
 
-    public Weapon currentWeapon;
     private int prevWaveNumber = 0;
 
     public AudioPlayer bgMusic;
@@ -114,7 +112,6 @@ public class RomInntrenger extends GameApplication {
                 p.setPlayerColor(playerColor[i]);
 
                 stateHandling = new StateHandling();
-
             }
         }else{
             Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
@@ -141,8 +138,11 @@ public class RomInntrenger extends GameApplication {
         Blood.clearAll();
         cam.setX(0);
         cam.setY(0);
-        evilLaughAP.stop();
-        evilLaughAP = null;
+        if(evilLaughAP != null) {
+            evilLaughAP.stop();
+            evilLaughAP = null;
+        }
+
     }
 
     @Override
@@ -184,13 +184,7 @@ public class RomInntrenger extends GameApplication {
                 if (player.isAlive()) {
                     if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
                         prevWaveNumber = WaveManager.getInstance().getWaveNumber();
-//                        double playerPosX = player.getPosition().getX();
-//                        double playerPosY = player.getPosition().getY();
-//                        double playerDegrees = player.getTransform().getGlobalRotation()
-//                            .getAngleInDegrees();
-//                        stateHandling.saveGame(prevWaveNumber, player.getPlayerHealth(), playerPosX,
-//                            playerPosY, playerDegrees);
-//                        SaveStateSaver.save(this);
+                        SaveStateSaver.save(this);
                     }
 
                     if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
@@ -231,13 +225,11 @@ public class RomInntrenger extends GameApplication {
                                     animationSprite.setPlaying(false);
                                 }
                             }
-                            player.shoot(); }
-                        if (input.isKeyDown(KeyCode.Q)) {
-                            player.reloadCurrentWeapon();
-                        } else {
-                            animationSprite.setPlaying(false);
-
+                            player.shoot();
+                        }else if(input.isMouseButton1Pressed()){
+                                player.reloadCurrentWeapon();
                         }
+
                     }
 
                     // Lookat
@@ -254,6 +246,9 @@ public class RomInntrenger extends GameApplication {
             }
 
         }
+
+
+
         if (input.isKeyPressed(KeyCode.UP)) {
             System.out.println("Players is now (ROM) "  + players.size());
             SaveStateSaver.save(this);
