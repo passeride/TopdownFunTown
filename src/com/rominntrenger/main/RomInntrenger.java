@@ -227,7 +227,7 @@ public class RomInntrenger extends GameApplication {
                                 }
                             }
                             player.shoot(); }
-                        if (input.isMouseButton1Pressed()) {
+                        if (input.isKeyDown(KeyCode.Q)) {
                             player.reloadCurrentWeapon();
                             //TODO: See if works?
                         } else {
