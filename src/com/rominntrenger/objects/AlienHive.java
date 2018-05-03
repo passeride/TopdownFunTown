@@ -53,6 +53,7 @@ public class AlienHive extends Enemy {
                 ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().createNew(this.getPosition());
                 previousSpawn = System.currentTimeMillis();
                 enemyNum++;
+
             }
         }
     }
