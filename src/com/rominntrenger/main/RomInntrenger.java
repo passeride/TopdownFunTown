@@ -222,6 +222,8 @@ public class RomInntrenger extends GameApplication {
                                 }
                             }
                             player.shoot();
+                        }else if(input.isMouseButton1Pressed()){
+                                player.reloadCurrentWeapon();
                         }
 
                     }
@@ -241,15 +243,7 @@ public class RomInntrenger extends GameApplication {
 
         }
 
-        if (input.isMouseButton1Pressed()) {
-            players.get(0).reloadCurrentWeapon();
-            System.out.println("heyho");
-            //TODO: See if works?
-        } else {
-            ((AnimationSprite) players.get(0).getCurrentWeapon().getSprite())
-                .setPlaying(false);
 
-        }
 
         if (input.isKeyPressed(KeyCode.UP)) {
             System.out.println("Players is now (ROM) "  + players.size());

@@ -67,7 +67,7 @@ public abstract class Weapon extends GameObject {
      * Shoot will shoot a projectile constructed in this class at the direction the player is faced
      */
     public boolean shoot() {
-        if(System.currentTimeMillis() - previousShotTime >  shootInterval * 1000 && ammoRemaining > 0) {
+        if(!isReloading && System.currentTimeMillis() - previousShotTime >  shootInterval * 1000 && ammoRemaining > 0) {
 
             previousShotTime = System.currentTimeMillis();
 
@@ -171,10 +171,12 @@ public abstract class Weapon extends GameObject {
     }
 
     public void reloadWeapon() {
-        reloadTimer = 0;
-        isReloading = true;
-        AudioPlayer ap = new AudioPlayer("audio/Crunch1.wav");
-        ap.playOnce();
+        if(!isReloading) {
+            reloadTimer = 0;
+            isReloading = true;
+            AudioPlayer ap = new AudioPlayer("audio/Crunch1.wav");
+            ap.playOnce();
+        }
 //        this.ammoRemaining = ammoCap;
     }
 
