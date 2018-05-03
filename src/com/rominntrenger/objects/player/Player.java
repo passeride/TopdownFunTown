@@ -108,6 +108,9 @@ public class Player extends GameObject {
         playerHealth = maxPlayerHealth;
 
         gui = new PlayerGuiElement(this);
+
+        w = new RedRifle(Vec2.ZERO, new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO);
+        setCurrentWeapon(w);
     }
 
     @Override
@@ -149,8 +152,7 @@ public class Player extends GameObject {
                 multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
         }
 
-        w = new RedRifle(Vec2.ZERO, new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO);
-        setCurrentWeapon(w);
+
 
         super.draw(gc);
 
@@ -265,7 +267,8 @@ public class Player extends GameObject {
      * Reloads the current weapon to its max ammo cap.
      */
     public void reloadCurrentWeapon() {
-        currentWeapon.reloadWeapon();
+        if(currentWeapon != null)
+            currentWeapon.reloadWeapon();
     }
 
     /**

@@ -22,6 +22,9 @@ public abstract class Weapon extends GameObject {
     int alteredDmg = dmg;
     int ammoCap = 2000;
     int ammoRemaining = ammoCap;
+    double reloadDuration = 1.5;
+    double reloadTimer = 0;
+    boolean isReloading = false;
 
     protected AudioPlayer audioPlayer = new AudioPlayer(testFil1);
     private static String testFil1 = "audio/scifi002.wav";
@@ -44,6 +47,7 @@ public abstract class Weapon extends GameObject {
     public Weapon(Vec2 direction, Sprite sprite, Vec2 offset) {
         super(new Vec2(0, 23), direction, sprite);
         this.offset = offset;
+        System.out.println("New weapon");
     }
 
     public Vec2 getOffset() {
@@ -68,6 +72,7 @@ public abstract class Weapon extends GameObject {
             previousShotTime = System.currentTimeMillis();
 
             ammoRemaining --;
+            System.out.println("AmmoRem is now : " + ammoRemaining);
             audioPlayer.setSpatial(this);
             audioPlayer.playOnce();
             // score -= 50;
@@ -151,8 +156,26 @@ public abstract class Weapon extends GameObject {
         this.ammoRemaining = ammoRemaining;
     }
 
+    @Override
+    public void update(double delta) {
+        super.update(delta);
+        if(isReloading){
+            reloadTimer += delta;
+            if(reloadTimer >= reloadDuration){
+                isReloading = false;
+                ammoRemaining = ammoCap;
+                AudioPlayer ap = new AudioPlayer("audio/Crunch2.wav");
+                ap.playOnce();
+            }
+        }
+    }
+
     public void reloadWeapon() {
-        this.ammoRemaining = ammoCap;
+        reloadTimer = 0;
+        isReloading = true;
+        AudioPlayer ap = new AudioPlayer("audio/Crunch1.wav");
+        ap.playOnce();
+//        this.ammoRemaining = ammoCap;
     }
 
     public WeaponBase getWeaponBase() {
@@ -225,5 +248,29 @@ public abstract class Weapon extends GameObject {
 
     public void setShootInterval(double shootInterval) {
         this.shootInterval = shootInterval;
+    }
+
+    public double getReloadDuration() {
+        return reloadDuration;
+    }
+
+    public void setReloadDuration(double reloadDuration) {
+        this.reloadDuration = reloadDuration;
+    }
+
+    public double getReloadTimer() {
+        return reloadTimer;
+    }
+
+    public void setReloadTimer(long reloadTimer) {
+        this.reloadTimer = reloadTimer;
+    }
+
+    public boolean isReloading() {
+        return isReloading;
+    }
+
+    public void setReloading(boolean reloading) {
+        isReloading = reloading;
     }
 }

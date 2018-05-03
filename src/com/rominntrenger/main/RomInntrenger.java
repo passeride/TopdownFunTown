@@ -132,8 +132,10 @@ public class RomInntrenger extends GameApplication {
         Blood.clearAll();
         cam.setX(0);
         cam.setY(0);
-        evilLaughAP.stop();
-        evilLaughAP = null;
+        if(evilLaughAP != null) {
+            evilLaughAP.stop();
+            evilLaughAP = null;
+        }
 
     }
 
@@ -172,16 +174,9 @@ public class RomInntrenger extends GameApplication {
             } else if (players.indexOf(player) == 0) {
                 if (player.isAlive()) {
                     if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
-//                        System.out.println("lagrer spiller sin posisjon");
                         prevWaveNumber = WaveManager.getInstance().getWaveNumber();
-//                        double playerPosX = player.getPosition().getX();
-//                        double playerPosY = player.getPosition().getY();
-//                        double playerDegrees = player.getTransform().getGlobalRotation()
-//                            .getAngleInDegrees();
-//                        stateHandling.saveGame(prevWaveNumber, player.getPlayerHealth(), playerPosX,
-//                            playerPosY, playerDegrees);
 
-//                        SaveStateSaver.save(this);
+                        SaveStateSaver.save(this);
                     }
 
                     if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
@@ -226,15 +221,9 @@ public class RomInntrenger extends GameApplication {
                                         .setPlaying(false);
                                 }
                             }
-                            player.shoot(); }
-                        if (input.isMouseButton1Pressed()) {
-                            player.reloadCurrentWeapon();
-                            //TODO: See if works?
-                        } else {
-                            ((AnimationSprite) player.getCurrentWeapon().getSprite())
-                                .setPlaying(false);
-
+                            player.shoot();
                         }
+
                     }
 
                     // Lookat
@@ -251,6 +240,17 @@ public class RomInntrenger extends GameApplication {
             }
 
         }
+
+        if (input.isMouseButton1Pressed()) {
+            players.get(0).reloadCurrentWeapon();
+            System.out.println("heyho");
+            //TODO: See if works?
+        } else {
+            ((AnimationSprite) players.get(0).getCurrentWeapon().getSprite())
+                .setPlaying(false);
+
+        }
+
         if (input.isKeyPressed(KeyCode.UP)) {
             System.out.println("Players is now (ROM) "  + players.size());
             SaveStateSaver.save(this);
