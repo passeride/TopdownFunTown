@@ -23,22 +23,21 @@ public class AlienHive extends Enemy {
         super(position, Vec2.ZERO, new Sprite("enemies/nestBlueBig_0"));
 
         this.isMotherHive = isMotherHive;
+        this.spawnRate = this.spawnRate * 2;
         setup();
+
     }
 
     /**
      * Constructor for GameObject given position rotation and sprite
      */
     public AlienHive(Vec2 position) {
-
         super(position, Vec2.ZERO, new Sprite("enemies/nestBlueSmall_0"));
         setup();
-
     }
 
     private void setup(){
-
-        setSize(new Vec2(3, 3));
+        setSize(new Vec2(5, 5));
 
         WaveManager.hives.add(this);
 
@@ -51,15 +50,11 @@ public class AlienHive extends Enemy {
 
     public void spawn(int i){
         if(isActive) {
-            //TODO: enemyNum-workarounden er weird men ser ut til å funke? Må somehow sette enemyNum til -1 når enemy = destroyed.
             if (System.currentTimeMillis() - previousSpawn > spawnRate * 1000.0
                 && enemyNum < max_enemies) {
-                // && Enemy.allEnemies.size() < max_enemies) {
-                //TODO: This is trainwreck.
                 ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().createNew(this.getPosition());
                 previousSpawn = System.currentTimeMillis();
                 enemyNum++;
-
             }
         }
     }
