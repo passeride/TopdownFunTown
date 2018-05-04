@@ -1,9 +1,7 @@
 package com.rominntrenger.stateHandling.DAO;
 
-import com.bluebook.audio.AudioPlayer;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.util.Vec2;
-import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.objects.weapon.WeaponBarrel;
 import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;

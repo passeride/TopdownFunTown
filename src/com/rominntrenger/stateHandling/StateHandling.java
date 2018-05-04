@@ -8,6 +8,7 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
+import com.rominntrenger.objects.weapon.Weapon;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -166,7 +167,7 @@ public class StateHandling {
         // Resuming player
         Player player = new Player(PlayerSpawn.position, Vec2.ZERO,
             new AnimationSprite("friendlies/character", 4), 0);
-        player.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+        player.setCurrentWeapon(new Weapon(Vec2.ZERO,
             new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
         player.setPlayerID(0);
         player.setPlayerColor(romInntrenger.playerColor[0]);

@@ -18,6 +18,7 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.enemy.Enemy;
+import com.rominntrenger.objects.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
@@ -109,8 +110,7 @@ public class Player extends GameObject {
 
         gui = new PlayerGuiElement(this);
 
-        w = new RedRifle(Vec2.ZERO, new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO);
-        setCurrentWeapon(w);
+        setCurrentWeapon(new Weapon(Vec2.ZERO, new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
     }
 
     @Override
@@ -365,14 +365,11 @@ public class Player extends GameObject {
     }
 
     public boolean hasWeapon(){
-        if(currentWeapon != null)
-            return true;
-        else
-            return false;
+        return currentWeapon != null;
     }
 
     public void setCurrentWeapon(Weapon currentWeapon) {
-        if(this.currentWeapon != null)
+        if(this.currentWeapon != null && this.currentWeapon != currentWeapon)
             this.currentWeapon.destroy();
         this.currentWeapon = currentWeapon;
         this.currentWeapon.setHolder(this);

@@ -10,6 +10,7 @@ import com.rominntrenger.objects.enemy.Enemy;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 
+
 public class AlienHive extends Enemy {
     private double spawnRate = GameSettings.getDouble("hiveSpawnRate");
     private int max_enemies = GameSettings.getInt("maxAliensfromHive");
@@ -22,6 +23,7 @@ public class AlienHive extends Enemy {
         super(position, Vec2.ZERO, new Sprite("enemies/nestBlueBig_0"));
 
         this.isMotherHive = isMotherHive;
+        setup();
     }
 
     /**
@@ -30,6 +32,11 @@ public class AlienHive extends Enemy {
     public AlienHive(Vec2 position) {
 
         super(position, Vec2.ZERO, new Sprite("enemies/nestBlueSmall_0"));
+        setup();
+
+    }
+
+    private void setup(){
 
         setSize(new Vec2(3, 3));
 
@@ -40,7 +47,6 @@ public class AlienHive extends Enemy {
         health = 0;
 
         collider.setOnCollisionListener(null);
-
     }
 
     public void spawn(int i){
@@ -89,7 +95,6 @@ public class AlienHive extends Enemy {
 
     @Override
     public void update(double delta) {
-//        super.update(delta);
 
     }
 

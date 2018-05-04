@@ -9,12 +9,11 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
-import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.stateHandling.DAO.MetaDAO;
 import com.rominntrenger.stateHandling.DAO.PlayerDAO;
 import com.rominntrenger.stateHandling.DAO.WeaponDAO;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import javafx.scene.paint.Color;
@@ -90,7 +89,7 @@ public class SaveStateLoader {
     }
 
     private static Weapon parseWeapon(WeaponDAO w){
-        Weapon ret = new RedRifle(Vec2.ZERO, new AnimationSprite(w.spritePath,  w.spriteFrames), Vec2.ZERO);
+        Weapon ret = new Weapon(Vec2.ZERO, new AnimationSprite(w.spritePath,  w.spriteFrames), Vec2.ZERO);
         ret.setSpeed(w.speed);
         ret.setDmg(w.dmg);
         ret.setAlteredDmg(w.alteredDmg);

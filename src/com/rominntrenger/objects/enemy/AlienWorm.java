@@ -22,7 +22,7 @@ public class AlienWorm extends Enemy {
     private int hit_dmg;
 
     public AlienWorm(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/alienWorm", 6));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/alienWorm", 6));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 200;
@@ -32,24 +32,16 @@ public class AlienWorm extends Enemy {
 
         hit_dmg = GameSettings.getInt("Alien_worm_hit_dmg");
 
-        collider = new BoxCollider(this);
-        collider.setTag("Block");
-        this.collider.addInteractionLayer("Walk");
-
-        collider.setOnCollisionListener(new OnCollisionListener() {
-            @Override
-            /**
-             * Checks if the Player has the right key in their Inventory.
-             */
-            public void onCollision(Collider other) {
-                if (other.getGameObject() instanceof Player) {
-                    Player pl = (Player) other.getGameObject();
-                    pl.hit(hit_dmg);
-                    destroy();
-                    collider.destroy();
-                }
-            }
-        });
+        /**
+         * Checks if the Player has the right key in their Inventory.
+         */collider.setOnCollisionListener(other -> {
+             if (other.getGameObject() instanceof Player) {
+                 Player pl = (Player) other.getGameObject();
+                 pl.hit(hit_dmg);
+                 destroy();
+                 collider.destroy();
+             }
+         });
     }
 
     @Override

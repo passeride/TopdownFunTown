@@ -6,11 +6,9 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.input.GamepadInput;
-import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.Randomizer;
 import com.rominntrenger.gui.DeathOverlay;
-import com.rominntrenger.gui.HealthElement;
 import com.rominntrenger.maploader.MapCreator;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.Explotion;
@@ -18,7 +16,6 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
-import com.rominntrenger.objects.blocks.Crate;
 import com.rominntrenger.objects.blocks.Item;
 import com.rominntrenger.objects.enemy.AlienExplode;
 import com.rominntrenger.objects.enemy.AlienEye;
@@ -31,10 +28,14 @@ import com.rominntrenger.objects.enemy.Enemy;
 import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
-import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.objects.weapon.Weapon;
+import com.rominntrenger.objects.weapon.WeaponClip;
+import com.rominntrenger.objects.weapon.WeaponComponentGSONHandler;
+import com.rominntrenger.objects.weapon.WeaponComponentHolderDAO;
 import com.rominntrenger.stateHandling.SaveStateLoader;
 import com.rominntrenger.stateHandling.SaveStateSaver;
 import com.rominntrenger.stateHandling.StateHandling;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -76,6 +77,13 @@ public class RomInntrenger extends GameApplication {
         super.onLoad();
         setUp();
         spawnPlayers();
+
+        // testing
+        WeaponComponentHolderDAO stuff = WeaponComponentGSONHandler.loadTest();
+        List<WeaponClip> clips = stuff.clips;
+
+        WaveManager.getInstance();
+
     }
 
     /**
@@ -107,7 +115,7 @@ public class RomInntrenger extends GameApplication {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
                 Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
                     new AnimationSprite(playerSprites[i], 4),  i + 1);
-                p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+                p.setCurrentWeapon(new Weapon(Vec2.ZERO,
                     new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
                 p.setPlayerColor(playerColor[i]);
 
@@ -116,7 +124,7 @@ public class RomInntrenger extends GameApplication {
         }else{
             Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
                 new AnimationSprite("friendlies/character", 4), 0);
-            p.setCurrentWeapon(new RedRifle(Vec2.ZERO,
+            p.setCurrentWeapon(new Weapon(Vec2.ZERO,
                 new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
             p.setPlayerColor(playerColor[0]);
 
@@ -173,10 +181,14 @@ public class RomInntrenger extends GameApplication {
                         animSprite.setPlaying(true);
 
                         player.shoot();
-                    } else {
+                    } else if(gi.isReload(playerID)) {
+                        player.reloadCurrentWeapon();
+                    }else{
                         animSprite.setPlaying(false);
                     }
                 }
+
+
 
             } else if (players.indexOf(player) == 0) {
                 AnimationSprite animationSprite = ((AnimationSprite) player.getCurrentWeapon().getSprite());

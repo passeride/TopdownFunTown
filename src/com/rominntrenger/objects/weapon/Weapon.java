@@ -1,4 +1,4 @@
-package com.rominntrenger.objects.player;
+package com.rominntrenger.objects.weapon;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameEngine;
@@ -7,14 +7,12 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.enemy.Enemy;
-import com.rominntrenger.objects.weapon.WeaponBarrel;
-import com.rominntrenger.objects.weapon.WeaponBase;
-import com.rominntrenger.objects.weapon.WeaponClip;
+import com.rominntrenger.objects.player.Player;
 
 /**
  * Weapon class is used for weapons that the Player can equip and shoot with
  */
-public abstract class Weapon extends GameObject {
+public class Weapon extends GameObject {
 
     public Vec2 offset;
     double speed = 800;
@@ -31,7 +29,7 @@ public abstract class Weapon extends GameObject {
     protected String projectilePath = "projectiles/projectile_gold_00";
 
     private long previousShotTime = 0;
-    protected double shootInterval = 0.5;
+    protected double shootInterval = 0.1;
 
     WeaponClip weaponClip;
     WeaponBarrel weaponBarrel;
@@ -47,7 +45,13 @@ public abstract class Weapon extends GameObject {
     public Weapon(Vec2 direction, Sprite sprite, Vec2 offset) {
         super(new Vec2(0, 23), direction, sprite);
         this.offset = offset;
-        System.out.println("New weapon");
+        audioPlayer = new AudioPlayer("audio/lukasPew.wav");
+        projectilePath = "projectiles/projectile_g_02";
+
+        // setting base modifiers
+        setWeaponBase(new WeaponBase());
+        setWeaponClip(new WeaponClip());
+        setWeaponBarrel(new WeaponBarrel());
     }
 
     public Vec2 getOffset() {
@@ -72,8 +76,7 @@ public abstract class Weapon extends GameObject {
             previousShotTime = System.currentTimeMillis();
 
             ammoRemaining --;
-            System.out.println("AmmoRem is now : " + ammoRemaining);
-            audioPlayer.setSpatial(this);
+            audioPlayer.setSpatial(holder);
             audioPlayer.playOnce();
             // score -= 50;
             Vec2 angle = Vec2
@@ -92,13 +95,17 @@ public abstract class Weapon extends GameObject {
             p.getCollider().addInteractionLayer("Hittable");
             p.getCollider().addInteractionLayer("Walk");
             p.setOnCollisionListener(other -> {
-                if (other.getGameObject() instanceof Player && other.getGameObject() != p
-                    .getSource()) {
+                System.out.println(other.getTag() + " CLASS: " + other.getGameObject().getClass().toString());
+                System.out.println("MyHolderClass: " + holder.getClass().toString());
+                System.out.println("Equals? : " + (other.getGameObject() == holder));
+                if (other.getGameObject() instanceof Player && other.getGameObject() != holder) {
                     Player player = (Player) other.getGameObject();
                     player.hit(alteredDmg);
                     if (GameEngine.DEBUG) {
                         System.out.println("Bullet Hit " + other.getName());
                     }
+                    p.destroy();
+
 //                player.destroy();
                 } else if (other.getGameObject() instanceof Enemy) {
                     Enemy e = ((Enemy)other.getGameObject());
@@ -106,8 +113,10 @@ public abstract class Weapon extends GameObject {
                     if(!e.isAlive()) { // CHeck if enemy survived
                         ((Player) p.getSource()).killedEnemy();
                     }
+                    p.destroy();
+                } else if (other.getTag() == "Block"){
+                    p.destroy();
                 }
-                p.destroy();
 
             });
             return true;

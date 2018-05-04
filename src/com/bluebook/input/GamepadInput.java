@@ -17,6 +17,7 @@ public class GamepadInput {
     private Vec2[] leftJoistick;
     private Vec2[] rightJoistick;
     private Boolean[] shoot;
+    private Boolean[] reload;
 
     private ArrayList<Controller> controllers = new ArrayList<>();
 
@@ -41,12 +42,14 @@ public class GamepadInput {
         System.out.println("Number of controllers " + numOfControllers);
         leftJoistick = new Vec2[numOfControllers];
         rightJoistick = new Vec2[numOfControllers];
-        shoot = new Boolean[numOfControllers];  
+        shoot = new Boolean[numOfControllers];
+        reload = new Boolean[numOfControllers];
 
         for(int i = 0; i < numOfControllers; i++){
             leftJoistick[i] = new Vec2(0, 0);
             rightJoistick[i] = new Vec2(0, 0);
             shoot[i] = new Boolean(false);
+            reload[i] = new  Boolean(false);
         }
     }
 
@@ -92,6 +95,17 @@ public class GamepadInput {
                             shoot[i] = false;
 //                            con.getRumblers()[0].rumble(0);
                         }
+                        break;
+                    case "B":
+                        value = event.getValue();
+                        if (value > 0.8) {
+                            reload[i] = true;
+//                            con.getRumblers()[0].rumble(1);
+                        } else {
+                            reload[i] = false;
+//                            con.getRumblers()[0].rumble(0);
+                        }
+                        break;
                 }
                 if(GameEngine.DEBUG) {
 
@@ -138,6 +152,13 @@ public class GamepadInput {
     public boolean isShoot(int id) {
         if(id < shoot.length)
             return shoot[id];
+        else
+            return false;
+    }
+
+    public boolean isReload(int id){
+        if(id < reload.length)
+            return reload[id];
         else
             return false;
     }

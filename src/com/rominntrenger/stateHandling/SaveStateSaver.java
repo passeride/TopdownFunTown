@@ -25,7 +25,7 @@ public class SaveStateSaver {
     }
 
     public static void save(RomInntrenger rom){
-        GameEngine.getInstance().pauseGame();
+//        GameEngine.getInstance().pauseGame();
 
         MetaDAO meta = new MetaDAO();
         for(Player p : rom.players){
@@ -45,7 +45,7 @@ public class SaveStateSaver {
             e.printStackTrace();
         }
 
-        GameEngine.getInstance().resumeGame();
+//        GameEngine.getInstance().resumeGame();
 
     }
 

@@ -5,7 +5,7 @@ import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.objects.weapon.WeaponBarrel;
 import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;

@@ -17,7 +17,7 @@ public class AlienMother extends Enemy {
     private int hit_dmg;
 
     public AlienMother(Vec2 position) {
-        super(position, Vec2.ZERO, new Sprite("/enemies/alienMother"));
+        super(position, Vec2.ZERO, new Sprite("enemies/alienMother"));
         setSize(new Vec2(4,4));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
