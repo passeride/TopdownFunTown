@@ -56,7 +56,8 @@ public class AlienHive extends Enemy {
                 && enemyNum < max_enemies) {
                 // && Enemy.allEnemies.size() < max_enemies) {
                 //TODO: This is trainwreck.
-                ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().createNew(this.getPosition());
+                ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().spawn(this.getPosition());
+                System.out.println("X:" + getPosition().getX() + " Y: " + getPosition().getY());
                 previousSpawn = System.currentTimeMillis();
                 enemyNum++;
 

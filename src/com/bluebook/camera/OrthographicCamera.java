@@ -81,6 +81,14 @@ public class OrthographicCamera {
         }
     }
 
+    public GameObject getGameobject() {
+        return gameobject;
+    }
+
+    public void setGameobject(GameObject gameobject) {
+        this.gameobject = gameobject;
+    }
+
     public double getX() {
         return x;
     }

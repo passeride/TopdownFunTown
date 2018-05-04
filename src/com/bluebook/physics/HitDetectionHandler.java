@@ -1,13 +1,12 @@
 package com.bluebook.physics;
 
 import com.bluebook.camera.OrthographicCamera;
-import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
 import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.LightBase;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -154,6 +153,7 @@ public class HitDetectionHandler {
 
     private void doRaycasts() {
         synchronized (this) {
+            for(Light2D light : Light2D.lights)
             if (DO_SHADOW_SWEEP) {
                 Vec2 cam = OrthographicCamera.getOffset();
                 Vec2 screen = GameSettings.getScreen();
@@ -168,19 +168,16 @@ public class HitDetectionHandler {
                 lines.add(new Line2D(RightX, BottomY, LeftX, BottomY));
                 lines.add(new Line2D(LeftX, BottomY, LeftX, TopY));
 
-//            Vec2 source = ((RomInntrenger) GameApplication.getInstance()).player.getTransform().getGlobalPosition();
-                Vec2 source = Light2D.light.source.getTransform().getGlobalPosition();
+                Vec2 source = light.source.getTransform().getGlobalPosition();
 
                 ArrayList<LineSegment> lineSegments = new ArrayList<>();
                 lines.forEach(l -> lineSegments.add(new LineSegment(l, source)));
 
                 try {
-                    Light2D.light.calculateVisibility(lineSegments);
+                    light.calculateVisibility(lineSegments);
                 } catch (IllegalArgumentException e) {
                     System.out.println("IllegalArgumentException");
                 }
-//            ((RomInntrenger) GameApplication.getInstance()).player.light2D.calculateVisibility(lineSegments);
-
             }
         }
     }

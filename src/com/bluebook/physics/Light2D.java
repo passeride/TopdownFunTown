@@ -3,10 +3,11 @@ package com.bluebook.physics;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Light2D {
 
-    public static Light2D light;
+    public static List<Light2D> lights = new ArrayList<>();
 
     GameObject source;
 
@@ -14,7 +15,7 @@ public class Light2D {
 
     public Light2D(GameObject source) {
         this.source = source;
-        light = this;
+        lights.add(this);
     }
 
 
