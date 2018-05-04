@@ -15,10 +15,7 @@ import com.rominntrenger.objects.FSM.Behaviour;
 import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
-import com.rominntrenger.objects.blocks.Item;
 import com.rominntrenger.objects.player.Player;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -141,7 +138,7 @@ public abstract class Enemy extends GameObject {
 //        new WeaponClipUpgrade(getPosition(), new WeaponClip());
         collider.destroy();
         if(Math.random() < dropRate) {
-            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().createNew(getPosition());
+            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
         }
         else {
             if(dropsBlood)

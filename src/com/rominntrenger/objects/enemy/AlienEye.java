@@ -16,7 +16,7 @@ public class AlienEye extends Enemy {
     private long prevShot = 0;
 
     public AlienEye(Vec2 position) {
-        super(position, Vec2.ZERO, new Sprite("/enemies/alienEye_0"));
+        super(position, Vec2.ZERO, new Sprite("enemies/alienEye_0"));
 //        ((AnimationSprite) getSprite()).setPlaying(false);
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
@@ -39,14 +39,14 @@ public class AlienEye extends Enemy {
         //}
 
         if(health < ((max_health * 20) / 100)) {
-            this.setSprite(new AnimationSprite("/enemies/alienEyeFlame", 2));
+            this.setSprite(new AnimationSprite("enemies/alienEyeFlame", 2));
             ((AnimationSprite) getSprite()).setPlaying(true);
         }
     }
 
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/alienProjectileLaser"));
+            new Sprite("projectiles/alienProjectileLaser"));
         p.setSize(new Vec2(0.1,0.1));
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");

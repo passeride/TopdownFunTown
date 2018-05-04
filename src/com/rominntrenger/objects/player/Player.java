@@ -111,6 +111,8 @@ public class Player extends GameObject {
         gui = new PlayerGuiElement(this);
 
         setCurrentWeapon(new Weapon(Vec2.ZERO, new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
+
+        allwaysOnScreen = true;
     }
 
     @Override

@@ -22,7 +22,7 @@
 
   "RedRifle_projectile_speed":400,
 
-  "maxAliensfromHive": 10,
+  "maxAliensfromHive": 100,
   "hiveSpawnRate": 0.1,
 
   "Alien_attack_distance": 500,

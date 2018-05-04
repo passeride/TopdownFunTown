@@ -2,13 +2,11 @@ package com.rominntrenger.maploader;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
-import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.maploader.LevelImageLoader;
 import com.rominntrenger.objects.AlienHive;
 import com.rominntrenger.objects.Door;
 import com.rominntrenger.objects.Key;
@@ -16,10 +14,9 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Ship;
 import com.rominntrenger.objects.blocks.Barrel;
 import com.rominntrenger.objects.blocks.Bench;
-import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.blocks.Corpse;
 import com.rominntrenger.objects.blocks.Crate;
-import com.rominntrenger.objects.blocks.PickupWeapon;
+import com.rominntrenger.objects.item.PickupWeaponClip;
 import com.rominntrenger.objects.blocks.StasisBox;
 import com.rominntrenger.objects.blocks.Table;
 import com.rominntrenger.objects.blocks.Wall;
@@ -28,10 +25,8 @@ import com.rominntrenger.objects.enemy.AlienGreen;
 import com.rominntrenger.objects.enemy.AlienGreenKey;
 import com.rominntrenger.objects.enemy.AlienPurple;
 import com.rominntrenger.objects.health.HealingItem;
-import com.rominntrenger.objects.player.Player;
 import java.awt.image.BufferedImage;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /**
  * Creating GameMap/Area with player, enemy and obstacle array lists.
@@ -248,21 +243,21 @@ public class MapCreator extends GameObject {
                     break;
 
                     //WEAPONS
-                    case PickupWeaponS:
-                        grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
-                            new Sprite("items/weaponS"), 0);
-                        //TODO: Fix sprite so it is the starter weapon
-                    break;
-
-                    case PickupWeaponR:
-                        grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
-                            new Sprite("items/weaponR_03"), 1);
-                    break;
-
-                    case PickupWeaponY:
-                        grid[i][j] = new PickupWeapon(vector, Vec2.ZERO,
-                            new Sprite("items/weaponY"), 2);
-                    break;
+//                    case PickupWeaponS:
+//                        grid[i][j] = new PickupWeaponClip(vector, Vec2.ZERO,
+//                            new Sprite("items/weaponS"), 0);
+//                        //TODO: Fix sprite so it is the starter weapon
+//                    break;
+//
+//                    case PickupWeaponR:
+//                        grid[i][j] = new PickupWeaponClip(vector, Vec2.ZERO,
+//                            new Sprite("items/weaponR_03"), 1);
+//                    break;
+//
+//                    case PickupWeaponY:
+//                        grid[i][j] = new PickupWeaponClip(vector, Vec2.ZERO,
+//                            new Sprite("items/weaponY"), 2);
+//                    break;
 
                     case HealingItemSmall:
                         grid[i][j] = new HealingItem(vector, Vec2.ZERO, new Sprite("items/healSmall"), true);

@@ -3,6 +3,7 @@ package com.rominntrenger.objects.blocks;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.item.Item;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Tile extends Item {

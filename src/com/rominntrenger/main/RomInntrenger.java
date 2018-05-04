@@ -16,21 +16,16 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
-import com.rominntrenger.objects.blocks.Item;
-import com.rominntrenger.objects.enemy.AlienExplode;
-import com.rominntrenger.objects.enemy.AlienEye;
-import com.rominntrenger.objects.enemy.AlienGlow;
-import com.rominntrenger.objects.enemy.AlienGreen;
-import com.rominntrenger.objects.enemy.AlienPurple;
-import com.rominntrenger.objects.enemy.AlienWorm;
-import com.rominntrenger.objects.enemy.AlienZombie;
-import com.rominntrenger.objects.enemy.Enemy;
+import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.enemy.EnemyRandomizerToken;
 import com.rominntrenger.objects.enemy.EnemyRandomizerToken.EnemyType;
 import com.rominntrenger.objects.health.HealingItem;
+import com.rominntrenger.objects.item.ItemRandomizerToken;
+import com.rominntrenger.objects.item.ItemRandomizerToken.ItemType;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.weapon.Weapon;
+import com.rominntrenger.objects.weapon.WeaponBarrel;
+import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;
 import com.rominntrenger.objects.weapon.WeaponComponentGSONHandler;
 import com.rominntrenger.objects.weapon.WeaponComponentHolderDAO;
@@ -52,14 +47,14 @@ public class RomInntrenger extends GameApplication {
     public AudioPlayer bgMusic;
     public AudioPlayer evilLaughAP;
 
-    public Randomizer<Item> addRandomItem;
+    public Randomizer<ItemRandomizerToken> addRandomItem;
     public Randomizer<EnemyRandomizerToken> addRandomEnemy;
 
     /**
      * Will give players colors corresponding to their PlayerID
      */
     public Color[] playerColor = {
-        Color.RED,Color.GREEN, Color.BLUE, Color.YELLOW
+        Color.PINK,Color.GREENYELLOW, Color.CYAN, Color.ORANGE
     };
 
     public String[] playerSprites = {
@@ -81,8 +76,7 @@ public class RomInntrenger extends GameApplication {
         spawnPlayers();
 
         // testing
-        WeaponComponentHolderDAO stuff = WeaponComponentGSONHandler.loadTest();
-        List<WeaponClip> clips = stuff.clips;
+
 
         WaveManager.getInstance();
 
@@ -357,9 +351,29 @@ public class RomInntrenger extends GameApplication {
     }
 
     public void createItemRandomizer() {
+        WeaponComponentHolderDAO stuff = WeaponComponentGSONHandler.loadTest();
+        List<WeaponClip> clips = stuff.clips;
+
         addRandomItem = new Randomizer<>();
-        addRandomItem.addElement(5,new HealingItem(Vec2.ZERO,Vec2.ZERO,new Sprite("items/healSmall"),true));
-        addRandomItem.addElement(1,new HealingItem(Vec2.ZERO,Vec2.ZERO,new Sprite("items/healBig"),false));
+
+
+        addRandomItem.addElement(5, new ItemRandomizerToken(ItemType.HEAL_BIG));
+        addRandomItem.addElement(1,new ItemRandomizerToken(ItemType.HEAL_SMALL));
+
+        for(WeaponClip clip : stuff.clips){
+            addRandomItem.addElement(4, new ItemRandomizerToken(clip));
+        }
+
+        for(WeaponBase base : stuff.bases){
+            addRandomItem.addElement(4, new ItemRandomizerToken(base));
+        }
+
+        for(WeaponBarrel barrel : stuff.barrels){
+            addRandomItem.addElement(4, new ItemRandomizerToken(barrel));
+        }
+
+
+
     }
 
 }

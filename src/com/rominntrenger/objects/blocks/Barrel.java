@@ -7,7 +7,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.Projectile;
-import com.rominntrenger.objects.player.Player;
+import com.rominntrenger.objects.item.Item;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Barrel extends Item {
