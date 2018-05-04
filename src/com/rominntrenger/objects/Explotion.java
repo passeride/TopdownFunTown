@@ -83,7 +83,7 @@ public class Explotion extends GameObject {
     @Override
     public void destroy() {
         if(Math.random() > dropRate)
-            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().createNew(getPosition());
+            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
         else
             new Soot(getPosition());
         allSplotions.remove(this);

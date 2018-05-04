@@ -1,4 +1,4 @@
-package com.rominntrenger.objects.blocks;
+package com.rominntrenger.objects.item;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameObject;

@@ -3,15 +3,12 @@ package com.rominntrenger.objects;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
-import com.bluebook.physics.CircleCollider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
-import com.rominntrenger.gui.Inventory;
-import com.rominntrenger.gui.InventoryItem;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.messageHandling.MessageHandler;
-import com.rominntrenger.objects.blocks.Item;
+import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 

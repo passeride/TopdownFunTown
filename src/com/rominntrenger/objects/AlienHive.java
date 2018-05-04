@@ -52,7 +52,7 @@ public class AlienHive extends Enemy {
         if(isActive) {
             if (System.currentTimeMillis() - previousSpawn > spawnRate * 1000.0
                 && enemyNum < max_enemies) {
-                ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().createNew(this.getPosition());
+                ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().spawn(this.getPosition());
                 previousSpawn = System.currentTimeMillis();
                 enemyNum++;
             }
