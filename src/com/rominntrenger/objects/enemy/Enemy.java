@@ -119,6 +119,7 @@ public abstract class Enemy extends GameObject {
         }
     }
 
+
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
@@ -139,7 +140,7 @@ public abstract class Enemy extends GameObject {
         allEnemies.remove(this);
 //        new WeaponClipUpgrade(getPosition(), new WeaponClip());
         collider.destroy();
-        if(Math.random() > dropRate) {
+        if(Math.random() < dropRate) {
             ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().createNew(getPosition());
         }
         else {

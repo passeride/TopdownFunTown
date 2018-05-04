@@ -122,7 +122,7 @@ public class Player extends GameObject {
                 double[][] polygon = light2D.polygon;
 //                gc.save();
 //                gc.setGlobalBlendMode(BlendMode.OVERLAY);
-                gc.setFill(new Color(1, 0.7, 0.8, 0.2));
+                gc.setFill(new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.2));
                 gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
 //                gc.restore();
             }

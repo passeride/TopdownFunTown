@@ -25,6 +25,8 @@ import com.rominntrenger.objects.enemy.AlienPurple;
 import com.rominntrenger.objects.enemy.AlienWorm;
 import com.rominntrenger.objects.enemy.AlienZombie;
 import com.rominntrenger.objects.enemy.Enemy;
+import com.rominntrenger.objects.enemy.EnemyRandomizerToken;
+import com.rominntrenger.objects.enemy.EnemyRandomizerToken.EnemyType;
 import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
@@ -51,7 +53,7 @@ public class RomInntrenger extends GameApplication {
     public AudioPlayer evilLaughAP;
 
     public Randomizer<Item> addRandomItem;
-    public Randomizer<Enemy> addRandomEnemy;
+    public Randomizer<EnemyRandomizerToken> addRandomEnemy;
 
     /**
      * Will give players colors corresponding to their PlayerID
@@ -157,12 +159,18 @@ public class RomInntrenger extends GameApplication {
     public void update(double delta) {
         cam.update(delta);
         gi.pullEvents();
+
+        // Check if cameraPlayer  is dead
+        if(!cam.getGameobject().isAlive() && players.size() >  0){
+            cam.follow(players.get(0));
+        }
+
         for (Player player : players) {
             AnimationSprite animSprite = ((AnimationSprite) player.getSprite());
             if (gi.getNumberOfControllers() > 0) {
                 player.setUses_controller(true);
 
-                int playerID = players.indexOf(player);
+                int playerID = player.getPlayerID() - 1;
                 if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
                     animSprite.setPlaying(true);
                 } else {
@@ -177,14 +185,17 @@ public class RomInntrenger extends GameApplication {
                 }
 
                 if (player.hasWeapon()) {
+                    AnimationSprite weaponAnim = ((AnimationSprite)player.getCurrentWeapon().getSprite());
                     if (gi.isShoot(playerID)) {
-                        animSprite.setPlaying(true);
+                        weaponAnim.setPlaying(true);
 
                         player.shoot();
                     } else if(gi.isReload(playerID)) {
                         player.reloadCurrentWeapon();
+                        weaponAnim.setPlaying(false);
+
                     }else{
-                        animSprite.setPlaying(false);
+                        weaponAnim.setPlaying(false);
                     }
                 }
 
@@ -336,13 +347,13 @@ public class RomInntrenger extends GameApplication {
      */
     public void createEnemyRandomizer() {
         addRandomEnemy = new Randomizer<>();
-        addRandomEnemy.addElement(6, new AlienGreen(Vec2.ZERO));
-        addRandomEnemy.addElement(4, new AlienPurple(Vec2.ZERO));
-        addRandomEnemy.addElement(8, new AlienZombie(Vec2.ZERO));
-        addRandomEnemy.addElement(1, new AlienExplode(Vec2.ZERO));
-        addRandomEnemy.addElement(2, new AlienEye(Vec2.ZERO));
-        addRandomEnemy.addElement(1, new AlienGlow(Vec2.ZERO));
-        addRandomEnemy.addElement(3, new AlienWorm(Vec2.ZERO));
+        addRandomEnemy.addElement(6, new EnemyRandomizerToken(EnemyType.ALIEN_GREEN));
+        addRandomEnemy.addElement(4, new EnemyRandomizerToken(EnemyType.ALIEN_PURPLE));
+        addRandomEnemy.addElement(8, new EnemyRandomizerToken(EnemyType.AlIEN_ZOMBIE));
+        addRandomEnemy.addElement(1, new EnemyRandomizerToken(EnemyType.ALIEN_EXPLODE));
+        addRandomEnemy.addElement(2, new EnemyRandomizerToken(EnemyType.ALIEN_EYE));
+        addRandomEnemy.addElement(1, new EnemyRandomizerToken(EnemyType.ALIEN_GLOW));
+        addRandomEnemy.addElement(3, new EnemyRandomizerToken(EnemyType.ALIEN_WORM));
     }
 
     public void createItemRandomizer() {

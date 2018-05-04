@@ -29,6 +29,7 @@ public class AlienMother extends Enemy {
         hit_dmg = GameSettings.getInt("Alien_mother_hit_dmg");
     }
 
+
     @Override
     public Enemy createNew(Vec2 pos) {
         return null;
@@ -51,41 +52,5 @@ public class AlienMother extends Enemy {
         new AlienGreen(getPosition());
     }
 
-    public void shoot() {
-        Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
-        p.getCollider().addInteractionLayer("UnHittable");
-        p.getCollider().addInteractionLayer("Hittable");
-
-        p.getCollider().addInteractionLayer("Block");
-        p.getSprite().setSquareHeight(32);
-        p.getSprite().setSquareWidth(32);
-        p.setPeriod(1.2f);
-        p.setAmplitude(3f);
-        p.setPhase(200f);
-        p.setSpeed(1600);
-        p.setSine(true);
-        p.setSource(this);
-
-        p.setOnCollisionListener(other -> {
-            if(other.getGameObject() != p.getSource()) {
-                if (other.getGameObject() instanceof Player) {
-                    Player pl = (Player) other.getGameObject();
-                    pl.hit(hit_dmg);
-                    pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-                        Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
-                        3000.0));
-                } else if (other.getGameObject() instanceof Enemy) {
-                    ((Enemy) other.getGameObject()).hit(bullet_dmg);
-                }
-                p.destroy();
-            }
-        });
-    }
-
-    public void wander(Vec2 position) {
-        double x = position.getX();
-        double y = position.getY();
-    }
 
 }
