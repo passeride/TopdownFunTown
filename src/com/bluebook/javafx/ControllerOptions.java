@@ -7,22 +7,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 
 public class ControllerOptions {
-
-
-    @FXML
-    private CheckBox lydCheckBox;
 
     @FXML
     private Slider slider;
 
     boolean b = true;
     GameApplication gameApplication = GameApplication.getInstance();
-    //AudioPlayer audioPlayer = new AudioPlayer();
 
     @FXML
     private void toggleLyd(ActionEvent event) {
@@ -31,12 +25,10 @@ public class ControllerOptions {
         if (b) {
             slider.setDisable(true);
             b = false;
-            //audioPlayer.setVolume(-100);
         } else {
             slider.setDisable(false);
             b = true;
             int vol = (int) slider.getValue();
-            //audioPlayer.setVolume(vol);
         }
 
     }

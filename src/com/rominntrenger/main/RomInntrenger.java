@@ -19,7 +19,6 @@ import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.player.RedRifle;
-import com.rominntrenger.objects.player.StarterWeapon;
 import com.rominntrenger.objects.player.Weapon;
 import com.rominntrenger.stateHandling.StateHandling;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 
 public class RomInntrenger extends GameApplication {
 

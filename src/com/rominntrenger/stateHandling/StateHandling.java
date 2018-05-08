@@ -57,14 +57,14 @@ public class StateHandling {
             savePLayerPositionY.writeObject(playerPositionY);
             savePlayerDirectionInDegrees.writeObject(playerDirectionInDegrees);
 
-            saveWaveNumber.close(); //closes both ObjectOutputStream and FIleOutputStream
+            saveWaveNumber.close(); //closes both ObjectOutputStream and FileOutputStream
             savePlayerHealth.close();
             savePlayerPositionX.close();
             savePLayerPositionY.close();
             savePlayerDirectionInDegrees.close();
 
-        }catch (Exception exc){
-            exc.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
