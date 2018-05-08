@@ -1,7 +1,6 @@
 package com.rominntrenger.objects.weapon;
 
 import java.io.Serializable;
-import javafx.scene.paint.LinearGradient;
 
 public class WeaponBase implements Serializable {
 

@@ -6,7 +6,6 @@ import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.weapon.WeaponBarrel;
 import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;
-import com.rominntrenger.objects.weapon.WeaponClipUpgrade;
 
 public class ItemRandomizerToken {
 

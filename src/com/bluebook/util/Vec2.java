@@ -17,10 +17,10 @@ public class Vec2 extends Point2D {
     public static final Vec2 RIGHT = new Vec2(1, 0, true);
     public static final Vec2 ZERO = new Vec2(0, 0, true);
 
-    private Vec2(double x, double y, boolean immutable){
+    private Vec2(double x, double y, boolean immutab0le){
         this.X = x;
         this.Y = y;
-        this.immutable = false;
+        this.immutable = immutable;
     }
 
     /**

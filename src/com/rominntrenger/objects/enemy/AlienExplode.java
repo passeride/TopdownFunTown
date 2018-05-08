@@ -6,7 +6,6 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.Explotion;
-import com.rominntrenger.objects.FSM.Attack;
 import java.util.Random;
 
 /**

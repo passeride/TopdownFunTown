@@ -3,17 +3,12 @@ package com.rominntrenger.objects;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.graphics.listeners.OnAnimationFinishedListener;
-import com.bluebook.renderer.RenderLayer;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.blocks.Soot;
-import com.rominntrenger.objects.enemy.AlienExplode;
-import com.rominntrenger.objects.enemy.Enemy;
 import com.rominntrenger.objects.player.Player;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 

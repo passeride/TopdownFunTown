@@ -1,7 +1,6 @@
 package com.rominntrenger.objects.blocks;
 
 import com.bluebook.graphics.Sprite;
-import com.bluebook.renderer.RenderLayer;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;

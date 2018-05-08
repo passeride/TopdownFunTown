@@ -1,7 +1,6 @@
 package com.bluebook.renderer;
 
 import com.bluebook.util.GameObject;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;

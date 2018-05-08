@@ -2,9 +2,6 @@ package com.bluebook.input;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.Vec2;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;

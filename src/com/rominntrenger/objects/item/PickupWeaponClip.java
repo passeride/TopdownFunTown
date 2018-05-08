@@ -1,7 +1,6 @@
 package com.rominntrenger.objects.item;
 
 import com.bluebook.engine.GameApplication;
-import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.renderer.RenderLayer;
@@ -12,8 +11,6 @@ import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.weapon.Weapon;
-import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

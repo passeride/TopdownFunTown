@@ -4,8 +4,6 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.util.GameSettings;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

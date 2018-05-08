@@ -4,7 +4,6 @@ import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
-import com.bluebook.graphics.Sprite;
 import com.bluebook.input.GamepadInput;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.Randomizer;
@@ -16,10 +15,8 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
-import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.enemy.EnemyRandomizerToken;
 import com.rominntrenger.objects.enemy.EnemyRandomizerToken.EnemyType;
-import com.rominntrenger.objects.health.HealingItem;
 import com.rominntrenger.objects.item.ItemRandomizerToken;
 import com.rominntrenger.objects.item.ItemRandomizerToken.ItemType;
 import com.rominntrenger.objects.player.Player;
@@ -88,7 +85,7 @@ public class RomInntrenger extends GameApplication {
     void setUp(){
         cam = new OrthographicCamera();
 
-        MapCreator level = new MapCreator("startMap");
+        MapCreator level = new MapCreator("map_0");
         level.createLevel();
 
         bgMusic = new AudioPlayer("audio/MoodyLoop.wav");

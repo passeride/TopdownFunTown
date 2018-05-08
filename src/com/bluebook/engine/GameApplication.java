@@ -7,13 +7,9 @@ import com.bluebook.util.GameSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rominntrenger.gui.Menu;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.Map;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
@@ -23,7 +19,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sun.misc.IOUtils;
 
 /**
  * The GameApplication class is used to create the foundation of any BlueBook gamePane

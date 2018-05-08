@@ -16,7 +16,6 @@ import com.rominntrenger.objects.blocks.Barrel;
 import com.rominntrenger.objects.blocks.Bench;
 import com.rominntrenger.objects.blocks.Corpse;
 import com.rominntrenger.objects.blocks.Crate;
-import com.rominntrenger.objects.item.PickupWeaponClip;
 import com.rominntrenger.objects.blocks.StasisBox;
 import com.rominntrenger.objects.blocks.Table;
 import com.rominntrenger.objects.blocks.Wall;

@@ -7,7 +7,6 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.weapon.Weapon;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

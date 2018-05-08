@@ -8,7 +8,6 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.RedRifle;
 import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.stateHandling.DAO.MetaDAO;
 import com.rominntrenger.stateHandling.DAO.PlayerDAO;

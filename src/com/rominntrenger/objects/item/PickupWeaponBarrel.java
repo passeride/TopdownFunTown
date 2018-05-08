@@ -11,8 +11,6 @@ import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.weapon.WeaponBarrel;
-import com.rominntrenger.objects.weapon.WeaponBase;
-import com.rominntrenger.objects.weapon.WeaponClip;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

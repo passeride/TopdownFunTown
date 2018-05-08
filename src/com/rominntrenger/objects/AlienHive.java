@@ -7,7 +7,6 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.enemy.AlienWorm;
 import com.rominntrenger.objects.enemy.Enemy;
-import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 
 

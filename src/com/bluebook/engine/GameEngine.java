@@ -4,7 +4,6 @@ import com.bluebook.physics.CollisionThread;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;

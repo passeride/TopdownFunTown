@@ -6,7 +6,6 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
 import com.sun.javafx.geom.Line2D;
 import java.util.ArrayList;
-import javafx.scene.LightBase;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;

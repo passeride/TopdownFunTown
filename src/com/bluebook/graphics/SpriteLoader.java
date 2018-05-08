@@ -1,8 +1,5 @@
 package com.bluebook.graphics;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 import javafx.scene.image.Image;

@@ -43,7 +43,7 @@ public class WaveManager extends GameObject {
     private WaveSate state = WaveSate.PAUSE;
 
     public enum WaveSate{
-        WAVE, BOSS, PAUSE;
+        WAVE, BOSS, PAUSE
     }
 
     LinearGradient pauseGradient;
