@@ -169,7 +169,6 @@ public abstract class GameApplication extends Application {
             gamePane = fxmlGame
                 .load(getClass().getClassLoader().getResourceAsStream("com/bluebook/javafx/sample.fxml"));
         }
-
         primaryStage.getScene().setRoot(gamePane);
 
         setWidthListener(primaryStage);
