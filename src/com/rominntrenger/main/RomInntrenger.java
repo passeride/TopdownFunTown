@@ -85,8 +85,6 @@ public class RomInntrenger extends GameApplication {
             System.out.println("STARTMENU");
             menu = new Menu(primaryStage);
             menu.callMenu();
-        } else {
-//            callGame(primaryStage);
         }
         primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.F));
     }
@@ -96,10 +94,6 @@ public class RomInntrenger extends GameApplication {
         super.onLoad();
         setUp();
         spawnPlayers();
-
-        // testing
-
-
         WaveManager.getInstance();
 
     }

@@ -39,7 +39,6 @@ public class Menu extends Parent {
         root.setPrefSize(1920, 1080);
 
         InputStream is = null;
-        //             is = Files.newInputStream(Paths.get("/pictures/bg.gif"));
         is = getClass().getClassLoader().getResourceAsStream("sprite/pictures/bg.gif");
         System.out.println(is);
         image = new Image(is);
@@ -56,7 +55,6 @@ public class Menu extends Parent {
             backgroundImage.setVisible(true);
         else {
             backgroundImage.setVisible(false);
-            System.out.println("i if test");
         }
 
         gameMenu = new GameMenu(primaryStage);
@@ -68,15 +66,6 @@ public class Menu extends Parent {
         keyBoardInput();
 
         primaryStage.setScene(scene);
-//         primaryStage.show();
-
-         /*if(GameSettings.getBoolean("start_menu")) {
-             try {
-                 GameApplication.getInstance().callGame(primaryStage);
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-         }*/
     }
 
     public void keyBoardInput() {
