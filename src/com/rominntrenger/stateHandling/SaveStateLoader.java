@@ -12,16 +12,22 @@ import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.stateHandling.DAO.MetaDAO;
 import com.rominntrenger.stateHandling.DAO.PlayerDAO;
 import com.rominntrenger.stateHandling.DAO.WeaponDAO;
-import javafx.scene.paint.Color;
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import javafx.scene.paint.Color;
 
 public class SaveStateLoader {
 
     public static MetaDAO load() throws IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream("./myFile.data");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        return (MetaDAO) in.readObject();
+    }
+
+    public static MetaDAO loadFromFile(File file) throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(file);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         return (MetaDAO) in.readObject();
     }

@@ -2,6 +2,9 @@ package com.rominntrenger.gui;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
+import com.rominntrenger.stateHandling.SaveStateLoader;
+import java.io.File;
+import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ObservableValue;
@@ -11,13 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.FloatControl.Type;
-import java.io.IOException;
 
 public class GameMenu extends Parent {
     private VBox menu0, menu1, menu2;
@@ -30,8 +33,8 @@ public class GameMenu extends Parent {
     private AudioPlayer ap;
     private FloatControl gainControl;
     public MenuButton resumeButton, optionsButton, exitButton, backButtonMainMenu,
-        soundButton, videoButton, goreButton, backButtonSoundMenu, soundCaption, soundValue,
-        saveButton, restartButton;
+        soundButton, backButtonSoundMenu, soundCaption, soundValue,
+        loadFromFile, restartButton;
 
 
     public GameMenu(Stage primaryStage) {
@@ -103,6 +106,31 @@ public class GameMenu extends Parent {
         exitButton.setOnMouseClicked(event -> {
             System.exit(0);
         });
+
+        loadFromFile = new MenuButton("LOAD FROM FILE");
+        loadFromFile.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select saved file");
+            fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Data files", "*.data", "*.txt"),
+                new ExtensionFilter("All files", "*.*"));
+            File selectedFile = fileChooser.showOpenDialog(primaryStage);
+            if(selectedFile != null){
+                try {
+                    GameApplication.getInstance().callGame(primaryStage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SaveStateLoader.loadFromFile(selectedFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+
+            }});
 
         backButtonMainMenu = new MenuButton("BACK");
         backButtonMainMenu.setOnMouseClicked(event -> {
@@ -181,7 +209,7 @@ public class GameMenu extends Parent {
             soundValue.setText(((int) ((double) new_val * 100)) + "");
         });
 
-        menu0.getChildren().addAll(resumeButton, optionsButton, exitButton);
+        menu0.getChildren().addAll(resumeButton, loadFromFile, optionsButton, exitButton);
         menu1.getChildren().addAll(backButtonMainMenu, soundButton);
         volDisplay.getChildren().addAll(soundCaption, soundSlider, soundValue);
         menu2.getChildren().addAll(backButtonSoundMenu, volDisplay);
