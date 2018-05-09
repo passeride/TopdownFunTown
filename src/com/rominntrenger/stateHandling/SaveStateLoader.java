@@ -46,18 +46,12 @@ public class SaveStateLoader {
         }
 
         rom.clearGamestate();
-        System.out.println("Players is now (LOAD) " + rom.getPlayers().size());
-
-        System.out.println("Players is now (LOAD) " + meta.players.size());
-
-
         loadPlayers(rom, meta);
         WaveManager.getInstance().setWaveNumber(meta.waveManager.waveNumber);
 
         OrthographicCamera.main.moveToFollow();
 
         GameEngine.getInstance().resumeGame();
-        System.out.println("loaded");
     }
 
     private static void loadPlayers(RomInntrenger rom, MetaDAO meta) {
@@ -83,7 +77,6 @@ public class SaveStateLoader {
 
             p.setCurrentWeapon(parseWeapon(playerDAO.weapon));
 
-//            rom.players.add(p);
         }
     }
 

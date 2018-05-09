@@ -28,7 +28,6 @@ public class Menu extends Parent {
 
 
     public Menu(Stage primaryStage) {
-        //singleton = this;
         this.primaryStage = primaryStage;
     }
 

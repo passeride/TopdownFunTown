@@ -19,7 +19,6 @@
   "Physics_rigidbody2d_VelocityVerlet": true,
   "Physics_rigidbody2d_friction":0.1,
   "Physics_rigidbody2d_velocity_threshhold":10.0,
-
   "RedRifle_projectile_speed":400,
 
   "maxAliensfromHive": 10,
