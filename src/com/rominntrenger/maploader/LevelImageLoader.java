@@ -37,72 +37,6 @@ public class LevelImageLoader {
                         gameMap[x][y] = ID.AlienSpawnerBig;
                         break;
 
-                    //DOORS
-                    case ("DDDDDD"):
-                        gameMap[x][y] = ID.Door;
-                        break;
-                    case ("DD0000"):
-                        gameMap[x][y] = ID.DoorY;
-                        break;
-                    case ("DD00FF"):
-                        gameMap[x][y] = ID.DoorB;
-                        break;
-                    case ("DDFF00"):
-                        gameMap[x][y] = ID.DoorG;
-                        break;
-                    case ("DD0F0F"):
-                        gameMap[x][y] = ID.DoorP;
-                        break;
-                    case ("DDF0F0"):
-                        gameMap[x][y] = ID.DoorR;
-                        break;
-
-                    // KEYS
-                    case ("CCCCCC"):
-                        gameMap[x][y] = ID.Key;
-                        break;
-                    case ("CC0000"):
-                        gameMap[x][y] = ID.KeyY;
-                        break;
-                    case ("CC00FF"):
-                        gameMap[x][y] = ID.KeyB;
-                        break;
-                    case ("CCFF00"):
-                        gameMap[x][y] = ID.KeyG;
-                        break;
-                    case ("CC0F0F"):
-                        gameMap[x][y] = ID.KeyP;
-                        break;
-                    case ("CCF0F0"):
-                        gameMap[x][y] = ID.KeyR;
-                        break;
-
-                    //ITEMS
-                    case ("330000"):
-                        gameMap[x][y] = ID.StasisBox;
-                        break;
-                    case ("33FFFF"):
-                        gameMap[x][y] = ID.Barrel;
-                        break;
-                    case ("33CCCC"):
-                        gameMap[x][y] = ID.Crate;
-                        break;
-                    case ("334444"):
-                        gameMap[x][y] = ID.Corpse;
-                        break;
-                    case ("336666"):
-                        gameMap[x][y] = ID.Ship;
-                        break;
-                    case ("336600"):
-                        gameMap[x][y] = ID.KeyShip;
-                        break;
-                    case ("335555"):
-                        gameMap[x][y] = ID.Table;
-                        break;
-                    case ("337777"):
-                        gameMap[x][y] = ID.Bench;
-                        break;
-
                     //ENEMIES
                     case ("EE2222"):
                         gameMap[x][y] = ID.AlienGreen;
@@ -115,18 +49,6 @@ public class LevelImageLoader {
                         break;
                     case ("EE6666"):
                         gameMap[x][y] = ID.AlienExplode;
-                        break;
-                    case ("EECCCC"):
-                        gameMap[x][y] = ID.AlienTurret;
-                        break;
-                    case ("666FFF"):
-                        gameMap[x][y] = ID.PickupWeaponS;
-                        break;
-                    case ("666EEE"):
-                        gameMap[x][y] = ID.PickupWeaponR;
-                        break;
-                    case ("666000"):
-                        gameMap[x][y] = ID.PickupWeaponY;
                         break;
                     case ("77FFFF"):
                         gameMap[x][y] = ID.HealingItemSmall;
