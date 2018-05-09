@@ -1,6 +1,7 @@
 package com.rominntrenger.objects.item;
 
 import com.bluebook.engine.GameApplication;
+import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameSettings;
@@ -26,7 +27,7 @@ public class PickupWeaponBase extends Item implements Describable {
      * Constructor for GameObject given position rotation and sprite
      */
     public PickupWeaponBase(Vec2 position, WeaponBase weaponBarrel) {
-        super(position, Vec2.ZERO, null);
+        super(position, Vec2.ZERO, new Sprite("items/weaponBody"));
         setSize(new Vec2(0.7, 0.7));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
 
@@ -36,23 +37,6 @@ public class PickupWeaponBase extends Item implements Describable {
         collider.setTag("Item");
         collider.addInteractionLayer("Walk");
 
-    }
-
-    @Override
-    public void draw(GraphicsContext gc) {
-        gc.setStroke(Color.BLACK);
-
-        x = transform.getGlobalPosition().getX();
-        y = transform.getGlobalPosition().getY();
-
-        Vec2 squareSize = Vec2.multiply(GameSettings.getSquareScale(), 0.5);
-        gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-        gc.setFill(new Color(0.5, 0, 0, 0.5));
-        gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-        gc.setFill(Color.BLACK);
-        gc.setFont(new Font(squareSize.getY()));
-        String text = cli.character + "";
-        gc.fillText(text, x - squareSize.getX() / 2, y);
     }
 
     public int getWeaponID() {

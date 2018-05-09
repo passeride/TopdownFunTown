@@ -29,5 +29,7 @@ public class Blood extends GameObject {
         for (Blood b : bloods) {
             b.destroy();
         }
+
+        bloods.clear();
     }
 }

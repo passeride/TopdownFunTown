@@ -32,7 +32,7 @@ public class AlienEye extends Enemy {
         AlienEye.super.nextBehaviour();
 
         prevShot = System.currentTimeMillis();
-        shoot();
+//        shoot();
 
 
         if (health < ((max_health * 20) / 100)) {

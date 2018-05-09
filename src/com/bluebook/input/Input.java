@@ -150,7 +150,6 @@ public class Input {
     }
 
     private void setMouseButton1State(boolean state) {
-        mouseButtonDown0 = state;
         mouseButton1 = state;
     }
 

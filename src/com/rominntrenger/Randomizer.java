@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.TreeMap;
 
 public class Randomizer<E> {
-    private NavigableMap<Integer, E> map = new TreeMap<Integer, E>();
+    private NavigableMap<Integer, E> map = new TreeMap<>();
     private Random random;
     private int total = 0;
 

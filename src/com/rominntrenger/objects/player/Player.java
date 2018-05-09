@@ -306,8 +306,10 @@ public class Player extends GameObject {
 //            audioPlayer.playOnce();
 //            romInntrenger.bgMusic.stop();
 //            romInntrenger.bgMusic.close();
+            light2D.destroy();
             destroy();
         }
+
         hitSound.playOnce();
     }
 
