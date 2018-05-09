@@ -27,7 +27,7 @@ public class PickupWeaponBarrel extends Item implements Describable {
      * Constructor for GameObject given position rotation and sprite
      */
     public PickupWeaponBarrel(Vec2 position, WeaponBarrel weaponBarrel) {
-        super(position, Vec2.ZERO, null);
+        super(position, Vec2.ZERO, new Sprite("items/weaponBarrel"));
         setSize(new Vec2(0.7, 0.7));
         setRenderLayer(RenderLayer.RenderLayerName.HIGH_BLOCKS);
 
@@ -37,23 +37,6 @@ public class PickupWeaponBarrel extends Item implements Describable {
         collider.setTag("Item");
         collider.addInteractionLayer("Walk");
 
-    }
-
-    @Override
-    public void draw(GraphicsContext gc) {
-        gc.setStroke(Color.BLACK);
-
-        Vec2 squareSize = Vec2.multiply(GameSettings.getSquareScale(), 0.5);
-        x = transform.getGlobalPosition().getX();
-        y = transform.getGlobalPosition().getY();
-
-        gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-        gc.setFill(new Color(0, 0.5, 0, 0.5));
-        gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-        gc.setFill(Color.BLACK);
-        gc.setFont(new Font(squareSize.getY()));
-        String text = cli.character + "";
-        gc.fillText(text, x - squareSize.getX() / 2, y);
     }
 
     @Override
