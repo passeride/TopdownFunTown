@@ -71,15 +71,8 @@ public class GameMenu extends Parent {
             fadeTransition.setFromValue(1);
             fadeTransition.setToValue(0);
             fadeTransition.setOnFinished(evt -> setVisible(false));
-//                GameApplication.getInstance().menu.setSTART_MENU(false);
-//                GameApplication.getInstance().menu.setBackgroundImageVisible(false);
-//                primaryStage.setScene(scene);
-//                primaryStage.show();
-
             fadeTransition.play();
-
-//                GameApplication.getInstance().getStage().getScene().setRoot(GameApplication.getInstance().getStage().getScene().getRoot());
-            try {
+           try {
                 GameApplication.getInstance().callGame(primaryStage);
             } catch (IOException e) {
                 e.printStackTrace();

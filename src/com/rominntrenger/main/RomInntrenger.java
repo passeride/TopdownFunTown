@@ -82,7 +82,6 @@ public class RomInntrenger extends GameApplication {
 
 
         if (GameSettings.getBoolean("start_menu")) {
-            System.out.println("STARTMENU");
             menu = new Menu(primaryStage);
             menu.callMenu();
         }

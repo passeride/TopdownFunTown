@@ -1,18 +1,14 @@
 package com.rominntrenger.gui;
 
 import com.bluebook.util.GameSettings;
-import javafx.animation.FadeTransition;
+import java.io.IOException;
+import java.io.InputStream;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Menu extends Parent {
 
@@ -47,7 +43,6 @@ public class Menu extends Parent {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         backgroundImage = new ImageView(image);
         backgroundImage.setFitWidth(1920);
         backgroundImage.setFitHeight(1080);
@@ -56,67 +51,20 @@ public class Menu extends Parent {
         else {
             backgroundImage.setVisible(false);
         }
-
         gameMenu = new GameMenu(primaryStage);
         gameMenu.setVisible(true);
 
         root.getChildren().addAll(backgroundImage, gameMenu);
 
         scene = new Scene(root);
-        keyBoardInput();
 
         primaryStage.setScene(scene);
     }
 
-    public void keyBoardInput() {
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                if (!gameMenu.isVisible()) {
-                    FadeTransition ft = new FadeTransition(Duration.seconds(0.5), gameMenu);
-                    ft.setFromValue(0);
-                    ft.setToValue(1);
 
-                    gameMenu.setVisible(true);
-                    ft.play();
-                } else {
-                    FadeTransition ft = new FadeTransition(Duration.seconds(0.5), gameMenu);
-                    ft.setFromValue(1);
-                    ft.setToValue(0);
-                    ft.setOnFinished(evt -> gameMenu.setVisible(false));
-                    ft.play();
-                }
-            }
-        });
-    }
-
-    public boolean isSTART_MENU() {
-        return START_MENU;
-    }
-
-    public void setSTART_MENU(boolean START_MENU) {
-        this.START_MENU = START_MENU;
-    }
-
-    public boolean isBackgroundImageVisible() {
-        return isBackgroundImageVisible;
-    }
-
-    public void setBackgroundImageVisible(boolean backgroundImageVisible) {
-        backgroundImage.setVisible(false);
-
-        System.out.println("i funksjon" + isBackgroundImageVisible);
-    }
-
-    public void setRoot(Pane root) {
-        this.root = root;
-    }
 
     public Pane getRoot() {
         return root;
     }
-
-    //        this.stage = primaryStage;
-
-    //loadFXML(primaryStage);
 
 }
