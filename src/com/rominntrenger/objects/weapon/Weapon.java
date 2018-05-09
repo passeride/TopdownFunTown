@@ -181,6 +181,8 @@ public class Weapon extends GameObject {
 
         if (weaponClip != null && weaponBase != null && weaponBarrel != null) {
             ammoCap = weaponClip.ammoCap;
+            if(ammoRemaining > ammoCap)
+                reloadWeapon();
             dmg = (int) (weaponClip.dmg * weaponBase.dmgMultiplier);
             spread = weaponBarrel.spread;
             reloadDuration = weaponClip.reloadTime;
