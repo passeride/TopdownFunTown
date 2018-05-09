@@ -3,11 +3,12 @@ package com.bluebook.javafx;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
@@ -19,7 +20,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         GameSettings.SCREEN_HEIGHT = (int) canvas.getHeight();
         GameSettings.SCREEN_WIDTH = (int) canvas.getWidth();
-        if(GameEngine.getInstance() == null)
+        if (GameEngine.getInstance() == null)
             new GameEngine(canvas);
 
         GameApplication ga = GameApplication.getInstance();

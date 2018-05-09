@@ -5,7 +5,7 @@ import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.Weapon;
+import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.objects.weapon.WeaponBarrel;
 import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;
@@ -68,7 +68,7 @@ public class PlayerGuiElement extends GameObject {
         double row = height / 4;
 
         // Health
-        health = new Sprite("./gui/health", transform);
+        health = new Sprite("gui/health", transform);
         health.setSquareHeight(35);
         health.setSquareWidth(35);
         healthH = (int) health.getSquareHeight();
@@ -83,7 +83,7 @@ public class PlayerGuiElement extends GameObject {
                 - margin), row - margin);
 
         // Kills
-        skull = new Sprite("./gui/killNum", transform);
+        skull = new Sprite("gui/killNum", transform);
         skull.setSquareHeight(35);
         skull.setSquareWidth(35);
         skullH = (int) skull.getSquareHeight();
@@ -97,7 +97,7 @@ public class PlayerGuiElement extends GameObject {
             x + skullW + (space * 2) + margin / 2 + width / 2, (row * 2) + y - margin / 2);
 
         // Ammo
-        ammo = new Sprite("./gui/ammo", transform);
+        ammo = new Sprite("gui/ammo", transform);
         ammo.setSquareHeight(35);
         ammo.setSquareWidth(35);
         ammoH = (int) ammo.getSquareHeight();
@@ -110,9 +110,16 @@ public class PlayerGuiElement extends GameObject {
                 width - margin, row - margin);
 
             gc.setFill(Color.GREEN);
-            gc.fillRect(x + margin + ammoW + space / 2, (row * 2) + y + margin / 2,
-                ((double) w.getAmmoRemaining() / (double) w.getAmmoCap()) * (width - margin),
-                row - margin);
+
+            if (!w.isReloading()) {
+                gc.fillRect(x + margin + ammoW + space / 2, (row * 2) + y + margin / 2,
+                    ((double) w.getAmmoRemaining() / (double) w.getAmmoCap()) * (width - margin),
+                    row - margin);
+            } else {
+                gc.fillRect(x + margin + ammoW + space / 2, (row * 2) + y + margin / 2,
+                    (w.getReloadTimer() / w.getReloadDuration()) * (width - margin),
+                    row - margin);
+            }
 
             gc.setFill(new Color(0, 0, 0, 0.4));
             gc.setFont(new Font(row - margin));

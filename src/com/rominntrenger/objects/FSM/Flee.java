@@ -18,22 +18,21 @@ public class Flee implements Behaviour {
         speed = behaviourContext.getSpeed();
         delta = behaviourContext.getDelta();
 
-        speed*=1.2;
+        speed *= 1.2;
         Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(
             behaviourContext.getTransform().getGlobalPosition());
-        if(player == null)
+        if (player == null)
             return;
         double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
         behaviourContext.setTarget(player);
         behaviourContext.setDirection(Vec2.subtract(
             behaviourContext.getPosition(), player.getPosition()));
         behaviourContext
-            .translate(Vec2.multiply(behaviourContext.getDirection().getNormalizedVector(),speed * delta));
+            .translate(Vec2.multiply(behaviourContext.getDirection().getNormalizedVector(), speed * delta));
 
-       if(distance2Player >= GameSettings.getDouble("Alien_flee_distance")){
-           behaviourContext.setBehaviour(Wander.position);
-       }
-
+        if (distance2Player >= GameSettings.getDouble("Alien_flee_distance")) {
+            behaviourContext.setBehaviour(Wander.position);
+        }
 
 
     }

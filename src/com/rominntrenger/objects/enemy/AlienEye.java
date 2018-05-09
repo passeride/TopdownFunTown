@@ -5,9 +5,9 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienEye extends Enemy {
@@ -16,8 +16,7 @@ public class AlienEye extends Enemy {
     private long prevShot = 0;
 
     public AlienEye(Vec2 position) {
-        super(position, Vec2.ZERO, new Sprite("./enemies/alienEye_0"));
-//        ((AnimationSprite) getSprite()).setPlaying(false);
+        super(position, Vec2.ZERO, new Sprite("enemies/alienEye_0"));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 100;
@@ -32,22 +31,20 @@ public class AlienEye extends Enemy {
         super.update(delta);
         AlienEye.super.nextBehaviour();
 
-        //if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
-            prevShot = System.currentTimeMillis();
-            shoot();
-            //TODO: LUKAS FIX THE SHOOTY SHOOTS
-        //}
+        prevShot = System.currentTimeMillis();
+        shoot();
 
-        if(health < ((max_health * 20) / 100)) {
-            this.setSprite(new AnimationSprite("/enemies/alienEyeFlame", 2));
+
+        if (health < ((max_health * 20) / 100)) {
+            this.setSprite(new AnimationSprite("enemies/alienEyeFlame", 2));
             ((AnimationSprite) getSprite()).setPlaying(true);
         }
     }
 
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/alienProjectileLaser"));
-        p.setSize(new Vec2(0.1,0.1));
+            new Sprite("projectiles/alienProjectileLaser"));
+        p.setSize(new Vec2(0.1, 0.1));
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
 
@@ -62,7 +59,7 @@ public class AlienEye extends Enemy {
         p.setSource(this);
         // TODO: NO RECOIL WHEN HIT WITH LAZERZ
         p.setOnCollisionListener(other -> {
-            if(other.getGameObject() != p.getSource()) {
+            if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);
@@ -82,4 +79,7 @@ public class AlienEye extends Enemy {
         double y = position.getY();
     }
 
+    public AlienEye createNew(Vec2 pos) {
+        return new AlienEye(pos);
+    }
 }

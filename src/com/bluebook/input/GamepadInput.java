@@ -2,32 +2,27 @@ package com.bluebook.input;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.Vec2;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.Array;
+import net.java.games.input.*;
+
 import java.util.ArrayList;
-import net.java.games.input.Component;
-import net.java.games.input.Controller;
-import net.java.games.input.ControllerEnvironment;
-import net.java.games.input.Event;
-import net.java.games.input.EventQueue;
 
 public class GamepadInput {
 
     private Vec2[] leftJoistick;
     private Vec2[] rightJoistick;
     private Boolean[] shoot;
+    private Boolean[] reload;
 
     private ArrayList<Controller> controllers = new ArrayList<>();
 
     public GamepadInput() {
-        
+
         Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
 
         for (int i = 0; i < ca.length; i++) {
 
             // TODO: get a xbox controller and test with that
-            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller") ) {
+            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller")) {
                 controllers.add(ca[i]);
             }
             /* Get the name of the controller */
@@ -41,16 +36,18 @@ public class GamepadInput {
         System.out.println("Number of controllers " + numOfControllers);
         leftJoistick = new Vec2[numOfControllers];
         rightJoistick = new Vec2[numOfControllers];
-        shoot = new Boolean[numOfControllers];  
+        shoot = new Boolean[numOfControllers];
+        reload = new Boolean[numOfControllers];
 
-        for(int i = 0; i < numOfControllers; i++){
+        for (int i = 0; i < numOfControllers; i++) {
             leftJoistick[i] = new Vec2(0, 0);
             rightJoistick[i] = new Vec2(0, 0);
             shoot[i] = new Boolean(false);
+            reload[i] = new Boolean(false);
         }
     }
 
-    public int getNumberOfControllers(){
+    public int getNumberOfControllers() {
         return controllers.size();
     }
 
@@ -60,8 +57,6 @@ public class GamepadInput {
 //            if (!controllers[i].getName().equals("Wireless Controller Motion Sensors")) {
 
             Controller con = controllers.get(i);
-
-
 
 
             con.poll();
@@ -85,17 +80,20 @@ public class GamepadInput {
                         break;
                     case "rz":
                         float value = event.getValue();
-                        if (value > -0.8) {
-                            shoot[i] = true;
-//                            con.getRumblers()[0].rumble(1);
-                        } else {
-                            shoot[i] = false;
+                        //                            con.getRumblers()[0].rumble(1);
 //                            con.getRumblers()[0].rumble(0);
-                        }
+                        shoot[i] = value > -0.8;
+                        break;
+                    case "B":
+                        value = event.getValue();
+                        //                            con.getRumblers()[0].rumble(1);
+//                            con.getRumblers()[0].rumble(0);
+                        reload[i] = value > 0.8;
+                        break;
                 }
-                if(GameEngine.DEBUG) {
+                if (GameEngine.DEBUG) {
 
-                    System.out.println(comp.getName().toString());
+                    System.out.println(comp.getName());
 
                     StringBuffer buffer = new StringBuffer(con.getName());
                     buffer.append(" NUM: " + i + " ");
@@ -120,15 +118,15 @@ public class GamepadInput {
     }
 
     public Vec2 getLeftJoistick(int id) {
-        if(id < leftJoistick.length)
+        if (id < leftJoistick.length)
             return leftJoistick[id];
         else
             return Vec2.ZERO;
     }
 
 
-    public Vec2 getRightJoistick(int id) {
-        if(id < leftJoistick.length)
+    public Vec2 getRightJoystick(int id) {
+        if (id < leftJoistick.length)
             return rightJoistick[id];
         else
             return Vec2.ZERO;
@@ -136,8 +134,15 @@ public class GamepadInput {
 
 
     public boolean isShoot(int id) {
-        if(id < shoot.length)
+        if (id < shoot.length)
             return shoot[id];
+        else
+            return false;
+    }
+
+    public boolean isReload(int id) {
+        if (id < reload.length)
+            return reload[id];
         else
             return false;
     }

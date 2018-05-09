@@ -8,8 +8,8 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Key;
 import com.rominntrenger.objects.Projectile;
-import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienGreenKey extends Enemy {
@@ -71,6 +71,11 @@ public class AlienGreenKey extends Enemy {
             3);
         keyB.setRenderLayer(RenderLayerName.HIGH_BLOCKS);
         super.destroy();
+    }
+
+    @Override
+    public Enemy createNew(Vec2 pos) {
+        return null;
     }
 
 }

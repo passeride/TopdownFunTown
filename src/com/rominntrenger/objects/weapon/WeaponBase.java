@@ -1,8 +1,8 @@
 package com.rominntrenger.objects.weapon;
 
-import javafx.scene.paint.LinearGradient;
+import java.io.Serializable;
 
-public class WeaponBase {
+public class WeaponBase implements Serializable {
 
     public char character = 'N';
 

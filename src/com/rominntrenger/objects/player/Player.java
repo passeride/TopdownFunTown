@@ -3,6 +3,7 @@ package com.rominntrenger.objects.player;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.engine.GameApplication;
+import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.physics.Collider;
@@ -17,20 +18,18 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.objects.PlayerGuiElement;
 import com.rominntrenger.objects.enemy.Enemy;
+import com.rominntrenger.objects.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public class Player extends GameObject {
-
-
     int PlayerID = 0;
     Color playerColor = Color.RED;
     int maxPlayerHealth = 100;
     int playerHealth = 100;
 
     private PlayerGuiElement gui;
-
 
     AudioPlayer hitSound;
 
@@ -57,7 +56,9 @@ public class Player extends GameObject {
     private int multiPlayerCircleRadius = 75;
     private boolean showLaser = false;
 
-    private Vec2 lookDirection = new Vec2(0,1);
+    private Vec2 lookDirection = new Vec2(0, 1);
+
+    private Weapon w;
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -70,14 +71,13 @@ public class Player extends GameObject {
         ((RomInntrenger) GameApplication.getInstance()).players.add(this);
 
         setRenderLayer(RenderLayer.RenderLayerName.PLAYER);
-        hitSound = new AudioPlayer("./assets/audio/lukasAuu.wav");
+        hitSound = new AudioPlayer("audio/lukasAuu.wav");
         hitSound.setSpatial(this);
 
         collider = new CircleCollider(this, 30);
         collider.setName("player");
         collider.setTag("UnHittable");
         collider.addInteractionLayer("Hittable");
-
 
         light2D = new Light2D(this);
 
@@ -108,29 +108,31 @@ public class Player extends GameObject {
         angularDampening = GameSettings.getDouble("player_angular_dampening");
         playerHealth = maxPlayerHealth;
 
-
         gui = new PlayerGuiElement(this);
+
+        setCurrentWeapon(new Weapon(Vec2.ZERO, new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
+
+        allwaysOnScreen = true;
     }
 
     @Override
     public void draw(GraphicsContext gc) {
         Vec2 pos = transform.getGlobalPosition();
 
-        if(true) {
+        if (true) {
             if (light2D.polygon != null) {
                 double[][] polygon = light2D.polygon;
 //                gc.save();
 //                gc.setGlobalBlendMode(BlendMode.OVERLAY);
-                gc.setFill(new Color(1, 0.7, 0.8, 0.2));
+                gc.setFill(new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.2));
                 gc.fillPolygon(polygon[0], polygon[1], polygon[0].length);
 //                gc.restore();
             }
         }
 
-
-        if(uses_controller && showLaser) {
+        if (uses_controller && showLaser) {
             double dir = getDirection().getAngleInRadians() - Math.PI / 2;
-            gc.setStroke( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
+            gc.setStroke(new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
             gc.setLineDashes(8, 10, 8, 10);
             gc.setLineWidth(5);
             gc.strokeLine(pos.getX(), pos.getY(),
@@ -140,39 +142,37 @@ public class Player extends GameObject {
 
         }
 
-        if(getPlayerID()!= 0){
-            gc.setFill( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
-            gc.fillArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius /  2,
-                multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
+        if (getPlayerID() != 0) {
+            gc.setFill(new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
+            gc.fillArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius / 2,
+                multiPlayerCircleRadius, multiPlayerCircleRadius, 0, 360, ArcType.CHORD);
 
             gc.setStroke(playerColor);
             gc.setLineWidth(3);
             gc.setLineDashes(3, 1, 3, 2);
-            gc.strokeArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius /  2,
-                multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
+            gc.strokeArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius / 2,
+                multiPlayerCircleRadius, multiPlayerCircleRadius, 0, 360, ArcType.CHORD);
         }
 
-        super.draw(gc);
 
+        super.draw(gc);
 
     }
 
     @Override
     public void update(double delta) {
         rb2.update(delta);
-        hit(0);
+//        hit(0);
 
         translate(Vec2.multiply(rb2.getVelocity(), delta));
         translate(Vec2.ZERO); // This is to update in case of intersection
 
-
-
         int playerInLight = 0;
-        for(Enemy e : Enemy.allEnemies){
-            if(light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
+        for (Enemy e : Enemy.allEnemies) {
+            if (light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
                 e.setIsSeenByPlayer(getPlayerID(), true);
                 playerInLight++;
-            }else {
+            } else {
                 e.setIsSeenByPlayer(getPlayerID(), false);
             }
         }
@@ -180,11 +180,12 @@ public class Player extends GameObject {
 
     /**
      * Will return the speed with possible modifications from pickups
+     *
      * @return
      */
-    public double getModifiedSpeed(){
+    public double getModifiedSpeed() {
         double modSpeed = speed;
-        if(currentWeapon != null && currentWeapon.getWeaponBase() != null)
+        if (currentWeapon != null && currentWeapon.getWeaponBase() != null)
             modSpeed *= currentWeapon.getWeaponBase().speedMultiplier;
 
         return modSpeed;
@@ -192,23 +193,20 @@ public class Player extends GameObject {
 
     /**
      * Used by controller input to set a laser guide for shooting direction
+     *
      * @param lookDirection
      */
-    public void lookInDirection(Vec2 lookDirection){
+    public void lookInDirection(Vec2 lookDirection) {
         this.lookDirection = lookDirection.getNormalizedVector();
-        if(lookDirection.getMagnitude() > 0.8){
-            showLaser = true;
-        }else{
-            showLaser = false;
-        }
+        showLaser = lookDirection.getMagnitude() > 0.8;
 
         // TODO: FIX SHIT
-        if (lookDirection.getMagnitude() >  0.2) {
+        if (lookDirection.getMagnitude() > 0.2) {
 //            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
             // Getting modified angular dampening
             double angularDampeningWModifiers = angularDampening;
 
-            if(currentWeapon != null && currentWeapon.getWeaponBase() != null)
+            if (currentWeapon != null && currentWeapon.getWeaponBase() != null)
                 angularDampeningWModifiers *= currentWeapon.getWeaponBase().angularDampeningMultiplier;
 
             setDirection(
@@ -220,7 +218,7 @@ public class Player extends GameObject {
                                 Vec2.add(getPosition(), lookDirection)
                             ) + 90
                         )
-                        ,angularDampeningWModifiers)
+                        , angularDampeningWModifiers)
                 )
             );
             getDirection().normalize();
@@ -257,11 +255,20 @@ public class Player extends GameObject {
 
     /**
      * Move function used when using a gamepad
+     *
      * @param direction {@link Vec2} Normalized vector for direction
-     * @param delta Time Delta
+     * @param delta     Time Delta
      */
-    public void move(Vec2 direction, double delta){
+    public void move(Vec2 direction, double delta) {
         translate(Vec2.multiply(direction, getModifiedSpeed() * delta));
+    }
+
+    /**
+     * Reloads the current weapon to its max ammo cap.
+     */
+    public void reloadCurrentWeapon() {
+        if (currentWeapon != null)
+            currentWeapon.reloadWeapon();
     }
 
     /**
@@ -295,10 +302,10 @@ public class Player extends GameObject {
         if (playerHealth <= 0) {
 //            new DeathOverlay();
             die();
-            AudioPlayer audioPlayer = new AudioPlayer("./assets/audio/Evil_Laugh.wav");
-            audioPlayer.playOnce();
-            romInntrenger.bgMusic.stop();
-            romInntrenger.bgMusic.close();
+//            AudioPlayer audioPlayer = new AudioPlayer("audio/Evil_Laugh.wav");
+//            audioPlayer.playOnce();
+//            romInntrenger.bgMusic.stop();
+//            romInntrenger.bgMusic.close();
             destroy();
         }
         hitSound.playOnce();
@@ -306,15 +313,15 @@ public class Player extends GameObject {
 
     /**
      * Heals player, but will not surpass {@link Player#maxPlayerHealth}
+     *
      * @param health
      */
     public void heal(int health) {
         playerHealth = Math.min(playerHealth + health, maxPlayerHealth);
     }
 
-
     private void die() {
-        if(currentWeapon != null)
+        if (currentWeapon != null)
             currentWeapon.destroy();
         destroy();
 //        GameEngine.getInstance().pauseGame();
@@ -324,7 +331,7 @@ public class Player extends GameObject {
     public void shoot() {
 
         if (currentWeapon != null) {
-            if(currentWeapon.shoot()) {
+            if (currentWeapon.shoot()) {
 //                rb2.addForce(Vec2.multiply(Vec2
 //                        .Vec2FromAngleInDegrees(
 //                            transform.getGlobalRotation().getAngleInDegrees() + 90),
@@ -334,21 +341,21 @@ public class Player extends GameObject {
 
     }
 
-    public int getEnemiesKilled(){
+    public int getEnemiesKilled() {
         return enemiesKilled;
     }
 
-    public void killedEnemy(){
+    public void killedEnemy() {
         enemiesKilled++;
     }
 
     @Override
     public void destroy() {
-        if(currentWeapon != null)
+        if (currentWeapon != null)
             currentWeapon.destroy();
-        if(walkCollider != null)
+        if (walkCollider != null)
             walkCollider.destroy();
-        if(gui != null)
+        if (gui != null)
             gui.destroy();
         romInntrenger.players.remove(this);
         super.destroy();
@@ -358,16 +365,13 @@ public class Player extends GameObject {
         return currentWeapon;
     }
 
-    public boolean hasWeapon(){
-        if(currentWeapon != null)
-            return true;
-        else
-            return false;
+    public boolean hasWeapon() {
+        return currentWeapon != null;
     }
 
     public void setCurrentWeapon(Weapon currentWeapon) {
-        if(this.currentWeapon != null)
-        this.currentWeapon.destroy();
+        if (this.currentWeapon != null && this.currentWeapon != currentWeapon)
+            this.currentWeapon.destroy();
         this.currentWeapon = currentWeapon;
         this.currentWeapon.setHolder(this);
         this.currentWeapon.getTransform().setParent(transform);

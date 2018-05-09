@@ -5,9 +5,6 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.util.Duration;
+
+import java.io.InputStream;
 
 public class MessageHandler extends GameObject {
 
@@ -34,12 +33,8 @@ public class MessageHandler extends GameObject {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite(""));
         allwaysOnScreen = true;
         this.setRenderLayer(RenderLayer.RenderLayerName.GUI);
-        File file = new File("assets/fonts/Pixel-Miners.otf");
-        try {
-            font = Font.loadFont(new FileInputStream(file), 40);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        InputStream is = getClass().getClassLoader().getResourceAsStream("fonts/Pixel-Miners.otf");
+        font = Font.loadFont(is, 40);
 
         resolutionX = GameSettings.getInt("game_resolution_X");
         resolutionY = GameSettings.getInt("game_resolution_Y");
@@ -105,7 +100,7 @@ public class MessageHandler extends GameObject {
     /**
      * This function will write a message to the screen  and also display a sprite
      *
-     * @param s Message to be displayed
+     * @param s      Message to be displayed
      * @param sprite Sprite to display
      */
     public void writeMessage(String s, Sprite sprite) {

@@ -1,7 +1,5 @@
 package com.bluebook.physics;
 
-import com.bluebook.engine.GameEngine;
-import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
 
@@ -12,23 +10,23 @@ public class LineSegment {
     public double d;
     public boolean isLightStopping = true;
 
-    public LineSegment(Line2D line, Vec2 source){
-            p1.position = new Vec2(line.x1, line.y1);
-            p2.position = new Vec2(line.x2, line.y2);
-            p1.segment = this;
-            p2.segment = this;
-            this.source = source;
-            calculateDistance();
-            calculateEndPointAngles();
-            setSegmentBeginning();
+    public LineSegment(Line2D line, Vec2 source) {
+        p1.position = new Vec2(line.x1, line.y1);
+        p2.position = new Vec2(line.x2, line.y2);
+        p1.segment = this;
+        p2.segment = this;
+        this.source = source;
+        calculateDistance();
+        calculateEndPointAngles();
+        setSegmentBeginning();
     }
 
-    void calculateDistance(){
+    void calculateDistance() {
         p1.dist = Math.abs(source.distance(p1.position));
         p2.dist = Math.abs(source.distance(p2.position));
     }
 
-    void calculateEndPointAngles(){
+    void calculateEndPointAngles() {
         double x = source.getX();
         double y = source.getY();
         double dx = 0.5 * (p1.position.getX() + p2.position.getX()) - x;
@@ -40,7 +38,7 @@ public class LineSegment {
 
     }
 
-    void setSegmentBeginning(){
+    void setSegmentBeginning() {
         double dAngle = p2.angle - p1.angle;
 
         if (dAngle <= -Math.PI)

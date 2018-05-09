@@ -1,13 +1,10 @@
 package com.bluebook.audio;
 
-import java.io.File;
+import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * class 'AudioLoader' is generated to handle loading of audio-files from the assets folder.
@@ -21,7 +18,7 @@ public class AudioLoader {
     private static HashMap<String, Clip> audioClips = new HashMap<>();
 
     /**
-     * loads audio-file through the path specified to the function by the use of a clip.
+     * loads audio-file through the spritePath specified to the function by the use of a clip.
      *
      * @return clip
      */
@@ -29,8 +26,13 @@ public class AudioLoader {
         if (!audioClips.containsKey(path)) {
             try {
 
-                File f = new File(path);
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+//                File f = new File(path);
+                //read audio data from whatever source (file/classloader/etc.)
+                InputStream audioSrc = AudioLoader.class.getClassLoader().getResourceAsStream(path);
+//add buffer for mark/reset support
+                InputStream bufferedIn = new BufferedInputStream(audioSrc);
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(bufferedIn);
+
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioIn);
 

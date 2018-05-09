@@ -17,10 +17,10 @@ public class Vec2 extends Point2D {
     public static final Vec2 RIGHT = new Vec2(1, 0, true);
     public static final Vec2 ZERO = new Vec2(0, 0, true);
 
-    private Vec2(double x, double y, boolean immutable){
+    private Vec2(double x, double y, boolean immutab0le) {
         this.X = x;
         this.Y = y;
-        this.immutable = false;
+        this.immutable = immutable;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Vec2 extends Point2D {
         this.Y = Y;
     }
 
-    public double getMagnitude(){
+    public double getMagnitude() {
         return Math.abs(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)));
     }
 
@@ -168,13 +168,13 @@ public class Vec2 extends Point2D {
      * Will rotate vec around rotationPoint the amout of degrees specified in angle,  and return new
      * vector
      *
-     * @param vec Vector to be rotated
+     * @param vec           Vector to be rotated
      * @param rotationPoint Point of rotation
-     * @param angle Angle in degrees to be rotated
+     * @param angle         Angle in degrees to be rotated
      * @return A new Vector
      */
     public static Vec2 rotateVectorAroundPoint(Vec2 vec, Vec2 rotationPoint,
-        double angle) {
+                                               double angle) {
         /*
         x_rotated = ((x - x_origin) * cos(angle)) - ((y_origin - y) * sin(angle)) + x_origin
         y_rotated = ((y_origin - y) * cos(angle)) - ((x - x_origin) * sin(angle)) + y_origins
@@ -193,7 +193,7 @@ public class Vec2 extends Point2D {
      * 1)
      */
     public void normalize() {
-        if(!immutable) {
+        if (!immutable) {
             double length = getLength();
             X /= length;
             Y /= length;
@@ -205,7 +205,7 @@ public class Vec2 extends Point2D {
     }
 
     public void setX(double x) {
-        if(!immutable)
+        if (!immutable)
             X = x;
     }
 
@@ -215,14 +215,14 @@ public class Vec2 extends Point2D {
 
     @Override
     public void setLocation(double x, double y) {
-        if(!immutable) {
+        if (!immutable) {
             this.X = x;
             this.Y = y;
         }
     }
 
     public void setY(double y) {
-        if(!immutable)
+        if (!immutable)
             Y = y;
     }
 

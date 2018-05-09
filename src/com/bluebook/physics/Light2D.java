@@ -2,11 +2,13 @@ package com.bluebook.physics;
 
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Light2D {
 
-    public static Light2D light;
+    public static List<Light2D> lights = new ArrayList<>();
 
     GameObject source;
 
@@ -14,11 +16,11 @@ public class Light2D {
 
     public Light2D(GameObject source) {
         this.source = source;
-        light = this;
+        lights.add(this);
     }
 
 
-    public double[][] calculateVisibility(ArrayList<LineSegment> list) throws  IllegalArgumentException{
+    public double[][] calculateVisibility(ArrayList<LineSegment> list) throws IllegalArgumentException {
 
         ArrayList<LinePoint> points = new ArrayList<>();
 
@@ -41,7 +43,7 @@ public class Light2D {
         boolean changedSegment = false;
 
 
-        for(int pass = 0; pass < 2; pass++) {
+        for (int pass = 0; pass < 2; pass++) {
             for (LinePoint lp : points) {
                 openSegments.sort((o1, o2) -> segmentInFrontOf(o1, o2, pos) ? 1 : -1);
 
@@ -61,7 +63,7 @@ public class Light2D {
                     nearestEnd = openSegments.get(0);
 
                 if (nearestStart != nearestEnd) {
-                    if(pass == 1) {
+                    if (pass == 1) {
                         outputPoints.addAll(getOutPoints(pos, beginAngle, lp.angle, nearestStart));
                     }
                     beginAngle = lp.angle;
@@ -103,7 +105,7 @@ bool pointInPolygon() {
   return oddNodes; }
      */
 
-    public boolean pointInPoly(Vec2 point){
+    public boolean pointInPoly(Vec2 point) {
         try {
             if (polygon == null)
                 return false;
@@ -130,7 +132,7 @@ bool pointInPolygon() {
                 j = i;
             }
             return oddNodes;
-        }catch(ArrayIndexOutOfBoundsException exception) {
+        } catch (ArrayIndexOutOfBoundsException exception) {
             return false;
         }
 
@@ -186,7 +188,7 @@ bool pointInPolygon() {
 
     boolean segmentInFrontOf(LineSegment a, LineSegment b, Vec2 relativePoint) {
 
-        if(a == null || b == null || relativePoint == null)
+        if (a == null || b == null || relativePoint == null)
             return false;
 
         boolean A1 = leftOf(a, interpolate(b.p1.position, b.p2.position, 0.01));

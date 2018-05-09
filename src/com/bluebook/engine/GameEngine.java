@@ -4,10 +4,10 @@ import com.bluebook.physics.CollisionThread;
 import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.threads.UpdateThread;
 import com.bluebook.util.GameObject;
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class is the main engine of the gamePane
@@ -93,7 +93,7 @@ public class GameEngine {
      * but the drawTimer will still be called
      */
     public void pauseGame() {
-        if(!isPaused) {
+        if (!isPaused) {
             new Thread(() -> {
                 isPaused = true;
                 stopUpdateThread();
@@ -114,7 +114,7 @@ public class GameEngine {
      * Resulting in parlell duplicates of {@link UpdateThread}
      */
     public void resumeGame() {
-        if(isPaused) {
+        if (isPaused) {
             /*
              * If UpdateThread calls pauseGame() and then resumeGame(), it will be duplicated and run in parralell
              * Therefore we must create a seprate thread to reinstate it. With a dealy, to let it die in a safe manner.
@@ -149,20 +149,14 @@ public class GameEngine {
      * This is used by the constructor of gameobject so it's update function is called
      */
     public synchronized void addGameObject(GameObject go) {
-//        synchronized (this) {
-            updateObjects.add(go);
-//        }
+        updateObjects.add(go);
     }
 
     /**
      * Removes the object from updateobjects, this is called during an gameobjects destruction
      */
     public synchronized void removeGameObject(GameObject go) {
-//        synchronized (this) {
-            if (updateObjects.contains(go)) {
-                updateObjects.remove(go);
-            }
-//        }
+        updateObjects.remove(go);
     }
 
     /**
@@ -185,7 +179,7 @@ public class GameEngine {
      * Will start the update thread that runs concurrently to process logic
      */
     public void startUpdateThread() {
-        if(!updateThread.isRunning()) {
+        if (!updateThread.isRunning()) {
             Thread t = new Thread(updateThread);
             t.setName("Update Thread");
             t.setDaemon(true);
@@ -203,7 +197,7 @@ public class GameEngine {
     }
 
     public void startCollisionThread() {
-        if(!collisionThread.isRunning()) {
+        if (!collisionThread.isRunning()) {
             Thread t = new Thread(collisionThread);
             t.setName("Collision Thread");
             t.setDaemon(true);

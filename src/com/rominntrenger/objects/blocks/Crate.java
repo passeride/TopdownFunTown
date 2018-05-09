@@ -7,6 +7,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.Projectile;
+import com.rominntrenger.objects.item.Item;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Crate extends Item {
@@ -24,11 +25,16 @@ public class Crate extends Item {
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-                if(other.getGameObject() instanceof Projectile) {
+                if (other.getGameObject() instanceof Projectile) {
                     destroy();
                 }
             }
         });
+    }
+
+    @Override
+    public Crate createNew(Vec2 pos) {
+        return new Crate(pos, (Vec2) direction.clone(), new Sprite(getSprite().getPath()));
     }
 
     @Override

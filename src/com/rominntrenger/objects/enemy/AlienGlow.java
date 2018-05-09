@@ -10,6 +10,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienGlow extends Enemy {
@@ -18,8 +19,8 @@ public class AlienGlow extends Enemy {
     private long prevShot = 0;
 
     public AlienGlow(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/alienGlow", 4));
-        setSize(new Vec2(1.5,1.5));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/alienGlow", 4));
+        setSize(new Vec2(1.5, 1.5));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 200;
@@ -43,14 +44,14 @@ public class AlienGlow extends Enemy {
     public void shoot() {
         //TODO: MAKE MULTIPLE BULLETS
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
         //new Vec2(transform.getLocalPosition().getX()+10, transform.getLocalPosition().getY()+10)
-        Projectile p2 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees()+90),
-            new Sprite("/projectiles/projectile_enemy_00"));
-        Projectile p3 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees()+180),
-            new Sprite("/projectiles/projectile_enemy_00"));
-        Projectile p4 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees()+270),
-            new Sprite("/projectiles/projectile_enemy_00"));
+        Projectile p2 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees() + 90),
+            new Sprite("projectiles/projectile_enemy_00"));
+        Projectile p3 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees() + 180),
+            new Sprite("projectiles/projectile_enemy_00"));
+        Projectile p4 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees() + 270),
+            new Sprite("projectiles/projectile_enemy_00"));
 
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
@@ -158,6 +159,10 @@ public class AlienGlow extends Enemy {
     public void wander(Vec2 position) {
         double x = position.getX();
         double y = position.getY();
+    }
+
+    public AlienGlow createNew(Vec2 pos) {
+        return new AlienGlow(pos);
     }
 
 }

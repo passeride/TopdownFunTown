@@ -21,7 +21,6 @@ public class RigidBody2D {
     private double friction;
     private GameObject gameObject;
 
-    //    //TODO: Replace with FALLOFF CURVE
     private double velocityThreshold;
 
     public RigidBody2D(GameObject go) {
@@ -89,8 +88,8 @@ public class RigidBody2D {
         }
 
         // Set max
-        acceleration.setX(Math.min(100,Math.min(0,acceleration.getX())));
-        acceleration.setY(Math.min(100,Math.min(0,acceleration.getY())));
+        acceleration.setX(Math.min(100, Math.min(0, acceleration.getX())));
+        acceleration.setY(Math.min(100, Math.min(0, acceleration.getY())));
 
     }
 

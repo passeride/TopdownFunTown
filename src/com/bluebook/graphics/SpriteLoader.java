@@ -1,10 +1,9 @@
 package com.bluebook.graphics;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
 import javafx.scene.image.Image;
+
+import java.io.InputStream;
+import java.util.HashMap;
 
 /**
  * Will help Sprite to load images Will also use caching of images to avoid to many reads
@@ -20,7 +19,8 @@ class SpriteLoader {
      */
     public static Image loadImage(String name) {
         if (!images.containsKey(name)) {
-            images.put(name, new Image("file:./assets/sprite/" + name + ".png"));
+
+            images.put(name, new Image(SpriteLoader.class.getClassLoader().getResourceAsStream("sprite/" + name + ".png")));
         }
         return images.get(name);
     }
@@ -44,12 +44,10 @@ class SpriteLoader {
         if (!animationImages.containsKey(name)) {
             Image[] imageArray = new Image[frameNumber];
             for (int i = 0; i < frameNumber; i++) {
-                File f = new File("./assets/sprite/" + name + "_" + i + ".png");
-                try {
-                    imageArray[i] = new Image(new FileInputStream(f));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                //File f = new File("./assets/sprite/" + name + "_" + i + ".png");
+                String path = "sprite/" + name + "_" + i + ".png";
+                InputStream ios = SpriteLoader.class.getClassLoader().getResourceAsStream(path);
+                imageArray[i] = new Image(ios);
             }
             animationImages.put(name, imageArray);
         }

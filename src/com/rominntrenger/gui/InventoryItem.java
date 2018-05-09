@@ -11,6 +11,7 @@ public class InventoryItem extends GameObject {
 
     /**
      * Constructor which adds a Key to the inventory. Adds sprite and the key's ID number
+     *
      * @param sprite
      * @param keyValue
      */

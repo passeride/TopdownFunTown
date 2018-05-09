@@ -1,5 +1,6 @@
 package com.rominntrenger.objects.FSM;
 
+import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
@@ -11,9 +12,18 @@ public class Attack implements Behaviour {
 
     public static int position = 1;
     boolean hasFled = false;
+    boolean hasScreamed = false;
 
     @Override
     public void nextBehaviour(Enemy behaviourContext) {
+
+        if (!hasScreamed) {
+            // scream
+            AudioPlayer ap = new AudioPlayer("audio/Alien_scream.wav");
+            ap.setVolume(0.2f);
+            ap.playOnce();
+            hasScreamed = true;
+        }
 
         double speed;
         double delta;
@@ -22,7 +32,7 @@ public class Attack implements Behaviour {
 
         Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(
             behaviourContext.getTransform().getGlobalPosition());
-        if(player != null) {
+        if (player != null) {
             double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
             behaviourContext.setTarget(player);
             behaviourContext
@@ -37,6 +47,7 @@ public class Attack implements Behaviour {
             }
 
             if (behaviourContext.getHealth() <= (behaviourContext.getMax_health() / 2)) {
+                hasScreamed = false;
                 if (!hasFled) {
                     hasFled = true;
                     behaviourContext.setBehaviour(Flee.position);

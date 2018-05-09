@@ -7,7 +7,7 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.Projectile;
-import com.rominntrenger.objects.player.Player;
+import com.rominntrenger.objects.item.Item;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Barrel extends Item {
@@ -25,7 +25,7 @@ public class Barrel extends Item {
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-                if(other.getGameObject() instanceof Projectile) {
+                if (other.getGameObject() instanceof Projectile) {
                     // destroy();
                     //TODO: Maybe create an explosion here?
                 }

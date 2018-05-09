@@ -4,6 +4,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.item.Item;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Table extends Item {

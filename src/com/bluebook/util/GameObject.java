@@ -10,7 +10,6 @@ import javafx.scene.canvas.GraphicsContext;
 
 /**
  * {@link GameObject} is the abstract class to be used for everything that should be renderer
- *
  */
 public abstract class GameObject {
 
@@ -66,6 +65,7 @@ public abstract class GameObject {
             sprite.draw(gr);
         }
     }
+
 
     public boolean isOnScreen() {
         if (allwaysOnScreen) {
@@ -169,7 +169,7 @@ public abstract class GameObject {
      * Will return a value from 0 -> 1.0 that is the relative X position on the screen
      */
     public double getProcentageXPosition() {
-        return position.getX() / GameSettings.getInt("game_resolution_X");
+        return transform.getGlobalPosition().getX() / GameSettings.getInt("game_resolution_X");
     }
 
     public void setSize(Vec2 scale) {

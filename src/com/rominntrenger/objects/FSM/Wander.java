@@ -30,22 +30,23 @@ public class Wander implements Behaviour {
         behaviourContext.translate(Vec2.multiply(behaviourContext.getDirection(), speed * delta));
         Player player = ((RomInntrenger) GameApplication.
             getInstance()).getClosestPlayer(behaviourContext.getTransform().getGlobalPosition());
-        if(player == null)
+        if (player == null)
             return;
         double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
         if (distance2Player <= GameSettings.getDouble("Alien_attack_distance")) {
             behaviourContext.setBehaviour(Attack.position);
         }
 
-        if((distance2Player >= GameSettings.getDouble("Alien_attack_distance")) && (
-            behaviourContext.getHealth() != health)){
+        if ((distance2Player >= GameSettings.getDouble("Alien_attack_distance")) && (
+            behaviourContext.getHealth() != health)) {
             health = behaviourContext.getHealth();
             behaviourContext.setBehaviour(Attack.position);
         }
 
 
     }
-    private void RandomMove(Enemy behaviourContext){
+
+    private void RandomMove(Enemy behaviourContext) {
         double speed;
         double delta;
         speed = behaviourContext.getSpeed();

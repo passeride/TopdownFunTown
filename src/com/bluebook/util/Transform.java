@@ -1,6 +1,7 @@
 package com.bluebook.util;
 
 import com.bluebook.camera.OrthographicCamera;
+
 import java.util.ArrayList;
 
 /**
@@ -157,9 +158,7 @@ public class Transform {
     }
 
     private void removeChild(Transform child) {
-        if (children.contains(child)) {
-            children.remove(child);
-        }
+        children.remove(child);
     }
 
 }

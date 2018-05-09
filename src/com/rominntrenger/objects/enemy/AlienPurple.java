@@ -1,16 +1,15 @@
 package com.rominntrenger.objects.enemy;
 
 
-import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienPurple extends Enemy {
@@ -23,7 +22,7 @@ public class AlienPurple extends Enemy {
      * Constructor for GameObject given position rotation and sprite
      */
     public AlienPurple(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/enemyPurple", 3));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/enemyPurple", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         //setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
@@ -47,9 +46,9 @@ public class AlienPurple extends Enemy {
 
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
         Projectile p2 = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
 
         p.getSprite().setSquareHeight(32);
         p.getSprite().setSquareWidth(32);
@@ -102,5 +101,10 @@ public class AlienPurple extends Enemy {
                 p.destroy();
             }
         });
+    }
+
+    @Override
+    public AlienPurple createNew(Vec2 pos) {
+        return new AlienPurple(pos);
     }
 }

@@ -3,13 +3,12 @@ package com.rominntrenger.objects.enemy;
 
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienGreen extends Enemy {
@@ -18,7 +17,7 @@ public class AlienGreen extends Enemy {
     private long prevShot = 0;
 
     public AlienGreen(Vec2 position) {
-        super(position, Vec2.ZERO, new AnimationSprite("/enemies/enemyGreen", 3));
+        super(position, Vec2.ZERO, new AnimationSprite("enemies/enemyGreen", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 200;
@@ -41,7 +40,7 @@ public class AlienGreen extends Enemy {
 
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
+            new Sprite("projectiles/projectile_enemy_00"));
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
 
@@ -56,7 +55,7 @@ public class AlienGreen extends Enemy {
         p.setSource(this);
 
         p.setOnCollisionListener(other -> {
-            if(other.getGameObject() != p.getSource()) {
+            if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);
@@ -74,6 +73,11 @@ public class AlienGreen extends Enemy {
     public void wander(Vec2 position) {
         double x = position.getX();
         double y = position.getY();
+    }
+
+    @Override
+    public AlienGreen createNew(Vec2 pos) {
+        return new AlienGreen(pos);
     }
 
 }

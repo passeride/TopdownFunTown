@@ -5,14 +5,11 @@ import com.bluebook.renderer.CanvasRenderer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.sun.javafx.geom.Line2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.PathElement;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 /**
  * The Collider class will be the superclass for different types of colliders, mainly {@link
@@ -171,9 +168,7 @@ public abstract class Collider {
      * This will remove an interactcionLayer
      */
     public void removeInteractcionLayer(String tagName) {
-        if (interactionLayer.contains(tagName)) {
-            interactionLayer.remove(tagName);
-        }
+        interactionLayer.remove(tagName);
     }
 
     /**

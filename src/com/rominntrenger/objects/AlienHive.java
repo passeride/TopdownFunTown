@@ -1,33 +1,29 @@
 package com.rominntrenger.objects;
 
+import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
-import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.objects.enemy.AlienExplode;
-import com.rominntrenger.objects.enemy.AlienGreen;
-import com.rominntrenger.objects.enemy.AlienPurple;
+import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.objects.enemy.AlienWorm;
 import com.rominntrenger.objects.enemy.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 
+
 public class AlienHive extends Enemy {
-
-    private double spawnRate = 0.1;
-    private long previousSPawn = 0l;
-
-    private int max_enemies = 25;
-
-    private int currency = 150;
-
+    private double spawnRate = GameSettings.getDouble("hiveSpawnRate");
+    private int max_enemies = GameSettings.getInt("maxAliensfromHive");
+    private long previousSpawn = 0l;
     private boolean isMotherHive = false;
-
     private boolean isActive = true;
+    private int enemyNum = 0;
 
-    public AlienHive(Vec2 position, boolean isMotherHive){
-        super(position, Vec2.ZERO, new Sprite("projectiles/projectileBlue"));
+    public AlienHive(Vec2 position, boolean isMotherHive) {
+        super(position, Vec2.ZERO, new Sprite("enemies/nestBlueBig_0"));
 
         this.isMotherHive = isMotherHive;
+        this.spawnRate = this.spawnRate * 2;
+        setup();
 
     }
 
@@ -35,9 +31,12 @@ public class AlienHive extends Enemy {
      * Constructor for GameObject given position rotation and sprite
      */
     public AlienHive(Vec2 position) {
-        super(position, Vec2.ZERO, new Sprite("projectiles/projectileRed"));
+        super(position, Vec2.ZERO, new Sprite("enemies/nestBlueSmall_0"));
+        setup();
+    }
 
-        setSize(new Vec2(3, 3));
+    private void setup() {
+        setSize(new Vec2(5, 5));
 
         WaveManager.hives.add(this);
 
@@ -46,44 +45,42 @@ public class AlienHive extends Enemy {
         health = 0;
 
         collider.setOnCollisionListener(null);
-
     }
 
-
-
-    public void spawn(int i){
-        if(isActive) {
-            if (System.currentTimeMillis() - previousSPawn > spawnRate * 1000.0
-                && Enemy.allEnemies.size() < max_enemies) {
-                if(i <= 2) {
-                    new AlienGreen(getPosition());
-                }else  if(i <= 5){
-                    if(Math.random() >= 0.5){
-                        new AlienGreen(getPosition());
-                    }else{
-                        new AlienPurple(getPosition());
-                    }
-                }else{
-                    new AlienGreen(getPosition());
-                    new AlienPurple(getPosition());
-                    new AlienExplode(getPosition());
-                }
-                previousSPawn = System.currentTimeMillis();
+    public void spawn(int i) {
+        if (isActive) {
+            if (System.currentTimeMillis() - previousSpawn > spawnRate * 1000.0
+                && enemyNum < max_enemies) {
+                ((RomInntrenger) GameApplication.getInstance()).addRandomEnemy.randomElement().spawn(this.getPosition());
+                previousSpawn = System.currentTimeMillis();
+                enemyNum++;
             }
         }
     }
 
     @Override
+    public AlienWorm createNew(Vec2 pos) {
+        return null;
+    }
+
+    @Override
     public void destroy() {
         isActive = false;
-        setSprite(new Sprite("projectiles/projectileGreen"));
+        if (isMotherHive)
+            setSprite(new Sprite("enemies/nestBlueBig_1"));
+        else
+            setSprite(new Sprite("enemies/nestBlueSmall_1"));
 //        super.destroy();
     }
 
-    public void reset(){
+    public void reset() {
         isActive = true;
         health = max_health;
-        setSprite(new Sprite("projectiles/projectileRed"));
+        enemyNum = 0;
+        if (isMotherHive)
+            setSprite(new Sprite("enemies/nestBlueBig_0"));
+        else
+            setSprite(new Sprite("enemies/nestBlueSmall_0"));
     }
 
     @Override
@@ -93,7 +90,6 @@ public class AlienHive extends Enemy {
 
     @Override
     public void update(double delta) {
-//        super.update(delta);
 
     }
 
@@ -101,4 +97,11 @@ public class AlienHive extends Enemy {
         return isActive;
     }
 
+    public int getEnemyNum() {
+        return enemyNum;
+    }
+
+    public void setEnemyNum(int enemyNum) {
+        this.enemyNum = enemyNum;
+    }
 }

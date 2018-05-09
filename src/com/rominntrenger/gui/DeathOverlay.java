@@ -16,7 +16,7 @@ public class DeathOverlay extends GameObject {
      * Constructor for GameObject given position rotation and sprite
      */
     public DeathOverlay() {
-        super(Vec2.ZERO, Vec2.ZERO, new Sprite("../pictures/getGood"));
+        super(Vec2.ZERO, Vec2.ZERO, new Sprite("pictures/getGood"));
         allwaysOnScreen = true;
         setRenderLayer(RenderLayerName.GUI);
     }
@@ -27,7 +27,7 @@ public class DeathOverlay extends GameObject {
         sprite.drawGUI(gc, Vec2.ZERO, 1920, 1080);
         gc.setStroke(Color.WHITESMOKE);
         String text = new String("Press R to restart or P to reload from checkpoint");
-        gc.strokeText(text, GameApplication.getInstance().getScreenWidth()/2, GameApplication.getInstance().getScreenHeight()/1.3);
+        gc.strokeText(text, GameApplication.getInstance().getScreenWidth() / 2, GameApplication.getInstance().getScreenHeight() / 1.3);
         gc.setFont(Font.font("Arial", 50));
         //TODO: add text like 'press R to restart', and code the functionality
 

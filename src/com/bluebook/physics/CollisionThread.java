@@ -4,7 +4,7 @@ import com.bluebook.engine.GameEngine;
 
 /**
  * This will check for collisions and notify
- *
+ * <p>
  * And will go use FrameRate variable to
  */
 public class CollisionThread implements Runnable {

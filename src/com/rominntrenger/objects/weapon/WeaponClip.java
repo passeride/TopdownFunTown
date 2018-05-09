@@ -1,6 +1,8 @@
 package com.rominntrenger.objects.weapon;
 
-public class WeaponClip {
+import java.io.Serializable;
+
+public class WeaponClip implements Serializable {
 
     public char character = 'S';
     public int ammoCap = 20;

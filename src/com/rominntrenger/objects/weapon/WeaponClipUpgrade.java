@@ -1,15 +1,12 @@
 package com.rominntrenger.objects.weapon;
 
-import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.Collider;
-import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -20,9 +17,8 @@ import javafx.scene.text.Font;
 public class WeaponClipUpgrade extends GameObject {
 
 
-
-
     WeaponClip wc;
+
     /**
      * Constructor for GameObject given position rotation and sprite
      */
@@ -34,10 +30,10 @@ public class WeaponClipUpgrade extends GameObject {
         collider.setTag("Upgrade");
         collider.addInteractionLayer("UnHittable");
         collider.setOnCollisionListener((Collider other) -> {
-            if(other.getGameObject() instanceof Player){
-                Player player = ((Player)other.getGameObject());
+            if (other.getGameObject() instanceof Player) {
+                Player player = ((Player) other.getGameObject());
                 Weapon w = player.getCurrentWeapon();
-                if(w != null)
+                if (w != null)
                     w.setWeaponClip(wc);
                 destroy();
             }
@@ -61,6 +57,6 @@ public class WeaponClipUpgrade extends GameObject {
         gc.fillRect(pos.getX() - square.getX() / 2, pos.getY() - square.getY() / 2, square.getX(), square.getY());
         gc.setFont(new Font(square.getX()));
         gc.setFill(Color.BLACK);
-        gc.fillText(wc.character+"", pos.getX(), pos.getY());
+        gc.fillText(wc.character + "", pos.getX(), pos.getY());
     }
 }

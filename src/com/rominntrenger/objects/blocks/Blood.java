@@ -1,7 +1,6 @@
 package com.rominntrenger.objects.blocks;
 
 import com.bluebook.graphics.Sprite;
-import com.bluebook.renderer.RenderLayer;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
@@ -23,11 +22,11 @@ public class Blood extends GameObject {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
             new Sprite("effects/blood"));
         setRenderLayer(RenderLayerName.LOW_BLOCKS);
-        this.bloods.add(this);
+        bloods.add(this);
     }
 
-    public static void clearAll(){
-        for(Blood b : bloods){
+    public static void clearAll() {
+        for (Blood b : bloods) {
             b.destroy();
         }
     }

@@ -1,25 +1,20 @@
 package com.rominntrenger.objects.health;
 
-import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.BoxCollider;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.listeners.OnCollisionListener;
-import com.bluebook.renderer.RenderLayer;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.gui.Inventory;
-import com.rominntrenger.gui.InventoryItem;
-import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
-import com.rominntrenger.messageHandling.MessageHandler;
-import com.rominntrenger.objects.blocks.Item;
+import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 
 public class HealingItem extends Item implements Describable {
     private boolean smallSize;
-    private int healthValue = 10; // TODO: STANDARD SMALL BOI? BIG BOI? BOIZ
+    private int healthValue = GameSettings.getInt("smallHeal_value");
 
     /**
      * Constructor for GameObject given position rotation and sprite
@@ -28,7 +23,8 @@ public class HealingItem extends Item implements Describable {
         super(position, direction, sprite);
         this.smallSize = smallSize;
 
-        //TODO: LUKAS FIKS TIL SETTING IF BIG BOY = 20 VALUE OR SOMTHNG
+        if (!smallSize)
+            healthValue = GameSettings.getInt("bigHeal_value");
 
         setSize(new Vec2(1, 1));
         setRenderLayer(RenderLayerName.HIGH_BLOCKS);
@@ -46,8 +42,14 @@ public class HealingItem extends Item implements Describable {
                 collider.destroy();
             }
         });
+
     }
-    
+
+    @Override
+    public HealingItem createNew(Vec2 pos) {
+        return new HealingItem(pos, (Vec2) direction.clone(), new Sprite(getSprite().getPath()), smallSize);
+    }
+
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);

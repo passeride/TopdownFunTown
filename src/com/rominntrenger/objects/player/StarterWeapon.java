@@ -2,6 +2,7 @@ package com.rominntrenger.objects.player;
 
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vec2;
+import com.rominntrenger.objects.weapon.Weapon;
 
 /**
  * This is the default weapon the player starts with

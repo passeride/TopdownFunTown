@@ -7,7 +7,8 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.player.RedRifle;
+import com.rominntrenger.objects.weapon.Weapon;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -28,14 +29,15 @@ public class StateHandling {
 
     /**
      * Saves the current gamestate in different files as serialization wasent functioning correctly
+     *
      * @param waveNumber
      * @param playerHealth
      * @param playerPositionX
      * @param playerPositionY
      * @param playerDirectionInDegrees
      */
-    public void saveGame(int waveNumber, int playerHealth, double playerPositionX, double playerPositionY, double playerDirectionInDegrees){
-        try{
+    public void saveGame(int waveNumber, int playerHealth, double playerPositionX, double playerPositionY, double playerDirectionInDegrees) {
+        try {
             FileOutputStream saveWaveNumberF = new FileOutputStream("./saveFiles/SaveWaveNumber.sav");
             ObjectOutputStream saveWaveNumber = new ObjectOutputStream(saveWaveNumberF);
 
@@ -68,8 +70,8 @@ public class StateHandling {
         }
     }
 
-    public int loadWaveNumber(){
-        try{
+    public int loadWaveNumber() {
+        try {
             FileInputStream saveFile = new FileInputStream("./saveFiles/SaveWaveNumber.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             waveNumber = (int) save.readObject();
@@ -77,17 +79,17 @@ public class StateHandling {
             System.out.println("waveNumber : " + waveNumber);
 
 
-
             return waveNumber;
 
-        }catch (Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
-        if(waveNumber == 0)
+        if (waveNumber == 0)
             waveNumber = 1;
         return waveNumber;
     }
-    public int loadPlayerHealth(Player player){
+
+    public int loadPlayerHealth(Player player) {
         try {
             FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerHealth.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
@@ -98,15 +100,16 @@ public class StateHandling {
 
             return playerHealth;
 
-        }catch (Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
-        if(playerHealth <= 0)
+        if (playerHealth <= 0)
             playerHealth = 50;
-        return  playerHealth;
+        return playerHealth;
     }
-    public double loadPlayerPositionX(){
-        try{
+
+    public double loadPlayerPositionX() {
+        try {
             FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerPositionX.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerPositionX = (double) save.readObject();
@@ -114,14 +117,15 @@ public class StateHandling {
             System.out.println("playerPosX : " + playerPositionX);
             return playerPositionX;
 
-        }catch (Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
         return playerPositionX;
 
     }
-    public double loadPlayerPositionY(){
-        try{
+
+    public double loadPlayerPositionY() {
+        try {
             FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerPositionY.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerPositionY = (double) save.readObject();
@@ -129,14 +133,15 @@ public class StateHandling {
             System.out.println("playerposY : " + playerPositionY);
             return playerPositionY;
 
-        }catch (Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
         return playerPositionY;
 
     }
-    public double loadPlayerDirectionInDegrees(Player player){
-        try{
+
+    public double loadPlayerDirectionInDegrees(Player player) {
+        try {
             FileInputStream saveFile = new FileInputStream("./saveFiles/SavePlayerDirectionInDegrees.sav");
             ObjectInputStream save = new ObjectInputStream(saveFile);
             playerDirectionInDegrees = (double) save.readObject();
@@ -145,19 +150,19 @@ public class StateHandling {
             save.close();
             System.out.println("player in degrees : " + playerDirectionInDegrees);
             return playerDirectionInDegrees;
-        }catch (Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
         return playerDirectionInDegrees;
     }
 
-    public void setPlayerPositionFromLoadFile(StateHandling stateHandling, Player player){
+    public void setPlayerPositionFromLoadFile(StateHandling stateHandling, Player player) {
         double posX = stateHandling.loadPlayerPositionX();
         double posY = stateHandling.loadPlayerPositionY();
         player.setPosition(new Vec2(posX, posY));
     }
 
-    public void setAllLoadData(StateHandling stateHandling){
+    public void setAllLoadData(StateHandling stateHandling) {
         // Pause Game
         GameEngine.getInstance().pauseGame();
         RomInntrenger romInntrenger = (RomInntrenger) RomInntrenger.getInstance();
@@ -165,9 +170,9 @@ public class StateHandling {
 
         // Resuming player
         Player player = new Player(PlayerSpawn.position, Vec2.ZERO,
-            new AnimationSprite("/friendlies/character", 4), 0);
-        player.setCurrentWeapon(new RedRifle(Vec2.ZERO,
-            new AnimationSprite("/friendlies/weaponR", 2), Vec2.ZERO));
+            new AnimationSprite("friendlies/character", 4), 0);
+        player.setCurrentWeapon(new Weapon(Vec2.ZERO,
+            new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
         player.setPlayerID(0);
         player.setPlayerColor(romInntrenger.playerColor[0]);
 

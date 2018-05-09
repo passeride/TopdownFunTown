@@ -1,11 +1,8 @@
 package com.rominntrenger.objects;
 
-import com.bluebook.engine.GameApplication;
-import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

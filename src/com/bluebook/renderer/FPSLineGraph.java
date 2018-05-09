@@ -2,10 +2,11 @@ package com.bluebook.renderer;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.HitDetectionHandler;
-import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
 
 /**
  * used for debug drawing a graph of fps
@@ -71,8 +72,6 @@ public class FPSLineGraph {
         gc.fillText("Col_FPS: " + GameEngine.getInstance().collision_FPS, X, Y + height + 20);
         gc.fillText("    Col_num:" + HitDetectionHandler.getInstance().colliders.size(), X,
             Y + height + 40);
-        gc.fillText("    Ray_num:" + HitDetectionHandler.getInstance().raycasts.size(), X,
-            Y + height + 60);
 
         gc.fillText("Update_FPS: " + GameEngine.getInstance().update_FPS, X, Y + height + 100);
 

@@ -11,5 +11,4 @@ public class LinePoint {
     double dist;
 
 
-
 }

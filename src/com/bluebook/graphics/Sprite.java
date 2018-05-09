@@ -33,19 +33,21 @@ public class Sprite {
      * @param name relative name to asset
      */
     public Sprite(String name) {
-        loadImage(name);
+        if (!name.equals(""))
+            loadImage(name);
         this.path = name;
     }
 
     public Sprite(String name, Transform origin) {
-        loadImage(name);
+        if (!name.equals(""))
+            loadImage(name);
         this.origin = origin;
         this.path = name;
 
 
     }
 
-    public void reloadImage(){
+    public void reloadImage() {
         img = SpriteLoader.loadImage(path);
     }
 
@@ -76,7 +78,6 @@ public class Sprite {
                 img);
         }
     }
-
 
 
     public void draw(GraphicsRenderer gc, Vec2 position, Vec2 angle) {
@@ -127,7 +128,7 @@ public class Sprite {
      * Will draw a sprite not relative to world, but on screen
      *
      * @param position is a prosentage of the screen
-     * @param scale is width relative to normal square size
+     * @param scale    is width relative to normal square size
      */
     public void drawGUIProsentage(GraphicsContext gc, Vec2 position, Vec2 scale) {
         Vec2 scaleVec = GameSettings.getSquareScale();
@@ -163,7 +164,7 @@ public class Sprite {
      * Will draw a sprite not relative to world, but on screen It will draw from TOP LEFT Courner
      *
      * @param position Will be the pixelPosition of gameScreen (1920x1080)
-     * @param scale is width relative to normal square size
+     * @param scale    is width relative to normal square size
      */
     public void drawGUI(GraphicsContext gc, Vec2 position, Vec2 scale) {
         Vec2 scaleVec = GameSettings.getSquareScale();
@@ -200,7 +201,6 @@ public class Sprite {
 
         scaledSquareWidth = squareWidth;
         scaledSquareHeight = squareHeight;
-
 
 
         if (isRotated) {
