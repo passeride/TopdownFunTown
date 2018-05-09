@@ -121,7 +121,10 @@ public class Weapon extends GameObject {
 
             });
             return true;
-        } else
+        } else if(ammoRemaining <= 0){
+            reloadWeapon();
+            return false;
+        }else
             return false;
     }
 

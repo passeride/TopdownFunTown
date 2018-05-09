@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is called from {@link CollisionThread} and handles every instance of {@link
@@ -151,7 +152,8 @@ public class HitDetectionHandler {
 
     private void doRaycasts() {
         synchronized (this) {
-            for (Light2D light : Light2D.lights)
+            List<Light2D> lights = Light2D.lights;
+            for (Light2D light : lights)
                 if (DO_SHADOW_SWEEP) {
                     Vec2 cam = OrthographicCamera.getOffset();
                     Vec2 screen = GameSettings.getScreen();

@@ -18,8 +18,10 @@ import com.rominntrenger.objects.PlayerSpawn;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.blocks.Blood;
+import com.rominntrenger.objects.blocks.Soot;
 import com.rominntrenger.objects.enemy.EnemyRandomizerToken;
 import com.rominntrenger.objects.enemy.EnemyRandomizerToken.EnemyType;
+import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.item.ItemRandomizerToken;
 import com.rominntrenger.objects.item.ItemRandomizerToken.ItemType;
 import com.rominntrenger.objects.player.Player;
@@ -166,6 +168,8 @@ public class RomInntrenger extends GameApplication {
         players.clear();
         Projectile.clearAllProjectiles();
         Explotion.clearAllExplotions();
+        Item.removeAllItems();
+        Soot.clearAll();
         WaveManager.getInstance().clearGamestate();
         Blood.clearAll();
         cam.setX(0);
@@ -258,7 +262,7 @@ public class RomInntrenger extends GameApplication {
                     }
 
                     if (player.hasWeapon()) {
-                        if (input.isMouseButton0Pressed()) {
+                        if (input.isMouseButton0()) {
                             animationSprite.setPlaying(true);
                             if (player.getCurrentWeapon() != null) {
                                 if (input.isMouseButton0Pressed()) {
