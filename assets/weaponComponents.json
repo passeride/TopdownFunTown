@@ -23,35 +23,35 @@
   "barrels": [
     {
       "character": "N",
-      "spread": 20.0,
+      "spread": 5.0,
       "speedMultiplier": 1.2
     },{
       "character": "S",
-      "spread": 10.0,
+      "spread": 15.0,
       "speedMultiplier": 1.2
     },{
       "character": "P",
-      "spread": 15.0,
+      "spread": 10.0,
       "speedMultiplier": 1.2
     }
   ],
   "bases": [
     {
       "character": "N",
-      "dmgMultiplier": 1.2,
-      "shootInterval": 0.3,
+      "dmgMultiplier": 1.6,
+      "shootInterval": 0.04,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.1
     },{
       "character": "K",
-      "dmgMultiplier": 1.2,
-      "shootInterval": 0.3,
+      "dmgMultiplier": 1.5,
+      "shootInterval": 0.07,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.13
     },{
       "character": "L",
-      "dmgMultiplier": 1.2,
-      "shootInterval": 0.3,
+      "dmgMultiplier": 1.4,
+      "shootInterval": 0.1,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.06
     }

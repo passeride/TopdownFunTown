@@ -5,10 +5,11 @@ import com.bluebook.util.Vec2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Light2D {
 
-    public static List<Light2D> lights = new ArrayList<>();
+    public static List<Light2D> lights = new CopyOnWriteArrayList<>();
 
     GameObject source;
 
@@ -17,6 +18,10 @@ public class Light2D {
     public Light2D(GameObject source) {
         this.source = source;
         lights.add(this);
+    }
+
+    public void destroy(){
+        lights.remove(this);
     }
 
 

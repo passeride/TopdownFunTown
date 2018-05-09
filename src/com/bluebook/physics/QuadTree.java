@@ -224,20 +224,20 @@ public class QuadTree {
                     gc.strokeLine(x + w, y, x + w, y + h);
                     gc.setFill(Color.WHITE);
 
-                    gc.setFill(Color.RED);
-                    for (Collider go : colliders) {
-
-                        Vec2 goPoss = go.getPosition();
-
-                        gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
-
-                        if (go.getGameObject() instanceof Player) {
-                            gc.setStroke(Color.PURPLE);
-                            gc.strokeRect(goPoss.getX() - colliderQueryWidth / 2,
-                                goPoss.getY() - colliderQueryHeight / 2, colliderQueryWidth,
-                                colliderQueryWidth);
-                        }
-                    }
+//                    gc.setFill(Color.RED);
+//                    for (Collider go : colliders) {
+//
+//                        Vec2 goPoss = go.getPosition();
+//
+//                        gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
+//
+//                        if (go.getGameObject() instanceof Player) {
+//                            gc.setStroke(Color.PURPLE);
+//                            gc.strokeRect(goPoss.getX() - colliderQueryWidth / 2,
+//                                goPoss.getY() - colliderQueryHeight / 2, colliderQueryWidth,
+//                                colliderQueryWidth);
+//                        }
+//                    }
                 }
             }
         }
