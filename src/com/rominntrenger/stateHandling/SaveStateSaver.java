@@ -21,7 +21,6 @@ public class SaveStateSaver {
     }
 
     public static void save(RomInntrenger rom) {
-//        GameEngine.getInstance().pauseGame();
 
         MetaDAO meta = new MetaDAO();
         for (Player p : rom.players) {
@@ -34,14 +33,12 @@ public class SaveStateSaver {
             new FileOutputStream(new File("./myFile.data")))) {
             // no need to specify members individually
             oos.writeObject(meta);
-            System.out.println("Saved");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        GameEngine.getInstance().resumeGame();
 
     }
 

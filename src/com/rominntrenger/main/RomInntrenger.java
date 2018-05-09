@@ -25,19 +25,22 @@ import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.item.ItemRandomizerToken;
 import com.rominntrenger.objects.item.ItemRandomizerToken.ItemType;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.weapon.*;
+import com.rominntrenger.objects.weapon.Weapon;
+import com.rominntrenger.objects.weapon.WeaponBarrel;
+import com.rominntrenger.objects.weapon.WeaponBase;
+import com.rominntrenger.objects.weapon.WeaponClip;
+import com.rominntrenger.objects.weapon.WeaponComponentGSONHandler;
+import com.rominntrenger.objects.weapon.WeaponComponentHolderDAO;
 import com.rominntrenger.stateHandling.SaveStateLoader;
 import com.rominntrenger.stateHandling.SaveStateSaver;
-import com.rominntrenger.stateHandling.StateHandling;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RomInntrenger extends GameApplication {
 
@@ -70,7 +73,6 @@ public class RomInntrenger extends GameApplication {
     MessageHandler msh;
     DeathOverlay deathOverlay;
     GamepadInput gi;
-    StateHandling stateHandling;
 
     @Override
     public void start(Stage primaryStage) {
@@ -84,11 +86,8 @@ public class RomInntrenger extends GameApplication {
 
 
         if (GameSettings.getBoolean("start_menu")) {
-            System.out.println("STARTMENU");
             menu = new Menu(primaryStage);
             menu.callMenu();
-        } else {
-//            callGame(primaryStage);
         }
         primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.F));
     }
@@ -98,10 +97,6 @@ public class RomInntrenger extends GameApplication {
         super.onLoad();
         setUp();
         spawnPlayers();
-
-        // testing
-
-
         WaveManager.getInstance();
 
     }
@@ -145,7 +140,6 @@ public class RomInntrenger extends GameApplication {
                     new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
                 p.setPlayerColor(playerColor[i]);
 
-                stateHandling = new StateHandling();
             }
         } else {
             Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
@@ -154,7 +148,6 @@ public class RomInntrenger extends GameApplication {
                 new AnimationSprite("friendlies/weaponR", 2), Vec2.ZERO));
             p.setPlayerColor(playerColor[0]);
 
-            stateHandling = new StateHandling();
         }
     }
 
@@ -207,7 +200,6 @@ public class RomInntrenger extends GameApplication {
                 if (gi.getRightJoystick(playerID).getMagnitude() > 0.01) {
                     player.lookInDirection(gi.getRightJoystick(playerID));
                 } else if (gi.getLeftJoistick(playerID).getMagnitude() > 0.01) {
-//                    player.lookInDirection(gi.getLeftJoistick(playerID));
                 }
 
                 if (player.hasWeapon()) {
@@ -297,33 +289,25 @@ public class RomInntrenger extends GameApplication {
 
 
         if (input.isKeyPressed(KeyCode.UP)) {
-            System.out.println("Players is now (ROM) " + players.size());
             SaveStateSaver.save(this);
         }
 
         if (input.isKeyPressed(KeyCode.DOWN)) {
-            System.out.println("Players is now (ROM) " + players.size());
             SaveStateLoader.loadPreviousSave(this);
         }
 
         if (players.size() == 0) {
-            //Player player = players.get(0);
-//            System.out.println("ZERO PLAYERS");
+
             if (deathOverlay == null) {
                 deathOverlay = new DeathOverlay();
                 if (evilLaughAP == null) {
                     evilLaughAP = new AudioPlayer("audio/Evil_Laugh.wav");
                     evilLaughAP.playOnce();
-//                    evilLaughAP.close();
                     bgMusic.stop();
-//                    bgMusic.close();
                 }
             }
             if (input.isKeyPressed(KeyCode.P)) {
-//                stateHandling.setAllLoadData(stateHandling);
                 SaveStateLoader.loadPreviousSave(this);
-                System.out.println("P trykket");
-                //player.setAlive(true);
                 deathOverlay.destroy();
                 deathOverlay = null;
                 bgMusic.playLoop();

@@ -28,7 +28,6 @@ public class Menu extends Parent {
 
 
     public Menu(Stage primaryStage) {
-        //singleton = this;
         this.primaryStage = primaryStage;
     }
 
@@ -39,7 +38,6 @@ public class Menu extends Parent {
         root.setPrefSize(1920, 1080);
 
         InputStream is = null;
-        //             is = Files.newInputStream(Paths.get("/pictures/bg.gif"));
         is = getClass().getClassLoader().getResourceAsStream("sprite/pictures/bg.gif");
         System.out.println(is);
         image = new Image(is);
@@ -56,7 +54,6 @@ public class Menu extends Parent {
             backgroundImage.setVisible(true);
         else {
             backgroundImage.setVisible(false);
-            System.out.println("i if test");
         }
 
         gameMenu = new GameMenu(primaryStage);
@@ -68,15 +65,6 @@ public class Menu extends Parent {
         keyBoardInput();
 
         primaryStage.setScene(scene);
-//         primaryStage.show();
-
-         /*if(GameSettings.getBoolean("start_menu")) {
-             try {
-                 GameApplication.getInstance().callGame(primaryStage);
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-         }*/
     }
 
     public void keyBoardInput() {
@@ -99,35 +87,7 @@ public class Menu extends Parent {
             }
         });
     }
-
-    public boolean isSTART_MENU() {
-        return START_MENU;
-    }
-
-    public void setSTART_MENU(boolean START_MENU) {
-        this.START_MENU = START_MENU;
-    }
-
-    public boolean isBackgroundImageVisible() {
-        return isBackgroundImageVisible;
-    }
-
-    public void setBackgroundImageVisible(boolean backgroundImageVisible) {
-        backgroundImage.setVisible(false);
-
-        System.out.println("i funksjon" + isBackgroundImageVisible);
-    }
-
-    public void setRoot(Pane root) {
-        this.root = root;
-    }
-
     public Pane getRoot() {
         return root;
     }
-
-    //        this.stage = primaryStage;
-
-    //loadFXML(primaryStage);
-
 }

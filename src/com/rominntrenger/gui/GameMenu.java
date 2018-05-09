@@ -71,24 +71,12 @@ public class GameMenu extends Parent {
             fadeTransition.setFromValue(1);
             fadeTransition.setToValue(0);
             fadeTransition.setOnFinished(evt -> setVisible(false));
-//                GameApplication.getInstance().menu.setSTART_MENU(false);
-//                GameApplication.getInstance().menu.setBackgroundImageVisible(false);
-//                primaryStage.setScene(scene);
-//                primaryStage.show();
-
             fadeTransition.play();
-
-//                GameApplication.getInstance().getStage().getScene().setRoot(GameApplication.getInstance().getStage().getScene().getRoot());
-            try {
+           try {
                 GameApplication.getInstance().callGame(primaryStage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
-
-        saveButton = new MenuButton("SAVE");
-        saveButton.setOnMouseClicked(event -> {
-
         });
 
         restartButton = new MenuButton("RESTART");
@@ -188,18 +176,13 @@ public class GameMenu extends Parent {
                 FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 float range = gainControl.getMaximum() - gainControl.getMinimum();
                 float gain = (range * (float) soundSlider.getValue()) + gainControl.getMinimum();
-                System.out.println("Volum er: " + gain + " i DB");
                 volume.setValue((gain));
             }
             soundValue.setText(((int) ((double) new_val * 100)) + "");
         });
 
-
-        videoButton = new MenuButton("VIDEO");
-        goreButton = new MenuButton("GORE");
-
-        menu0.getChildren().addAll(resumeButton, saveButton, optionsButton, exitButton);
-        menu1.getChildren().addAll(backButtonMainMenu, soundButton, videoButton, goreButton);
+        menu0.getChildren().addAll(resumeButton, optionsButton, exitButton);
+        menu1.getChildren().addAll(backButtonMainMenu, soundButton);
         volDisplay.getChildren().addAll(soundCaption, soundSlider, soundValue);
         menu2.getChildren().addAll(backButtonSoundMenu, volDisplay);
     }

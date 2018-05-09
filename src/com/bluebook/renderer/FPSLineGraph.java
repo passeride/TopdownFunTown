@@ -94,10 +94,11 @@ public class FPSLineGraph {
         return point1 + alpha * (point2 - point1);
     }
 
+    @SuppressWarnings("unchecked")
     public void addFPS(double FPS) {
         fpsArray.add(FPS);
         if (fpsArray.size() > pointsOnGraph) {
-            ArrayList<Double> tmp = (ArrayList<Double>) fpsArray.clone();
+            @SuppressWarnings("unchecked") ArrayList<Double> tmp = (ArrayList<Double>) fpsArray.clone();
             fpsArray.clear();
             fpsArray.addAll(tmp.subList(tmp.size() - pointsOnGraph, tmp.size()));
         }

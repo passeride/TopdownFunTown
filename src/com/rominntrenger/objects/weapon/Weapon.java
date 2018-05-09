@@ -96,9 +96,6 @@ public class Weapon extends GameObject {
             p.getCollider().addInteractionLayer("Hittable");
             p.getCollider().addInteractionLayer("Walk");
             p.setOnCollisionListener(other -> {
-                System.out.println(other.getTag() + " CLASS: " + other.getGameObject().getClass().toString());
-                System.out.println("MyHolderClass: " + holder.getClass().toString());
-                System.out.println("Equals? : " + (other.getGameObject() == holder));
                 if (other.getGameObject() instanceof Player && other.getGameObject() != holder) {
                     Player player = (Player) other.getGameObject();
                     player.hit(alteredDmg);

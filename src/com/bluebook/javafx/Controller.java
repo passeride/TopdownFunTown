@@ -15,7 +15,6 @@ public class Controller implements Initializable {
     @FXML
     public Canvas canvas;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GameSettings.SCREEN_HEIGHT = (int) canvas.getHeight();
@@ -25,9 +24,7 @@ public class Controller implements Initializable {
 
         GameApplication ga = GameApplication.getInstance();
         GameApplication.X_scale.set(GameSettings.getInt("game_resolution_X") / ga.getScreenWidth());
-        //Y_scale = getScreenHeight() / Integer.parseInt(loadedSettings.get("game_resolution_Y"));
         GameApplication.Y_scale.set(GameSettings.getInt("game_resolution_Y") / ga.getScreenHeight());
-
 
         canvas.scaleXProperty().bindBidirectional(GameApplication.X_scale);
         canvas.scaleYProperty().bindBidirectional(GameApplication.Y_scale);
