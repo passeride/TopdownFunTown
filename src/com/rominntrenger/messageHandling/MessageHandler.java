@@ -5,7 +5,6 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import java.io.InputStream;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.util.Duration;
+
+import java.io.InputStream;
 
 public class MessageHandler extends GameObject {
 
@@ -99,7 +100,7 @@ public class MessageHandler extends GameObject {
     /**
      * This function will write a message to the screen  and also display a sprite
      *
-     * @param s Message to be displayed
+     * @param s      Message to be displayed
      * @param sprite Sprite to display
      */
     public void writeMessage(String s, Sprite sprite) {

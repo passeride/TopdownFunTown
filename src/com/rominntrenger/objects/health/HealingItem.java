@@ -23,7 +23,7 @@ public class HealingItem extends Item implements Describable {
         super(position, direction, sprite);
         this.smallSize = smallSize;
 
-        if(!smallSize)
+        if (!smallSize)
             healthValue = GameSettings.getInt("bigHeal_value");
 
         setSize(new Vec2(1, 1));
@@ -47,7 +47,7 @@ public class HealingItem extends Item implements Describable {
 
     @Override
     public HealingItem createNew(Vec2 pos) {
-        return new HealingItem(pos, (Vec2)direction.clone(), new Sprite(getSprite().getPath()), smallSize);
+        return new HealingItem(pos, (Vec2) direction.clone(), new Sprite(getSprite().getPath()), smallSize);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class Barrel extends Item {
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-                if(other.getGameObject() instanceof Projectile) {
+                if (other.getGameObject() instanceof Projectile) {
                     // destroy();
                     //TODO: Maybe create an explosion here?
                 }

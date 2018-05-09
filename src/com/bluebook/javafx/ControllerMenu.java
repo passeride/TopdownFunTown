@@ -2,9 +2,6 @@ package com.bluebook.javafx;
 
 
 import com.bluebook.engine.GameApplication;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -18,6 +15,10 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ControllerMenu implements Initializable {
 

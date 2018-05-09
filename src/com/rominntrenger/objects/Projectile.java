@@ -7,9 +7,10 @@ import com.bluebook.physics.listeners.OnCollisionListener;
 import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Projectile is a used by Enemy and Player to shoot stuff It has multiple paramter to change speed
@@ -70,7 +71,7 @@ public class Projectile extends GameObject {
 
     public static void clearAllProjectiles() {
         Iterator<Projectile> iterator = allProjectilse.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Projectile p = iterator.next();
             p.destroy();
 //            iterator.remove();

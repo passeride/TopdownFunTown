@@ -5,14 +5,15 @@ import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.Collider;
 import com.bluebook.physics.HitDetectionHandler;
 import com.bluebook.util.GameObject;
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class is used to draw all {@link GameObject}
@@ -48,9 +49,7 @@ public class CanvasRenderer {
 
     public void removeCollider(Collider col) {
         synchronized (colliderDebugDrawables) {
-            if (colliderDebugDrawables.contains(col)) {
-                colliderDebugDrawables.remove(col);
-            }
+            colliderDebugDrawables.remove(col);
         }
     }
 
@@ -62,19 +61,19 @@ public class CanvasRenderer {
      */
     public void addGameObject(GameObject in) {
 //        synchronized (this) {
-            layers[RenderLayer.RenderLayerName.LOW_BLOCKS.getValue()].addGameObject(in);
+        layers[RenderLayer.RenderLayerName.LOW_BLOCKS.getValue()].addGameObject(in);
 //        }
     }
 
     /**
      * Will add drawable to layer
      *
-     * @param in Object to be drawn
+     * @param in    Object to be drawn
      * @param layer RenderLayer to be used
      */
     private void addGameObject(GameObject in, RenderLayer.RenderLayerName layer) {
 //        synchronized (this) {
-            layers[layer.getValue()].addGameObject(in);
+        layers[layer.getValue()].addGameObject(in);
 //        }
     }
 
@@ -83,8 +82,8 @@ public class CanvasRenderer {
      */
     public void moveGameObjectToLayer(GameObject go, RenderLayer.RenderLayerName layer) {
 //        synchronized (this) {
-            removeGameObject(go);
-            addGameObject(go, layer);
+        removeGameObject(go);
+        addGameObject(go, layer);
 //        }
     }
 
@@ -96,11 +95,11 @@ public class CanvasRenderer {
      */
     public RenderLayer.RenderLayerName getLayer(GameObject go) {
 //        synchronized (this) {
-            for (int i = 0; i < layers.length; i++) {
-                if (layers[i].hasGameObject(go)) {
-                    return RenderLayer.RenderLayerName.get(i);
-                }
+        for (int i = 0; i < layers.length; i++) {
+            if (layers[i].hasGameObject(go)) {
+                return RenderLayer.RenderLayerName.get(i);
             }
+        }
 //        }
         return null;
     }
@@ -132,42 +131,42 @@ public class CanvasRenderer {
      */
     public void drawAll() {
 //        synchronized (this) {
-            GraphicsContext gc = canvas.getGraphicsContext2D();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-            gc.save();
+        gc.save();
 
-            clearCanvas(gc);
-            gc.setFill(bgColor);
-            gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-            GraphicsRenderer gr = new GraphicsRenderer(gc);
+        clearCanvas(gc);
+        gc.setFill(bgColor);
+        gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        GraphicsRenderer gr = new GraphicsRenderer(gc);
 
 //            gc.setEffect(new ColorAdjust(0, 0, -0.8, 0));
 
-            for (RenderLayer layer : layers) {
-                if (useGraphicsRenderer) {
-                    layer.drawAll(gr);
-                } else {
-                    layer.drawAll(gc);
+        for (RenderLayer layer : layers) {
+            if (useGraphicsRenderer) {
+                layer.drawAll(gr);
+            } else {
+                layer.drawAll(gc);
+            }
+        }
+        gc.restore();
+
+
+        if (GameEngine.DEBUG) {
+            synchronized (colliderDebugDrawables) {
+                for (Collider c : colliderDebugDrawables) {
+                    c.debugDraw(gc);
                 }
             }
+            flg.addFPS(GameEngine.getInstance().draw_FPS);
+            flg.draw(gc);
+            if (HitDetectionHandler.getInstance().qtTree != null)
+                HitDetectionHandler.getInstance().qtTree.draw(gc);
+
+        }
+        if (OrthographicCamera.main != null) {
             gc.restore();
-
-
-            if (GameEngine.DEBUG) {
-                synchronized (colliderDebugDrawables) {
-                    for (Collider c : colliderDebugDrawables) {
-                        c.debugDraw(gc);
-                    }
-                }
-                flg.addFPS(GameEngine.getInstance().draw_FPS);
-                flg.draw(gc);
-                if(HitDetectionHandler.getInstance().qtTree != null)
-                    HitDetectionHandler.getInstance().qtTree.draw(gc);
-
-            }
-            if (OrthographicCamera.main != null) {
-                gc.restore();
-            }
+        }
 
 //        }
 

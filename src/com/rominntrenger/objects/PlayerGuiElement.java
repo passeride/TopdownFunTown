@@ -111,13 +111,13 @@ public class PlayerGuiElement extends GameObject {
 
             gc.setFill(Color.GREEN);
 
-            if(!w.isReloading()) {
+            if (!w.isReloading()) {
                 gc.fillRect(x + margin + ammoW + space / 2, (row * 2) + y + margin / 2,
                     ((double) w.getAmmoRemaining() / (double) w.getAmmoCap()) * (width - margin),
                     row - margin);
-            }else{
+            } else {
                 gc.fillRect(x + margin + ammoW + space / 2, (row * 2) + y + margin / 2,
-                    ((double) w.getReloadTimer() / (double) w.getReloadDuration()) * (width - margin),
+                    (w.getReloadTimer() / w.getReloadDuration()) * (width - margin),
                     row - margin);
             }
 

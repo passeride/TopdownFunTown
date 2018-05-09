@@ -68,8 +68,8 @@ package  graphics{
 
     class Sprite{
         -Image: img
-        +draw(GraphicsContext gc, Vector2 position, Vector2 direction):void
-        +draw(GraphicsContext gc, Vector2 position):void
+        +draw(GraphicsContext gc, Vec2 position, Vec2 direction):void
+        +draw(GraphicsContext gc, Vec2 position):void
     }
 
     class AnimationSprite <<Sprite>>{
@@ -101,14 +101,10 @@ package renderer {
 
 package util{
 
-    abstract class Component{
-
-    }
-
     class Transform{
-        ~Vector2: position
-        ~Vector2: rotation
-        ~Vector2: size
+        ~Vec2: position
+        ~Vec2: rotation
+        ~Vec2: size
         ~Transform: parent
     }
 
@@ -119,7 +115,7 @@ package util{
         +draw(GraphicsContext gc):void
     }
 
-    class Vector2{
+    class Vec2{
         -X : double
         -Y : double
         +getLength():double
@@ -133,7 +129,7 @@ package input{
         +isPressed(KeyCode key):boolean
         +isMouseButton0Pressed():boolean
         +isMouseButton1Pressed():boolean
-        +getMousePosition():Vector2
+        +getMousePosition():Vec2
     }
 }
 
@@ -159,12 +155,11 @@ package physics{
             +OnCollision(Collider other):void
        }
     }
-    package quadtree{
-        class  QuadTree{
-            +insert(GameObject go):void
-            +draw(GraphicsContext gc):void
-            +query(Rectangle rect):ArrayList<GameObject>
-        }
+
+    class  QuadTree{
+        +insert(GameObject go):void
+        +draw(GraphicsContext gc):void
+        +query(Rectangle rect):ArrayList<GameObject>
     }
 }
 
@@ -172,9 +167,11 @@ package physics{
 GameObject -RIGHT-> Transform
 CollisionThread --> HitDetectionHandler
 HitDetectionHandler --{ Collider
+HitDetectionHandler --> QuadTree
+QuadTree --{ Collider
 Collider <-RIGHT-> GameObject
 Collider --> OnCollisionListener
-GameObject --> Vector2
+GameObject --> Vec2
 GameObject <--> Sprite
 SpriteLoader ..> Sprite
 SpriteLoader .LEFT.> AnimationSprite
@@ -184,10 +181,12 @@ GameApplication <-- Input
 GameApplication --> FXMLController
 GameEngine -RIGHT-> CollisionThread
 GameEngine <--> UpdateThread
-UpdateThread -DOWN-{ GameObject
-CanvasRenderer --{ GameObject
+GameEngine --{ GameObject
+RenderLayer -DOWN-{ GameObject
 OnCollisionListener <.RIGHT.> GameObject
 AnimationSprite -DOWN-|> Sprite
+RenderLayer }-- CanvasRenderer
+GameEngine -DOWN-> CanvasRenderer
 
 /'
 

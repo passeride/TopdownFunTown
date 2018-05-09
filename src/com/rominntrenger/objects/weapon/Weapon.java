@@ -20,6 +20,7 @@ public class Weapon extends GameObject {
     int alteredDmg = dmg;
     int ammoCap = 2000;
     int ammoRemaining = ammoCap;
+    double spread = 0;
     double reloadDuration = 1.5;
     double reloadTimer = 0;
     boolean isReloading = false;
@@ -71,23 +72,23 @@ public class Weapon extends GameObject {
      * Shoot will shoot a projectile constructed in this class at the direction the player is faced
      */
     public boolean shoot() {
-        if(!isReloading && System.currentTimeMillis() - previousShotTime >  shootInterval * 1000 && ammoRemaining > 0) {
+        if (!isReloading && System.currentTimeMillis() - previousShotTime > shootInterval * 1000 && ammoRemaining > 0) {
 
             previousShotTime = System.currentTimeMillis();
 
-            ammoRemaining --;
+            ammoRemaining--;
             audioPlayer.setSpatial(holder);
             audioPlayer.playOnce();
             // score -= 50;
             Vec2 angle = Vec2
-                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90);
+                .Vector2FromAngleInDegrees(transform.getGlobalRotation().getAngleInDegrees() - 90 + (Math.random() * spread * 2 - spread));
 
             Vec2 spawnPosition = transform.getWorldPosition();
 
             Projectile p = new Projectile(spawnPosition,
                 Vec2
                     .Vector2FromAngleInDegrees(
-                        transform.getGlobalRotation().getAngleInDegrees() - 90),
+                        transform.getGlobalRotation().getAngleInDegrees() - 90 + (Math.random() * spread * 2 - spread)),
                 new Sprite(projectilePath));
             p.setSpeed(speed);
             p.setSource(holder);
@@ -108,19 +109,19 @@ public class Weapon extends GameObject {
 
 //                player.destroy();
                 } else if (other.getGameObject() instanceof Enemy) {
-                    Enemy e = ((Enemy)other.getGameObject());
+                    Enemy e = ((Enemy) other.getGameObject());
                     e.hit(alteredDmg);
-                    if(!e.isAlive()) { // CHeck if enemy survived
+                    if (!e.isAlive()) { // CHeck if enemy survived
                         ((Player) p.getSource()).killedEnemy();
                     }
                     p.destroy();
-                } else if (other.getTag() == "Block"){
+                } else if (other.getTag() == "Block") {
                     p.destroy();
                 }
 
             });
             return true;
-        }else
+        } else
             return false;
     }
 
@@ -168,19 +169,27 @@ public class Weapon extends GameObject {
     @Override
     public void update(double delta) {
         super.update(delta);
-        if(isReloading){
+        if (isReloading) {
             reloadTimer += delta;
-            if(reloadTimer >= reloadDuration){
+            if (reloadTimer >= reloadDuration) {
                 isReloading = false;
                 ammoRemaining = ammoCap;
                 AudioPlayer ap = new AudioPlayer("audio/Crunch2.wav");
                 ap.playOnce();
             }
         }
+
+        if (weaponClip != null && weaponBase != null && weaponBarrel != null) {
+            ammoCap = weaponClip.ammoCap;
+            dmg = (int) (weaponClip.dmg * weaponBase.dmgMultiplier);
+            spread = weaponBarrel.spread;
+            reloadDuration = weaponClip.reloadTime;
+            shootInterval = weaponBase.shootInterval;
+        }
     }
 
     public void reloadWeapon() {
-        if(!isReloading) {
+        if (!isReloading) {
             reloadTimer = 0;
             isReloading = true;
             AudioPlayer ap = new AudioPlayer("audio/Crunch1.wav");
@@ -227,14 +236,6 @@ public class Weapon extends GameObject {
 
     public void setAudioPlayer(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
-    }
-
-    public static String getTestFil1() {
-        return testFil1;
-    }
-
-    public static void setTestFil1(String testFil1) {
-        Weapon.testFil1 = testFil1;
     }
 
     public String getProjectilePath() {

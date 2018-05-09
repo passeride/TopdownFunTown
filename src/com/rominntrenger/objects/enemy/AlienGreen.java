@@ -8,6 +8,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienGreen extends Enemy {
@@ -54,7 +55,7 @@ public class AlienGreen extends Enemy {
         p.setSource(this);
 
         p.setOnCollisionListener(other -> {
-            if(other.getGameObject() != p.getSource()) {
+            if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);

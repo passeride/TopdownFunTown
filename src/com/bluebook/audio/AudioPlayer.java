@@ -1,6 +1,7 @@
 package com.bluebook.audio;
 
 import com.bluebook.util.GameObject;
+
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.FloatControl.Type;
@@ -12,7 +13,7 @@ public class AudioPlayer {
 
     private boolean isSpatial = false;
     private Clip clip;
-    public static float volume =1f;
+    public static float volume = 1f;
 
     private GameObject source;
 
@@ -27,12 +28,13 @@ public class AudioPlayer {
     public AudioPlayer(String path) {
         clip = AudioLoader.loadAudioClip(path);
         gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        if(clip.isControlSupported(Type.MASTER_GAIN)) {
+        if (clip.isControlSupported(Type.MASTER_GAIN)) {
             FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             float range = gainControl.getMaximum() - gainControl.getMinimum();
-            float gain = (range * this.volume) + gainControl.getMinimum();
+            float gain = (range * AudioPlayer.volume) + gainControl.getMinimum();
             volume.setValue(gain);
-        }}
+        }
+    }
 
     /**
      * plays the selected audio once
@@ -42,7 +44,7 @@ public class AudioPlayer {
         playAudio();
     }
 
-    void playAudio(){
+    void playAudio() {
         if (isSpatial) {
             if (clip.isControlSupported(FloatControl.Type.PAN)) {
                 FloatControl balance = (FloatControl) clip.getControl(FloatControl.Type.PAN);
@@ -126,6 +128,7 @@ public class AudioPlayer {
 
     /**
      * Will try to render with
+     *
      * @param source GameObject source
      */
     public void setSpatial(GameObject source) {

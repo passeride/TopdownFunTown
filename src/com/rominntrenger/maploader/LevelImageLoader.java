@@ -7,6 +7,7 @@ public class LevelImageLoader {
     /**
      * Creates and returns a multidimentional array consisting of IDs
      * based on the Hex values from a BufferedImage (converted from RGB).
+     *
      * @param image
      * @return
      */
@@ -31,10 +32,10 @@ public class LevelImageLoader {
                         break;
                     case ("FF0000"):
                         gameMap[x][y] = ID.AlienSpawner;
-                    break;
+                        break;
                     case ("FF0044"):
                         gameMap[x][y] = ID.AlienSpawnerBig;
-                    break;
+                        break;
 
                     //DOORS
                     case ("DDDDDD"):
@@ -105,10 +106,10 @@ public class LevelImageLoader {
                     //ENEMIES
                     case ("EE2222"):
                         gameMap[x][y] = ID.AlienGreen;
-                    break;
+                        break;
                     case ("EE2244"):
                         gameMap[x][y] = ID.AlienGreenKey;
-                    break;
+                        break;
                     case ("EE4444"):
                         gameMap[x][y] = ID.AlienPurple;
                         break;
@@ -126,13 +127,13 @@ public class LevelImageLoader {
                         break;
                     case ("666000"):
                         gameMap[x][y] = ID.PickupWeaponY;
-                    break;
+                        break;
                     case ("77FFFF"):
                         gameMap[x][y] = ID.HealingItemSmall;
-                    break;
+                        break;
                     case ("770000"):
                         gameMap[x][y] = ID.HealingItemBig;
-                    break;
+                        break;
 
                     default:
                         gameMap[x][y] = ID.Empty;
@@ -147,6 +148,7 @@ public class LevelImageLoader {
 
     /**
      * Returns a Hex Value String from a given RGB value.
+     *
      * @param value
      * @return
      */

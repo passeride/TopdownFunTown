@@ -1,10 +1,11 @@
 package com.bluebook.renderer;
 
 import com.bluebook.util.GameObject;
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javafx.scene.canvas.GraphicsContext;
 
 /**
  * This is used by {@link CanvasRenderer} to create layers for sprites to be drawn
@@ -108,9 +109,7 @@ public class RenderLayer {
 
     public void removeGameObject(GameObject go) {
 //        synchronized (drawables) {
-            if (drawables.contains(go)) {
-                drawables.remove(go);
-            }
+        drawables.remove(go);
 //        }
     }
 

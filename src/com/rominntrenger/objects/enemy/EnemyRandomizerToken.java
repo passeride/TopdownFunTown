@@ -9,20 +9,21 @@ public class EnemyRandomizerToken {
 
     private EnemyType entity;
 
-    public enum EnemyType{
+    public enum EnemyType {
         ALIEN_GREEN, ALIEN_PURPLE, AlIEN_ZOMBIE, ALIEN_EXPLODE, ALIEN_EYE, ALIEN_GLOW, ALIEN_WORM
     }
 
-    public EnemyRandomizerToken(EnemyType entity){
-            this.entity = entity;
+    public EnemyRandomizerToken(EnemyType entity) {
+        this.entity = entity;
     }
 
     /**
      * This function will create a new alien of type corresponding to {@link EnemyType}
+     *
      * @param pos initial position for the enemy
      */
-    public void spawn(Vec2 pos){
-        switch (entity){
+    public void spawn(Vec2 pos) {
+        switch (entity) {
             case ALIEN_GREEN:
                 new AlienGreen(pos);
                 break;
@@ -30,7 +31,7 @@ public class EnemyRandomizerToken {
                 new AlienPurple(pos);
                 break;
             case AlIEN_ZOMBIE:
-                new  AlienPurple(pos);
+                new AlienPurple(pos);
                 break;
             case ALIEN_EXPLODE:
                 new AlienExplode(pos);
@@ -42,7 +43,7 @@ public class EnemyRandomizerToken {
                 new AlienGlow(pos);
                 break;
             case ALIEN_WORM:
-                new  AlienWorm(pos);
+                new AlienWorm(pos);
                 break;
             default:
                 break;

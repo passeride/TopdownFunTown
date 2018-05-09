@@ -28,7 +28,7 @@ public class OrthographicCamera {
         }
     }
 
-    public void moveToFollow(){
+    public void moveToFollow() {
         x = gameobject.getTransform().getLocalPosition().getX();
         y = gameobject.getTransform().getLocalPosition().getY();
 
@@ -43,6 +43,7 @@ public class OrthographicCamera {
         deadZoneY = GameSettings.getDouble("OrthographicCamera_deadzone_Y");
         dampening = GameSettings.getDouble("OrthographicCamera_dampening");
     }
+
     //må fikse id før vi kan se hvordan vi ordner offsets.
     public void follow(GameObject target) {
         gameobject = target;
@@ -51,7 +52,6 @@ public class OrthographicCamera {
 
     /**
      * Update will update the cameras position to follow player
-     * TODO: Implement delta to make it framerate independent
      */
     public void update(double delta) {
         if (gameobject != null) {

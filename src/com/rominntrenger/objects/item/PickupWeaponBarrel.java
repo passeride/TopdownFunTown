@@ -41,19 +41,19 @@ public class PickupWeaponBarrel extends Item implements Describable {
 
     @Override
     public void draw(GraphicsContext gc) {
-            gc.setStroke(Color.BLACK);
+        gc.setStroke(Color.BLACK);
 
         Vec2 squareSize = Vec2.multiply(GameSettings.getSquareScale(), 0.5);
         x = transform.getGlobalPosition().getX();
         y = transform.getGlobalPosition().getY();
 
-            gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-            gc.setFill(new Color(0, 0.5, 0, 0.5));
-            gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-            gc.setFill(Color.BLACK);
-            gc.setFont(new Font(squareSize.getY()));
-            String text = cli.character + "";
-            gc.fillText(text, x - squareSize.getX() / 2, y);
+        gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
+        gc.setFill(new Color(0, 0.5, 0, 0.5));
+        gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font(squareSize.getY()));
+        String text = cli.character + "";
+        gc.fillText(text, x - squareSize.getX() / 2, y);
     }
 
     @Override

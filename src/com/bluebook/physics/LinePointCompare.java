@@ -1,20 +1,21 @@
 package com.bluebook.physics;
 
 import com.bluebook.util.GameObject;
+
 import java.util.Comparator;
 
 public class LinePointCompare implements Comparator<LinePoint> {
 
     GameObject source;
 
-    public LinePointCompare(GameObject source){
+    public LinePointCompare(GameObject source) {
         this.source = source;
     }
 
     /**
      * Dummy constructor
      */
-    public LinePointCompare(){
+    public LinePointCompare() {
 
     }
 

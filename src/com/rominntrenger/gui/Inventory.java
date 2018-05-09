@@ -24,6 +24,7 @@ public class Inventory extends GameObject {
 
     /**
      * Constructor for Inventory which creates an Inventory, sets the number of spaces in the inventory.
+     *
      * @param inventorySpots
      */
     public Inventory(int inventorySpots) {
@@ -70,6 +71,7 @@ public class Inventory extends GameObject {
 
     /**
      * Adds an item to the inventory
+     *
      * @param item
      */
     public void addItem(InventoryItem item) {
@@ -84,11 +86,12 @@ public class Inventory extends GameObject {
 
     /**
      * Returns the items in the inventory.
+     *
      * @return
      */
     public int[] getItems() {
         for (int i = 0; i < inventorySpace; i++) {
-            if(inventoryContents[i] != null) {
+            if (inventoryContents[i] != null) {
                 playerKeyValues[i] = inventoryContents[i].getKeyValue();
             }
         }

@@ -7,8 +7,6 @@ import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.enemy.Enemy;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -16,6 +14,9 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * {@link WaveManager} will controll the waves, and also keep track of what enemies to spawn where
@@ -42,7 +43,7 @@ public class WaveManager extends GameObject {
 
     private WaveSate state = WaveSate.PAUSE;
 
-    public enum WaveSate{
+    public enum WaveSate {
         WAVE, BOSS, PAUSE
     }
 
@@ -50,8 +51,8 @@ public class WaveManager extends GameObject {
     LinearGradient waveGradient;
     LinearGradient bossGradient;
 
-    public static WaveManager getInstance(){
-        if(singelton == null)
+    public static WaveManager getInstance() {
+        if (singelton == null)
             singelton = new WaveManager();
         return singelton;
     }
@@ -62,21 +63,21 @@ public class WaveManager extends GameObject {
         setRenderLayer(RenderLayerName.GUI);
 
         // Setup
-        pauseGradient =  new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+        pauseGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
             new Stop(0.0, Color.GREEN),
             new Stop(1.0, Color.TRANSPARENT));
-        waveGradient =  new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+        waveGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
             new Stop(0.0, Color.RED),
             new Stop(1.0, Color.TRANSPARENT));
-        bossGradient =  new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+        bossGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
             new Stop(0.0, Color.PURPLE),
             new Stop(1.0, Color.TRANSPARENT));
 
         pauseStart = System.currentTimeMillis();
     }
 
-    LinearGradient getGradient(){
-        switch(state){
+    LinearGradient getGradient() {
+        switch (state) {
             case PAUSE:
                 return pauseGradient;
             case WAVE:
@@ -90,16 +91,16 @@ public class WaveManager extends GameObject {
 
     @Override
     public void update(double delta) {
-        if(state == WaveSate.PAUSE) {
+        if (state == WaveSate.PAUSE) {
             double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
             if (timeLeft <= 0.0) {
                 startWave();
             }
-        }else if(state == WaveSate.WAVE){
+        } else if (state == WaveSate.WAVE) {
 
-            if(getAliveHives() == 0){
-                if(!hivesDownMessage){
-                    if(Enemy.allEnemies.size() > hives.size()){
+            if (getAliveHives() == 0) {
+                if (!hivesDownMessage) {
+                    if (Enemy.allEnemies.size() > hives.size()) {
                         MessageHandler.getInstance()
                             .writeMessage("All the hives are down!\n Now just kill the smoll bois!",
                                 new Sprite("portraits/mc_grumpy"));
@@ -107,26 +108,26 @@ public class WaveManager extends GameObject {
                     hivesDownMessage = true;
                 }
 
-                if(Enemy.allEnemies.size() == hives.size())
+                if (Enemy.allEnemies.size() == hives.size())
                     endWave(true);
             }
-            for(AlienHive ah : hives){
+            for (AlienHive ah : hives) {
                 ah.spawn(waveNumber);
             }
         }
     }
 
-    void endWave(boolean showMessage){
+    void endWave(boolean showMessage) {
         int alive = hives.size();
-        for(AlienHive ah : hives){
-            if(!ah.isActive())
+        for (AlienHive ah : hives) {
+            if (!ah.isActive())
                 alive--;
         }
 
         pauseStart = System.currentTimeMillis();
         state = WaveSate.PAUSE;
 
-        if(showMessage) {
+        if (showMessage) {
             MessageHandler.getInstance().writeMessage("Dem boiz be back real soon \n\n Get ready!",
                 new Sprite("portraits/mc_happy"));
             AudioPlayer ap = new AudioPlayer("audio/BoisBeBac.wav");
@@ -134,32 +135,32 @@ public class WaveManager extends GameObject {
         }
     }
 
-    void startWave(){
+    void startWave() {
         state = WaveSate.WAVE;
         waveStart = System.currentTimeMillis();
         waveNumber++;
 
         hivesDownMessage = false;
 
-        for(AlienHive ah : hives){
+        for (AlienHive ah : hives) {
             ah.reset();
         }
     }
 
-    int getAliveHives(){
+    int getAliveHives() {
         int alive = hives.size();
-        for(AlienHive ah : hives){
-            if(!ah.isActive())
+        for (AlienHive ah : hives) {
+            if (!ah.isActive())
                 alive--;
         }
-        return  alive;
+        return alive;
     }
 
-    public void clearGamestate(){
+    public void clearGamestate() {
         hivesDownMessage = true;
         endWave(false);
-        for(Enemy e : Enemy.allEnemies){
-            if(!(e instanceof AlienHive)){
+        for (Enemy e : Enemy.allEnemies) {
+            if (!(e instanceof AlienHive)) {
                 e.destroy();
             }
         }
@@ -180,11 +181,11 @@ public class WaveManager extends GameObject {
         int xEnd = 1920 / 2 + width / 2;
 
         gc.beginPath();
-        gc.bezierCurveTo(0, 0, x - 100, - height / 2, x, height - boxRadius);
+        gc.bezierCurveTo(0, 0, x - 100, -height / 2, x, height - boxRadius);
         gc.bezierCurveTo(x, height - boxRadius, x, height, x + boxRadius, height);
         gc.lineTo(xEnd - boxRadius, height);
         gc.bezierCurveTo(xEnd - boxRadius, height, xEnd, height, xEnd, height - boxRadius);
-        gc.bezierCurveTo(xEnd, height - boxRadius, xEnd + 100, - height / 2, 1920, 0);
+        gc.bezierCurveTo(xEnd, height - boxRadius, xEnd + 100, -height / 2, 1920, 0);
         gc.closePath();
         gc.stroke();
         gc.fill();
@@ -194,19 +195,19 @@ public class WaveManager extends GameObject {
         gc.setFont(new Font(height / 2));
         gc.setTextAlign(TextAlignment.CENTER);
 
-        if(state == WaveSate.WAVE)
-        gc.fillText("Wave " + waveNumber, 1920 / 2, height / 2);
-        else if(state == WaveSate.PAUSE)
+        if (state == WaveSate.WAVE)
+            gc.fillText("Wave " + waveNumber, 1920 / 2, height / 2);
+        else if (state == WaveSate.PAUSE)
             gc.fillText("Next wave in:", 1920 / 2, height / 2);
 
 
         double timeLeft = pauseTime - (System.currentTimeMillis() - pauseStart) / 1000.0;
-        if(state == WaveSate.WAVE){
+        if (state == WaveSate.WAVE) {
             timeLeft = (System.currentTimeMillis() - waveStart) / 1000.0;
         }
         gc.setFont(new Font(height / 3));
         DecimalFormat df = new DecimalFormat("0.0");
-        gc.fillText(df.format(timeLeft), 1920 / 2, height - height /  5);
+        gc.fillText(df.format(timeLeft), 1920 / 2, height - height / 5);
 
     }
 

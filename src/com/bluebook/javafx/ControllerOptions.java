@@ -1,7 +1,6 @@
 package com.bluebook.javafx;
 
 import com.bluebook.engine.GameApplication;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ControllerOptions {
 
@@ -54,7 +55,7 @@ public class ControllerOptions {
     }
 
     @FXML
-    private void returnToMenu(ActionEvent event) throws IOException{
+    private void returnToMenu(ActionEvent event) throws IOException {
         FXMLLoader fxml = new FXMLLoader();
         Parent root = fxml.load(getClass().getResource("menu.fxml").openStream());
         Stage stageOptions = gameApplication.getStage();

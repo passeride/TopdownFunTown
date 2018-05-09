@@ -17,7 +17,7 @@ public class Attack implements Behaviour {
     @Override
     public void nextBehaviour(Enemy behaviourContext) {
 
-        if(!hasScreamed){
+        if (!hasScreamed) {
             // scream
             AudioPlayer ap = new AudioPlayer("audio/Alien_scream.wav");
             ap.setVolume(0.2f);
@@ -32,7 +32,7 @@ public class Attack implements Behaviour {
 
         Player player = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(
             behaviourContext.getTransform().getGlobalPosition());
-        if(player != null) {
+        if (player != null) {
             double distance2Player = behaviourContext.getPosition().distance(player.getPosition());
             behaviourContext.setTarget(player);
             behaviourContext

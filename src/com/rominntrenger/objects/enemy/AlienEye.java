@@ -7,6 +7,7 @@ import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienEye extends Enemy {
@@ -16,7 +17,6 @@ public class AlienEye extends Enemy {
 
     public AlienEye(Vec2 position) {
         super(position, Vec2.ZERO, new Sprite("enemies/alienEye_0"));
-//        ((AnimationSprite) getSprite()).setPlaying(false);
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 100;
@@ -31,13 +31,11 @@ public class AlienEye extends Enemy {
         super.update(delta);
         AlienEye.super.nextBehaviour();
 
-        //if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
-            prevShot = System.currentTimeMillis();
-            shoot();
-            //TODO: LUKAS FIX THE SHOOTY SHOOTS
-        //}
+        prevShot = System.currentTimeMillis();
+        shoot();
 
-        if(health < ((max_health * 20) / 100)) {
+
+        if (health < ((max_health * 20) / 100)) {
             this.setSprite(new AnimationSprite("enemies/alienEyeFlame", 2));
             ((AnimationSprite) getSprite()).setPlaying(true);
         }
@@ -46,7 +44,7 @@ public class AlienEye extends Enemy {
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/alienProjectileLaser"));
-        p.setSize(new Vec2(0.1,0.1));
+        p.setSize(new Vec2(0.1, 0.1));
         p.getCollider().addInteractionLayer("UnHittable");
         p.getCollider().addInteractionLayer("Hittable");
 
@@ -61,7 +59,7 @@ public class AlienEye extends Enemy {
         p.setSource(this);
         // TODO: NO RECOIL WHEN HIT WITH LAZERZ
         p.setOnCollisionListener(other -> {
-            if(other.getGameObject() != p.getSource()) {
+            if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);

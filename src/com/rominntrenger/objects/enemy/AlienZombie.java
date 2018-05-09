@@ -8,6 +8,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienZombie extends Enemy {
@@ -30,13 +31,13 @@ public class AlienZombie extends Enemy {
         /**
          * Checks if the Player has the right key in their Inventory.
          */collider.setOnCollisionListener(other -> {
-             if (other.getGameObject() instanceof Player) {
-                 Player pl = (Player) other.getGameObject();
-                 pl.hit(hit_dmg);
-                 destroy();
-                 collider.destroy();
-             }
-         });
+            if (other.getGameObject() instanceof Player) {
+                Player pl = (Player) other.getGameObject();
+                pl.hit(hit_dmg);
+                destroy();
+                collider.destroy();
+            }
+        });
     }
 
     public void update(double delta) {
@@ -67,7 +68,7 @@ public class AlienZombie extends Enemy {
         p.setSource(this);
 
         p.setOnCollisionListener(other -> {
-            if(other.getGameObject() != p.getSource()) {
+            if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {
                     Player pl = (Player) other.getGameObject();
                     pl.hit(bullet_dmg);

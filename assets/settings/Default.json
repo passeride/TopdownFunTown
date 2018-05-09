@@ -1,6 +1,6 @@
 {
   "window_title":"RomInntrengere v0.1",
-  "start_menu":false,
+  "start_menu":true,
   "fullscreen":false,
 
   "grid_X": 32,
@@ -22,8 +22,8 @@
 
   "RedRifle_projectile_speed":400,
 
-  "maxAliensfromHive": 100,
-  "hiveSpawnRate": 0.1,
+  "maxAliensfromHive": 10,
+  "hiveSpawnRate": 0.2,
 
   "Alien_attack_distance": 500,
   "Alien_flee_distance": 900,
@@ -41,11 +41,11 @@
   "Alien_mother_max_health": 100,
   "Alien_mother_hit_dmg": 1,
 
-  "player_health":1000,
+  "player_health":100,
   "player_angular_dampening":0.1,
 
-  "smallHeal_value": 10,
-  "bigHeal_value": 20,
-  "itemDropRate": 0.9
+  "smallHeal_value": 30,
+  "bigHeal_value": 70,
+  "itemDropRate": 0.5
 
 }

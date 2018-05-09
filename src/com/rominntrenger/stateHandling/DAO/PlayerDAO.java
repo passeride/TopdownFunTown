@@ -3,6 +3,7 @@ package com.rominntrenger.stateHandling.DAO;
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
+
 import java.io.Serializable;
 
 public class PlayerDAO implements Serializable {
@@ -20,14 +21,13 @@ public class PlayerDAO implements Serializable {
     public WeaponDAO weapon;
 
 
-    public PlayerDAO(Player player){
+    public PlayerDAO(Player player) {
         playerID = player.getPlayerID();
         // Color
         playerColor[0] = player.getPlayerColor().getRed();
         playerColor[1] = player.getPlayerColor().getGreen();
         playerColor[2] = player.getPlayerColor().getBlue();
         playerColor[3] = player.getPlayerColor().getOpacity();
-
 
 
         maxPlayerHealth = player.getMaxPlayerHealth();
@@ -37,12 +37,12 @@ public class PlayerDAO implements Serializable {
         posY = poss.getY();
         dir = player.getTransform().getGlobalRotation().getAngleInDegrees();
         spritePath = player.getSprite().getPath();
-        if(player.getSprite() instanceof AnimationSprite) {
+        if (player.getSprite() instanceof AnimationSprite) {
             isAnimation = true;
-            spriteFrames = ((AnimationSprite)player.getSprite()).getFrameCount();
+            spriteFrames = ((AnimationSprite) player.getSprite()).getFrameCount();
         }
 
-        if(player.hasWeapon())
+        if (player.hasWeapon())
             weapon = new WeaponDAO(player.getCurrentWeapon());
     }
 

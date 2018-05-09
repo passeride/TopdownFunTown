@@ -6,6 +6,7 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.Explotion;
+
 import java.util.Random;
 
 /**
@@ -40,12 +41,12 @@ public class AlienExplode extends Enemy {
 
     public void update(double delta) {
         timePassed += delta;
-        if(timePassed >= timeToExplotion)
+        if (timePassed >= timeToExplotion)
             destroy();
         double sizeModifier = timePassed / timeToExplotion;
         setSize(new Vec2(sizeModifier * maxSize, sizeModifier * maxSize));
 
-        target = ((RomInntrenger)GameApplication.getInstance()).getClosestPlayer(getPosition());
+        target = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(getPosition());
         if (target != null) {
             translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
             setDirection(Vec2.add(getDirection(), Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), angularDampening)));

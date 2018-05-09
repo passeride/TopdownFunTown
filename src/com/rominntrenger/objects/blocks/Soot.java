@@ -4,6 +4,7 @@ import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.Vec2;
+
 import java.util.ArrayList;
 
 /**
@@ -21,11 +22,11 @@ public class Soot extends GameObject {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
             new Sprite("effects/soot"));
         setRenderLayer(RenderLayerName.LOW_BLOCKS);
-        this.soots.add(this);
+        soots.add(this);
     }
 
-    public static void clearAll(){
-        for(Soot b : soots){
+    public static void clearAll() {
+        for (Soot b : soots) {
             b.destroy();
         }
     }

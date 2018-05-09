@@ -4,6 +4,7 @@ package com.rominntrenger.objects.enemy;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
+
 import java.util.Random;
 
 public class AlienMother extends Enemy {
@@ -14,7 +15,7 @@ public class AlienMother extends Enemy {
 
     public AlienMother(Vec2 position) {
         super(position, Vec2.ZERO, new Sprite("enemies/alienMother"));
-        setSize(new Vec2(4,4));
+        setSize(new Vec2(4, 4));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 200;
@@ -36,11 +37,11 @@ public class AlienMother extends Enemy {
         // AlienMother.super.nextBehaviour();
 
         //if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
-        if((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
+        if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
             prevShot = System.currentTimeMillis();
             //shoot();
             spawn();
-}
+        }
         //}
     }
 

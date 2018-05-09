@@ -25,7 +25,7 @@ public class Crate extends Item {
         collider.setOnCollisionListener(new OnCollisionListener() {
             @Override
             public void onCollision(Collider other) {
-                if(other.getGameObject() instanceof Projectile) {
+                if (other.getGameObject() instanceof Projectile) {
                     destroy();
                 }
             }
@@ -34,7 +34,7 @@ public class Crate extends Item {
 
     @Override
     public Crate createNew(Vec2 pos) {
-        return new Crate(pos, (Vec2)direction.clone(), new Sprite(getSprite().getPath()));
+        return new Crate(pos, (Vec2) direction.clone(), new Sprite(getSprite().getPath()));
     }
 
     @Override

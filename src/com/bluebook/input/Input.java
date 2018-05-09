@@ -4,11 +4,12 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 /**
  * Singelton class to be used  for handeling input on the logic thread
@@ -31,7 +32,6 @@ public class Input {
         input = new ArrayList<>();
         input_once = new ArrayList<>();
     }
-
 
 
     /**
@@ -59,8 +59,7 @@ public class Input {
     }
 
 
-
-    public boolean isMouseButton0(){
+    public boolean isMouseButton0() {
         return mouseButtonDown0;
     }
 
@@ -122,7 +121,7 @@ public class Input {
 
         stage.addEventHandler(MouseEvent.ANY, event -> {
             setMousePosition(event.getX(), event.getY());
-            if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
+            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 if (GameEngine.DEBUG) {
                     System.out.println("MOUSE PRESSED " + event.getButton());
                 }
@@ -131,7 +130,7 @@ public class Input {
                 } else if (event.isSecondaryButtonDown()) {
                     setMouseButton1State(true);
                 }
-            }else if(event.getEventType() == MouseEvent.MOUSE_RELEASED){
+            } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
                 if (GameEngine.DEBUG) {
                     System.out.println("MOUSE Released " + event.getButton());
                 }
@@ -164,7 +163,7 @@ public class Input {
     }
 
     private double mapMouseToCanvas(double output_end,
-        double input_end, double input) {
+                                    double input_end, double input) {
         return (double) 0 + ((output_end - (double) 0) / (input_end - (double) 0)) * (input
             - (double) 0);
     }
@@ -189,13 +188,9 @@ public class Input {
 
     private void keyReleased(KeyEvent event) {
         KeyCode released = event.getCode();
-        if (input.contains(released)) {
-            input.remove(released);
-        }
+        input.remove(released);
 
-        if (input_once.contains(released)) {
-            input_once.remove(released);
-        }
+        input_once.remove(released);
 
     }
 

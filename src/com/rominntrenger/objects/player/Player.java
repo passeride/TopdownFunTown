@@ -56,7 +56,7 @@ public class Player extends GameObject {
     private int multiPlayerCircleRadius = 75;
     private boolean showLaser = false;
 
-    private Vec2 lookDirection = new Vec2(0,1);
+    private Vec2 lookDirection = new Vec2(0, 1);
 
     private Weapon w;
 
@@ -119,7 +119,7 @@ public class Player extends GameObject {
     public void draw(GraphicsContext gc) {
         Vec2 pos = transform.getGlobalPosition();
 
-        if(true) {
+        if (true) {
             if (light2D.polygon != null) {
                 double[][] polygon = light2D.polygon;
 //                gc.save();
@@ -130,9 +130,9 @@ public class Player extends GameObject {
             }
         }
 
-        if(uses_controller && showLaser) {
+        if (uses_controller && showLaser) {
             double dir = getDirection().getAngleInRadians() - Math.PI / 2;
-            gc.setStroke( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
+            gc.setStroke(new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
             gc.setLineDashes(8, 10, 8, 10);
             gc.setLineWidth(5);
             gc.strokeLine(pos.getX(), pos.getY(),
@@ -142,18 +142,17 @@ public class Player extends GameObject {
 
         }
 
-        if(getPlayerID()!= 0){
-            gc.setFill( new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
-            gc.fillArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius /  2,
-                multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
+        if (getPlayerID() != 0) {
+            gc.setFill(new Color(playerColor.getRed(), playerColor.getGreen(), playerColor.getBlue(), 0.3));
+            gc.fillArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius / 2,
+                multiPlayerCircleRadius, multiPlayerCircleRadius, 0, 360, ArcType.CHORD);
 
             gc.setStroke(playerColor);
             gc.setLineWidth(3);
             gc.setLineDashes(3, 1, 3, 2);
-            gc.strokeArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius /  2,
-                multiPlayerCircleRadius,  multiPlayerCircleRadius,  0, 360, ArcType.CHORD);
+            gc.strokeArc(pos.getX() - multiPlayerCircleRadius / 2, pos.getY() - multiPlayerCircleRadius / 2,
+                multiPlayerCircleRadius, multiPlayerCircleRadius, 0, 360, ArcType.CHORD);
         }
-
 
 
         super.draw(gc);
@@ -169,11 +168,11 @@ public class Player extends GameObject {
         translate(Vec2.ZERO); // This is to update in case of intersection
 
         int playerInLight = 0;
-        for(Enemy e : Enemy.allEnemies){
-            if(light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
+        for (Enemy e : Enemy.allEnemies) {
+            if (light2D.polygon != null && light2D.pointInPoly(e.getTransform().getGlobalPosition())) {
                 e.setIsSeenByPlayer(getPlayerID(), true);
                 playerInLight++;
-            }else {
+            } else {
                 e.setIsSeenByPlayer(getPlayerID(), false);
             }
         }
@@ -181,11 +180,12 @@ public class Player extends GameObject {
 
     /**
      * Will return the speed with possible modifications from pickups
+     *
      * @return
      */
-    public double getModifiedSpeed(){
+    public double getModifiedSpeed() {
         double modSpeed = speed;
-        if(currentWeapon != null && currentWeapon.getWeaponBase() != null)
+        if (currentWeapon != null && currentWeapon.getWeaponBase() != null)
             modSpeed *= currentWeapon.getWeaponBase().speedMultiplier;
 
         return modSpeed;
@@ -193,23 +193,20 @@ public class Player extends GameObject {
 
     /**
      * Used by controller input to set a laser guide for shooting direction
+     *
      * @param lookDirection
      */
-    public void lookInDirection(Vec2 lookDirection){
+    public void lookInDirection(Vec2 lookDirection) {
         this.lookDirection = lookDirection.getNormalizedVector();
-        if(lookDirection.getMagnitude() > 0.8){
-            showLaser = true;
-        }else{
-            showLaser = false;
-        }
+        showLaser = lookDirection.getMagnitude() > 0.8;
 
         // TODO: FIX SHIT
-        if (lookDirection.getMagnitude() >  0.2) {
+        if (lookDirection.getMagnitude() > 0.2) {
 //            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
             // Getting modified angular dampening
             double angularDampeningWModifiers = angularDampening;
 
-            if(currentWeapon != null && currentWeapon.getWeaponBase() != null)
+            if (currentWeapon != null && currentWeapon.getWeaponBase() != null)
                 angularDampeningWModifiers *= currentWeapon.getWeaponBase().angularDampeningMultiplier;
 
             setDirection(
@@ -221,7 +218,7 @@ public class Player extends GameObject {
                                 Vec2.add(getPosition(), lookDirection)
                             ) + 90
                         )
-                        ,angularDampeningWModifiers)
+                        , angularDampeningWModifiers)
                 )
             );
             getDirection().normalize();
@@ -258,10 +255,11 @@ public class Player extends GameObject {
 
     /**
      * Move function used when using a gamepad
+     *
      * @param direction {@link Vec2} Normalized vector for direction
-     * @param delta Time Delta
+     * @param delta     Time Delta
      */
-    public void move(Vec2 direction, double delta){
+    public void move(Vec2 direction, double delta) {
         translate(Vec2.multiply(direction, getModifiedSpeed() * delta));
     }
 
@@ -269,7 +267,7 @@ public class Player extends GameObject {
      * Reloads the current weapon to its max ammo cap.
      */
     public void reloadCurrentWeapon() {
-        if(currentWeapon != null)
+        if (currentWeapon != null)
             currentWeapon.reloadWeapon();
     }
 
@@ -315,6 +313,7 @@ public class Player extends GameObject {
 
     /**
      * Heals player, but will not surpass {@link Player#maxPlayerHealth}
+     *
      * @param health
      */
     public void heal(int health) {
@@ -322,7 +321,7 @@ public class Player extends GameObject {
     }
 
     private void die() {
-        if(currentWeapon != null)
+        if (currentWeapon != null)
             currentWeapon.destroy();
         destroy();
 //        GameEngine.getInstance().pauseGame();
@@ -332,7 +331,7 @@ public class Player extends GameObject {
     public void shoot() {
 
         if (currentWeapon != null) {
-            if(currentWeapon.shoot()) {
+            if (currentWeapon.shoot()) {
 //                rb2.addForce(Vec2.multiply(Vec2
 //                        .Vec2FromAngleInDegrees(
 //                            transform.getGlobalRotation().getAngleInDegrees() + 90),
@@ -342,21 +341,21 @@ public class Player extends GameObject {
 
     }
 
-    public int getEnemiesKilled(){
+    public int getEnemiesKilled() {
         return enemiesKilled;
     }
 
-    public void killedEnemy(){
+    public void killedEnemy() {
         enemiesKilled++;
     }
 
     @Override
     public void destroy() {
-        if(currentWeapon != null)
+        if (currentWeapon != null)
             currentWeapon.destroy();
-        if(walkCollider != null)
+        if (walkCollider != null)
             walkCollider.destroy();
-        if(gui != null)
+        if (gui != null)
             gui.destroy();
         romInntrenger.players.remove(this);
         super.destroy();
@@ -366,12 +365,12 @@ public class Player extends GameObject {
         return currentWeapon;
     }
 
-    public boolean hasWeapon(){
+    public boolean hasWeapon() {
         return currentWeapon != null;
     }
 
     public void setCurrentWeapon(Weapon currentWeapon) {
-        if(this.currentWeapon != null && this.currentWeapon != currentWeapon)
+        if (this.currentWeapon != null && this.currentWeapon != currentWeapon)
             this.currentWeapon.destroy();
         this.currentWeapon = currentWeapon;
         this.currentWeapon.setHolder(this);

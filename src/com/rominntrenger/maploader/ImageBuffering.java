@@ -1,10 +1,11 @@
 package com.rominntrenger.maploader;
 
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
-import javafx.scene.image.Image;
-import javax.imageio.ImageIO;
 
 public class ImageBuffering {
 
@@ -15,13 +16,14 @@ public class ImageBuffering {
 
     /**
      * Returns a BufferedImage from a given image file.
+     *
      * @param name
      * @return
      */
     public BufferedImage loadImage(String name) {
         image = null;
         try {
-            image = ImageIO.read(ImageBuffering.class.getClassLoader().getResourceAsStream("sprite/maps/"+ name + ".png"));
+            image = ImageIO.read(ImageBuffering.class.getClassLoader().getResourceAsStream("sprite/maps/" + name + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

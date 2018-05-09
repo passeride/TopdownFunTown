@@ -1,8 +1,9 @@
 package com.bluebook.graphics;
 
+import javafx.scene.image.Image;
+
 import java.io.InputStream;
 import java.util.HashMap;
-import javafx.scene.image.Image;
 
 /**
  * Will help Sprite to load images Will also use caching of images to avoid to many reads

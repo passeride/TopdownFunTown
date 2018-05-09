@@ -146,7 +146,7 @@ public class GraphicsRenderer {
     }
 
     protected GraphicsContext rotateGraphicsContext(GraphicsContext gc, Vec2 position,
-        double rotateAngle) {
+                                                    double rotateAngle) {
         Rotate r = new Rotate(rotateAngle, position.getX(), position.getY());
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
         return gc;

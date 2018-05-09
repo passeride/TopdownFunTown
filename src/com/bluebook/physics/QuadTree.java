@@ -3,17 +3,18 @@ package com.bluebook.physics;
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.player.Player;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A QuadTree is used to query a 2D plane for elements within a given area This is used to improve
  * hitdetection from a n^2 problem to a Log(n) problem.
- *
+ * <p>
  * This was implemented in hopes to put the HitDetection on the main thread, but this prooved
  * dificult and was not needed. So the
  */
@@ -61,9 +62,9 @@ public class QuadTree {
     }
 
 
-    public void reset(){
+    public void reset() {
         colliders.clear();
-        for(QuadTree qt : children){
+        for (QuadTree qt : children) {
             qt = null;
         }
         isSubdivided = false;

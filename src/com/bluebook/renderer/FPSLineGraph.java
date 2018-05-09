@@ -2,10 +2,11 @@ package com.bluebook.renderer;
 
 import com.bluebook.engine.GameEngine;
 import com.bluebook.physics.HitDetectionHandler;
-import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
 
 /**
  * used for debug drawing a graph of fps

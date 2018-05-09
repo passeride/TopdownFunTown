@@ -19,9 +19,6 @@ public class AnimationSprite extends Sprite {
 
     private boolean playing = true;
 
-    // TODO: Add play once function
-    boolean playOnce = false;
-
 
     /**
      * Sprite object with required image

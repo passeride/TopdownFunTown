@@ -16,10 +16,11 @@ import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Enemy extends GameObject {
 
@@ -70,7 +71,9 @@ public abstract class Enemy extends GameObject {
         behaviour = behaviours[Wander.position];
     }
 
-    /** Sets the current behaviour to input.
+    /**
+     * Sets the current behaviour to input.
+     *
      * @param behaviourPosition
      */
     public void setBehaviour(int behaviourPosition) {
@@ -108,9 +111,9 @@ public abstract class Enemy extends GameObject {
         }
     }
 
-    public void hit(int dmg){
+    public void hit(int dmg) {
         health -= dmg;
-        if(health <= 0){
+        if (health <= 0) {
             setAlive(false);
             destroy();
         }
@@ -124,9 +127,9 @@ public abstract class Enemy extends GameObject {
         gc.setStroke(Color.BLACK);
         gc.strokeRect(pos.getX() - 50, pos.getY() - 50, 100, 20);
         gc.setFill(Color.GREEN);
-        gc.fillRect(pos.getX() - 50, pos.getY() - 50,  ((double)health / (double)max_health) * 100.0, 20);
+        gc.fillRect(pos.getX() - 50, pos.getY() - 50, ((double) health / (double) max_health) * 100.0, 20);
 
-        if(GameEngine.DEBUG && isSeenByPlayer()) {
+        if (GameEngine.DEBUG && isSeenByPlayer()) {
             gc.setFill(Color.RED);
             gc.fillArc(pos.getX() - 30, pos.getY() - 30, 60, 60, 0, 360, ArcType.CHORD);
         }
@@ -137,11 +140,10 @@ public abstract class Enemy extends GameObject {
         allEnemies.remove(this);
 //        new WeaponClipUpgrade(getPosition(), new WeaponClip());
         collider.destroy();
-        if(Math.random() < dropRate) {
-            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
-        }
-        else {
-            if(dropsBlood)
+        if (Math.random() < dropRate) {
+            ((RomInntrenger) GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
+        } else {
+            if (dropsBlood)
                 new Blood(getPosition());
         }
         super.destroy();
@@ -151,6 +153,7 @@ public abstract class Enemy extends GameObject {
 
     /**
      * Creates a new enemy from existing enemy.
+     *
      * @param pos
      * @return
      */
@@ -173,14 +176,14 @@ public abstract class Enemy extends GameObject {
         this.speed = speed;
     }
 
-    public void setIsSeenByPlayer(int playerID, boolean state){
+    public void setIsSeenByPlayer(int playerID, boolean state) {
         isSeenByPlayer[playerID] = state;
     }
 
-    public boolean isSeenByPlayer(){
+    public boolean isSeenByPlayer() {
         boolean ret = false;
-        for(Boolean bol : isSeenByPlayer){
-            if(bol)
+        for (Boolean bol : isSeenByPlayer) {
+            if (bol)
                 ret = true;
         }
         return ret;

@@ -5,6 +5,7 @@ import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.objects.weapon.WeaponBarrel;
 import com.rominntrenger.objects.weapon.WeaponBase;
 import com.rominntrenger.objects.weapon.WeaponClip;
+
 import java.io.Serializable;
 
 public class WeaponDAO implements Serializable {
@@ -16,11 +17,10 @@ public class WeaponDAO implements Serializable {
     public int ammoRemaining;
 
 
+    public String projectilePath;
 
-    public  String projectilePath;
-
-    public  long previousShotTime;
-    public  double shootInterval;
+    public long previousShotTime;
+    public double shootInterval;
 
     public WeaponClip weaponClip;
     public WeaponBarrel weaponBarrel;
@@ -31,8 +31,7 @@ public class WeaponDAO implements Serializable {
     public int spriteFrames = 1;
 
 
-
-    public WeaponDAO(Weapon w){
+    public WeaponDAO(Weapon w) {
         speed = w.getSpeed();
         dmg = w.getDmg();
         alteredDmg = w.getAlteredDmg();
@@ -46,9 +45,9 @@ public class WeaponDAO implements Serializable {
         weaponBase = w.getWeaponBase();
 
         spritePath = w.getSprite().getPath();
-        if(w.getSprite() instanceof AnimationSprite) {
+        if (w.getSprite() instanceof AnimationSprite) {
             isAnimation = true;
-            spriteFrames = ((AnimationSprite)w.getSprite()).getFrameCount();
+            spriteFrames = ((AnimationSprite) w.getSprite()).getFrameCount();
         }
 
     }

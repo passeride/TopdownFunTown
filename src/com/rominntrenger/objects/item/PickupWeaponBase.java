@@ -40,20 +40,19 @@ public class PickupWeaponBase extends Item implements Describable {
 
     @Override
     public void draw(GraphicsContext gc) {
-            gc.setStroke(Color.BLACK);
-            // TODO: FIX!
+        gc.setStroke(Color.BLACK);
 
-            x = transform.getGlobalPosition().getX();
-            y = transform.getGlobalPosition().getY();
+        x = transform.getGlobalPosition().getX();
+        y = transform.getGlobalPosition().getY();
 
         Vec2 squareSize = Vec2.multiply(GameSettings.getSquareScale(), 0.5);
-            gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-            gc.setFill(new Color(0.5, 0, 0, 0.5));
-            gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-            gc.setFill(Color.BLACK);
-            gc.setFont(new Font(squareSize.getY()));
-            String text = cli.character + "";
-            gc.fillText(text, x - squareSize.getX() / 2, y);
+        gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
+        gc.setFill(new Color(0.5, 0, 0, 0.5));
+        gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font(squareSize.getY()));
+        String text = cli.character + "";
+        gc.fillText(text, x - squareSize.getX() / 2, y);
     }
 
     public int getWeaponID() {

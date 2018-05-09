@@ -9,6 +9,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.blocks.Soot;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -40,7 +41,7 @@ public class Explotion extends GameObject {
     public Explotion(Vec2 position, Vec2 rotation, Vec2 startSize, double dropRate) {
         super(position, rotation,
             new AnimationSprite("effects/explosion", 5));
-        ((AnimationSprite)sprite).setLength(0.1);
+        ((AnimationSprite) sprite).setLength(0.1);
         allSplotions.add(this);
         this.startSize = startSize;
         this.dropRate = dropRate;
@@ -48,10 +49,10 @@ public class Explotion extends GameObject {
         setRenderLayer(RenderLayerName.HIGH_BLOCKS);
         players = ((RomInntrenger) GameApplication.getInstance()).getPlayers();
 
-        if(players.size() == 0)
+        if (players.size() == 0)
             destroy();
 
-        for(Player p : players) {
+        for (Player p : players) {
             addForce(p);
             doDamadge(p);
         }
@@ -60,9 +61,9 @@ public class Explotion extends GameObject {
         setAnimationDestroyListener();
     }
 
-    public static void clearAllExplotions(){
+    public static void clearAllExplotions() {
         Iterator<Explotion> iterator = allSplotions.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Explotion explotion = iterator.next();
             explotion.destroy();
 //            iterator.remove();
@@ -77,8 +78,8 @@ public class Explotion extends GameObject {
 
     @Override
     public void destroy() {
-        if(Math.random() > dropRate)
-            ((RomInntrenger)GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
+        if (Math.random() > dropRate)
+            ((RomInntrenger) GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
         else
             new Soot(getPosition());
         allSplotions.remove(this);
@@ -90,13 +91,13 @@ public class Explotion extends GameObject {
         super.update(delta);
 
         timePassed += delta;
-        if(timePassed >= splotionTime)
+        if (timePassed >= splotionTime)
             destroy();
         double sizeModifier = timePassed / splotionTime;
-        setSize(Vec2.add(startSize,new Vec2(sizeModifier * maxSize, sizeModifier * maxSize)));
+        setSize(Vec2.add(startSize, new Vec2(sizeModifier * maxSize, sizeModifier * maxSize)));
 
 
-        if(isFinnished){
+        if (isFinnished) {
             destroy();
         }
     }

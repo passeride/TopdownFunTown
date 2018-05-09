@@ -12,10 +12,11 @@ import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.stateHandling.DAO.MetaDAO;
 import com.rominntrenger.stateHandling.DAO.PlayerDAO;
 import com.rominntrenger.stateHandling.DAO.WeaponDAO;
+import javafx.scene.paint.Color;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import javafx.scene.paint.Color;
 
 public class SaveStateLoader {
 
@@ -26,13 +27,13 @@ public class SaveStateLoader {
     }
 
 
-    public static void loadPreviousSave(RomInntrenger rom){
+    public static void loadPreviousSave(RomInntrenger rom) {
 
-//        GameEngine.getInstance().pauseGame();
+        GameEngine.getInstance().pauseGame();
 
 
         MetaDAO meta = null;
-        try{
+        try {
             meta = load();
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,10 +46,9 @@ public class SaveStateLoader {
         }
 
         rom.clearGamestate();
-        System.out.println("Players is now (LOAD) "  + rom.getPlayers().size());
+        System.out.println("Players is now (LOAD) " + rom.getPlayers().size());
 
-        System.out.println("Players is now (LOAD) "  + meta.players.size());
-
+        System.out.println("Players is now (LOAD) " + meta.players.size());
 
 
         loadPlayers(rom, meta);
@@ -56,15 +56,15 @@ public class SaveStateLoader {
 
         OrthographicCamera.main.moveToFollow();
 
-//        GameEngine.getInstance().resumeGame();
+        GameEngine.getInstance().resumeGame();
         System.out.println("loaded");
     }
 
-    private static void loadPlayers(RomInntrenger rom, MetaDAO meta){
-        for(PlayerDAO playerDAO : meta.players){
+    private static void loadPlayers(RomInntrenger rom, MetaDAO meta) {
+        for (PlayerDAO playerDAO : meta.players) {
             Sprite s;
-            if(playerDAO.isAnimation)
-                s  = new AnimationSprite(playerDAO.spritePath, playerDAO.spriteFrames);
+            if (playerDAO.isAnimation)
+                s = new AnimationSprite(playerDAO.spritePath, playerDAO.spriteFrames);
             else
                 s = new Sprite(playerDAO.spritePath);
             Player p = new Player(new Vec2(playerDAO.posX, playerDAO.posY),
@@ -87,8 +87,8 @@ public class SaveStateLoader {
         }
     }
 
-    private static Weapon parseWeapon(WeaponDAO w){
-        Weapon ret = new Weapon(Vec2.ZERO, new AnimationSprite(w.spritePath,  w.spriteFrames), Vec2.ZERO);
+    private static Weapon parseWeapon(WeaponDAO w) {
+        Weapon ret = new Weapon(Vec2.ZERO, new AnimationSprite(w.spritePath, w.spriteFrames), Vec2.ZERO);
         ret.setSpeed(w.speed);
         ret.setDmg(w.dmg);
         ret.setAlteredDmg(w.alteredDmg);

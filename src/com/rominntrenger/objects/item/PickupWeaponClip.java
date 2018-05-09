@@ -9,7 +9,6 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.messageHandling.MessageHandler;
-import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.weapon.WeaponClip;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,20 +41,20 @@ public class PickupWeaponClip extends Item implements Describable {
 
     @Override
     public void draw(GraphicsContext gc) {
-            gc.setStroke(Color.BLACK);
+        gc.setStroke(Color.BLACK);
 
-            Vec2 squareSize = Vec2.multiply(GameSettings.getSquareScale(), 0.5);
+        Vec2 squareSize = Vec2.multiply(GameSettings.getSquareScale(), 0.5);
 
         x = transform.getGlobalPosition().getX();
         y = transform.getGlobalPosition().getY();
 
-            gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
+        gc.strokeRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
         gc.setFill(new Color(0, 0, 0.5, 0.5));
         gc.fillRect(x - squareSize.getX() / 2, y - squareSize.getY(), squareSize.getX(), squareSize.getY());
-            gc.setFill(Color.BLACK);
-            gc.setFont(new Font(squareSize.getY()));
-            String text = cli.character + "";
-            gc.fillText(text, x - squareSize.getX() / 2, y);
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font(squareSize.getY()));
+        String text = cli.character + "";
+        gc.fillText(text, x - squareSize.getX() / 2, y);
     }
 
     @Override

@@ -22,11 +22,11 @@ public class Blood extends GameObject {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
             new Sprite("effects/blood"));
         setRenderLayer(RenderLayerName.LOW_BLOCKS);
-        this.bloods.add(this);
+        bloods.add(this);
     }
 
-    public static void clearAll(){
-        for(Blood b : bloods){
+    public static void clearAll() {
+        for (Blood b : bloods) {
             b.destroy();
         }
     }

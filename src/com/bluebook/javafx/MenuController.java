@@ -1,10 +1,5 @@
 package com.bluebook.javafx;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -26,6 +21,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
 
 public class MenuController extends Application implements Initializable {
@@ -61,8 +62,7 @@ public class MenuController extends Application implements Initializable {
 
                     gameMenu.setVisible(true);
                     ft.play();
-                }
-                else {
+                } else {
                     FadeTransition ft = new FadeTransition(Duration.seconds(0.5), gameMenu);
                     ft.setFromValue(1);
                     ft.setToValue(0);

@@ -18,7 +18,7 @@ public class AlienHive extends Enemy {
     private boolean isActive = true;
     private int enemyNum = 0;
 
-    public AlienHive(Vec2 position, boolean isMotherHive){
+    public AlienHive(Vec2 position, boolean isMotherHive) {
         super(position, Vec2.ZERO, new Sprite("enemies/nestBlueBig_0"));
 
         this.isMotherHive = isMotherHive;
@@ -35,7 +35,7 @@ public class AlienHive extends Enemy {
         setup();
     }
 
-    private void setup(){
+    private void setup() {
         setSize(new Vec2(5, 5));
 
         WaveManager.hives.add(this);
@@ -47,11 +47,11 @@ public class AlienHive extends Enemy {
         collider.setOnCollisionListener(null);
     }
 
-    public void spawn(int i){
-        if(isActive) {
+    public void spawn(int i) {
+        if (isActive) {
             if (System.currentTimeMillis() - previousSpawn > spawnRate * 1000.0
                 && enemyNum < max_enemies) {
-                ((RomInntrenger)GameApplication.getInstance()).addRandomEnemy.randomElement().spawn(this.getPosition());
+                ((RomInntrenger) GameApplication.getInstance()).addRandomEnemy.randomElement().spawn(this.getPosition());
                 previousSpawn = System.currentTimeMillis();
                 enemyNum++;
             }
@@ -73,10 +73,11 @@ public class AlienHive extends Enemy {
 //        super.destroy();
     }
 
-    public void reset(){
+    public void reset() {
         isActive = true;
         health = max_health;
-        if(isMotherHive)
+        enemyNum = 0;
+        if (isMotherHive)
             setSprite(new Sprite("enemies/nestBlueBig_0"));
         else
             setSprite(new Sprite("enemies/nestBlueSmall_0"));

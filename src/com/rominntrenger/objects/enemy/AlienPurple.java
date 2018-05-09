@@ -9,6 +9,7 @@ import com.bluebook.util.Vec2;
 import com.rominntrenger.objects.FSM.Attack;
 import com.rominntrenger.objects.Projectile;
 import com.rominntrenger.objects.player.Player;
+
 import java.util.Random;
 
 public class AlienPurple extends Enemy {

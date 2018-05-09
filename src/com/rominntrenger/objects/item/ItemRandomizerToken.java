@@ -15,35 +15,37 @@ public class ItemRandomizerToken {
     private WeaponBarrel weaponBarrel;
     private WeaponBase weaponBase;
 
-    public enum ItemType{
-        HEAL_BIG, HEAL_SMALL, WEAPON_CLIP,  WEAPON_BARREL, WEAPON_BASE
+    public enum ItemType {
+        HEAL_BIG, HEAL_SMALL, WEAPON_CLIP, WEAPON_BARREL, WEAPON_BASE
     }
 
 
-    public ItemRandomizerToken(ItemType entity){
+    public ItemRandomizerToken(ItemType entity) {
         this.entity = entity;
     }
 
-    public ItemRandomizerToken(WeaponClip weaponClip){
+    public ItemRandomizerToken(WeaponClip weaponClip) {
         this.entity = ItemType.WEAPON_CLIP;
-        this.weaponClip =  weaponClip;
+        this.weaponClip = weaponClip;
     }
-    public ItemRandomizerToken(WeaponBarrel weaponBarrel){
+
+    public ItemRandomizerToken(WeaponBarrel weaponBarrel) {
         this.entity = ItemType.WEAPON_BARREL;
         this.weaponBarrel = weaponBarrel;
     }
-    public ItemRandomizerToken(WeaponBase weaponBase){
+
+    public ItemRandomizerToken(WeaponBase weaponBase) {
         this.entity = ItemType.WEAPON_BASE;
         this.weaponBase = weaponBase;
     }
 
-    public void spawn(Vec2 pos){
-        switch (entity){
+    public void spawn(Vec2 pos) {
+        switch (entity) {
             case HEAL_BIG:
-                new HealingItem(pos, Vec2.ZERO, new Sprite("items/healSmall"),true);
+                new HealingItem(pos, Vec2.ZERO, new Sprite("items/healSmall"), true);
                 break;
             case HEAL_SMALL:
-                new HealingItem(Vec2.ZERO,Vec2.ZERO,new Sprite("items/healBig"),false);
+                new HealingItem(Vec2.ZERO, Vec2.ZERO, new Sprite("items/healBig"), false);
                 break;
             case WEAPON_CLIP:
                 new PickupWeaponClip(pos, weaponClip);
@@ -52,7 +54,7 @@ public class ItemRandomizerToken {
                 new PickupWeaponBarrel(pos, weaponBarrel);
                 break;
             case WEAPON_BASE:
-                new  PickupWeaponBase(pos,  weaponBase);
+                new PickupWeaponBase(pos, weaponBase);
                 break;
             default:
                 break;
