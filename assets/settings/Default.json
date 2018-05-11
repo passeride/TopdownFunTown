@@ -34,17 +34,16 @@
   "Alien_zombie_max_health": 40,
   "Alien_zombie_hit_dmg": 50,
   "Alien_eye_max_health": 60,
-  "Alien_eye_hit_dmg": 2,
+  "Alien_eye_hit_dmg": 1,
   "Alien_glow_max_health": 30,
   "Alien_glow_bullet_dmg": 5,
   "Alien_mother_max_health": 100,
-  "Alien_mother_hit_dmg": 1,
+  "Alien_mother_hit_dmg": 0,
 
-  "player_health":100,
+  "player_health":1000,
   "player_angular_dampening":0.1,
 
   "smallHeal_value": 30,
   "bigHeal_value": 70,
-  "itemDropRate": 0.5
-
+  "itemDropRate": 0.9
 }

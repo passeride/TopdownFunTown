@@ -43,7 +43,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class RomInntrenger extends GameApplication {
-
     OrthographicCamera cam;
     public CopyOnWriteArrayList<Player> players = new CopyOnWriteArrayList<>();
 
@@ -63,6 +62,9 @@ public class RomInntrenger extends GameApplication {
         Color.PINK, Color.GREENYELLOW, Color.CYAN, Color.ORANGE
     };
 
+    /**
+     * Gives players different sprite colors.
+     */
     public String[] playerSprites = {
         "friendlies/character",
         "friendlies/characterCute",
@@ -104,13 +106,12 @@ public class RomInntrenger extends GameApplication {
     protected void callMenu() {
         GameEngine.getInstance().pauseGame();
         GameApplication.getInstance().getStage().getScene().setRoot(menu.getRoot());
-
     }
 
     /**
      * Will do some one time configuring
      */
-    void setUp() {
+    private void setUp() {
         cam = new OrthographicCamera();
 
         MapCreator level = new MapCreator("map_0");
@@ -179,11 +180,17 @@ public class RomInntrenger extends GameApplication {
         cam.update(delta);
         gi.pullEvents();
 
-        // Check if cameraPlayer  is dead
+        /**
+         * Checks to see if the Camera Holding player is still alive.
+         */
         if (!cam.getGameobject().isAlive() && players.size() > 0) {
             cam.follow(players.get(0));
         }
 
+        /**
+         * Checks to see if one or more controllers are connected.
+         * Connects movement to controller(s) if they are.
+         */
         for (Player player : players) {
             AnimationSprite animSprite = ((AnimationSprite) player.getSprite());
             if (gi.getNumberOfControllers() > 0) {
@@ -217,7 +224,9 @@ public class RomInntrenger extends GameApplication {
                     }
                 }
 
-
+            /**
+             * Maps player movement to the keyboard if there are no controllers.
+             */
             } else if (players.indexOf(player) == 0) {
                 AnimationSprite animationSprite = ((AnimationSprite) player.getCurrentWeapon().getSprite());
 
@@ -272,7 +281,9 @@ public class RomInntrenger extends GameApplication {
 
                     }
 
-                    // Lookat
+                    /**
+                     * Turns the Player Character around to where they look.
+                     */
                     if (OrthographicCamera.main != null) {
                         player.lookAt(Vec2.subtract(input.getMousePosition(),
                             new Vec2(OrthographicCamera.main.getX(),
@@ -296,6 +307,9 @@ public class RomInntrenger extends GameApplication {
             SaveStateLoader.loadPreviousSave(this);
         }
 
+        /**
+         * Opens the Death Overlay if all players are dead.
+         */
         if (players.size() == 0) {
 
             if (deathOverlay == null) {
@@ -329,6 +343,7 @@ public class RomInntrenger extends GameApplication {
     public CopyOnWriteArrayList<Player> getPlayers() {
         return players;
     }
+
 
     public Player getClosestPlayer(Vec2 relativePoint) {
 
@@ -364,6 +379,9 @@ public class RomInntrenger extends GameApplication {
         addRandomEnemy.addElement(3, new EnemyRandomizerToken(EnemyType.ALIEN_WORM));
     }
 
+    /**
+     * Adds all items to the randomizer.
+     */
     public void createItemRandomizer() {
         WeaponComponentHolderDAO stuff = WeaponComponentGSONHandler.loadTest();
         List<WeaponClip> clips = stuff.clips;

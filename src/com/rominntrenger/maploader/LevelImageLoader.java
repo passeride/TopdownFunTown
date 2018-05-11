@@ -78,12 +78,5 @@ public class LevelImageLoader {
         String hexColor = String.format("%06X", (0xFFFFFF & value));
         return hexColor;
     }
-        /*
-        public static void main(String[] args) {
-            ImageBuffering loader = new ImageBuffering();
-            BufferedImage level;
-            level = loader.loadImage("mapStart",32,32);
-            ID[][] newLevel = loadLevel(level);
-            System.out.println(cake[3][6]);
-    } */
+
 }

@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Menu extends Parent {
-
-
     private boolean START_MENU;
     private GameMenu gameMenu;
     private Scene scene;
@@ -26,10 +24,14 @@ public class Menu extends Parent {
     private boolean isBackgroundImageVisible = true;
     Pane root;
 
-
+    /**
+     * Constructor for Menu, sets the Stage.
+     * @param primaryStage
+     */
     public Menu(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+
 
     public void callMenu() {
         START_MENU = GameSettings.getBoolean("start_menu");
