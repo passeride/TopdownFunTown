@@ -1,6 +1,7 @@
 package com.rominntrenger.stateHandling;
 
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.stateHandling.DAO.MetaDAO;
@@ -33,6 +34,7 @@ public class SaveStateSaver {
             new FileOutputStream(new File("./myFile.data")))) {
             // no need to specify members individually
             oos.writeObject(meta);
+            MessageHandler.getInstance().writeMessage("Save complete");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

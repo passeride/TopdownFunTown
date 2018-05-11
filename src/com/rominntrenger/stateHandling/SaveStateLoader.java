@@ -6,6 +6,7 @@ import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
+import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.WaveManager;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.weapon.Weapon;
@@ -32,11 +33,9 @@ public class SaveStateLoader {
         return (MetaDAO) in.readObject();
     }
 
-
     public static void loadPreviousSave(RomInntrenger rom) {
 
         GameEngine.getInstance().pauseGame();
-
 
         MetaDAO meta = null;
         try {
@@ -44,10 +43,14 @@ public class SaveStateLoader {
         } catch (IOException e) {
             e.printStackTrace();
             GameEngine.getInstance().resumeGame();
+            MessageHandler.getInstance().writeMessage("There was a problem locating the saveFile\n Will create a new save");
+            SaveStateSaver.save(rom);
             return;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             GameEngine.getInstance().resumeGame();
+            MessageHandler.getInstance().writeMessage("There was a problem loading the saveFile\n Will create a new save");
+            SaveStateSaver.save(rom);
             return;
         }
 
@@ -58,6 +61,8 @@ public class SaveStateLoader {
         OrthographicCamera.main.moveToFollow();
 
         GameEngine.getInstance().resumeGame();
+        MessageHandler.getInstance().writeMessage("Load Complete");
+
     }
 
     private static void loadPlayers(RomInntrenger rom, MetaDAO meta) {
