@@ -41,7 +41,7 @@
   "Alien_mother_hit_dmg": 0,
 
   "player_health":1000,
-  "player_angular_dampening":0.1,
+  "player_angular_dampening":0.9,
 
   "smallHeal_value": 30,
   "bigHeal_value": 70,
