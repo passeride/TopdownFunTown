@@ -23,7 +23,10 @@ public class GamepadInput {
         for (int i = 0; i < ca.length; i++) {
 
             // TODO: get a xbox controller and test with that
-            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller") || ca[i].getName().equals("Gamepad")) {
+            if (ca[i].getName().equals("Wireless Controller") ||
+                ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller") ||
+                ca[i].getName().equals("Gamepad") ||
+                ca[i].getName().equals("Controller (XBOX 360 For Windows)")) {
                 controllers.add(ca[i]);
             }
             /* Get the name of the controller */
@@ -82,10 +85,10 @@ public class GamepadInput {
                         double valueX = event.getValue();
                         leftJoistick[i].setX(valueX);
                         break;
-                    case "Z Axis":
+                    case "X Rotation":
                         rightJoistick[i].setX(event.getValue());
                         break;
-                    case "Z Rotation":
+                    case "Y Rotation":
                         rightJoistick[i].setY(event.getValue());
                         break;
                     case "rx":
@@ -94,9 +97,9 @@ public class GamepadInput {
                     case "ry":
                         rightJoistick[i].setY(event.getValue());
                         break;
-                    case "Y Rotation":
+                    case "Z Axis":
                         float value = event.getValue();
-                        shoot[i] = value > -0.8;
+                        shoot[i] = value < -0.8;
                         break;
                     case "rz":
                         value = event.getValue();

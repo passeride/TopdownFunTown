@@ -32,7 +32,6 @@ public class SaveStateSaver {
 
         try (ObjectOutputStream oos = new ObjectOutputStream(
             new FileOutputStream(new File("./myFile.data")))) {
-            // no need to specify members individually
             oos.writeObject(meta);
             MessageHandler.getInstance().writeMessage("Save complete");
         } catch (FileNotFoundException e) {
