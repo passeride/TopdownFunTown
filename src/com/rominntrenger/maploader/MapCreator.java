@@ -33,6 +33,10 @@ public class MapCreator extends GameObject {
     private AudioPlayer soundTrack;
     private ID tempID;
 
+    /**
+     * Constructor for MapCreator given a path.
+     * @param path
+     */
     public MapCreator(String path) {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite("bg/tilebg02"));
         allwaysOnScreen = true;
@@ -41,6 +45,10 @@ public class MapCreator extends GameObject {
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }
 
+    /**
+     * Draws to the screen.
+     * @param gc
+     */
     @Override
     public void draw(GraphicsContext gc) {
         /**
