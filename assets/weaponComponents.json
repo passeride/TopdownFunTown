@@ -39,19 +39,19 @@
     {
       "character": "N",
       "dmgMultiplier": 1.2,
-      "shootInterval": 0.3,
+      "shootInterval": 0.04,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.1
     },{
       "character": "K",
       "dmgMultiplier": 1.2,
-      "shootInterval": 0.3,
+      "shootInterval": 0.07,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.13
     },{
       "character": "L",
       "dmgMultiplier": 1.2,
-      "shootInterval": 0.3,
+      "shootInterval": 0.1,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.06
     }
