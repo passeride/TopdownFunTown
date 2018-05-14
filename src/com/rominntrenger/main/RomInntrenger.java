@@ -233,7 +233,11 @@ public class RomInntrenger extends GameApplication {
                 if (player.isAlive()) {
                     if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
                         prevWaveNumber = WaveManager.getInstance().getWaveNumber();
-                        SaveStateSaver.save(this);
+                        if(prevWaveNumber == 0 || prevWaveNumber == 1 ){
+
+                        }else{
+                            SaveStateSaver.save(this);
+                        }
                     }
 
                     if (input.isKeyDown(KeyCode.S) || input.isKeyDown(KeyCode.W) || input
