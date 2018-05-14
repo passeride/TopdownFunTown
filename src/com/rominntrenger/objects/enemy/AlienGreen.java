@@ -32,6 +32,10 @@ public class AlienGreen extends Enemy {
         bullet_dmg = GameSettings.getInt("Alien_green_bullet_dmg");
     }
 
+    /**
+     * Update function, checks if they should go to the next behaviour.
+     * @param delta
+     */
     public void update(double delta) {
         super.update(delta);
         super.nextBehaviour();
@@ -77,6 +81,11 @@ public class AlienGreen extends Enemy {
         });
     }
 
+    /**
+     * Creates a new AlienGreen from existing AlienGreen.
+     * @param pos
+     * @return
+     */
     @Override
     public AlienGreen createNew(Vec2 pos) {
         return new AlienGreen(pos);

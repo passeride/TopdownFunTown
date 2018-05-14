@@ -16,11 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class PickupWeaponBase extends Item implements Describable {
-
-    int weaponID;
-
     WeaponBase cli;
-
     double x, y, width, height;
 
     /**
@@ -39,11 +35,10 @@ public class PickupWeaponBase extends Item implements Describable {
 
     }
 
-    public int getWeaponID() {
-        return weaponID;
-    }
-
-
+    /**
+     * Must be implemented with Describable.
+     * Prints a message to the screen when PickUpWeaponBase is picked up by player.
+     */
     @Override
     public void showMessage() {
         MessageHandler.getInstance()

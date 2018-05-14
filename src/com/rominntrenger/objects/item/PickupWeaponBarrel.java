@@ -16,11 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class PickupWeaponBarrel extends Item implements Describable {
-
-    int weaponID;
-
     WeaponBarrel cli;
-
     double x, y, width, height;
 
     /**
@@ -39,16 +35,19 @@ public class PickupWeaponBarrel extends Item implements Describable {
 
     }
 
+    /**
+     * Sets the item sprite given a Sprite.
+     * @param sprite
+     */
     @Override
     public void setSprite(Sprite sprite) {
         super.setSprite(sprite);
     }
 
-    public int getWeaponID() {
-        return weaponID;
-    }
-
-
+    /**
+     * Must be implemented with Describable.
+     * Prints a message to the screen when PickUpWeaponBarrel is picked up by player.
+     */
     @Override
     public void showMessage() {
         MessageHandler.getInstance()

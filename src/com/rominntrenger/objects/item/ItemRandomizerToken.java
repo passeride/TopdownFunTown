@@ -19,7 +19,6 @@ public class ItemRandomizerToken {
         HEAL_BIG, HEAL_SMALL, WEAPON_CLIP, WEAPON_BARREL, WEAPON_BASE
     }
 
-
     public ItemRandomizerToken(ItemType entity) {
         this.entity = entity;
     }

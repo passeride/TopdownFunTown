@@ -18,6 +18,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class Explotion extends GameObject {
 
+    /**
+     * Creates an ArrayList of Explotion.
+     */
     private static CopyOnWriteArrayList<Explotion> allSplotions = new CopyOnWriteArrayList<>();
 
     double distance = 500;
@@ -29,9 +32,7 @@ public class Explotion extends GameObject {
     private double dropRate;
 
     CopyOnWriteArrayList<Player> players;
-
     boolean isFinnished = false;
-
     Vec2 startSize;
 
     /**
@@ -61,21 +62,29 @@ public class Explotion extends GameObject {
         setAnimationDestroyListener();
     }
 
+    /**
+     * Clears all explosions. For resetting the game.
+     */
     public static void clearAllExplotions() {
         Iterator<Explotion> iterator = allSplotions.iterator();
         while (iterator.hasNext()) {
             Explotion explotion = iterator.next();
             explotion.destroy();
-//            iterator.remove();
         }
         allSplotions.clear();
     }
 
+    /**
+     * Checks if the animation is done playing.
+     */
     void setAnimationDestroyListener() {
         ((AnimationSprite) sprite)
             .setOnAnimationFinnishedListener(() -> isFinnished = true);
     }
 
+    /**
+     * Destroy function, drops item if the randomizer is right, if not it drops a soot.
+     */
     @Override
     public void destroy() {
         if (Math.random() > dropRate)
@@ -86,6 +95,10 @@ public class Explotion extends GameObject {
         super.destroy();
     }
 
+    /**
+     * Update function, checks if the explosion is done playing.
+     * @param delta
+     */
     @Override
     public void update(double delta) {
         super.update(delta);
@@ -102,13 +115,19 @@ public class Explotion extends GameObject {
         }
     }
 
+    /**
+     * Plays audio from specific audio clip.
+     */
     void playAudio() {
-
         AudioPlayer clip = new AudioPlayer("audio/PaalBoom.wav");
         clip.setSpatial(this);
         clip.playOnce();
     }
 
+    /**
+     * Checks if the Player is close enough to be damaged from the Explotion impact.
+     * @param player
+     */
     void doDamadge(Player player) {
         double distance2Player = player.getPosition().distance(getPosition());
 
@@ -119,6 +138,10 @@ public class Explotion extends GameObject {
         }
     }
 
+    /**
+     * Adds physics that push the player away if it is close enough.
+     * @param player
+     */
     void addForce(Player player) {
         double distance2Player = player.getPosition().distance(getPosition());
         double forceMultiplier = 1 - (distance2Player / distance);

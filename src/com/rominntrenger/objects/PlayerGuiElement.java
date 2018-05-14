@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class PlayerGuiElement extends GameObject {
-
     Player player;
 
     int width = 300;
@@ -33,6 +32,10 @@ public class PlayerGuiElement extends GameObject {
     int ammoW;
     int ammoH;
 
+    /**
+     * Construction for PlayerGuiElement given Player.
+     * @param p
+     */
     public PlayerGuiElement(Player p) {
         super(Vec2.ZERO, Vec2.ZERO, null);
         setRenderLayer(RenderLayerName.GUI);
@@ -47,11 +50,18 @@ public class PlayerGuiElement extends GameObject {
         }
     }
 
+    /**
+     * Destroy function, removes the element.
+     */
     @Override
     public void destroy() {
         super.destroy();
     }
 
+    /**
+     *
+     * @param gc
+     */
     @Override
     public void draw(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);

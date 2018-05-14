@@ -45,16 +45,28 @@ public class HealingItem extends Item implements Describable {
 
     }
 
+    /**
+     * Creates a new HealingItem from existing HealingItem.
+     * @param pos
+     * @return
+     */
     @Override
     public HealingItem createNew(Vec2 pos) {
         return new HealingItem(pos, (Vec2) direction.clone(), new Sprite(getSprite().getPath()), smallSize);
     }
 
+    /**
+     * Draws HealingItems to the screen.
+     * @param gc
+     */
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
     }
 
+    /**
+     * Must be implemented with Describable; no message is shown when you pickup a HealingItem currently.
+     */
     public void showMessage() {
 
     }

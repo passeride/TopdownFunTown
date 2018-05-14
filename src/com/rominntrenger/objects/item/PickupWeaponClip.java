@@ -16,11 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class PickupWeaponClip extends Item implements Describable {
-
-    int weaponID;
-
     WeaponClip cli;
-
     double x, y, width, height;
 
     /**
@@ -38,16 +34,19 @@ public class PickupWeaponClip extends Item implements Describable {
         collider.addInteractionLayer("Walk");
     }
 
+    /**
+     * Sets PickupWeaponClip sprite given Sprite.
+     * @param sprite
+     */
     @Override
     public void setSprite(Sprite sprite) {
         super.setSprite(sprite);
     }
 
-    public int getWeaponID() {
-        return weaponID;
-    }
-
-
+    /**
+     * Must be implemented with Describable.
+     * Prints a message to the screen when PickUpWeaponClip is picked up by player.
+     */
     @Override
     public void showMessage() {
         MessageHandler.getInstance()

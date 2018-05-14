@@ -18,6 +18,11 @@ public class AlienHive extends Enemy {
     private boolean isActive = true;
     private int enemyNum = 0;
 
+    /**
+     * Creates a hive given position and a Boolean (if it is Mother Hive)
+     * @param position
+     * @param isMotherHive
+     */
     public AlienHive(Vec2 position, boolean isMotherHive) {
         super(position, Vec2.ZERO, new Sprite("enemies/nestBlueBig_0"));
 
@@ -35,6 +40,9 @@ public class AlienHive extends Enemy {
         setup();
     }
 
+    /**
+     * Sets up the AlienHive.
+     */
     private void setup() {
         setSize(new Vec2(5, 5));
 
@@ -47,6 +55,10 @@ public class AlienHive extends Enemy {
         collider.setOnCollisionListener(null);
     }
 
+    /**
+     * Spawns Aliens given an int.
+     * @param i
+     */
     public void spawn(int i) {
         if (isActive) {
             if (System.currentTimeMillis() - previousSpawn > spawnRate * 1000.0
@@ -58,11 +70,19 @@ public class AlienHive extends Enemy {
         }
     }
 
+    /**
+     * Creates a new AlienHive from existing AlienHive
+     * @param pos
+     * @return
+     */
     @Override
     public AlienWorm createNew(Vec2 pos) {
         return null;
     }
 
+    /**
+     * Changes the sprite if the AlienHive is destroyed.
+     */
     @Override
     public void destroy() {
         isActive = false;
@@ -70,9 +90,11 @@ public class AlienHive extends Enemy {
             setSprite(new Sprite("enemies/nestBlueBig_1"));
         else
             setSprite(new Sprite("enemies/nestBlueSmall_1"));
-//        super.destroy();
     }
 
+    /**
+     * Reactivates the AlienHive, for game reset.
+     */
     public void reset() {
         isActive = true;
         health = max_health;
@@ -83,16 +105,28 @@ public class AlienHive extends Enemy {
             setSprite(new Sprite("enemies/nestBlueSmall_0"));
     }
 
+    /**
+     * Draws AlienHive to the screen.
+     * @param gc
+     */
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
     }
 
+    /**
+     * Update function given a delta.
+     * @param delta
+     */
     @Override
     public void update(double delta) {
 
     }
 
+    /**
+     * Checks if the AlienHive is active.
+     * @return
+     */
     public boolean isActive() {
         return isActive;
     }

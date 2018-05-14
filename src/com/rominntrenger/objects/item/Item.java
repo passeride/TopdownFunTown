@@ -9,6 +9,9 @@ import java.util.List;
 
 public class Item extends GameObject {
 
+    /**
+     * Creates an ArrayList of Item.
+     */
     public static List<Item> allItems = new ArrayList<>();
 
     /**
@@ -19,10 +22,18 @@ public class Item extends GameObject {
         allItems.add(this);
     }
 
+    /**
+     * Creates a new Item from existing Item.
+     * @param pos
+     * @return
+     */
     public Item createNew(Vec2 pos) {
         return new Item(pos, (Vec2) direction.clone(), new Sprite(getSprite().getPath()));
     }
 
+    /**
+     * Removes all items from ArrayList, for resetting the game.
+     */
     public static void removeAllItems(){
         for(Item i : allItems){
             i.destroy();
