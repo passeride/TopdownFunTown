@@ -1,6 +1,5 @@
 package com.rominntrenger.objects.enemy;
 
-
 import com.bluebook.graphics.AnimationSprite;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.util.GameSettings;

@@ -25,22 +25,18 @@ import com.rominntrenger.objects.item.Item;
 import com.rominntrenger.objects.item.ItemRandomizerToken;
 import com.rominntrenger.objects.item.ItemRandomizerToken.ItemType;
 import com.rominntrenger.objects.player.Player;
-import com.rominntrenger.objects.weapon.Weapon;
-import com.rominntrenger.objects.weapon.WeaponBarrel;
-import com.rominntrenger.objects.weapon.WeaponBase;
-import com.rominntrenger.objects.weapon.WeaponClip;
-import com.rominntrenger.objects.weapon.WeaponComponentGSONHandler;
-import com.rominntrenger.objects.weapon.WeaponComponentHolderDAO;
+import com.rominntrenger.objects.weapon.*;
 import com.rominntrenger.stateHandling.SaveStateLoader;
 import com.rominntrenger.stateHandling.SaveStateSaver;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RomInntrenger extends GameApplication {
     OrthographicCamera cam;

@@ -3,8 +3,6 @@ package com.rominntrenger.gui;
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
 import com.rominntrenger.stateHandling.SaveStateLoader;
-import java.io.File;
-import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ObservableValue;
@@ -18,9 +16,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.FloatControl.Type;
+import java.io.File;
+import java.io.IOException;
 
 public class GameMenu extends Parent {
     private VBox menu0, menu1, menu2;
