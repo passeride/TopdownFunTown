@@ -4,6 +4,7 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
+import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -13,7 +14,8 @@ import javafx.scene.text.Font;
 public class DeathOverlay extends GameObject {
 
     /**
-     * Constructor for GameObject given position rotation and sprite
+     * Constructor for GameObject given position rotation and sprite.
+     * Set to be on the topmost renderlayer and on screen until it gets removed.
      */
     public DeathOverlay() {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite("pictures/getGood"));
@@ -23,14 +25,11 @@ public class DeathOverlay extends GameObject {
 
     @Override
     public void draw(GraphicsContext gc) {
-        //super.draw(gc);
-        sprite.drawGUI(gc, Vec2.ZERO, 1920, 1080);
+        sprite.drawGUI(gc, Vec2.ZERO, GameSettings.getInt("game_resolution_X"), GameSettings.getInt("game_resolution_Y"));
         gc.setStroke(Color.WHITESMOKE);
-        String text = new String("Press R to restart or P to reload from checkpoint");
+        String text = new String("Press R to start from scratch or P to reload from checkpoint");
         gc.strokeText(text, GameApplication.getInstance().getScreenWidth() / 2, GameApplication.getInstance().getScreenHeight() / 1.3);
         gc.setFont(Font.font("Arial", 50));
-        //TODO: add text like 'press R to restart', and code the functionality
-
     }
 
     @Override

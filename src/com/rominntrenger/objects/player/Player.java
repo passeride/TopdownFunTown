@@ -300,12 +300,7 @@ public class Player extends GameObject {
         playerHealth = Math.max(0, playerHealth - dmg);
 
         if (playerHealth <= 0) {
-//            new DeathOverlay();
             die();
-//            AudioPlayer audioPlayer = new AudioPlayer("audio/Evil_Laugh.wav");
-//            audioPlayer.playOnce();
-//            romInntrenger.bgMusic.stop();
-//            romInntrenger.bgMusic.close();
             light2D.destroy();
             destroy();
         }
@@ -326,12 +321,12 @@ public class Player extends GameObject {
         if (currentWeapon != null)
             currentWeapon.destroy();
         destroy();
-//        GameEngine.getInstance().pauseGame();
-//        destroy();
     }
 
+    /**
+     * Player will shoot the weapon currently held by player  {@link Weapon#shoot()}
+     */
     public void shoot() {
-
         if (currentWeapon != null) {
             if (currentWeapon.shoot()) {
 //                rb2.addForce(Vec2.multiply(Vec2

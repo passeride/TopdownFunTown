@@ -10,7 +10,9 @@ import com.rominntrenger.objects.item.Item;
 public class Wall extends GameObject {
 
     /**
-     * Constructor for GameObject given position rotation and sprite
+     * Constructor for GameObject given position rotation and sprite.
+     * Sets the wall to high_blocks render layer so the character will be
+     * below it if there is a slight overlap when colliding.
      */
     public Wall(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);

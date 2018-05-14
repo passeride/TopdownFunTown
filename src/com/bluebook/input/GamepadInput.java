@@ -12,6 +12,7 @@ public class GamepadInput {
     private Vec2[] rightJoistick;
     private Boolean[] shoot;
     private Boolean[] reload;
+    private double deadZone = 0.1;
 
     private ArrayList<Controller> controllers = new ArrayList<>();
 
@@ -22,7 +23,10 @@ public class GamepadInput {
         for (int i = 0; i < ca.length; i++) {
 
             // TODO: get a xbox controller and test with that
-            if (ca[i].getName().equals("Wireless Controller") || ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller")) {
+            if (ca[i].getName().equals("Wireless Controller") ||
+                ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller") ||
+                ca[i].getName().equals("Gamepad") ||
+                ca[i].getName().equals("Controller (XBOX 360 For Windows)")) {
                 controllers.add(ca[i]);
             }
             /* Get the name of the controller */
@@ -40,6 +44,7 @@ public class GamepadInput {
         reload = new Boolean[numOfControllers];
 
         for (int i = 0; i < numOfControllers; i++) {
+
             leftJoistick[i] = new Vec2(0, 0);
             rightJoistick[i] = new Vec2(0, 0);
             shoot[i] = new Boolean(false);
@@ -72,22 +77,40 @@ public class GamepadInput {
                     case "y":
                         leftJoistick[i].setY(event.getValue());
                         break;
+                    case "Y Axis":
+                        double valueY = event.getValue();
+                        leftJoistick[i].setY(valueY);
+                        break;
+                    case "X Axis":
+                        double valueX = event.getValue();
+                        leftJoistick[i].setX(valueX);
+                        break;
+                    case "X Rotation":
+                        rightJoistick[i].setX(event.getValue());
+                        break;
+                    case "Y Rotation":
+                        rightJoistick[i].setY(event.getValue());
+                        break;
                     case "rx":
                         rightJoistick[i].setX(event.getValue());
                         break;
                     case "ry":
                         rightJoistick[i].setY(event.getValue());
                         break;
-                    case "rz":
+                    case "Z Axis":
                         float value = event.getValue();
-                        //                            con.getRumblers()[0].rumble(1);
-//                            con.getRumblers()[0].rumble(0);
+                        shoot[i] = value < -0.8;
+                        break;
+                    case "rz":
+                        value = event.getValue();
                         shoot[i] = value > -0.8;
+                        break;
+                    case "Button 2":
+                        value = event.getValue();
+                        reload[i] = value > 0.8;
                         break;
                     case "B":
                         value = event.getValue();
-                        //                            con.getRumblers()[0].rumble(1);
-//                            con.getRumblers()[0].rumble(0);
                         reload[i] = value > 0.8;
                         break;
                 }

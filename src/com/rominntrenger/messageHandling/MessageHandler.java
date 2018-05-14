@@ -16,7 +16,6 @@ import javafx.util.Duration;
 import java.io.InputStream;
 
 public class MessageHandler extends GameObject {
-
     private boolean isActive = true;
     private Sprite sprite;
     private String message;
@@ -29,6 +28,10 @@ public class MessageHandler extends GameObject {
     private int resolutionX;
     private int resolutionY;
 
+    /**
+     * Constructor for MessageHandler.
+     * Sets render layer, font and resolution.
+     */
     private MessageHandler() {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite(""));
         allwaysOnScreen = true;

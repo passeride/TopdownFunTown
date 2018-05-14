@@ -8,15 +8,10 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class ImageBuffering {
-
-    private static HashMap<String, Image> images = new HashMap<>();
-    private static HashMap<String, Image> bgImages = new HashMap<>();
-
-    private BufferedImage image; // = new BufferedImage(188, 188, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage image;;
 
     /**
      * Returns a BufferedImage from a given image file.
-     *
      * @param name
      * @return
      */
