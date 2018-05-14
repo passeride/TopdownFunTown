@@ -12,11 +12,19 @@ import javafx.scene.shape.*;
 
 import java.util.List;
 
+/**
+ * Circlecollider is a {@link Collider} that uses a circular shape with  a Radius defining its size
+ */
 public class CircleCollider extends Collider {
 
     private double radius;
     private static int lineResolution = 12;
 
+    /**
+     * Will create an circlecollider attached to Gameobject go with Radius radius
+     * @param go {@link GameObject} to be attached to
+     * @param radius size of the circlecollider
+     */
     public CircleCollider(GameObject go, double radius) {
         super(go);
         this.radius = radius;

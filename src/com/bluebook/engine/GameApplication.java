@@ -32,7 +32,15 @@ public abstract class GameApplication extends Application {
     private static GameApplication singleton;
     protected Input input;
     protected Stage primaryStage;
+
+    /**
+     * The X_Scale is used to find out how to scale  the squares in the X direction
+     */
     public static DoubleProperty X_scale = new SimpleDoubleProperty();
+
+    /**
+     * The Y_Scale is used to find out how to scale  the squares in the Y direction
+     */
     public static DoubleProperty Y_scale = new SimpleDoubleProperty();
     private Pane gamePane;
     private boolean gameStarted = false;
@@ -144,6 +152,10 @@ public abstract class GameApplication extends Application {
      */
     public abstract void update(double delta);
 
+    /**
+     * Returns the {@link Stage}
+     * @return
+     */
     public Stage getStage() {
         return primaryStage;
     }

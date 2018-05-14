@@ -31,8 +31,14 @@ public class HitDetectionHandler {
 
     private static HitDetectionHandler singleton;
 
+    /**
+     * List of colliders for calculating physics
+     */
     public ArrayList<Collider> colliders = new ArrayList<>();
 
+    /**
+     * List of lines from colliders used to calculate Visibility
+     */
     public ArrayList<Line2D> lines = new ArrayList<>();
 
     // And out buffers needed for thread safe operation

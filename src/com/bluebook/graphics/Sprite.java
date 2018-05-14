@@ -38,6 +38,11 @@ public class Sprite {
         this.path = name;
     }
 
+    /**
+     * Sprite object with required imag
+     * @param name relative name to assets
+     * @param origin Attached object
+     */
     public Sprite(String name, Transform origin) {
         if (!name.equals(""))
             loadImage(name);
@@ -47,6 +52,9 @@ public class Sprite {
 
     }
 
+    /**
+     * This is used to load the image from the same path, good to use when loading from save
+     */
     public void reloadImage() {
         img = SpriteLoader.loadImage(path);
     }
@@ -55,7 +63,10 @@ public class Sprite {
         this.img = SpriteLoader.loadImage(name);
     }
 
-
+    /**
+     * Will set a transform to get scale and position from
+     * @param origin position, scale and direction to draw sprite at
+     */
     public void setOrigin(Transform origin) {
         this.origin = origin;
     }

@@ -30,7 +30,6 @@ public class FPSLineGraph {
         main = this;
     }
 
-    // TODO: make stuff right bro, also optimize
     public void draw(GraphicsContext gc) {
 
         // Drawing horizontal  lines

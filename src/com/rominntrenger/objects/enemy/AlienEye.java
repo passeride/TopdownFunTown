@@ -68,7 +68,6 @@ public class AlienEye extends Enemy {
         p.setSpeed(1600);
         p.setSine(true);
         p.setSource(this);
-        // TODO: NO RECOIL WHEN HIT WITH LAZERZ
         p.setOnCollisionListener(other -> {
             if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {

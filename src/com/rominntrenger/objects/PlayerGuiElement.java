@@ -72,7 +72,7 @@ public class PlayerGuiElement extends GameObject {
         gc.setFill(bg);
 
         gc.strokeRect(x, y, width + 32 + 32,
-            height); // TODO: Unhardcode this somehow, can't use healthW+skullW+ammoW because they do not yet exist
+            height);
         gc.fillRect(x, y, width + 32 + 32, height);
 
         double row = height / 4;

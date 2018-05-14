@@ -52,7 +52,6 @@ public class AlienGlow extends Enemy {
      * Shoot function. Creates projectiles from alien's position and rotation.
      */
     public void shoot() {
-        //TODO: MAKE MULTIPLE BULLETS
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/projectile_enemy_00"));
         Projectile p2 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees() + 90),

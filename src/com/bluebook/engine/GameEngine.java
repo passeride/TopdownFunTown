@@ -23,6 +23,9 @@ public class GameEngine {
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
 
+    /**
+     * Used to draw DEBUG information on screen, can be triggered by F1 by default
+     */
     public static boolean DEBUG = false;
 
     private boolean isPaused = true;
@@ -137,10 +140,18 @@ public class GameEngine {
         }
     }
 
+    /**
+     * Will tell if {@link GameEngine#pauseGame()} is called and game is now  paused
+     * @return
+     */
     public boolean isPaused() {
         return isPaused;
     }
 
+    /**
+     * Singleton getter
+     * @return
+     */
     public static GameEngine getInstance() {
         return singleton;
     }
