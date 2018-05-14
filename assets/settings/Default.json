@@ -40,7 +40,7 @@
   "Alien_mother_max_health": 100,
   "Alien_mother_hit_dmg": 0,
 
-  "player_health":1000,
+  "player_health":100,
   "player_angular_dampening":0.9,
 
   "smallHeal_value": 30,
