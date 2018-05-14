@@ -16,6 +16,10 @@ public class AlienGreen extends Enemy {
     private double shootInterval = 0.001;
     private long prevShot = 0;
 
+    /**
+     * Constructor for AlienGreen given position.
+     * @param position
+     */
     public AlienGreen(Vec2 position) {
         super(position, Vec2.ZERO, new AnimationSprite("enemies/enemyGreen", 3));
         Random r = new Random();
@@ -38,6 +42,9 @@ public class AlienGreen extends Enemy {
         }
     }
 
+    /**
+     * Creates a projectile given the enemy's position and rotation.
+     */
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/projectile_enemy_00"));
@@ -68,11 +75,6 @@ public class AlienGreen extends Enemy {
                 p.destroy();
             }
         });
-    }
-
-    public void wander(Vec2 position) {
-        double x = position.getX();
-        double y = position.getY();
     }
 
     @Override
