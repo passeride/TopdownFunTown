@@ -19,20 +19,22 @@ public class AlienPurple extends Enemy {
     private long prevShot = 0;
 
     /**
-     * Constructor for GameObject given position rotation and sprite
+     * Constructor for AlienPurple given position
      */
     public AlienPurple(Vec2 position) {
         super(position, Vec2.ZERO, new AnimationSprite("enemies/enemyPurple", 3));
         Random r = new Random();
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
-        //setTarget(((Topdownfuntown)GameApplication.getInstance()).getPlayer());
         speed = 100;
 
         max_health = 200;
         health = max_health;
     }
 
-
+    /**
+     * Update function, checks if they should go to the next behaviour.
+     * @param delta
+     */
     @Override
     public void update(double delta) {
         super.update(delta);
@@ -44,6 +46,9 @@ public class AlienPurple extends Enemy {
         }
     }
 
+    /**
+     * Shoot function, creates projectiles and sends them towards the player.
+     */
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/projectile_enemy_00"));
@@ -103,6 +108,11 @@ public class AlienPurple extends Enemy {
         });
     }
 
+    /**
+     * Creates a new AlienPurple from existing AlienPurple.
+     * @param pos
+     * @return
+     */
     @Override
     public AlienPurple createNew(Vec2 pos) {
         return new AlienPurple(pos);

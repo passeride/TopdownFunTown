@@ -17,9 +17,17 @@ public class OrthographicCamera {
 
     private double width, height;
 
+    /**
+     * Used to get the current camera, this should make it possible  to have more than one camera at the scene.
+     * And toggle which to use for render
+     */
     public static OrthographicCamera main;
 
 
+    /**
+     * Used to get offsett as a {@link Vec2}
+     * @return
+     */
     public static Vec2 getOffset() {
         if (main == null) {
             return Vec2.ZERO;
@@ -28,12 +36,18 @@ public class OrthographicCamera {
         }
     }
 
+    /**
+     * Used to jump to a follow object without transition
+     */
     public void moveToFollow() {
         x = gameobject.getTransform().getLocalPosition().getX();
         y = gameobject.getTransform().getLocalPosition().getY();
 
     }
 
+    /**
+     * Constructor for OrthographicCamera
+     */
     public OrthographicCamera() {
         OrthographicCamera.main = this;
         // Loading from settings file
@@ -80,12 +94,12 @@ public class OrthographicCamera {
         }
     }
 
+    /**
+     * Will return the gameobject to follow
+     * @return
+     */
     public GameObject getGameobject() {
         return gameobject;
-    }
-
-    public void setGameobject(GameObject gameobject) {
-        this.gameobject = gameobject;
     }
 
     public double getX() {

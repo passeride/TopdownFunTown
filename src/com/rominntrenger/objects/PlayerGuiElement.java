@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class PlayerGuiElement extends GameObject {
-
     Player player;
 
     int width = 300;
@@ -33,6 +32,10 @@ public class PlayerGuiElement extends GameObject {
     int ammoW;
     int ammoH;
 
+    /**
+     * Construction for PlayerGuiElement given Player.
+     * @param p
+     */
     public PlayerGuiElement(Player p) {
         super(Vec2.ZERO, Vec2.ZERO, null);
         setRenderLayer(RenderLayerName.GUI);
@@ -47,11 +50,18 @@ public class PlayerGuiElement extends GameObject {
         }
     }
 
+    /**
+     * Destroy function, removes the element.
+     */
     @Override
     public void destroy() {
         super.destroy();
     }
 
+    /**
+     * Draws PlayerGuiElement to the screen.
+     * @param gc
+     */
     @Override
     public void draw(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);
@@ -62,7 +72,7 @@ public class PlayerGuiElement extends GameObject {
         gc.setFill(bg);
 
         gc.strokeRect(x, y, width + 32 + 32,
-            height); // TODO: Unhardcode this somehow, can't use healthW+skullW+ammoW because they do not yet exist
+            height);
         gc.fillRect(x, y, width + 32 + 32, height);
 
         double row = height / 4;

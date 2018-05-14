@@ -15,6 +15,10 @@ public class AlienEye extends Enemy {
     private double shootInterval = 1;
     private long prevShot = 0;
 
+    /**
+     * Constructor for AlienEye given position.
+     * @param position
+     */
     public AlienEye(Vec2 position) {
         super(position, Vec2.ZERO, new Sprite("enemies/alienEye_0"));
         Random r = new Random();
@@ -27,12 +31,16 @@ public class AlienEye extends Enemy {
         bullet_dmg = GameSettings.getInt("Alien_eye_hit_dmg");
     }
 
+    /**
+     * Update function, checks if they should go to the next behaviour.
+     * @param delta
+     */
     public void update(double delta) {
         super.update(delta);
         AlienEye.super.nextBehaviour();
 
         prevShot = System.currentTimeMillis();
-//        shoot();
+        shoot();
 
 
         if (health < ((max_health * 20) / 100)) {
@@ -41,6 +49,9 @@ public class AlienEye extends Enemy {
         }
     }
 
+    /**
+     * Creates projectiles given AlienEye's position and rotation.
+     */
     public void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/alienProjectileLaser"));
@@ -57,7 +68,6 @@ public class AlienEye extends Enemy {
         p.setSpeed(1600);
         p.setSine(true);
         p.setSource(this);
-        // TODO: NO RECOIL WHEN HIT WITH LAZERZ
         p.setOnCollisionListener(other -> {
             if (other.getGameObject() != p.getSource()) {
                 if (other.getGameObject() instanceof Player) {
@@ -74,11 +84,12 @@ public class AlienEye extends Enemy {
         });
     }
 
-    public void wander(Vec2 position) {
-        double x = position.getX();
-        double y = position.getY();
-    }
-
+    /**
+     * Creates a new AlienEye from existing AlienEye.
+     * @param pos
+     * @return
+     */
+    @Override
     public AlienEye createNew(Vec2 pos) {
         return new AlienEye(pos);
     }

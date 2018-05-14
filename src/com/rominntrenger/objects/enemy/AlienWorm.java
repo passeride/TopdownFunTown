@@ -17,6 +17,10 @@ public class AlienWorm extends Enemy {
     private long prevShot = 0;
     private int hit_dmg;
 
+    /**
+     * Creates an AlienWorm given position Vec2.
+     * @param position
+     */
     public AlienWorm(Vec2 position) {
         super(position, Vec2.ZERO, new AnimationSprite("enemies/alienWorm", 6));
         Random r = new Random();
@@ -26,11 +30,11 @@ public class AlienWorm extends Enemy {
         max_health = GameSettings.getInt("Alien_worm_max_health");
         health = max_health;
 
-        hit_dmg = GameSettings.getInt("Alien_worm_hit_dmg");
-
         /**
-         * Checks if the Player has the right key in their Inventory.
-         */collider.setOnCollisionListener(other -> {
+         * If AlienWorm collides with the player, do damage.
+         */
+        hit_dmg = GameSettings.getInt("Alien_worm_hit_dmg");
+        collider.setOnCollisionListener(other -> {
             if (other.getGameObject() instanceof Player) {
                 Player pl = (Player) other.getGameObject();
                 pl.hit(hit_dmg);
@@ -38,58 +42,26 @@ public class AlienWorm extends Enemy {
                 collider.destroy();
             }
         });
+
     }
 
+    /**
+     * Creates a new AlienWorm from existing AlienWorm.
+     * @param pos
+     * @return
+     */
     @Override
     public AlienWorm createNew(Vec2 pos) {
         return new AlienWorm(pos);
     }
 
+    /**
+     * Update function, checks if they should go to the next behaviour.
+     * @param delta
+     */
     public void update(double delta) {
         super.update(delta);
         AlienWorm.super.nextBehaviour();
-
-        if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
-            prevShot = System.currentTimeMillis();
-            // shoot();
-        }
-    }
-
-    public void shoot() {
-        Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
-        p.getCollider().addInteractionLayer("UnHittable");
-        p.getCollider().addInteractionLayer("Hittable");
-
-        p.getCollider().addInteractionLayer("Block");
-        p.getSprite().setSquareHeight(32);
-        p.getSprite().setSquareWidth(32);
-        p.setPeriod(1.2f);
-        p.setAmplitude(3f);
-        p.setPhase(200f);
-        p.setSpeed(1600);
-        p.setSine(true);
-        p.setSource(this);
-
-        p.setOnCollisionListener(other -> {
-            if (other.getGameObject() != p.getSource()) {
-                if (other.getGameObject() instanceof Player) {
-                    Player pl = (Player) other.getGameObject();
-                    pl.hit(bullet_dmg);
-                    pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-                        Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
-                        3000.0));
-                } else if (other.getGameObject() instanceof Enemy) {
-                    ((Enemy) other.getGameObject()).hit(bullet_dmg);
-                }
-                p.destroy();
-            }
-        });
-    }
-
-    public void wander(Vec2 position) {
-        double x = position.getX();
-        double y = position.getY();
     }
 
 }

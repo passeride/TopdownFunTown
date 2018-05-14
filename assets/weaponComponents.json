@@ -1,19 +1,19 @@
 {
   "clips": [
     {
-      "character": "S",
+      "character": "1",
       "ammoCap": 50,
       "dmg": 20,
       "heatSeeking": 0.0,
       "reloadTime": 0.5
     },{
-      "character": "P",
+      "character": "2",
       "ammoCap": 20,
       "dmg": 40,
       "heatSeeking": 0.0,
       "reloadTime": 0.7
     },{
-      "character": "K",
+      "character": "3",
       "ammoCap": 20,
       "dmg": 50,
       "heatSeeking": 0.0,
@@ -22,34 +22,34 @@
   ],
   "barrels": [
     {
-      "character": "N",
+      "character": "3",
       "spread": 5.0,
       "speedMultiplier": 1.2
     },{
-      "character": "S",
+      "character": "1",
       "spread": 15.0,
       "speedMultiplier": 1.2
     },{
-      "character": "P",
+      "character": "2",
       "spread": 10.0,
       "speedMultiplier": 1.2
     }
   ],
   "bases": [
     {
-      "character": "N",
+      "character": "3",
       "dmgMultiplier": 1.6,
       "shootInterval": 0.04,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.1
     },{
-      "character": "K",
+      "character": "2",
       "dmgMultiplier": 1.5,
       "shootInterval": 0.07,
       "speedMultiplier": 0.7,
       "angularDampeningMultiplier": 0.13
     },{
-      "character": "L",
+      "character": "1",
       "dmgMultiplier": 1.4,
       "shootInterval": 0.1,
       "speedMultiplier": 0.7,

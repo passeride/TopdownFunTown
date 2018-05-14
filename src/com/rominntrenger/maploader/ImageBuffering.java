@@ -1,14 +1,11 @@
 package com.rominntrenger.maploader;
 
-import javafx.scene.image.Image;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class ImageBuffering {
-    private BufferedImage image;;
+    private BufferedImage image;
 
     /**
      * Returns a BufferedImage from a given image file.

@@ -7,24 +7,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Ligth is used to create a 2d polygon to draw opacity and creating the illusion of light and shadow
+ */
 public class Light2D {
 
+    /**
+     * All lights currently active is to be placed here so physics thread can access them
+     */
     public static List<Light2D> lights = new CopyOnWriteArrayList<>();
 
     GameObject source;
 
     public double[][] polygon;
 
+    /**
+     * Create a Light2D attached to gameobject
+     * @param source GameObject the light is attached to
+     */
     public Light2D(GameObject source) {
         this.source = source;
         lights.add(this);
     }
 
+    /**
+     * When destroying a Light call destroy to detache it from the physics
+     */
     public void destroy(){
         lights.remove(this);
     }
 
 
+    /**
+     * Will calculate the visibility relative to a list of linesegments and the source gameobject
+     * @param list A list of {@link LineSegment} from  all the colliders
+     * @return Polygon list of coordinates [x = 0 / y = 1][number of point]
+     * @throws IllegalArgumentException
+     */
     public double[][] calculateVisibility(ArrayList<LineSegment> list) throws IllegalArgumentException {
 
         ArrayList<LinePoint> points = new ArrayList<>();
@@ -91,25 +110,11 @@ public class Light2D {
 
     }
 
-    /*
-bool pointInPolygon() {
-
-  int   i, j=polyCorners-1 ;
-  bool  oddNodes=NO      ;
-
-  for (i=0; i<polyCorners; i++) {
-    if (polyY[i]<y && polyY[j]>=y
-    ||  polyY[j]<y && polyY[i]>=y) {
-      if (polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x) {
-        oddNodes=!oddNodes;
-        }
-      }
-    j=i;
-    }
-
-  return oddNodes; }
+    /**
+     * Will return true if point is within Poly and false if it's outside  poly
+     * @param point
+     * @return
      */
-
     public boolean pointInPoly(Vec2 point) {
         try {
             if (polygon == null)
@@ -142,7 +147,6 @@ bool pointInPolygon() {
         }
 
     }
-
 
     ArrayList<Vec2> getOutPoints(Vec2 origin, double angle1, double angle2, LineSegment segment) {
         ArrayList<Vec2> ret = new ArrayList<>();

@@ -12,6 +12,9 @@ import java.util.ArrayList;
  */
 public class Blood extends GameObject {
 
+    /**
+     * Creates an ArrayList of Blood.
+     */
     public static ArrayList<Blood> bloods = new ArrayList<>();
 
     /**
@@ -25,6 +28,9 @@ public class Blood extends GameObject {
         bloods.add(this);
     }
 
+    /**
+     * Empties ArrayList for resetting the game.
+     */
     public static void clearAll() {
         for (Blood b : bloods) {
             b.destroy();

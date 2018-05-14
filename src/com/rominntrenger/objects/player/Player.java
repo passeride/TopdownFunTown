@@ -200,10 +200,7 @@ public class Player extends GameObject {
         this.lookDirection = lookDirection.getNormalizedVector();
         showLaser = lookDirection.getMagnitude() > 0.8;
 
-        // TODO: FIX SHIT
         if (lookDirection.getMagnitude() > 0.2) {
-//            translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
-            // Getting modified angular dampening
             double angularDampeningWModifiers = angularDampening;
 
             if (currentWeapon != null && currentWeapon.getWeaponBase() != null)

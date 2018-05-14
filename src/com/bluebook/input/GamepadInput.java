@@ -6,6 +6,9 @@ import net.java.games.input.*;
 
 import java.util.ArrayList;
 
+/**
+ * GamepadInput will use JInput to get input from gamepad such as PS4 controller or XBox kontroller
+ */
 public class GamepadInput {
 
     private Vec2[] leftJoistick;
@@ -16,13 +19,16 @@ public class GamepadInput {
 
     private ArrayList<Controller> controllers = new ArrayList<>();
 
+    /**
+     * This function will initialize the gamepads, and selecting only the gamepads we have configured
+     */
     public GamepadInput() {
 
         Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
 
         for (int i = 0; i < ca.length; i++) {
 
-            // TODO: get a xbox controller and test with that
+
             if (ca[i].getName().equals("Wireless Controller") ||
                 ca[i].getName().equals("Sony Interactive Entertainment Wireless Controller") ||
                 ca[i].getName().equals("Gamepad") ||
@@ -56,6 +62,9 @@ public class GamepadInput {
         return controllers.size();
     }
 
+    /**
+     * This functions will poll events from the gamepads selected and format the input into  format used by the game
+     */
     public void pullEvents() {
 
         for (int i = 0; i < controllers.size(); i++) {
@@ -140,6 +149,11 @@ public class GamepadInput {
         }
     }
 
+    /**
+     * Will return the {@link Vec2} where  the LeftJoistick
+     * @param id Number of controller you want vector from
+     * @return
+     */
     public Vec2 getLeftJoistick(int id) {
         if (id < leftJoistick.length)
             return leftJoistick[id];
@@ -147,7 +161,11 @@ public class GamepadInput {
             return Vec2.ZERO;
     }
 
-
+    /**
+     * Will return the {@link Vec2} where  the RightJoystick
+     * @param id Number of controller you want vector from
+     * @return
+     */
     public Vec2 getRightJoystick(int id) {
         if (id < leftJoistick.length)
             return rightJoistick[id];
@@ -155,7 +173,11 @@ public class GamepadInput {
             return Vec2.ZERO;
     }
 
-
+    /**
+     * Will return weather  the  shoot button for gamepadID is down
+     * @param id Number of controller you want input from
+     * @return
+     */
     public boolean isShoot(int id) {
         if (id < shoot.length)
             return shoot[id];
@@ -163,6 +185,11 @@ public class GamepadInput {
             return false;
     }
 
+    /**
+     * Will return weather  the  reload button for gamepadID is down
+     * @param id Number of controller you want input from
+     * @return
+     */
     public boolean isReload(int id) {
         if (id < reload.length)
             return reload[id];

@@ -26,6 +26,10 @@ public class Input {
     private boolean mouseButtonDown1 = false;
     private double mouse_X = 0.0, mouse_y = 0.0;
 
+    /**
+     * Constructor needs stage to  attache input listeners
+     * @param stage
+     */
     public Input(Stage stage) {
         singleton = this;
         setEventHandlers(stage);

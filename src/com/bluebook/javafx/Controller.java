@@ -10,6 +10,9 @@ import javafx.scene.canvas.Canvas;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * FXML controller, used to get canvas and set window  size logic
+ */
 public class Controller implements Initializable {
 
     @FXML

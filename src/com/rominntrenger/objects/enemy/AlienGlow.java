@@ -14,10 +14,13 @@ import com.rominntrenger.objects.player.Player;
 import java.util.Random;
 
 public class AlienGlow extends Enemy {
-
     private double shootInterval = 0.001;
     private long prevShot = 0;
 
+    /**
+     * Constructor for AlienGlow given position.
+     * @param position
+     */
     public AlienGlow(Vec2 position) {
         super(position, Vec2.ZERO, new AnimationSprite("enemies/alienGlow", 4));
         setSize(new Vec2(1.5, 1.5));
@@ -31,6 +34,10 @@ public class AlienGlow extends Enemy {
         bullet_dmg = GameSettings.getInt("Alien_glow_bullet_dmg");
     }
 
+    /**
+     * Update function, checks if they should go to the next behaviour.
+     * @param delta
+     */
     public void update(double delta) {
         super.update(delta);
         AlienGlow.super.nextBehaviour();
@@ -41,8 +48,10 @@ public class AlienGlow extends Enemy {
         }
     }
 
+    /**
+     * Shoot function. Creates projectiles from alien's position and rotation.
+     */
     public void shoot() {
-        //TODO: MAKE MULTIPLE BULLETS
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/projectile_enemy_00"));
         Projectile p2 = new Projectile(transform.getLocalPosition(), new Vec2(0, transform.getGlobalRotation().getAngleInDegrees() + 90),
@@ -155,11 +164,11 @@ public class AlienGlow extends Enemy {
         });
     }
 
-    public void wander(Vec2 position) {
-        double x = position.getX();
-        double y = position.getY();
-    }
-
+    /**
+     * Creates a new AlienGlow from existing AlienGlow
+     * @param pos
+     * @return
+     */
     public AlienGlow createNew(Vec2 pos) {
         return new AlienGlow(pos);
     }

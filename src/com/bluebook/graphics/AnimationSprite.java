@@ -76,10 +76,18 @@ public class AnimationSprite extends Sprite {
         draw(gc, position);
     }
 
+    /**
+     * Will return TRUE if animation is playing and FALSE if animation is not playing
+     * @return
+     */
     public boolean isPlaying() {
         return playing;
     }
 
+    /**
+     * Will set the Animation playing if TRUE is passed in, and stop animation if FALSE is passed in.
+     * @param playing
+     */
     public void setPlaying(boolean playing) {
         this.playing = playing;
         if (!playing) {
@@ -87,6 +95,11 @@ public class AnimationSprite extends Sprite {
         }
     }
 
+    /**
+     * Will set an endListener, will be called when animation is finnished.
+     * PS: This will execute on the RenderThread so keep in mind.
+     * @param listener
+     */
     public void setOnAnimationFinnishedListener(OnAnimationFinishedListener listener) {
         doneListener = listener;
     }

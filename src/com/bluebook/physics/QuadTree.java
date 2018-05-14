@@ -2,7 +2,6 @@ package com.bluebook.physics;
 
 import com.bluebook.camera.OrthographicCamera;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.objects.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -224,20 +223,6 @@ public class QuadTree {
                     gc.strokeLine(x + w, y, x + w, y + h);
                     gc.setFill(Color.WHITE);
 
-//                    gc.setFill(Color.RED);
-//                    for (Collider go : colliders) {
-//
-//                        Vec2 goPoss = go.getPosition();
-//
-//                        gc.fillRect(goPoss.getX(), goPoss.getY(), 5, 5);
-//
-//                        if (go.getGameObject() instanceof Player) {
-//                            gc.setStroke(Color.PURPLE);
-//                            gc.strokeRect(goPoss.getX() - colliderQueryWidth / 2,
-//                                goPoss.getY() - colliderQueryHeight / 2, colliderQueryWidth,
-//                                colliderQueryWidth);
-//                        }
-//                    }
                 }
             }
         }

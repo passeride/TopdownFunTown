@@ -4,23 +4,15 @@ import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.renderer.RenderLayer;
-import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.weapon.WeaponBase;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class PickupWeaponBase extends Item implements Describable {
-
-    int weaponID;
-
     WeaponBase cli;
-
     double x, y, width, height;
 
     /**
@@ -39,11 +31,10 @@ public class PickupWeaponBase extends Item implements Describable {
 
     }
 
-    public int getWeaponID() {
-        return weaponID;
-    }
-
-
+    /**
+     * Must be implemented with Describable.
+     * Prints a message to the screen when PickUpWeaponBase is picked up by player.
+     */
     @Override
     public void showMessage() {
         MessageHandler.getInstance()

@@ -7,8 +7,9 @@ import com.bluebook.renderer.RenderLayer;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
-import com.rominntrenger.objects.*;
-import com.rominntrenger.objects.blocks.*;
+import com.rominntrenger.objects.AlienHive;
+import com.rominntrenger.objects.PlayerSpawn;
+import com.rominntrenger.objects.blocks.Wall;
 import com.rominntrenger.objects.enemy.AlienExplode;
 import com.rominntrenger.objects.enemy.AlienGreen;
 import com.rominntrenger.objects.enemy.AlienPurple;
@@ -32,6 +33,10 @@ public class MapCreator extends GameObject {
     private AudioPlayer soundTrack;
     private ID tempID;
 
+    /**
+     * Constructor for MapCreator given a path.
+     * @param path
+     */
     public MapCreator(String path) {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite("bg/tilebg02"));
         allwaysOnScreen = true;
@@ -40,6 +45,10 @@ public class MapCreator extends GameObject {
         setRenderLayer(RenderLayer.RenderLayerName.BACKGROUND);
     }
 
+    /**
+     * Draws to the screen.
+     * @param gc
+     */
     @Override
     public void draw(GraphicsContext gc) {
         /**

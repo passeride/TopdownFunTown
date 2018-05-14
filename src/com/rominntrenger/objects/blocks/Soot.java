@@ -12,6 +12,9 @@ import java.util.ArrayList;
  */
 public class Soot extends GameObject {
 
+    /**
+     * Creates an ArrayList of Soot.
+     */
     public static ArrayList<Soot> soots = new ArrayList<>();
 
     /**
@@ -25,6 +28,9 @@ public class Soot extends GameObject {
         soots.add(this);
     }
 
+    /**
+     * Empties the ArrayList for resetting the game.
+     */
     public static void clearAll() {
         for (Soot b : soots) {
             b.destroy();

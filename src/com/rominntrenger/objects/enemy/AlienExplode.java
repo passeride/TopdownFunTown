@@ -42,19 +42,18 @@ public class AlienExplode extends Enemy {
         super.destroy();
     }
 
+    /**
+     * Update function for AlienExplode, checks to see if it sees a player and
+     * explodes accordingly.
+     * @param delta
+     */
     public void update(double delta) {
-        /**
-         * Counts down the time and explodes. Modifies the size with the explosion.
-         */
         timePassed += delta;
         if (timePassed >= timeToExplotion)
             destroy();
         double sizeModifier = timePassed / timeToExplotion;
         setSize(new Vec2(sizeModifier * maxSize, sizeModifier * maxSize));
 
-        /**
-         * If AlienExplode sees a player, it will run towards it.
-         */
         target = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(getPosition());
         if (target != null) {
             translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
@@ -64,6 +63,11 @@ public class AlienExplode extends Enemy {
 
     }
 
+    /**
+     * Creates a new AlienEye from existing AlienEye
+     * @param pos
+     * @return
+     */
     public AlienEye createNew(Vec2 pos) {
         return new AlienEye(pos);
     }
