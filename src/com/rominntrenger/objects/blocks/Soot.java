@@ -15,8 +15,8 @@ public class Soot extends GameObject {
     public static ArrayList<Soot> soots = new ArrayList<>();
 
     /**
-     * Blood will create a blood decal on position given, with random rotation. Used when enemies
-     * dies
+     * Soot will create a soot decal on position given, with random rotation. Used when the
+     * exploding enemies dies.
      */
     public Soot(Vec2 position) {
         super(position, Vec2.Vector2FromAngleInDegrees(Math.random() * 360),
