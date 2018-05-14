@@ -59,7 +59,7 @@ public class PlayerGuiElement extends GameObject {
     }
 
     /**
-     *
+     * Draws PlayerGuiElement to the screen.
      * @param gc
      */
     @Override

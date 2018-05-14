@@ -22,9 +22,7 @@ import java.util.ArrayList;
  * {@link WaveManager} will controll the waves, and also keep track of what enemies to spawn where
  */
 public class WaveManager extends GameObject {
-
     public static ArrayList<AlienHive> hives = new ArrayList<>();
-
     private static WaveManager singelton;
 
     private int width = 375;
@@ -32,15 +30,12 @@ public class WaveManager extends GameObject {
     private int boxRadius = 90;
 
     private int waveNumber = 0;
-
     private long waveStart = 0;
 
     private long pauseStart = 0;
     private double pauseTime = 1.5;
 
     private boolean hivesDownMessage = false;
-
-
     private WaveSate state = WaveSate.PAUSE;
 
     public enum WaveSate {
