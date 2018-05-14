@@ -23,7 +23,6 @@ import javafx.scene.shape.ArcType;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Enemy extends GameObject {
-
     public static CopyOnWriteArrayList<Enemy> allEnemies = new CopyOnWriteArrayList<>();
     protected double speed = 300;
     protected int max_health = 1000;
@@ -41,6 +40,12 @@ public abstract class Enemy extends GameObject {
 
     private boolean[] isSeenByPlayer = new boolean[12];
 
+    /**
+     * Constructor for enemy given position, direction and sprite
+     * @param position
+     * @param direction
+     * @param sprite
+     */
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
         // setSeenByPlayer

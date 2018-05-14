@@ -17,6 +17,12 @@ public class AlienZombie extends Enemy {
     private long prevShot = 0;
     private int hit_dmg;
 
+    /**
+     * Creates a new AlienZombie given Vec2 Position.
+     * @param position
+     *
+     * Gives it a CollisionListener and sets the damage of the collision.
+     */
     public AlienZombie(Vec2 position) {
         super(position, Vec2.ZERO, new AnimationSprite("enemies/alienZombie", 4));
         Random r = new Random();
@@ -28,9 +34,7 @@ public class AlienZombie extends Enemy {
 
         hit_dmg = GameSettings.getInt("Alien_zombie_hit_dmg");
 
-        /**
-         * Checks if the Player has the right key in their Inventory.
-         */collider.setOnCollisionListener(other -> {
+        collider.setOnCollisionListener(other -> {
             if (other.getGameObject() instanceof Player) {
                 Player pl = (Player) other.getGameObject();
                 pl.hit(hit_dmg);
@@ -40,54 +44,20 @@ public class AlienZombie extends Enemy {
         });
     }
 
+    /**
+     * Update function, checks if they should go to the next behaviour.
+     * @param delta
+     */
     public void update(double delta) {
         super.update(delta);
         AlienZombie.super.nextBehaviour();
-
-        if (super.behaviour instanceof Attack && (System.currentTimeMillis() - prevShot) / 1000 >= shootInterval) {
-            prevShot = System.currentTimeMillis();
-            //TODO: må endre speed så den ikke blir gottagofast når den ser player
-            // shoot();
-        }
     }
 
-    public void shoot() {
-        Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
-            new Sprite("/projectiles/projectile_enemy_00"));
-        p.getCollider().addInteractionLayer("UnHittable");
-        p.getCollider().addInteractionLayer("Hittable");
-
-        p.getCollider().addInteractionLayer("Block");
-        p.getSprite().setSquareHeight(32);
-        p.getSprite().setSquareWidth(32);
-        p.setPeriod(1.2f);
-        p.setAmplitude(3f);
-        p.setPhase(200f);
-        p.setSpeed(1600);
-        p.setSine(true);
-        p.setSource(this);
-
-        p.setOnCollisionListener(other -> {
-            if (other.getGameObject() != p.getSource()) {
-                if (other.getGameObject() instanceof Player) {
-                    Player pl = (Player) other.getGameObject();
-                    pl.hit(bullet_dmg);
-                    pl.rb2.addForce(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(
-                        Vec2.getAngleBetweenInDegrees(getPosition(), pl.getPosition())),
-                        3000.0));
-                } else if (other.getGameObject() instanceof Enemy) {
-                    ((Enemy) other.getGameObject()).hit(bullet_dmg);
-                }
-                p.destroy();
-            }
-        });
-    }
-
-    public void wander(Vec2 position) {
-        double x = position.getX();
-        double y = position.getY();
-    }
-
+    /**
+     * Creates a new AlienZombie from existing AlienZombie.
+     * @param pos
+     * @return
+     */
     @Override
     public AlienZombie createNew(Vec2 pos) {
         return new AlienZombie(pos);
