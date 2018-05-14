@@ -1,19 +1,16 @@
 package com.rominntrenger.objects.item;
 
+
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
 import com.bluebook.physics.CircleCollider;
 import com.bluebook.renderer.RenderLayer;
-import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
 import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.messageHandling.Describable;
 import com.rominntrenger.messageHandling.MessageHandler;
 import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.weapon.WeaponClip;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class PickupWeaponClip extends Item implements Describable {
 

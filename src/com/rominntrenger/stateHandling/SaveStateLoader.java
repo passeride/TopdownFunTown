@@ -13,11 +13,12 @@ import com.rominntrenger.objects.weapon.Weapon;
 import com.rominntrenger.stateHandling.DAO.MetaDAO;
 import com.rominntrenger.stateHandling.DAO.PlayerDAO;
 import com.rominntrenger.stateHandling.DAO.WeaponDAO;
+import javafx.scene.paint.Color;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import javafx.scene.paint.Color;
 
 public class SaveStateLoader {
 
