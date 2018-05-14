@@ -33,6 +33,9 @@ public class AlienExplode extends Enemy {
         dropsBlood = false;
     }
 
+    /**
+     * Upon its destruction, it creates an explosion.
+     */
     @Override
     public void destroy() {
         new Explotion(getPosition(), getDirection(), getScale(), getDropRate());
@@ -40,12 +43,18 @@ public class AlienExplode extends Enemy {
     }
 
     public void update(double delta) {
+        /**
+         * Counts down the time and explodes. Modifies the size with the explosion.
+         */
         timePassed += delta;
         if (timePassed >= timeToExplotion)
             destroy();
         double sizeModifier = timePassed / timeToExplotion;
         setSize(new Vec2(sizeModifier * maxSize, sizeModifier * maxSize));
 
+        /**
+         * If AlienExplode sees a player, it will run towards it.
+         */
         target = ((RomInntrenger) GameApplication.getInstance()).getClosestPlayer(getPosition());
         if (target != null) {
             translate(Vec2.multiply(Vec2.Vector2FromAngleInDegrees(Vec2.getAngleBetweenInDegrees(getPosition(), target.getPosition())), speed * delta));
