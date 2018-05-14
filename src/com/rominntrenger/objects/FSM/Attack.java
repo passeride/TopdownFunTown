@@ -8,12 +8,23 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.enemy.Enemy;
 import com.rominntrenger.objects.player.Player;
 
+/**
+ * A class that implements the interface Behaviour and handles the AI state attack
+ */
 public class Attack implements Behaviour {
 
+    /**
+     * this static integer determines a position in an array that contains positions for behaviours
+     */
     public static int position = 1;
-    boolean hasFled = false;
-    boolean hasScreamed = false;
+    private boolean hasFled = false;
+    private boolean hasScreamed = false;
 
+
+    /**
+     * nextBehaviour contains the logics for the AI`s attack state and with this logic decides if it will continue in it`s current behaviour or set another behaviour.
+     * @param behaviourContext is the enemy that the FSM works on.
+     */
     @Override
     public void nextBehaviour(Enemy behaviourContext) {
 
@@ -59,4 +70,6 @@ public class Attack implements Behaviour {
         }
 
     }
+
+
 }

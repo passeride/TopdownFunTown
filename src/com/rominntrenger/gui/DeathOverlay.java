@@ -27,7 +27,7 @@ public class DeathOverlay extends GameObject {
     public void draw(GraphicsContext gc) {
         sprite.drawGUI(gc, Vec2.ZERO, GameSettings.getInt("game_resolution_X"), GameSettings.getInt("game_resolution_Y"));
         gc.setStroke(Color.WHITESMOKE);
-        String text = new String("Press R to start from scratch or P to reload from checkpoint");
+        String text = new String("Press ESC to exit the game or P to reload from checkpoint");
         gc.strokeText(text, GameApplication.getInstance().getScreenWidth() / 2, GameApplication.getInstance().getScreenHeight() / 1.3);
         gc.setFont(Font.font("Arial", 50));
     }

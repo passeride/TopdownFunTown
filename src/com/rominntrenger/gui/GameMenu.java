@@ -2,6 +2,7 @@ package com.rominntrenger.gui;
 
 import com.bluebook.audio.AudioPlayer;
 import com.bluebook.engine.GameApplication;
+import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.stateHandling.SaveStateLoader;
 import java.io.File;
 import java.io.IOException;
@@ -121,13 +122,8 @@ public class GameMenu extends Parent {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                try {
-                    SaveStateLoader.loadFromFile(selectedFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                SaveStateLoader.loadPreviousSave((RomInntrenger)GameApplication.getInstance(), selectedFile);
+                System.out.println("LOADING");
 
 
             }});

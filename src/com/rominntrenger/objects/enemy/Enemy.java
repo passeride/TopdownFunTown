@@ -16,14 +16,20 @@ import com.rominntrenger.objects.FSM.Flee;
 import com.rominntrenger.objects.FSM.Wander;
 import com.rominntrenger.objects.blocks.Blood;
 import com.rominntrenger.objects.player.Player;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
+/**
+ * Enemy - an abstract class that extends GameObject.
+ * This class is the top-node for all enemies in-game.
+ */
 public abstract class Enemy extends GameObject {
 
+    /**
+     * A list containing all active enemies
+     */
     public static CopyOnWriteArrayList<Enemy> allEnemies = new CopyOnWriteArrayList<>();
     protected double speed = 300;
     protected int max_health = 1000;
@@ -32,19 +38,28 @@ public abstract class Enemy extends GameObject {
     double angularDampening = 0.05;
     int bullet_dmg = 10;
     Behaviour behaviour;
+    /**
+     * delta is the update time used to get a smooth update frame
+     */
     public double delta;
 
-    protected boolean dropsBlood = true;
-    public double dropRate = GameSettings.getDouble("itemDropRate");
+    boolean dropsBlood = true;
+
+    private double dropRate = GameSettings.getDouble("itemDropRate");
 
     private Behaviour[] behaviours = new Behaviour[12];
 
     private boolean[] isSeenByPlayer = new boolean[12];
 
+    /**
+     * Constructor for the class enemy, extended by super(class gameObject)
+     * @param position is the given position for the enemy
+     * @param direction is the given direction for the enemy
+     * @param sprite is the given sprite for the enemy
+     */
     public Enemy(Vec2 position, Vec2 direction, Sprite sprite) {
         super(position, direction, sprite);
-        // setSeenByPlayer
-//        isSeenByPlayer = new boolean[Math.max(1, ((RomInntrenger) GameApplication.getInstance()).players.size() + 2)];
+
 
         allEnemies.add(this);
         setRenderLayer(RenderLayer.RenderLayerName.ENEMIES);
@@ -73,13 +88,15 @@ public abstract class Enemy extends GameObject {
 
     /**
      * Sets the current behaviour to input.
-     *
-     * @param behaviourPosition
+     * @param behaviourPosition is the position sat in constructor
      */
     public void setBehaviour(int behaviourPosition) {
         this.behaviour = behaviours[behaviourPosition];
     }
 
+    /**
+     * sets next behaviour
+     */
     public void nextBehaviour() {
         this.behaviour.nextBehaviour(this);
     }
@@ -92,6 +109,10 @@ public abstract class Enemy extends GameObject {
         return speed;
     }
 
+    /**
+     * This translates a vector to another position
+     * @param moveVector
+     */
     @Override
     public void translate(Vec2 moveVector) {
         Vec2 newPoss = Vec2.add(getPosition(), moveVector);
@@ -111,6 +132,10 @@ public abstract class Enemy extends GameObject {
         }
     }
 
+    /**
+     * this damages whatever hit
+     * @param dmg the amount in int
+     */
     public void hit(int dmg) {
         health -= dmg;
         if (health <= 0) {
@@ -119,7 +144,10 @@ public abstract class Enemy extends GameObject {
         }
     }
 
-
+    /**
+     * Draws on screen
+     * @param gc is the given graphicsContext to draw
+     */
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
@@ -135,10 +163,12 @@ public abstract class Enemy extends GameObject {
         }
     }
 
+    /**
+     * Destroys the given enemy and its given fields
+     */
     @Override
     public void destroy() {
         allEnemies.remove(this);
-//        new WeaponClipUpgrade(getPosition(), new WeaponClip());
         collider.destroy();
         if (Math.random() < dropRate) {
             ((RomInntrenger) GameApplication.getInstance()).addRandomItem.randomElement().spawn(getPosition());
@@ -147,14 +177,12 @@ public abstract class Enemy extends GameObject {
                 new Blood(getPosition());
         }
         super.destroy();
-//        if(isKeyHolder)
-//            ((Topdownfuntown) GameApplication.getInstance()).hasKey = true;
+
     }
 
     /**
      * Creates a new enemy from existing enemy.
-     *
-     * @param pos
+     * @param pos position given the enemy
      * @return
      */
     public abstract Enemy createNew(Vec2 pos);
@@ -166,10 +194,6 @@ public abstract class Enemy extends GameObject {
 
     public double getDelta() {
         return delta;
-    }
-
-    public GameObject getTarget() {
-        return target;
     }
 
     public void setSpeed(double speed) {

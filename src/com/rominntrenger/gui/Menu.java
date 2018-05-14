@@ -1,6 +1,10 @@
 package com.rominntrenger.gui;
 
+import com.bluebook.engine.GameApplication;
+import com.bluebook.engine.GameEngine;
 import com.bluebook.util.GameSettings;
+import java.io.IOException;
+import java.io.InputStream;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,9 +14,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Menu extends Parent {
     private boolean START_MENU;
@@ -39,7 +40,7 @@ public class Menu extends Parent {
         root = new Pane();
         root.setPrefSize(1920, 1080);
 
-        InputStream is = null;
+        InputStream is;
         is = getClass().getClassLoader().getResourceAsStream("sprite/pictures/bg.gif");
         System.out.println(is);
         image = new Image(is);
@@ -78,13 +79,21 @@ public class Menu extends Parent {
                     ft.setToValue(1);
 
                     gameMenu.setVisible(true);
+                    ft.setOnFinished(evt -> GameEngine.getInstance().pauseGame());
                     ft.play();
+//                    GameEngine.getInstance().pauseGame();
                 } else {
                     FadeTransition ft = new FadeTransition(Duration.seconds(0.5), gameMenu);
                     ft.setFromValue(1);
                     ft.setToValue(0);
                     ft.setOnFinished(evt -> gameMenu.setVisible(false));
                     ft.play();
+                    try {
+                        GameApplication.getInstance().callGame(primaryStage);
+                        GameEngine.getInstance().pauseGame();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

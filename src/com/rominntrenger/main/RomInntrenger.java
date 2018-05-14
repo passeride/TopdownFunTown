@@ -35,6 +35,7 @@ import com.rominntrenger.stateHandling.SaveStateLoader;
 import com.rominntrenger.stateHandling.SaveStateSaver;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -233,10 +234,9 @@ public class RomInntrenger extends GameApplication {
                 if (player.isAlive()) {
                     if (WaveManager.getInstance().getWaveNumber() != prevWaveNumber) {
                         prevWaveNumber = WaveManager.getInstance().getWaveNumber();
-                        if(prevWaveNumber == 0 || prevWaveNumber == 1 ){
-
-                        }else{
+                        if(!(prevWaveNumber == 0 || prevWaveNumber == 1)){
                             SaveStateSaver.save(this);
+                            System.out.println("dåse");
                         }
                     }
 
@@ -331,13 +331,8 @@ public class RomInntrenger extends GameApplication {
                 bgMusic.playLoop();
 
 
-            } else if (input.isKeyPressed(KeyCode.R)) {
-
-                clearGamestate();
-                spawnPlayers();
-                deathOverlay.destroy();
-                deathOverlay = null;
-                bgMusic.playLoop();
+            } else if (input.isKeyPressed(KeyCode.ESCAPE)) {
+                Platform.runLater(() -> primaryStage.close());
 
             }
         }
