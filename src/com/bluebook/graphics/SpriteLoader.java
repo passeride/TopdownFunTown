@@ -44,7 +44,6 @@ class SpriteLoader {
         if (!animationImages.containsKey(name)) {
             Image[] imageArray = new Image[frameNumber];
             for (int i = 0; i < frameNumber; i++) {
-                //File f = new File("./assets/sprite/" + name + "_" + i + ".png");
                 String path = "sprite/" + name + "_" + i + ".png";
                 InputStream ios = SpriteLoader.class.getClassLoader().getResourceAsStream(path);
                 imageArray[i] = new Image(ios);
