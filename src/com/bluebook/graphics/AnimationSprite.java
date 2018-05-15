@@ -49,6 +49,12 @@ public class AnimationSprite extends Sprite {
         startNanoTime = System.nanoTime();
     }
 
+    /**
+     * Takes in a GraphicsContext and a Position, draws
+     * the current frame to the screen.
+     * @param gc
+     * @param position
+     */
     @Override
     public void draw(GraphicsContext gc, Vec2 position) {
         if (playing) {
