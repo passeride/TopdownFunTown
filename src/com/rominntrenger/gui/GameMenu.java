@@ -24,21 +24,25 @@ import javax.sound.sampled.FloatControl.Type;
 import java.io.File;
 import java.io.IOException;
 
-public class GameMenu extends Parent {
+/**
+ * Class that containing all functionality for creating the game manu
+ */
+ class GameMenu extends Parent {
     private VBox menu0, menu1, menu2;
-    private HBox volDisplay;
     private Slider soundSlider;
     private Stage primaryStage;
     private final int offset = 400;
-    private Rectangle bg;
     private Clip clip;
     private AudioPlayer ap;
     private FloatControl gainControl;
-    public MenuButton resumeButton, optionsButton, exitButton, backButtonMainMenu,
+    private MenuButton resumeButton, optionsButton, exitButton, backButtonMainMenu,
         soundButton, backButtonSoundMenu, soundCaption, soundValue,
         loadFromFile, restartButton;
 
-
+    /**
+     * Constructor creating menus and calls {@link #addButton}  with fadetransitions for the menus
+     * @param primaryStage - the primary stage where the menu will be nested
+     */
     public GameMenu(Stage primaryStage) {
         this.primaryStage = primaryStage;
         menu0 = new VBox(10);
@@ -60,14 +64,17 @@ public class GameMenu extends Parent {
 
         addButton();
 
-        bg = new Rectangle(1920, 1080);
+        Rectangle bg = new Rectangle(1920, 1080);
         bg.setFill(Color.GREY);
         bg.setOpacity(0.3);
 
         getChildren().addAll(bg, menu0);
     }
 
-    public void addButton() {
+    /**
+     * Adds buttons to the menus created by the constructor in {@link GameMenu}
+     */
+    private void addButton() {
         ap = new AudioPlayer("audio/MoodyLoop.wav");
 
         resumeButton = new MenuButton("START/RESUME");
@@ -99,15 +106,11 @@ public class GameMenu extends Parent {
             translateTransition.play();
             translateTransition1.play();
 
-            translateTransition.setOnFinished(evt -> {
-                getChildren().remove(menu0);
-            });
+            translateTransition.setOnFinished(evt -> getChildren().remove(menu0));
         });
 
         exitButton = new MenuButton("EXIT");
-        exitButton.setOnMouseClicked(event -> {
-            System.exit(0);
-        });
+        exitButton.setOnMouseClicked(event -> System.exit(0));
 
         loadFromFile = new MenuButton("LOAD FROM FILE");
         loadFromFile.setOnMouseClicked(event -> {
@@ -133,18 +136,16 @@ public class GameMenu extends Parent {
         backButtonMainMenu.setOnMouseClicked(event -> {
             getChildren().add(menu0);
 
-            TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), menu1);
-            tt.setToX(menu1.getTranslateX() + offset);
+            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.25), menu1);
+            translateTransition.setToX(menu1.getTranslateX() + offset);
 
-            TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), menu0);
-            tt1.setToX(menu1.getTranslateX());
+            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), menu0);
+            translateTransition1.setToX(menu1.getTranslateX());
 
-            tt.play();
-            tt1.play();
+            translateTransition.play();
+            translateTransition1.play();
 
-            tt.setOnFinished(evt -> {
-                getChildren().remove(menu1);
-            });
+            translateTransition.setOnFinished(evt -> getChildren().remove(menu1));
         });
 
         soundButton = new MenuButton("SOUND");
@@ -161,31 +162,27 @@ public class GameMenu extends Parent {
             translateTransition1.play();
             ap.playLoop();
 
-            translateTransition.setOnFinished(evt -> {
-                getChildren().remove(menu1);
-            });
+            translateTransition.setOnFinished(evt -> getChildren().remove(menu1));
         });
         backButtonSoundMenu = new MenuButton("BACK");
         backButtonSoundMenu.setOnMouseClicked(event -> {
             getChildren().add(menu1);
 
-            TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), menu2);
-            tt.setToX(menu2.getTranslateX() + offset);
+            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.25), menu2);
+            translateTransition.setToX(menu2.getTranslateX() + offset);
 
-            TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), menu1);
-            tt1.setToX(menu2.getTranslateX());
+            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), menu1);
+            translateTransition1.setToX(menu2.getTranslateX());
 
-            tt.play();
-            tt1.play();
+            translateTransition.play();
+            translateTransition1.play();
             ap.stop();
             ap.close();
 
-            tt.setOnFinished(evt -> {
-                getChildren().remove(menu2);
-            });
+            translateTransition.setOnFinished(evt -> getChildren().remove(menu2));
         });
 
-        volDisplay = new HBox(10);
+        HBox volDisplay = new HBox(10);
         soundSlider = new Slider(0, 1, 1);
         soundSlider.setShowTickLabels(true);
         soundSlider.setShowTickMarks(true);

@@ -1,5 +1,5 @@
 {
-  "window_title":"RomInntrengere v0.1",
+  "window_title":"RomInntrengere",
   "start_menu":true,
   "fullscreen":false,
 
@@ -45,5 +45,5 @@
 
   "smallHeal_value": 30,
   "bigHeal_value": 70,
-  "itemDropRate": 0.9
+  "itemDropRate": 0.7
 }

@@ -52,7 +52,7 @@ public class SaveStateLoader {
             return;
         }
 
-        rom.clearGamestate();
+        rom.clearGameState();
         loadPlayers(rom, meta);
         WaveManager.getInstance().setWaveNumber(meta.waveManager.waveNumber);
 
@@ -83,7 +83,7 @@ public class SaveStateLoader {
             return;
         }
 
-        rom.clearGamestate();
+        rom.clearGameState();
         loadPlayers(rom, meta);
         WaveManager.getInstance().setWaveNumber(meta.waveManager.waveNumber);
 

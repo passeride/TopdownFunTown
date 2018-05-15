@@ -1,9 +1,8 @@
 package com.rominntrenger.gui;
 
-
 import com.bluebook.engine.GameApplication;
 import com.bluebook.graphics.Sprite;
-import com.bluebook.renderer.RenderLayer;
+import com.bluebook.renderer.RenderLayer.RenderLayerName;
 import com.bluebook.util.GameObject;
 import com.bluebook.util.GameSettings;
 import com.bluebook.util.Vec2;
@@ -11,6 +10,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * Class that will contain gameObjects which will appair when a player dies.
+ */
 public class DeathOverlay extends GameObject {
 
     /**
@@ -20,9 +22,13 @@ public class DeathOverlay extends GameObject {
     public DeathOverlay() {
         super(Vec2.ZERO, Vec2.ZERO, new Sprite("pictures/getGood"));
         allwaysOnScreen = true;
-        setRenderLayer(RenderLayer.RenderLayerName.GUI);
+        setRenderLayer(RenderLayerName.GUI);
     }
 
+    /**
+     * Draw method that draws to the screen
+     * @param gc - graphicsContext used to draw onto the canvas
+     */
     @Override
     public void draw(GraphicsContext gc) {
         sprite.drawGUI(gc, Vec2.ZERO, GameSettings.getInt("game_resolution_X"), GameSettings.getInt("game_resolution_Y"));
