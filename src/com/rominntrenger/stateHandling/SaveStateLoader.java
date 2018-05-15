@@ -33,6 +33,34 @@ public class SaveStateLoader {
         ObjectInputStream in = new ObjectInputStream(fileIn);
         return (MetaDAO) in.readObject();
     }
+    public static void loadPreviousSave(RomInntrenger rom, File f) {
+        GameEngine.getInstance().pauseGame();
+        MetaDAO meta = null;
+        try {
+            meta = loadFromFile(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+            GameEngine.getInstance().resumeGame();
+            MessageHandler.getInstance().writeMessage("There was a problem locating the saveFile\n Will create a new save");
+            SaveStateSaver.save(rom);
+            return;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            GameEngine.getInstance().resumeGame();
+            MessageHandler.getInstance().writeMessage("There was a problem loading the saveFile\n Will create a new save");
+            SaveStateSaver.save(rom);
+            return;
+        }
+
+        rom.clearGameState();
+        loadPlayers(rom, meta);
+        WaveManager.getInstance().setWaveNumber(meta.waveManager.waveNumber);
+
+        OrthographicCamera.main.moveToFollow();
+
+        GameEngine.getInstance().resumeGame();
+        MessageHandler.getInstance().writeMessage("Load Complete");
+    }
 
     public static void loadPreviousSave(RomInntrenger rom) {
 
@@ -55,7 +83,7 @@ public class SaveStateLoader {
             return;
         }
 
-        rom.clearGamestate();
+        rom.clearGameState();
         loadPlayers(rom, meta);
         WaveManager.getInstance().setWaveNumber(meta.waveManager.waveNumber);
 

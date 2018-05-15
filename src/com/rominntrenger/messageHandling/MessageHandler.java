@@ -15,6 +15,9 @@ import javafx.util.Duration;
 
 import java.io.InputStream;
 
+/**
+ * Class for handling messages written to the screen
+ */
 public class MessageHandler extends GameObject {
     private boolean isActive = true;
     private Sprite sprite;
@@ -22,7 +25,6 @@ public class MessageHandler extends GameObject {
     private String printMessage;
     private long start;
     private long duration = 5;
-    private int margin = 20;
     private int width = 1920, height = 500;
     private Font font;
     private int resolutionX;
@@ -67,6 +69,7 @@ public class MessageHandler extends GameObject {
         if (isActive) {
             //fills the box
             gc.setFill(Color.rgb(13, 13, 13, 0.8));
+            int margin = 20;
             gc.fillRect(margin / 2, resolutionY - height / 2 - margin / 2, (resolutionX - margin),
                 height - margin);
 

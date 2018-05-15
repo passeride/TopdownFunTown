@@ -1,5 +1,5 @@
 {
-  "window_title":"RomInntrengere v0.1",
+  "window_title":"RomInntrengere",
   "start_menu":true,
   "fullscreen":false,
 
@@ -40,10 +40,10 @@
   "Alien_mother_max_health": 100,
   "Alien_mother_hit_dmg": 0,
 
-  "player_health":1000,
+  "player_health":100,
   "player_angular_dampening":0.9,
 
   "smallHeal_value": 30,
   "bigHeal_value": 70,
-  "itemDropRate": 0.9
+  "itemDropRate": 0.7
 }

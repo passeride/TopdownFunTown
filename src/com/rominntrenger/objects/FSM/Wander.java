@@ -7,13 +7,23 @@ import com.rominntrenger.main.RomInntrenger;
 import com.rominntrenger.objects.enemy.Enemy;
 import com.rominntrenger.objects.player.Player;
 
+
+/**
+ * A class that implements the interface Behaviour and handles the AI state wander
+ */
 public class Wander implements Behaviour {
 
     private long prevRandomMove = 0;
+    /**
+     * this static integer determines a position in an array that contains positions for behaviours
+     */
     public static int position = 0;
     private int health = 30;
 
-
+    /**
+     * nextBehaviour contains the logics for the AI`s wander state and with this logic decides if it will continue in it`s current behaviour or set another behaviour.
+     * @param behaviourContext is the enemy that the FSM works on.
+     */
     @Override
     public void nextBehaviour(Enemy behaviourContext) {
         double speed = behaviourContext.getSpeed();
@@ -24,7 +34,7 @@ public class Wander implements Behaviour {
         if ((System.currentTimeMillis() - prevRandomMove) / 1000 >= moveInterval) {
             prevRandomMove = System.currentTimeMillis();
             behaviourContext.setSpeed(150);
-            RandomMove(behaviourContext);
+            randomMove(behaviourContext);
         }
 
         behaviourContext.translate(Vec2.multiply(behaviourContext.getDirection(), speed * delta));
@@ -46,7 +56,11 @@ public class Wander implements Behaviour {
 
     }
 
-    private void RandomMove(Enemy behaviourContext) {
+    /**
+     * randomMove moves the enemy randomly through vector2 and math to choose a direction
+     * @param behaviourContext the enemy that is moved randomly
+     */
+    private void randomMove(Enemy behaviourContext) {
         double speed;
         double delta;
         speed = behaviourContext.getSpeed();

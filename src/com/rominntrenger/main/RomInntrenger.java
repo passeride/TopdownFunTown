@@ -28,6 +28,7 @@ import com.rominntrenger.objects.player.Player;
 import com.rominntrenger.objects.weapon.*;
 import com.rominntrenger.stateHandling.SaveStateLoader;
 import com.rominntrenger.stateHandling.SaveStateSaver;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -38,23 +39,26 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Main game class that handles the game
+ */
 public class RomInntrenger extends GameApplication {
-    OrthographicCamera cam;
+    private OrthographicCamera cam;
     public CopyOnWriteArrayList<Player> players = new CopyOnWriteArrayList<>();
 
     private int prevWaveNumber = 0;
 
-    public AudioPlayer bgMusic;
-    public AudioPlayer evilLaughAP;
+    private AudioPlayer bgMusic;
+    private AudioPlayer evilLaughAP;
 
     public Randomizer<ItemRandomizerToken> addRandomItem;
     public Randomizer<EnemyRandomizerToken> addRandomEnemy;
-    public Menu menu;
+    private Menu menu;
 
     /**
      * Will give players colors corresponding to their PlayerID
      */
-    public Color[] playerColor = {
+    private Color[] playerColor = {
         Color.PINK, Color.GREENYELLOW, Color.CYAN, Color.ORANGE
     };
 
@@ -68,9 +72,8 @@ public class RomInntrenger extends GameApplication {
         "friendlies/wahracter"
     };
 
-    MessageHandler msh;
-    DeathOverlay deathOverlay;
-    GamepadInput gi;
+    private DeathOverlay deathOverlay;
+    private GamepadInput gi;
 
     @Override
     public void start(Stage primaryStage) {
@@ -99,7 +102,7 @@ public class RomInntrenger extends GameApplication {
 
     }
 
-    protected void callMenu() {
+    private void callMenu() {
         GameEngine.getInstance().pauseGame();
         GameApplication.getInstance().getStage().getScene().setRoot(menu.getRoot());
     }
@@ -116,7 +119,7 @@ public class RomInntrenger extends GameApplication {
         bgMusic = new AudioPlayer("audio/MoodyLoop.wav");
         bgMusic.playLoop();
 
-        msh = MessageHandler.getInstance();
+        MessageHandler msh = MessageHandler.getInstance();
 
         gi = new GamepadInput();
 
@@ -128,7 +131,7 @@ public class RomInntrenger extends GameApplication {
      * Will spawn one player if 1 or no gamepads is connected
      * And multiple if multiple gamepads are connectetd! o.0
      */
-    void spawnPlayers() {
+    private void spawnPlayers() {
         if (gi.getNumberOfControllers() > 0) {
             for (int i = 0; i < gi.getNumberOfControllers(); i++) {
                 Player p = new Player(PlayerSpawn.position, Vec2.ZERO,
@@ -151,7 +154,7 @@ public class RomInntrenger extends GameApplication {
     /**
      * Used when restoring from file
      */
-    public void clearGamestate() {
+    public void clearGameState() {
         for (Player p : players) {
             p.destroy();
         }
@@ -171,6 +174,10 @@ public class RomInntrenger extends GameApplication {
 
     }
 
+    /**
+     * Updates for the screen
+     * @param delta seconds since last frame update
+     */
     @Override
     public void update(double delta) {
         cam.update(delta);
@@ -327,13 +334,8 @@ public class RomInntrenger extends GameApplication {
                 bgMusic.playLoop();
 
 
-            } else if (input.isKeyPressed(KeyCode.R)) {
-
-                clearGamestate();
-                spawnPlayers();
-                deathOverlay.destroy();
-                deathOverlay = null;
-                bgMusic.playLoop();
+            } else if (input.isKeyPressed(KeyCode.ESCAPE)) {
+                Platform.runLater(() -> primaryStage.close());
 
             }
         }

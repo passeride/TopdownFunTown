@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class AlienEye extends Enemy {
 
-    private double shootInterval = 1;
-    private long prevShot = 0;
+    private double shootInterval;
+    private long prevShot;
 
     /**
      * Constructor for AlienEye given position.
@@ -22,6 +22,8 @@ public class AlienEye extends Enemy {
     public AlienEye(Vec2 position) {
         super(position, Vec2.ZERO, new Sprite("enemies/alienEye_0"));
         Random r = new Random();
+        shootInterval = 0.2;
+        prevShot = 0;
         prevShot = System.currentTimeMillis() + r.nextInt((int) (shootInterval * 1000));
         speed = 100;
 
@@ -33,14 +35,17 @@ public class AlienEye extends Enemy {
 
     /**
      * Update function, checks if they should go to the next behaviour.
-     * @param delta
+     * @param delta time from last update to next update
      */
     public void update(double delta) {
         super.update(delta);
         AlienEye.super.nextBehaviour();
 
-        prevShot = System.currentTimeMillis();
-        shoot();
+        if ((System.currentTimeMillis() - prevShot) / 1000 >= shootInterval){
+            prevShot = System.currentTimeMillis();
+            shoot();
+        }
+
 
 
         if (health < ((max_health * 20) / 100)) {
@@ -52,7 +57,7 @@ public class AlienEye extends Enemy {
     /**
      * Creates projectiles given AlienEye's position and rotation.
      */
-    public void shoot() {
+    private void shoot() {
         Projectile p = new Projectile(transform.getLocalPosition(), transform.getGlobalRotation(),
             new Sprite("projectiles/alienProjectileLaser"));
         p.setSize(new Vec2(0.1, 0.1));
@@ -86,8 +91,8 @@ public class AlienEye extends Enemy {
 
     /**
      * Creates a new AlienEye from existing AlienEye.
-     * @param pos
-     * @return
+     * @param pos is the given position for the new alien
+     * @return AlienEye(pos)
      */
     @Override
     public AlienEye createNew(Vec2 pos) {

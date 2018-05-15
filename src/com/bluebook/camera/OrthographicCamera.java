@@ -58,7 +58,6 @@ public class OrthographicCamera {
         dampening = GameSettings.getDouble("OrthographicCamera_dampening");
     }
 
-    //må fikse id før vi kan se hvordan vi ordner offsets.
     public void follow(GameObject target) {
         gameobject = target;
     }
